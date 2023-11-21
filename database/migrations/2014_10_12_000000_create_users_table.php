@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('asal_sekolah');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role',['user', 'admin' , 'guru'])->default('user');
+            $table->string('role')->default('user');
             $table->rememberToken();
             $table->timestamps();
         });

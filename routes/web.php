@@ -23,7 +23,7 @@ Route::get('/', function () {
 Route::get('/home', [HomeController::class, 'home'])->name('HomePage');
 
 
-Route::prefix('Guru')->middleware('')->controller(GuruController::class)->group(function(){
+Route::prefix('Guru')->middleware('GuruMiddleware')->controller(GuruController::class)->group(function(){
 
 
 });
@@ -33,7 +33,12 @@ Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->g
     Route::get('/Register', 'registerPage')->name('registerPage');
     Route::post('/createregis', 'createregis')->name('createregis');
 
+    //register guru
+    Route::get('/Registerguru', 'registerguruPage')->name('registerguruPage');
+    Route::post('/createregisguru', 'createregisguru')->name('createregisguru');
+
     //Login Page
     Route::get('/login', 'loginPage')->name('loginPage');
     Route::post('/loginproses', 'loginproses')->name('loginproses');
+
 });

@@ -49,10 +49,9 @@
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="container">
-                                        <form action="{{ route('createregis') }}" method="POST">
+                                        <form action="{{ route('createregisguru') }}" method="POST">
                                             @csrf
                                             <div class="row">
-                                                <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="text-name"
                                                             class="form-label text-dark fw-bold">Name</label>
@@ -62,19 +61,7 @@
                                                         @error('name')
                                                             <p class="text-danger">{{ $message }}</p>
                                                         @enderror
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="text-phone" class="form-label text-dark fw-bold">No
-                                                            Telepon</label>
-                                                        <input type="number" class="form-control py-6" id="text-phone"
-                                                            value="{{ old('no_telepon') }}" name="no_telepon"
-                                                            class="form-control @error('no_telepon')is-invalid @enderror">
-                                                        @error('no_telepon')
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
+                                                    </div>      
                                                     <div class="form-group">
                                                         <label for="text-email"
                                                             class="form-label text-dark fw-bold">Email Address</label>
@@ -84,20 +71,8 @@
                                                         @error('email')
                                                             <p class="text-danger">{{ $message }}</p>
                                                         @enderror
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="text-pwd" class="form-label text-dark fw-bold">Asal
-                                                            Sekolah</label>
-                                                        <input type="text" class="form-control py-6" id="text-pwd"
-                                                            value="{{ old('asal_sekolah') }}" name="asal_sekolah"
-                                                            class="form-control @error('asal_sekolah')is-invalid @enderror">
-                                                        @error('asal_sekolah')
-                                                            <p class="text-danger">{{ $massage }}</p>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
+                                                    </div>                   
+                                           
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="text-password"
@@ -124,10 +99,95 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <button class="btn btn-success w-100 mb-7 mt-5 rounded-pill"
-                                                    type="submit">Daftar</button>
+
+                                            <div style="margin-left:380px; margin-top:4px;">
+                                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="background-color: rgba(255, 255, 255, 0.20);">
+                                                   <li class="nav-item" role="presentation">
+                                                      <button class="nav-link " id="pills-profile-tab" data-bs-toggle="pill" 
+                                                      data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile">Selanjutnya</button>
+                                                  </li>
+                                                </ul>
+                                             </div>
+
+
+                                             <div class="tab-pane fade" class="row"  id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+                                                <div class="d-flex">
+                                            <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="text-confirm-pwd"
+                                                                class="form-label text-dark fw-bold">Foto Anda</label>
+                                                            <input type="file" class="form-control py-6"
+                                                                id="text-confirm-pwd" name=""
+                                                                class="form-control">
+                                                         
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="text-confirm-pwd"
+                                                                class="form-label text-dark fw-bold">No Telepon</label>
+                                                            <input type="number" class="form-control py-6"
+                                                                id="text-confirm-pwd" name=""
+                                                                class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>  
                                             </div>
+                                            <div class="row">
+
+                                                <div class="col-lg-6">
+                                                   <div class="form-group">
+                                                      <label for="phone" class="form-label">Terakhir pendidikan</label>
+                                                      <input type="text" name="" class="form-control" id="" placeholder=" ">
+                                                   </div>
+                                                </div>
+                                                   <div class="col-lg-6">
+                                                      <div class="form-group">
+                                                         <label for="phone" class="form-label">Tanggal</label>
+                                                         <input type="date" name=""  id="" class="form-control">   
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                                 <div class="form-group">
+                                                     <label for="text-confirm-pwd"
+                                                         class="form-label text-dark fw-bold">Foto Anda</label>
+                                                     <input type="file" class="form-control py-6"
+                                                         id="text-confirm-pwd" name=""
+                                                         class="form-control">
+                                                 
+                                             </div>
+                                                 <div class="form-group">
+                                                     <label for="text-confirm-pwd"
+                                                         class="form-label text-dark fw-bold">Foto Anda</label>
+                                                     <input type="file" class="form-control py-6"
+                                                         id="text-confirm-pwd" name=""
+                                                         class="form-control">
+                                                  
+                                             </div>
+                                               <div style="margin-left:300px; margin-top:4px;">
+                                                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="background-color: rgba(255, 255, 255, 0.20);">
+                                                        <li class="nav-item" role="presentation">
+                                                           <button class="nav-link" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="false">Sebelumnya</button>
+                                                           </li>
+                                                     </ul>
+                                                     <div style="margin-left: -285px; margin-top:-60px;">
+                                                     <button type="submit" class="btn btn-primary">Daftar</button>
+                                                     </div>
+                                                  </div>
+                                                </div>
+                                            <div>
+                                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="background-color: rgba(255, 255, 255, 0.20);">
+                                                    <li class="nav-item" role="presentation">
+                                                       <button class="nav-link" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="false">Sebelumnya</button>
+                                                       </li>
+                                                 </ul>
+                                                </div>
+                                                <div>
+
+                                                    <button class="btn btn-success w-100 mb-7 mt-5 rounded-pill"
+                                                        type="submit">Daftar</button>
+                                                </div>
                                             <div class="d-flex align-items-center">
                                                 <p class="fs-3 mb-0 fw-medium">Already have an Account?</p>
                                                 <a class="text-primary fw-bold ms-2 fs-3"

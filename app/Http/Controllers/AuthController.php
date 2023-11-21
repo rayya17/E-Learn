@@ -100,4 +100,48 @@ class AuthController extends Controller
 
         return redirect()->route('loginPage')->with('success', 'Anda Berhasil Registrasi');
     }
+
+    
+    public function registerguruPage()
+    {
+        return view('auth.guru');
+    }
+
+    public function createregisguru(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'name' => 'required|unique:users,name',
+            'email' => 'required|email|unique:users,email',
+            'notelp' => 'required|numeric',
+            'password' => 'required|min:6',
+            're-password' => 'required|same:password',
+        ], [
+            'name.required' => 'Nama tidak boleh kosong.',
+            'name.unique' => 'Nama sudah digunakan.',
+            'email.required' => 'Email harus diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah terdaftar.',
+            'notelp.required' => 'Nomor telepon harus diisi.',
+            'notelp.numeric' => 'Nomor telepon harus berupa angka.',
+            'password.required' => 'Password harus diisi.',
+            'password.min' => 'Password minimal 6 karakter.',
+            're-password.required' => 'Konfirmasi password harus diisi.',
+            're-password.same' => 'Konfirmasi password tidak cocok dengan password.',
+        ]);
+
+        // $user  = $request->all();
+        // $user['password'] = Hash::make($user['password']);
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'notelp' => $request->notelp,
+            'password' => Hash::make($request->password),
+        ];
+
+        User::create($data);
+
+        return redirect()->route('loginPage')->with('success', 'Anda Berhasil Registrasi');
+    }
+    
 }
