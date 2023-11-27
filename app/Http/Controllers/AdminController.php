@@ -10,9 +10,8 @@ class AdminController extends Controller
 {
    public function calonguru(Request $request){
     $calonguru = Guru::with('user')->whereHas('user',function($query){
-
     })->get();
-    return view('admin.admin', compact('calonguru'));
+    return view('admin.calonguru', compact('calonguru'));
    }
 
    public function guruterima(String $id){
@@ -54,6 +53,6 @@ class AdminController extends Controller
    {
     $gurulogin = $request->all();
     Guru::create($gurulogin);
-    return redirect()->route('loginPage');      
+    return redirect()->route('loginPage');
    }
 }

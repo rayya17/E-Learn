@@ -29,11 +29,12 @@ class AuthController extends Controller
         ]);
 
         $infologin = $request->only('email', 'password');
+        
         if (Auth::attempt($infologin)) {
             $user = Auth::user();
             // dd($user);
             if ($user->role === 'admin') {
-                return redirect()->route('')->with('success', 'Anda Berhasil Login');
+                return redirect()->route('calonguru')->with('success', 'Anda Berhasil Login');
             } elseif ($user->role === 'user') {
                 return redirect()->route('HomePage')->with('success', 'Anda Berhasil Login');
             } elseif ($user->role === 'guru') {
@@ -46,6 +47,8 @@ class AuthController extends Controller
         }
         return redirect()->route('loginPage')->with('error', 'Email Atau Kata Sandi Yang Anda Masukan Salah');
     }
+
+
     public function logout()
     {
         Auth::logout();
