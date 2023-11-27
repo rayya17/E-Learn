@@ -16,6 +16,10 @@ class GuruController extends Controller
         //
     }
 
+    public function gururegis(){
+        
+    }
+
     /**
      * Show the form for creating a new resource.
      */

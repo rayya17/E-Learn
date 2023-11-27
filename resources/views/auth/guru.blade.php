@@ -49,30 +49,32 @@
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="container">
-                                        <form action="{{ route('createregisguru') }}" method="POST">
+                                        <form action="{{ route('createregisguru') }}" method="POST"
+                                            enctype="multipart/form-data">
                                             @csrf
-                                            <div class="row">
-                                                    <div class="form-group">
-                                                        <label for="text-name"
-                                                            class="form-label text-dark fw-bold">Name</label>
-                                                        <input type="text" class="form-control py-6" id="text-name"
-                                                            value="{{ old('name') }}" name="name"
-                                                            class="form-control @error('name')is-invalid @enderror">
-                                                        @error('name')
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                        @enderror
-                                                    </div>      
-                                                    <div class="form-group">
-                                                        <label for="text-email"
-                                                            class="form-label text-dark fw-bold">Email Address</label>
-                                                        <input type="email" class="form-control py-6" id="text-email"
-                                                            value="{{ old('email') }}" name="email"
-                                                            class="form-control @error('email')is-invalid @enderror">
-                                                        @error('email')
-                                                            <p class="text-danger">{{ $message }}</p>
-                                                        @enderror
-                                                    </div>                   
-                                           
+                                            <div class="row" id="pills-home" aria-labelledby="pills-home-tab"
+                                                tabindex="0">
+                                                <div class="form-group">
+                                                    <label for="text-name"
+                                                        class="form-label text-dark fw-bold">Name</label>
+                                                    <input type="text" class="form-control py-6" id="text-name"
+                                                        value="{{ old('name') }}" name="name"
+                                                        class="form-control @error('name')is-invalid @enderror">
+                                                    @error('name')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="text-email" class="form-label text-dark fw-bold">Email
+                                                        Address</label>
+                                                    <input type="email" class="form-control py-6" id="text-email"
+                                                        value="{{ old('email') }}" name="email"
+                                                        class="form-control @error('email')is-invalid @enderror">
+                                                    @error('email')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="text-password"
@@ -98,96 +100,95 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <div style="margin-left:380px; margin-top:4px;">
-                                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="background-color: rgba(255, 255, 255, 0.20);">
-                                                   <li class="nav-item" role="presentation">
-                                                      <button class="nav-link " id="pills-profile-tab" data-bs-toggle="pill" 
-                                                      data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile">Selanjutnya</button>
-                                                  </li>
-                                                </ul>
-                                             </div>
-
-
-                                             <div class="tab-pane fade" class="row"  id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-                                                <div class="d-flex">
-                                            <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="text-confirm-pwd"
-                                                                class="form-label text-dark fw-bold">Foto Anda</label>
-                                                            <input type="file" class="form-control py-6"
-                                                                id="text-confirm-pwd" name=""
-                                                                class="form-control">
-                                                         
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="text-confirm-pwd"
-                                                                class="form-label text-dark fw-bold">No Telepon</label>
-                                                            <input type="number" class="form-control py-6"
-                                                                id="text-confirm-pwd" name=""
-                                                                class="form-control">
-                                                        </div>
-                                                    </div>
-                                                </div>  
-                                            </div>
-                                            <div class="row">
-
-                                                <div class="col-lg-6">
-                                                   <div class="form-group">
-                                                      <label for="phone" class="form-label">Terakhir pendidikan</label>
-                                                      <input type="text" name="" class="form-control" id="" placeholder=" ">
-                                                   </div>
-                                                </div>
-                                                   <div class="col-lg-6">
-                                                      <div class="form-group">
-                                                         <label for="phone" class="form-label">Tanggal</label>
-                                                         <input type="date" name=""  id="" class="form-control">   
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                 <div class="form-group">
-                                                     <label for="text-confirm-pwd"
-                                                         class="form-label text-dark fw-bold">Foto Anda</label>
-                                                     <input type="file" class="form-control py-6"
-                                                         id="text-confirm-pwd" name=""
-                                                         class="form-control">
-                                                 
-                                             </div>
-                                                 <div class="form-group">
-                                                     <label for="text-confirm-pwd"
-                                                         class="form-label text-dark fw-bold">Foto Anda</label>
-                                                     <input type="file" class="form-control py-6"
-                                                         id="text-confirm-pwd" name=""
-                                                         class="form-control">
-                                                  
-                                             </div>
-                                               <div style="margin-left:300px; margin-top:4px;">
-                                                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="background-color: rgba(255, 255, 255, 0.20);">
+                                                <div style="margin-left:380px; margin-top:4px;">
+                                                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"
+                                                        style="background-color: rgba(255, 255, 255, 0.20);">
                                                         <li class="nav-item" role="presentation">
-                                                           <button class="nav-link" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="false">Sebelumnya</button>
-                                                           </li>
-                                                     </ul>
-                                                     <div style="margin-left: -285px; margin-top:-60px;">
-                                                     <button type="submit" class="btn btn-primary">Daftar</button>
-                                                     </div>
-                                                  </div>
+                                                            <button class="nav-link " id="pills-profile-tab"
+                                                                data-bs-toggle="pill" data-bs-target="#pills-profile"
+                                                                type="button" role="tab"
+                                                                aria-controls="pills-profile">Selanjutnya</button>
+                                                        </li>
+                                                    </ul>
                                                 </div>
-                                            <div>
-                                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="background-color: rgba(255, 255, 255, 0.20);">
-                                                    <li class="nav-item" role="presentation">
-                                                       <button class="nav-link" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="false">Sebelumnya</button>
-                                                       </li>
-                                                 </ul>
-                                                </div>
-                                                <div>
+                                            </div>
 
-                                                    <button class="btn btn-success w-100 mb-7 mt-5 rounded-pill"
-                                                        type="submit">Daftar</button>
+
+                                            <div class="tab-pane fade row" id="pills-profile" role="tabpanel"
+                                                aria-labelledby="pills-profile-tab" tabindex="0">
+                                                <div class="d-flex">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="text-confirm-pwd"
+                                                                    class="form-label text-dark fw-bold">Foto
+                                                                    Anda</label>
+                                                                <input type="file" class="form-control py-6"
+                                                                    id="text-confirm-pwd" name="foto_profile" id="foto_profile"
+                                                                    class="form-control">
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="text-confirm-pwd"
+                                                                    class="form-label text-dark fw-bold">No
+                                                                    Telepon</label>
+                                                                <input type="number" class="form-control py-6"
+                                                                    id="text-confirm-pwd" name="no_telepon"
+                                                                    class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label for="phone"
+                                                                class="form-label text-dark fw-bold">Terakhir
+                                                                pendidikan</label>
+                                                            <input type="text" name="pendidikan" class="form-control"
+                                                                id="pendidikan" placeholder="Pendidikan Terakhir">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group"
+                                                            style="margin-left: 10px; width: 232px;">
+                                                            <label for="phone"
+                                                                class="form-label text-dark fw-bold">Tanggal lahir</label>
+                                                            <input type="date" name="tanggal_lahir" id="tanggal_lahir"
+                                                                class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="text-confirm-pwd"
+                                                        class="form-label text-dark fw-bold">Foto Sertifikat</label>
+                                                    <input type="file" class="form-control py-6"
+                                                        id="foto_sertifikat" name="foto_sertifikat" class="form-control">
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="text-confirm-pwd"
+                                                        class="form-label text-dark fw-bold">Foto Ktp</label>
+                                                    <input type="file" class="form-control py-6"
+                                                        id="foto_ktp" name="foto_ktp" class="form-control">
+
+                                                </div>
+                                                <div style="margin-left:300px; margin-top:4px;">
+                                                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"
+                                                        style="background-color: rgba(255, 255, 255, 0.20);">
+                                                        <li class="nav-item" role="presentation">
+                                                            <button class="nav-link " id="pills-home-tab"
+                                                                data-bs-toggle="pill" data-bs-target="#pills-home"
+                                                                type="button" role="tab"
+                                                                aria-controls="pills-home">Sebelumnya</button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <button class="btn btn-success  w-100 mb-7 mt-5 rounded-pill"
+                                                    type="submit">Daftar</button>
+                                            </div>
                                             <div class="d-flex align-items-center">
                                                 <p class="fs-3 mb-0 fw-medium">Already have an Account?</p>
                                                 <a class="text-primary fw-bold ms-2 fs-3"
@@ -203,6 +204,48 @@
             </div>
 
             <!-- Import Js Files -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Initialize Bootstrap tabs
+                    var pillsTab = new bootstrap.Tab(document.getElementById('pills-home-tab'));
+                    pillsTab.show();
+
+                    document.getElementById('pills-profile-tab').addEventListener('click', function() {
+                        toggleTabVisibility('pills-home', false);
+                        toggleTabVisibility('pills-profile', true);
+                        // Simpan status tab yang aktif di localStorage
+                        localStorage.setItem('activeTab', 'pills-profile');
+                    });
+
+                    document.getElementById('pills-home-tab').addEventListener('click', function() {
+                        toggleTabVisibility('pills-home', true);
+                        toggleTabVisibility('pills-profile', false);
+                        // Simpan status tab yang aktif di localStorage
+                        localStorage.setItem('activeTab', 'pills-home');
+                    });
+
+                    // Periksa localStorage saat halaman dimuat ulang
+                    var activeTab = localStorage.getItem('activeTab');
+                    if (activeTab) {
+                        var tabToShow = activeTab === 'pills-profile' ? 'pills-profile' : 'pills-home';
+                        toggleTabVisibility(tabToShow, true);
+                        toggleTabVisibility(tabToShow === 'pills-home' ? 'pills-profile' : 'pills-home', false);
+                    }
+
+                    function toggleTabVisibility(tabId, show) {
+                        var tabElement = document.getElementById(tabId);
+                        var formElement = tabElement.querySelector('.your-form-selector'); // Ganti dengan selektor formulir Anda
+                        if (show) {
+                            tabElement.classList.remove('d-none'); // Remove 'd-none' class
+                            formElement.style.display = 'block'; // Tampilkan formulir
+                        } else {
+                            tabElement.classList.add('d-none'); // Add 'd-none' class
+                            formElement.style.display = 'none'; // Sembunyikan formulir
+                        }
+                    }
+                });
+            </script>
+
 
             <script src="{{ asset('assets/regis/js/jqueri.min.js') }}"></script>
             <script src="{{ asset('assets/regis/js/app.min.js') }}"></script>

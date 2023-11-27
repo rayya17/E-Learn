@@ -38,13 +38,14 @@ class AuthController extends Controller
                 return redirect()->route('HomePage')->with('success', 'Anda Berhasil Login');
             } elseif ($user->role === 'guru') {
                 return redirect()->route('')->with('success', 'Anda Berhasil Login');
+            }elseif($user->role === 'gurunotapprove'){
+                return redirect()->route('loginPage')->with('Warning','Akun Anda Sedang Di Proses');
             }
         } else {
             return redirect()->back()->with('error', 'Akun Tidak Ditemukan');
         }
         return redirect()->route('loginPage')->with('error', 'Email Atau Kata Sandi Yang Anda Masukan Salah');
     }
-
     public function logout()
     {
         Auth::logout();
@@ -52,8 +53,11 @@ class AuthController extends Controller
         request()->session()->invalidate();
 
         request()->session()->regenerateToken();
-        return redirect()->route('loginPage')->with('success', 'Anda Berhasil Logout.');
+
+        return redirect()->route('loginPage')->with('success','berhasil logout');
     }
+
+
 
     public function registerPage()
     {
@@ -64,7 +68,7 @@ class AuthController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'name' => 'required|unique:users,name',
+            'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'no_telepon' => 'required|numeric',
             'asal_sekolah' => 'required',
@@ -73,7 +77,6 @@ class AuthController extends Controller
 
         ], [
             'name.required' => 'Nama tidak boleh kosong.',
-            'name.unique' => 'Nama sudah digunakan.',
             'email.required' => 'Email harus diisi.',
             'email.email' => 'Format email tidak valid.',
             'email.unique' => 'Email sudah terdaftar.',
@@ -88,20 +91,22 @@ class AuthController extends Controller
 
         // $user  = $request->all();
         // $user['password'] = Hash::make($user['password']);
-        $data = [
+        $user = [
             'name' => $request->name,
             'email' => $request->email,
             'no_telepon' => $request->no_telepon,
             'asal_sekolah' => $request->asal_sekolah,
             'password' => Hash::make($request->password),
         ];
-
-        User::create($data);
+        // dd('sad');
+        User::create($user);
+        // return view('auth.guru');
 
         return redirect()->route('loginPage')->with('success', 'Anda Berhasil Registrasi');
     }
 
-    
+
+
     public function registerguruPage()
     {
         return view('auth.guru');
@@ -109,11 +114,15 @@ class AuthController extends Controller
 
     public function createregisguru(Request $request)
     {
-        // dd($request->all());
+        //  dd($request->all());
         $request->validate([
             'name' => 'required|unique:users,name',
             'email' => 'required|email|unique:users,email',
-            'notelp' => 'required|numeric',
+            'no_telepon' => 'required|numeric',
+            'tanggal_lahir' => 'required',
+            'foto_profile' => 'image|mimes:jpeg,png,jpg',
+            'foto_sertifikat' => 'image|mimes:jpeg,png,jpg',
+            'foto_ktp' => 'image|mimes:jpeg,png,jpg',
             'password' => 'required|min:6',
             're-password' => 'required|same:password',
         ], [
@@ -122,26 +131,38 @@ class AuthController extends Controller
             'email.required' => 'Email harus diisi.',
             'email.email' => 'Format email tidak valid.',
             'email.unique' => 'Email sudah terdaftar.',
-            'notelp.required' => 'Nomor telepon harus diisi.',
-            'notelp.numeric' => 'Nomor telepon harus berupa angka.',
+            'no_telepon.required' => 'Nomor telepon harus diisi.',
+            'no_telepon.numeric' => 'Nomor telepon harus berupa angka.',
+            'tanggal_lahir.required' => ' harus diisi.',
             'password.required' => 'Password harus diisi.',
             'password.min' => 'Password minimal 6 karakter.',
             're-password.required' => 'Konfirmasi password harus diisi.',
             're-password.same' => 'Konfirmasi password tidak cocok dengan password.',
         ]);
-
         // $user  = $request->all();
         // $user['password'] = Hash::make($user['password']);
-        $data = [
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'notelp' => $request->notelp,
             'password' => Hash::make($request->password),
-        ];
+            'role' => 'gurunotapprove',
 
-        User::create($data);
+        ]);
+        // dd($user);
+        $foto_profile = $request->hasFile('foto_profile') ? $request->file('foto_profile')->store('profile', 'public') : null;
+        $foto_sertifikat = $request->hasFile('foto_sertifikat') ? $request->file('foto_sertifikat')->store('sertifikat', 'public') : null;
+        $foto_ktp = $request->hasFile('foto_ktp') ? $request->file('foto_ktp')->store('ktp', 'public') : null;
 
-        return redirect()->route('loginPage')->with('success', 'Anda Berhasil Registrasi');
+        User::find($user->id)->Guru()->create([
+            'foto_profile' => $foto_profile,
+            'user_id' => $user->id,
+            'no_telepon' => $request->no_telepon,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'pendidikan' => $request->pendidikan,
+            'alamat' => $request->alamat,
+            'foto_sertifikat' => $foto_sertifikat,
+            'foto_ktp' => $foto_ktp,
+        ]);
+        return redirect()->route('loginPage')->with('success', 'tunggu proses konfirmasi akun anda');
     }
-    
 }

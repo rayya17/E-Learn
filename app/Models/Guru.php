@@ -15,7 +15,6 @@ class Guru extends Model
     [
         'user_id',
         'foto_profile',
-        'notelp',
         'tanggal_lahir',
         'pendidikan',
         'alamat',
