@@ -28,11 +28,10 @@ Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 Route::prefix('Guru')->middleware('teahcer')->controller(GuruController::class)->group(function () {
 });
 
-
-Route::middleware(['admin'])->group(function(){
-Route::get('calonguru',[AdminController::class,'calonguru'])->name('calonguru');
-Route::Patch('terima/{id}',[AdminController::class,'guruterima'])->name('terimaguru');
-Route::delete('tolak/{id}',[AdminController::class,'tolakguru'])->name('tolakguru');
+Route::middleware('admin')->group(function(){
+    Route::get('calonguru',[AdminController::class,'calonguru'])->name('calonguru');
+    Route::Patch('terima/{id}',[AdminController::class,'guruterima'])->name('terimaguru');
+    Route::delete('tolak/{id}',[AdminController::class,'tolakguru'])->name('tolakguru');
 });
 
 Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->group(function () {
@@ -47,8 +46,5 @@ Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->g
     //Login Page
     Route::get('/login','loginPage')->name('loginPage');
     Route::post('/loginproses', 'loginproses')->name('loginproses');
-
-
-
 });
 

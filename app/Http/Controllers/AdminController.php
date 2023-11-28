@@ -46,7 +46,7 @@ class AdminController extends Controller
 
    public function calongurulogin_create(){
     $gurulogin = Guru::all();
-    return view('admin.admin',compact('gurulogin'));
+    return view('admin.calonguru',compact('gurulogin'));
    }
 
    public function calonguru_store(Request $request)
