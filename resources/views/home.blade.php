@@ -115,17 +115,10 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-7 col-md-10 col-12">
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-success">Logout</button>
-                            </form>
                             <!-- Slider Content -->
                             <div class="slider-content">
                                 <h1 class="slider-title"><span>The Best University in the World!</span>Eduland Online
                                     <b>University</b></h1>
-
-
-
                                 <p class="slider-text">Mirum est notare quam littera gothica, quam nunc putamus parum
                                     claram, anteposuerit litterarum formas humanitatis per seacula There are many
                                     variations of passages of Lorem Ipsum available, but the majority</p>
