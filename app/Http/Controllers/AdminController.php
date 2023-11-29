@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Guru;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class AdminController extends Controller
 {
+    public function Dashboardadmin(){
+        return view ('admin.dashboard');
+    }
+
    public function calonguru(Request $request){
     $calonguru = Guru::with('user')->whereHas('user',function($query){
     })->get();
@@ -54,5 +60,17 @@ class AdminController extends Controller
     $gurulogin = $request->all();
     Guru::create($gurulogin);
     return redirect()->route('loginPage');
+   }
+
+   
+   public function logout()
+   {
+       Auth::logout();
+
+       request()->session()->invalidate();
+
+       request()->session()->regenerateToken();
+
+       return redirect()->route('loginPage')->with('success','berhasil logout');
    }
 }

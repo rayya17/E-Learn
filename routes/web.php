@@ -32,6 +32,9 @@ Route::middleware('admin')->group(function(){
     Route::get('calonguru',[AdminController::class,'calonguru'])->name('calonguru');
     Route::Patch('terima/{id}',[AdminController::class,'guruterima'])->name('terimaguru');
     Route::delete('tolak/{id}',[AdminController::class,'tolakguru'])->name('tolakguru');
+    Route::get('Dashboardadmin',[AdminController::class,'Dashboardadmin'])->name('Dashboardadmin');
+    
+
 });
 
 Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->group(function () {

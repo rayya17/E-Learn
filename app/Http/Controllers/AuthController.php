@@ -34,7 +34,7 @@ class AuthController extends Controller
             $user = Auth::user();
             // dd($user);
             if ($user->role === 'admin') {
-                return redirect()->route('calonguru')->with('success', 'Anda Berhasil Login');
+                return redirect()->route('Dashboardadmin')->with('success', 'Anda Berhasil Login');
             } elseif ($user->role === 'user') {
                 return redirect()->route('HomePage')->with('success', 'Anda Berhasil Login');
             } elseif ($user->role === 'guru') {
