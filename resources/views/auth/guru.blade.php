@@ -112,8 +112,6 @@
                                                     </ul>
                                                 </div>
                                             </div>
-
-
                                             <div class="tab-pane fade row" id="pills-profile" role="tabpanel"
                                                 aria-labelledby="pills-profile-tab" tabindex="0">
                                                 <div class="d-flex">
@@ -126,7 +124,6 @@
                                                                 <input type="file" class="form-control py-6"
                                                                     id="text-confirm-pwd" name="foto_profile" id="foto_profile"
                                                                     class="form-control">
-
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -160,6 +157,16 @@
                                                                 class="form-control">
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="text-alamat"
+                                                        class="form-label text-dark fw-bold">Alamat</label>
+                                                    <textarea type="text" class="form-control py-6" id="text-alamat"
+                                                        value="{{ old('alamat') }}" name="alamat"
+                                                        class="form-control @error('alamat')is-invalid @enderror"></textarea>
+                                                        @error('alamat')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="text-confirm-pwd"

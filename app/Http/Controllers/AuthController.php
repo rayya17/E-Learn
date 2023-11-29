@@ -29,7 +29,7 @@ class AuthController extends Controller
         ]);
 
         $infologin = $request->only('email', 'password');
-        
+
         if (Auth::attempt($infologin)) {
             $user = Auth::user();
             // dd($user);
@@ -39,8 +39,8 @@ class AuthController extends Controller
                 return redirect()->route('HomePage')->with('success', 'Anda Berhasil Login');
             } elseif ($user->role === 'guru') {
                 return redirect()->route('')->with('success', 'Anda Berhasil Login');
-            }elseif($user->role === 'gurunotapprove'){
-                return redirect()->route('loginPage')->with('Warning','Akun Anda Sedang Di Proses');
+            } elseif ($user->role === 'gurunotapprove') {
+                return redirect()->route('loginPage')->with('Warning', 'Akun Anda Sedang Di Proses');
             }
         } else {
             return redirect()->back()->with('error', 'Akun Tidak Ditemukan');
@@ -57,7 +57,7 @@ class AuthController extends Controller
 
         request()->session()->regenerateToken();
 
-        return redirect()->route('loginPage')->with('success','berhasil logout');
+        return redirect()->route('loginPage')->with('success', 'berhasil logout');
     }
 
 
@@ -151,20 +151,33 @@ class AuthController extends Controller
             'role' => 'gurunotapprove',
 
         ]);
+
+        $foto_profile = $request->file('foto_profile');
+        $foto_profileName = uniqid() . '.' . $foto_profile->getClientOriginalExtension();
+        $foto_profile->storeAs('profile/',$foto_profileName);
+
+        $foto_sertifikat = $request->file('foto_sertifikat');
+        $foto_sertifikatName = uniqid() . '.' . $foto_sertifikat->getClientOriginalExtension();
+        $foto_sertifikat->storeAs('sertifikat/',$foto_sertifikatName);
+
+        $foto_ktp = $request->file('foto_ktp');
+        $foto_ktpName = uniqid() . '.' . $foto_ktp->getClientOriginalExtension();
+        $foto_ktp->storeAs('ktp/',$foto_ktpName);
+
         // dd($user);
-        $foto_profile = $request->hasFile('foto_profile') ? $request->file('foto_profile')->store('profile', 'public') : null;
-        $foto_sertifikat = $request->hasFile('foto_sertifikat') ? $request->file('foto_sertifikat')->store('sertifikat', 'public') : null;
-        $foto_ktp = $request->hasFile('foto_ktp') ? $request->file('foto_ktp')->store('ktp', 'public') : null;
+        // $foto_profile = $request->hasFile('foto_profile') ? $request->file('foto_profile')->store('profile', 'public') : null;
+        // $foto_sertifikat = $request->hasFile('foto_sertifikat') ? $request->file('foto_sertifikat')->store('sertifikat', 'public') : null;
+        // $foto_ktp = $request->hasFile('foto_ktp') ? $request->file('foto_ktp')->store('ktp', 'public') : null;
 
         User::find($user->id)->Guru()->create([
-            'foto_profile' => $foto_profile,
+            'foto_profile' => $foto_profileName,
             'user_id' => $user->id,
             'no_telepon' => $request->no_telepon,
             'tanggal_lahir' => $request->tanggal_lahir,
             'pendidikan' => $request->pendidikan,
             'alamat' => $request->alamat,
-            'foto_sertifikat' => $foto_sertifikat,
-            'foto_ktp' => $foto_ktp,
+            'foto_sertifikat' => $foto_sertifikatName,
+            'foto_ktp' => $foto_ktpName,
         ]);
         return redirect()->route('loginPage')->with('success', 'tunggu proses konfirmasi akun anda');
     }
