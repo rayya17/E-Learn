@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
 
-
     public function loginPage()
     {
         return view('auth.login');
@@ -149,6 +148,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'gurunotapprove',
+            'no_telepon'=> $request->no_telepon,
 
         ]);
 

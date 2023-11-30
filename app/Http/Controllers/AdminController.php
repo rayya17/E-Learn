@@ -17,12 +17,27 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
-    public function calonguru(Request $request)
-    {
-        $calonguru = Guru::with('user')->whereHas('user', function ($query) {
-        })->get();
-        return view('admin.calonguru', compact('calonguru'));
+    public function Profileguru(){
+        // $profileguru = guru::all();
+        $profileguru = user::where('role', 'guru')->get();
+        return view('admin.profileguru', compact('profileguru'));
     }
+
+    public function Pengajuandana(){
+        return view('admin.pengajuandana');
+    }
+
+    public function Detailguru($id){
+        $user_id = Auth::id();
+        // $profileguru = guru::all();
+        return view('admin.detailguru', compact( 'user_id'));
+    }
+
+    public function calonguru(Request $request){
+    $calonguru = Guru::with('user')->whereHas('user',function($query){
+    })->get();
+    return view('admin.calonguru', compact('calonguru'));
+   }
 
     public function guruterima(String $id)
     {
