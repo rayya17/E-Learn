@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/layout',[LayoutController::class,'index'])->name('layout');
 
-Route::get('/home', [HomeController::class, 'home'])->name('HomePage');
+// Route::get('/home', [HomeController::class, 'home'])->name('HomePage');
 Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 
 Route::prefix('Guru')->middleware('teahcer')->controller(GuruController::class)->group(function () {
@@ -33,8 +35,6 @@ Route::middleware('admin')->group(function(){
     Route::Patch('terima/{id}',[AdminController::class,'guruterima'])->name('terimaguru');
     Route::delete('tolak/{id}',[AdminController::class,'tolakguru'])->name('tolakguru');
     Route::get('Dashboardadmin',[AdminController::class,'Dashboardadmin'])->name('Dashboardadmin');
-    
-
 });
 
 Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->group(function () {
@@ -51,3 +51,7 @@ Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->g
     Route::post('/loginproses', 'loginproses')->name('loginproses');
 });
 
+Route::middleware('user')->group(function(){
+    Route::get('/home', [HomeController::class, 'home'])->name('HomePage');
+    Route::get('/detailpemesanan', [HomeController::class, 'detailpemesanan'])->name('DetailPemesanan');
+});
