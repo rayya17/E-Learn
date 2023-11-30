@@ -38,7 +38,7 @@ class AuthController extends Controller
             } elseif ($user->role === 'user') {
                 return redirect()->route('HomePage')->with('success', 'Anda Berhasil Login');
             } elseif ($user->role === 'guru') {
-                return redirect()->route('')->with('success', 'Anda Berhasil Login');
+                return redirect()->route('Dashboardguru')->with('success', 'Anda Berhasil Login');
             } elseif ($user->role === 'gurunotapprove') {
                 return redirect()->route('loginPage')->with('Warning', 'Akun Anda Sedang Di Proses');
             }

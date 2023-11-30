@@ -75,8 +75,8 @@
           </a><!-- End Notification Icon -->
 
 
-      
- 
+
+
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
@@ -113,21 +113,20 @@
               <hr class="dropdown-divider">
             </li>
 
-          
+
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="">
                 <form action="{{ route('logout') }}" method="POST">
-                  @csrf
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </form>
-              </a>
-            </li>
-           
+                    @csrf
+                    <button type="submit" class="dropdown-item d-flex align-items-center" style="border: none; background: none; cursor: pointer;">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Sign Out</span>
+                    </button>
+                </form>
+            </li>
 
           </ul><!-- End Profile Dropdown Items -->
         </li><!-- End Profile Nav -->
@@ -138,7 +137,7 @@
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar"> 
+  <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -156,14 +155,14 @@
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>Materi</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-    
+
       </li><!-- End Tables Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-bar-chart"></i><span>Pengumpulan Tugas  </span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        
+
       </li><!-- End Charts Nav -->
 <!-- End Icons Nav -->
 
@@ -198,7 +197,7 @@
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card revenue-card">
 
-             
+
 
                 <div class="card-body">
                   <h5 class="card-title">Revenue <span>| This Month</span></h5>
@@ -214,12 +213,12 @@
                     </div>
                   </div>
                 </div>
-                
+
 
               </div>
             </div><!-- End Revenue Card -->
 
-            
+
 
             <!-- Customers Card -->
             <div class="col-xxl-4 col-md-6">
@@ -250,7 +249,7 @@
 
               <div class="card info-card customers-card">
 
-               
+
 
                 <div class="card-body">
                   <h5 class="card-title">Customers <span>| This Year</span></h5>

@@ -116,6 +116,10 @@
                     <div class="row">
                         <div class="col-lg-7 col-md-10 col-12">
                             <!-- Slider Content -->
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-success">Logout</button>
+                            </form>1
                             <div class="slider-content">
                                 <h1 class="slider-title"><span>The Best University in the World!</span>Eduland Online
                                     <b>University</b></h1>
