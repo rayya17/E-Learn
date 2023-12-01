@@ -225,12 +225,12 @@
     </nav><!-- End Icons Navigation -->
 
   </header><!-- End Header -->
-
+{{-- admin --}}
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
             <li class="nav-item ">
-                <a class="nav-link {{ request()->is('Dashboardadmin') ? '' : 'collapsed' }}"  href="{{ url('Dashboardadmin') }}">
+                <a class="nav-link {{ request()->is('Dashboardadmin') ? '' : 'collapsed' }}"  href="{{ url('Dashboardadmin') }} ">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -238,21 +238,21 @@
 
             <!-- Components Nav -->
             <li class="nav-item">
-                <a class="nav-link {{ request()->is('calonguru') ? '' : 'collapsed' }}" href="{{ url('calonguru') }}">
+                <a class="nav-link {{ request()->is('calonguru') ? '' : 'collapsed' }}" href="{{ url('calonguru') }} ">
                     <i class="bi bi-person"></i>
                     <span>Persetujuan</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link {{ request()->is('Profileguru') ? '' : 'collapsed' }}" href="{{ url('Profileguru') }}">
+                <a class="nav-link {{ request()->is('Profileguru') ? '' : 'collapsed' }}" href="{{ url('Profileguru') }} ">
                     <i class="bi bi-person"></i>
                     <span>Profile guru</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link  {{ request()->is('pengajuandana') ? '' : 'collapsed' }}" href="{{ url('Pengajuandana') }}">
+                <a class="nav-link  {{ request()->is('pengajuandana') ? '' : 'collapsed' }}" href="{{ url('Pengajuandana') }} ">
                     <i class="bi bi-person"></i>
                     <span>Pengajuan</span>
                 </a>
