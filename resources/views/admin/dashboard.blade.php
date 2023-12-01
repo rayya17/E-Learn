@@ -44,7 +44,7 @@
             </div><!-- End Revenue Card -->
 
             <!-- Customers Card -->
-            <div class="col-xxl-3 col-xl-12">
+            <div class="col-xxl-3 col-md-6">
 
               <div class="card info-card customers-card">
 
@@ -54,7 +54,7 @@
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-people"></i>
+                        <i class="fa-solid fa-graduation-cap"></i>
                     </div>
                     <div class="ps-3">
                       <h6>1244</h6>
@@ -66,7 +66,7 @@
 
             </div><!-- End Customers Card -->
 
-            <div class="col-xxl-3 col-xl-12">
+            <div class="col-xxl-3 col-md-6">
 
               <div class="card info-card customers-card">
 
@@ -87,16 +87,16 @@
 
             </div>
 
-            <div class="col-xxl-3 col-xl-12">
+            <div class="col-xxl-3 col-md-6">
 
               <div class="card info-card customers-card">
 
                 <div class="card-body">
-                  <h5 class="card-title">Jumlah pembelian</h5>
+                  <h5 class="card-title">Jumlah Materi</h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-people"></i>
+                        <i class="fa-solid fa-book"></i>
                     </div>
                     <div class="ps-3">
                       <h6>1244</h6>
