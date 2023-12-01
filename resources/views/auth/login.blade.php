@@ -72,12 +72,63 @@
                                     <a class="text-primary fw-medium fs-3 fw-bold"
                                         href="authentication-forgot-password.html">Forgot Password ?</a>
                                 </div>
-                                <button class="btn btn-success w-100 mb-7 mt-5 rounded-pill"
+                                <button class="btn btn-success w-100 mb-7 mt-2 rounded-pill"
                                     type="submit">Login</button>
                                 <div class="d-flex align-items-center">
-                                    <p class="fs-3 mb-0 fw-medium">New to Spike?</p>
+                                    {{-- <p class="fs-3 mb-0 fw-medium">New to Spike?</p>
                                     <a class="text-primary fw-bold ms-2 fs-3" href="{{ route('registerPage') }}">Create
-                                        an account</a>
+                                        an account</a> --}}
+                                    
+                                        <center>
+                                            <div class="row" style="padding-top: 25px;">
+                                                <div class="col-sm-6">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <a href="{{ route('registerPage') }}">
+                                                                <img src="{{asset('assets/Admin/admin/siswa.jpg')}}"
+                                                                    class="card-img-top" alt="..." width="250" height="180">
+                                                            </a>
+                                                            <h5 class="card-title"></h5>
+                                                            <center>
+                                                                <p>siswa</p>
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <a href="{{ route('registerguruPage') }}">
+                                                                <img src="{{asset('assets/Admin/admin/teacher.jpg')}}"
+                                                                    class="card-img-top" alt="...">
+                                                            </a>
+                                                            <h5 class="card-title"></h5>
+                                                            <center>
+                                                                <p>Pemateri</p>
+                                                            </center>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </center>
+
+                                        <style>
+                                            .card-link {
+                                                color: blue;
+                                                text-decoration: none;
+                                            }
+        
+                                            .card-link:hover {
+                                                text-decoration: underline;
+                                            }
+                                        </style>
+        
+                                        <style>
+                                            .card:hover {
+                                                transform: translateY(-5px);
+                                                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                                            }
+                                        </style>
                                 </div>
                             </form>
                         </div>
