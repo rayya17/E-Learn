@@ -226,41 +226,41 @@
 
   </header><!-- End Header -->
 
-  <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <li class="nav-item ">
+                <a class="nav-link {{ request()->is('Dashboardadmin') ? '' : 'collapsed' }}"  href="{{ url('Dashboardadmin') }}">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
 
-    <ul class="sidebar-nav" id="sidebar-nav">
+            <!-- Components Nav -->
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('calonguru') ? '' : 'collapsed' }}" href="{{ url('calonguru') }}">
+                    <i class="bi bi-person"></i>
+                    <span>Persetujuan</span>
+                </a>
+            </li>
 
-        <li class="nav-item">
-            <a class="nav-link " href="Dashboardadmin">
-              <i class="bi bi-grid"></i>
-              <span>Dashboard</span>
-            </a>
-          </li><!-- End Dashboard Nav -->
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('Profileguru') ? '' : 'collapsed' }}" href="{{ url('Profileguru') }}">
+                    <i class="bi bi-person"></i>
+                    <span>Profile guru</span>
+                </a>
+            </li>
 
-          <!-- End Components Nav -->
-          <li class="nav-item">
-            <a class="nav-link collapsed" href="calonguru">
-              <i class="bi bi-person"></i>
-              <span>Persetujuan</span>
-            </a>
-          </li>
+            <li class="nav-item">
+                <a class="nav-link  {{ request()->is('pengajuandana') ? '' : 'collapsed' }}" href="{{ url('Pengajuandana') }}">
+                    <i class="bi bi-person"></i>
+                    <span>Pengajuan</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
 
-          <li class="nav-item">
-            <a class="nav-link collapsed" href="Profileguru">
-              <i class="bi bi-person"></i>
-              <span>Profile guru</span>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link collapsed" href="Pengajuandana">
-              <i class="bi bi-person"></i>
-              <span>Pengajuan</span>
-            </a>
-          </li><!-- End Profile Page Nav -->
-
-      <!-- End Blank Page Nav -->
+       <!-- End Blank Page Nav -->
 
     </ul>
   </aside><!-- End Sidebar-->
