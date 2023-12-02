@@ -1,100 +1,120 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.layoutAdmin')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Approve</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-</head>
-<style>
-    .container {
-        padding: 2rem 0rem;
-    }
+@section('content')
 
-    h4 {
-        margin: 2rem 0rem 1rem;
-    }
+@foreach($calonguru as $data)
+<div class="modal fade" id="myModal_{{ $data->id }}" tabindex="-1" aria-labelledby="#myModal_{{ $data->id }}" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModal_{{ $data->id }}">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label>foto bukti sertifikat</label>
+          <img src="{{ asset('storage/sertifikat/' . $data->foto_sertifikat)}}"
+          alt="">
+        </div>
+        <div class="mb-3">
+          <label>foto KTP</label>
+          <img src="{{ asset('storage/sertifikat/' . $data->foto_sertifikat)}}"
+          alt="">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+  @endforeach
+  <main id="main" class="main">
 
-    .table-image {
+    <div class="pagetitle mt-4">
+      <h1>Persetujuan</h1>
+    </div><!-- End Page Title -->
 
-        td,
-        th {
-            vertical-align: middle;
-        }
-    }
-</style>
 
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Foto Anda</th>
-                            <th scope="col">No Telp</th>
-                            <th scope="col">Pendidikan Terakhir</th>
-                            <th scope="col">Tanggal Lahir</th>
-                            <th scope="col">Alamat</th>
-                            <th scope="col">Sertifikat</th>
-                            <th scope="col">Ktp</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                            $no = 1;
-                        @endphp
-                        @foreach ($calonguru as $data)
+    <section class="section dashboard">
+      {{-- <div class="row"> --}}
+<div class="col-lg-12 mt-4">
+        <!-- Left side columns -->
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card border-0 shadow rounded">
+                    <div class="card-body">
+                    <table class="table">
+                        <thead >
                             <tr>
-                                <td>{{ $no++ }}</td>
-                                <td>{{ $data->user->name }}</td>
-                                <td><img width="120px" height="150px"
-                                        src="{{ asset('storage/profile/' . $data->foto_profile)}}" alt=""></td>
-                                <td>{{ $data->no_telepon }}</td>
-                                <td>{{ $data->pendidikan }}</td>
-                                <td>{{ $data->tanggal_lahir }}</td>
-                                <td>{{ $data->alamat }}</td>
-                                <td><img width="120px" height="150px"
-                                        src="{{ asset('storage/sertifikat/' . $data->foto_sertifikat)}}"
-                                        alt=""></td>
-                                <td><img width="120px" height="150px" src="{{ asset('storage/ktp/' . $data->foto_ktp) }}" alt=""></td>
-                                <td>
-                                    <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-                                    <form action="{{ route('terimaguru',$data->id) }}" method="post">
-                                        @csrf
-                                        @method('PATCH')
-                                        <button type="submid" class="btn btn-success"><i
-                                                class="fa-solid fa-check"></i></button>
-                                    </form>
-                                    <form class="d-flex" action="{{ route('tolakguru', $data->id) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger btn-sm me-2" onclick="confirmDelete(event)"><i
-                                                class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
-                                </td>
+                                <th scope="col">No</th>
+                                <th scope="col">Foto Anda</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Pendidikan Terakhir</th>
+                                <th scope="col">No Telp</th>
+                                <th scope="col">Tanggal Lahir</th>
+                                <th scope="col">Alamat</th>
+                                {{-- <th scope="col">Sertifikat</th>
+                                <th scope="col">Ktp</th> --}}
+                                <th scope="col">Action</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <form action="{{ route('logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-success">Logout</button>
-                </form>
-                <!-- Modal -->
+                        </thead>
+                        <tbody>
+                            @php
+                                $no = 1;
+                            @endphp
+                            @foreach ($calonguru as $data)
+                                <tr>
+                                    <td>{{ $no++ }}</td>
+                                    <td><img width="120px" height="100px"
+                                      src="{{ asset('storage/profile/' . $data->foto_profile)}}" alt=""></td>
+                                      <td>{{ $data->user->name }}</td>
+                                      <td>{{ $data->pendidikan }}</td>
+                                      <td>{{ $data->user->no_telepon }}</td>
+                                    <td>{{ $data->tanggal_lahir }}</td>
+                                    <td>{{ $data->alamat }}</td>
+                                    {{-- <td><img width="120px" height="150px"
+                                            src="{{ asset('storage/sertifikat/' . $data->foto_sertifikat)}}"
+                                            alt=""></td>
+                                    <td><img width="120px" height="150px" src="{{ asset('storage/ktp/' . $data->foto_ktp) }}" alt=""></td> --}}
+                                    <td class="d-flex">
+                                      <a class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#myModal_{{ $data->id }}" ><i class="far fa-eye"></i></a>
+
+                                        <form action="{{ route('terimaguru',$data->id) }}" method="post">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="btn btn-outline-success"><i
+                                                    class="fa-solid fa-check"></i></button>
+                                        </form>
+                                        <form class="d-flex" action="{{ route('tolakguru', $data->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-outline-danger btn-sm me-2" onclick="confirmDelete(event)"><i
+                                                    class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    <!-- Modal -->
+                </div>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
-    </script>
-</body>
+        </div><!-- End Left side columns -->
+    </div>
 
-</html>
+        <!-- Right side columns -->
+      <!-- End Right side columns -->
+
+      {{-- </div> --}}
+    </section>
+
+  </main><!-- End #main -->
+@endsection

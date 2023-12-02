@@ -94,7 +94,7 @@
          .card {
         /* margin-left: 150px; */
         width: 300px;
-        margin-top: 10px;
+        margin-top: 25px;
         border-radius: 10px;
         background-color: #ffffff; /* Ganti warna latar belakang sesuai kebutuhan */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Menambahkan bayangan */
@@ -138,16 +138,16 @@
                                 <div class="navbar-collapse">
                                     <!-- Main Menu -->
                                     <ul id="nav" class="nav menu navbar-nav">
-                                        <li class="{{ request()->is('home') ? 'active' : '' }}"><a href="/home"></i>Home</a>
+                                        <li class="{{ request()->is('home') ? 'active' : '' }}"><a href="/home"  style="color: #ffffff"></i>Home</a>
                                         </li>
-                                        <li class="{{ request()->is('detailpemesanan') ? 'active' : '' }}"><a href="/detailpemesanan">Matematika</a></li>
-                                        <li class="{{ request()->is('events') ? 'active' : '' }}"><a href="events.html">IPA</a></li>
-                                        <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="contact.html">IPS</a></li>
-                                        <li class="{{ request()->is('teachers') ? 'active' : '' }}"><a href="events.html">Bahasa Inggris</a></li>
-                                        <li class="{{ request()->is('teachers') ? 'active' : '' }}"><a href="events.html">Bahasa Indonesia</a></li>
-                                        <li class="{{ request()->is('teachers') ? 'active' : '' }}"><a href="#">Pages <i class="fa-solid fa-chevron-up fa-rotate-180"></i></a>
+                                        <li class="{{ request()->is('detailpemesanan') ? 'active' : '' }}"><a href="/detailpemesanan" style="color: #ffffff">Matematika</a></li>
+                                        <li class="{{ request()->is('events') ? 'active' : '' }}"><a href="events.html"  style="color: #ffffff">IPA</a></li>
+                                        <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="contact.html"  style="color: #ffffff">IPS</a></li>
+                                        <li class="{{ request()->is('teachers') ? 'active' : '' }}"><a href="events.html"  style="color: #ffffff">Bahasa Inggris</a></li>
+                                        <li class="{{ request()->is('teachers') ? 'active' : '' }}"><a href="events.html"  style="color: #ffffff">Bahasa Indonesia</a></li>
+                                        <li class="{{ request()->is('teachers') ? 'active' : '' }}"><a href="#"  style="color: #ffffff">Pages <i class="fa-solid fa-chevron-up fa-rotate-180"></i></a>
                                             <ul class="dropdown">
-                                                <li><a href="teachers.html"><i class="fa-solid fa-cart-shopping"></i>Detail Pesanan</a></li>
+                                                <li><a href="/detailpemesanan"><i class="fa-solid fa-cart-shopping"></i>Detail Pesanan</a></li>
                                             </ul>
                                         </li>
                                         <li>
@@ -156,7 +156,7 @@
                                                 <span class="d-none d-md-block dropdown-toggle ps-2"></span>
                                             </a>
                                             <ul class="dropdown">
-                                                <li><a href="teachers.html"><i class="fa-solid fa-cart-shopping"></i>Profile</a></li>
+                                                <li><a href="{{route('Profile')}}"><i class="fa-solid fa-cart-shopping"></i>Profile</a></li>
                                                 <li>
                                                     <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                                                     @csrf

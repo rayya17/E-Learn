@@ -138,26 +138,29 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label for="phone"
-                                                                class="form-label text-dark fw-bold">Terakhir
-                                                                pendidikan</label>
-                                                            <input type="text" name="pendidikan" class="form-control"
-                                                                id="pendidikan" placeholder="Pendidikan Terakhir">
+                                                <div class="d-flex">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="text-confirm-pwd"
+                                                                    class="form-label text-dark fw-bold">Pendidikan Terakhir</label>
+                                                                <input type="text" class="form-control py-6"
+                                                                    id="text-confirm-pwd" name="pendidikan" id="pendidikan"
+                                                                    class="form-control">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group"
-                                                            style="margin-left: 10px; width: 232px;">
-                                                            <label for="phone"
-                                                                class="form-label text-dark fw-bold">Tanggal lahir</label>
-                                                            <input type="date" name="tanggal_lahir" id="tanggal_lahir"
-                                                                class="form-control">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="text-confirm-pwd"
+                                                                    class="form-label text-dark fw-bold">Tanggal Lahir</label>
+                                                                <input type="date" class="form-control py-6"
+                                                                    id="text-confirm-pwd" name="tanggal_lahir"
+                                                                    class="form-control">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <div class="form-group">
                                                     <label for="text-alamat"
                                                         class="form-label text-dark fw-bold">Alamat</label>

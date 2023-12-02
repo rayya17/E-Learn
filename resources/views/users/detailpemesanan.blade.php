@@ -35,12 +35,43 @@
                     <p style="color: #3B9680; padding-bottom: 12px">Pengajar : Renjun</p>
                     <p style="color: #3B9680; padding-bottom: 12px">Jangka Pemesanan : 1 Bulan</p>
                     <p style="color: #3B9680; padding-bottom: 12px">Harga : Rp. 200.000</p>
-                    <center><a href="#" class="btn btn-primary" style="border-radius: 8px; text-align: center;">Bayar Sekarang</a></center>
+                    <center><a href="#" class="btn btn-primary" style="border-radius: 8px; text-align: center; margin-top: 20px">Bayar Sekarang</a></center>
                 </blockquote>
             </div>
         </div>
-
-        <!-- Tambahkan kartu lainnya di sini -->
+        <div class="card" >
+            <div class="card-header" style="color: #3B9680; font-size: 20px;"><strong>Geometri</strong></div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p style="color: #3B9680; padding-bottom: 12px">Pengajar : Renjun</p>
+                    <p style="color: #3B9680; padding-bottom: 12px">Jangka Pemesanan : 1 Bulan</p>
+                    <p style="color: #3B9680; padding-bottom: 12px">Harga : Rp. 200.000</p>
+                    <center><a href="#" class="btn btn-primary" style="border-radius: 8px; text-align: center; margin-top: 20px">Bayar Sekarang</a></center>
+                </blockquote>
+            </div>
+        </div>
+        <div class="card" >
+            <div class="card-header" style="color: #3B9680; font-size: 20px;"><strong>Geometri</strong></div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p style="color: #3B9680; padding-bottom: 12px">Pengajar : Renjun</p>
+                    <p style="color: #3B9680; padding-bottom: 12px">Jangka Pemesanan : 1 Bulan</p>
+                    <p style="color: #3B9680; padding-bottom: 12px">Harga : Rp. 200.000</p>
+                    <center><a href="#" class="btn btn-primary" style="border-radius: 8px; text-align: center; margin-top: 20px">Bayar Sekarang</a></center>
+                </blockquote>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" style="color: #3B9680; font-size: 20px;"><strong>Geometri</strong></div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p style="color: #3B9680; padding-bottom: 12px">Pengajar : Renjun</p>
+                    <p style="color: #3B9680; padding-bottom: 12px">Jangka Pemesanan : 1 Bulan</p>
+                    <p style="color: #3B9680; padding-bottom: 12px">Harga : Rp. 200.000</p>
+                    <center><a href="#" class="btn btn-primary" style="border-radius: 8px; text-align: center; margin-top: 20px">Bayar Sekarang</a></center>
+                </blockquote>
+            </div>
+        </div>
 
         <div class="card">
             <div class="card-header" style="color: #3B9680; font-size: 20px;"><strong>Geometri</strong></div>
@@ -49,19 +80,7 @@
                     <p style="color: #3B9680; padding-bottom: 12px">Pengajar : Renjun</p>
                     <p style="color: #3B9680; padding-bottom: 12px">Jangka Pemesanan : 1 Bulan</p>
                     <p style="color: #3B9680; padding-bottom: 12px">Harga : Rp. 200.000</p>
-                    <center><a href="#" class="btn btn-primary" style="border-radius: 8px; text-align: center;">Bayar Sekarang</a></center>
-                </blockquote>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header" style="color: #3B9680; font-size: 20px;"><strong>Geometri</strong></div>
-            <div class="card-body">
-                <blockquote class="blockquote mb-0">
-                    <p style="color: #3B9680; padding-bottom: 12px">Pengajar : Renjun</p>
-                    <p style="color: #3B9680; padding-bottom: 12px">Jangka Pemesanan : 1 Bulan</p>
-                    <p style="color: #3B9680; padding-bottom: 12px">Harga : Rp. 200.000</p>
-                    <center><a href="#" class="btn btn-primary" style="border-radius: 8px; text-align: center;">Bayar Sekarang</a></center>
+                    <center><a href="#" class="btn btn-primary" style="border-radius: 8px; text-align: center; margin-top: 20px">Bayar Sekarang</a></center>
                 </blockquote>
             </div>
         </div>
@@ -74,7 +93,7 @@
                     <p style="color: #3B9680; padding-bottom: 12px">Pengajar : Renjun</p>
                     <p style="color: #3B9680; padding-bottom: 12px">Jangka Pemesanan : 1 Bulan</p>
                     <p style="color: #3B9680; padding-bottom: 12px">Harga : Rp. 200.000</p>
-                    <center><a href="#" class="btn btn-primary" style="border-radius: 8px; text-align: center;">Bayar Sekarang</a></center>
+                    <center><a href="#" class="btn btn-primary" style="border-radius: 8px; text-align: center; margin-top: 20px">Bayar Sekarang</a></center>
                 </blockquote>
             </div>
         </div>
