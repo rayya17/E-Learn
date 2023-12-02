@@ -40,6 +40,8 @@ Route::middleware('admin')->group(function(){
 
 Route::middleware('guru')->group(function(){
     Route::get('dashboardguru',[GuruController::class,'Dashboardguru'])->name('Dashboardguru');
+    Route::get('materi',[GuruController::class,'materi'])->name('materi');
+
 });
 
 Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->group(function () {

@@ -12,6 +12,10 @@ class GuruController extends Controller
     public function Dashboardguru(){
         return view('guru.index');
     }
+
+      public function materi(){
+        return view('guru.materi');
+    }
     /**
      * Display a listing of the resource.
      */
