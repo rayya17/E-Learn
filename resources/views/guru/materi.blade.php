@@ -1,5 +1,38 @@
  @extends('layouts.layoutGuru')
  @section('content')
+     <style>
+         .main-content {
+             position: absolute;
+             top: 42px;
+             left: 268px;
+             width: 84vw;
+         }
+
+        .icon-plus-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .icon-plus {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            text-decoration: none;
+            font-size: 24px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        .icon-plus:hover {
+            background-color: #0056b3;
+        }
+     </style>
      <div class="container-fluid">
          <div class="row">
              <section class="courses section">
@@ -116,6 +149,7 @@
                      </div>
                  </div>
              </section>
-            </div>
-        </div>
-    @endsection
+         </div>
+         <button type="button" style="width: 500px"><i class="fa-solid fa-plus"></i></button>
+     </div>
+ @endsection

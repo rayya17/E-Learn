@@ -15,8 +15,7 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
@@ -35,6 +34,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <!-- Font Awesome CSS -->
@@ -74,13 +74,6 @@
             padding-left: 15px;
             margin-right: auto;
             margin-left: auto;
-        }
-
-        .main-content {
-            position: absolute;
-            top: 42px;
-            left: 268px;
-            width: 84vw;
         }
 
         .toggle-sidebar .main-content {
@@ -237,16 +230,12 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link {{ request()->is('Dashboardguru') ? '' : 'collapsed' }}"
-                    href="{{ url('Dashboardguru') }} ">
+                <a class="nav-link {{ request()->is('dashboardguru') ? '' : 'collapsed' }}"
+                    href="{{ url('dashboardguru') }} ">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
-            </li><!-- End Dashboard Nav -->
-
-            <!-- End Components Nav -->
-
-
+            </li>
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('materi') ? '' : 'collapsed' }}" href="{{ url('materi') }} ">
                     <i class="bi bi-layout-text-window-reverse"></i><span>Materi</span>
@@ -255,22 +244,17 @@
             </li><!-- End Tables Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{{ url('Pengumpulantugas') }}">
-                    <i class="bi bi-bar-chart"></i><span>Pengumpulan Tugas </span>
+                <a class="nav-link {{ request()->is('Pengumpulantugas') ? '' : 'collapsed' }}" href="{{ route('Pengumpulantugas') }}">
+                    <i class="bi bi-bar-chart"></i><span>Pengumpulan Tugas</span>
                 </a>
-
             </li><!-- End Charts Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{{ url ('Penarikansaldo') }}">
+                <a class="nav-link {{ request()->is('Penarikansaldo') ? '' : 'collapsed' }}" href="{{ url ('Penarikansaldo') }}">
                     <i class="bi bi-bar-chart"></i><span>Penarikan Saldo</span>
                 </a>
 
-            </li><!-- End Charts Nav -->
-            <!-- End Icons Nav -->
-
-            <!-- End Blank Page Nav -->
-
+            </li>
         </ul>
 
     </aside><!-- End Sidebar-->

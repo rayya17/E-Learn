@@ -42,7 +42,7 @@ Route::middleware('admin')->group(function(){
 });
 
 Route::middleware('guru')->group(function(){
-    Route::get('dashboardguru',[GuruController::class,'Dashboardguru'])->name('Dashboardguru');
+    Route::get('dashboardguru',[GuruController::class,'Dashboardguru'])->name('dashboardguru');
     // Route::get('materi',[MateriController::class,'index'])->name('materi');
     Route::resource('materi', MateriController::class);
     Route::get('Pengumpulantugas', [GuruController::class, 'Pengumpulantugas'])->name('Pengumpulantugas');
