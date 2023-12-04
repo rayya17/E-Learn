@@ -45,6 +45,11 @@ Route::middleware('guru')->group(function(){
     Route::get('dashboardguru',[GuruController::class,'Dashboardguru'])->name('Dashboardguru');
     // Route::get('materi',[MateriController::class,'index'])->name('materi');
     Route::resource('materi', MateriController::class);
+    Route::get('Pengumpulantugas', [GuruController::class, 'Pengumpulantugas'])->name('Pengumpulantugas');
+    Route::get('Penarikansaldo', [GuruController::class, 'Penarikansaldo'])->name('Penarikansaldo');
+
+
+    // Route::resource('materiGuru',GuruController::class);
 });
 
 Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->group(function () {

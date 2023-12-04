@@ -91,8 +91,8 @@
         }
 
         .row {
-            margin-right: -15px;
-            margin-left: -15px;
+            margin-right: -10px;
+            margin-left: -10px;
         }
 
         body {
@@ -237,7 +237,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link {{ request()->is('index') ? '' : 'collapsed' }}"
+                <a class="nav-link {{ request()->is('Dashboardguru') ? '' : 'collapsed' }}"
                     href="{{ url('Dashboardguru') }} ">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
@@ -255,14 +255,14 @@
             </li><!-- End Tables Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{{ url('Pengumpulantugas') }}">
                     <i class="bi bi-bar-chart"></i><span>Pengumpulan Tugas </span>
                 </a>
 
             </li><!-- End Charts Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{{ url ('Penarikansaldo') }}">
                     <i class="bi bi-bar-chart"></i><span>Penarikan Saldo</span>
                 </a>
 

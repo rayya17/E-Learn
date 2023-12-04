@@ -7,10 +7,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreGuruRequest;
 use App\Http\Requests\UpdateGuruRequest;
 
+
 class GuruController extends Controller
 {
     public function Dashboardguru(){
-        return view('guru.index');
+        return view('guru.dashboardguru');
     }
 
       public function materi(){
@@ -19,6 +20,18 @@ class GuruController extends Controller
     /**
      * Display a listing of the resource.
      */
+  
+    public function Pengumpulantugas(){
+        return view('guru.pengumpulan');
+    }
+
+    public function Penarikansaldo(){
+        return view('guru.pengajuansaldo');
+    }
+    // public function index(){
+    //     return view('guru.materi');
+    // }
+
     public function logout()
     {
         Auth::logout();
