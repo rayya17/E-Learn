@@ -40,7 +40,7 @@
                     <div class="row align-items-center justify-content-around pt-7 pb-5">
                         <div class="col-lg-6 col-xl-5 d-none d-lg-block">
                             <div class="text-center text-lg-start">
-                                <img src="{{ url('storage/lzzzzz.png') }}" alt="" class="img-fluid">
+                                <img src="{{ url('storage/login-security.png') }}" alt="" class="img-fluid">
                             </div>
                         </div>
                         <div class="col-lg-6 col-xl-5">

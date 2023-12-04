@@ -171,7 +171,7 @@
                                                             <p class="text-danger">{{ $message }}</p>
                                                         @enderror
                                                 </div>
-                                                <div class="form-group">
+                                                {{-- <div class="form-group">
                                                     <label for="text-confirm-pwd"
                                                         class="form-label text-dark fw-bold">Foto Sertifikat</label>
                                                     <input type="file" class="form-control py-6"
@@ -184,7 +184,7 @@
                                                     <input type="file" class="form-control py-6"
                                                         id="foto_ktp" name="foto_ktp" class="form-control">
 
-                                                </div>
+                                                </div> --}}
                                                 <div style="margin-left:300px; margin-top:4px;">
                                                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"
                                                         style="background-color: rgba(255, 255, 255, 0.20);">

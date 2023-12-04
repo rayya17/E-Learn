@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MateriController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\User;
@@ -42,8 +43,8 @@ Route::middleware('admin')->group(function(){
 
 Route::middleware('guru')->group(function(){
     Route::get('dashboardguru',[GuruController::class,'Dashboardguru'])->name('Dashboardguru');
-    Route::get('materi',[GuruController::class,'materi'])->name('materi');
-
+    // Route::get('materi',[MateriController::class,'index'])->name('materi');
+    Route::resource('materi', MateriController::class);
 });
 
 Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->group(function () {

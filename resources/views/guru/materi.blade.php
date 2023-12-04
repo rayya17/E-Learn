@@ -1,11 +1,121 @@
  @extends('layouts.layoutGuru')
  @section('content')
- <!-- Card with an image on top -->
-          <div class="card">
-            <img src="assets/img/card.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card with an image on top</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+     <div class="container-fluid">
+         <div class="row">
+             <section class="courses section">
+                 <div class="container">
+                     <div class="row">
+                         <div class="col-lg-4 col-md-4 col-4">
+                             <!-- Single Course -->
+                             <div class="single-course">
+                                 <!-- Course Head -->
+                                 <div class="course-head overlay">
+                                     <img src="assets/images/courses/course1.jpg" alt="#">
+                                     {{-- <div class="overlay-content">
+                            <a href="course-single.html" class="btn white primary">Register Now</a>
+                        </div> --}}
+                                 </div>
+                                 <!-- Course Body -->
+                                 <div class="course-body">
+                                     <div class="name-price">
+                                         <div class="teacher-info">
+                                             <img src="assets/images/author1.jpg" alt="#" class="rounded-circle"
+                                                 style="width: 50px; height: 50px; object-fit: cover;">
+                                             <h4 class="title">Jewel Mathies</h4>
+                                         </div>
+                                         <span class="price" type="button" class="btn btn-primary" data-toggle="modal"
+                                             data-target="#exampleModal">$350</span>
+                                     </div>
+                                     <h4 class="c-title"><a href="course-single.html">Basic Web Design Course 2019 (a-z)</a>
+                                     </h4>
+                                     <p>Natus voluptatibus perferendis repellendus Amet rerum quis odioThe ship set ground
+                                         on the
+                                         shore of this uncharted Gilligan consequa</p>
+                                 </div>
+                             </div>
+                             <!--/ End Single Course -->
+                         </div>
+                         <div class="col-lg-4 col-md-4 col-4">
+                             <!-- Single Course -->
+                             <div class="single-course">
+                                 <!-- Course Head -->
+                                 <div class="course-head overlay">
+                                     <img src="assets/images/courses/course3.jpg" alt="#">
+                                     {{-- <a href="course-single.html" class="btn white primary">Register Now</a> --}}
+                                 </div>
+                                 <!-- Course Body -->
+                                 <div class="course-body">
+                                     <div class="name-price">
+                                         <div class="teacher-info">
+                                             <img src="assets/images/author3.jpg" alt="#">
+                                             <h4 class="title">Noha Brown</h4>
+                                         </div>
+                                         <span class="price">Free</span>
+                                     </div>
+                                     <h4 class="c-title"><a href="course-single.html">Free PHP Web Development</a></h4>
+                                     <p>Natus voluptatibus perferendis repellendus Amet rerum quis odioThe ship set ground
+                                         on the
+                                         shore of this uncharted Gilligan</p>
+                                 </div>
+                             </div>
+                             <!--/ End Single Course -->
+                         </div>
+                         <div class="col-lg-4 col-md-4 col-4">
+                             <!-- Single Course -->
+                             <div class="single-course">
+                                 <!-- Course Head -->
+                                 <div class="course-head overlay">
+                                     <img src="assets/images/courses/course2.jpg" alt="#">
+                                     {{-- <a href="course-single.html" class="btn white primary">Register Now</a> --}}
+                                 </div>
+                                 <!-- Course Body -->
+                                 <div class="course-body">
+                                     <div class="name-price">
+                                         <div class="teacher-info">
+                                             <img src="assets/images/author2.jpg" alt="#">
+                                             <h4 class="title">Jenola Protan</h4>
+                                         </div>
+                                         <span class="price" type="button" class="btn btn-primary" data-toggle="modal"
+                                             data-target="#exampleModal">$290</span>
+                                     </div>
+                                     <h4 class="c-title"><a href="course-single.html">Learn Web Developments Course</a></h4>
+                                     <p>Natus voluptatibus perferendis repellendus Amet rerum quis odioThe ship set ground
+                                         on the
+                                         shore of this uncharted Gilligan</p>
+                                 </div>
+                             </div>
+                             <!--/ End Single Course -->
+                         </div>
+                         <div class="col-lg-4 col-md-4 col-4">
+                             <!-- Single Course -->
+                             <div class="single-course">
+                                 <!-- Course Head -->
+                                 <div class="course-head overlay">
+                                     <img src="assets/images/courses/course4.jpg" alt="#">
+                                     {{-- <a href="course-single.html" class="btn white primary">Register Now</a> --}}
+                                 </div>
+                                 <!-- Course Body -->
+                                 <div class="course-body">
+                                     <div class="name-price">
+                                         <div class="teacher-info">
+                                             <img src="assets/images/author1.jpg" alt="#">
+                                             <h4 class="title">Jewel Mathies</h4>
+                                         </div>
+                                         <span class="price" type="button" class="btn btn-primary" data-toggle="modal"
+                                             data-target="#exampleModal">$350</span>
+                                     </div>
+                                     <h4 class="c-title"><a href="course-single.html">Basic Web Design Course 2019 (a-z)</a>
+                                     </h4>
+                                     <p>Natus voluptatibus perferendis repellendus Amet rerum quis odioThe ship set ground
+                                         on the
+                                         shore of this uncharted Gilligan consequa</p>
+                                 </div>
+                             </div>
+                             <!--/ End Single Course -->
+                         </div>
+                     </div>
+                 </div>
+             </section>
             </div>
-          </div><!-- End Card with an image on top -->
- @endsection
+        </div>
+    @endsection

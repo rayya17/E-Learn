@@ -18,8 +18,6 @@ class Guru extends Model
         'tanggal_lahir',
         'pendidikan',
         'alamat',
-        'foto_sertifikat',
-        'foto_ktp',
 
     ];
 

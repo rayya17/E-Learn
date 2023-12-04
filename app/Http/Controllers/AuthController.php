@@ -123,8 +123,6 @@ class AuthController extends Controller
             'no_telepon' => 'required|numeric',
             'tanggal_lahir' => 'required',
             'foto_profile' => 'image|mimes:jpeg,png,jpg',
-            'foto_sertifikat' => 'image|mimes:jpeg,png,jpg',
-            'foto_ktp' => 'image|mimes:jpeg,png,jpg',
             'password' => 'required|min:6',
             're-password' => 'required|same:password',
         ], [
@@ -156,13 +154,13 @@ class AuthController extends Controller
         $foto_profileName = uniqid() . '.' . $foto_profile->getClientOriginalExtension();
         $foto_profile->storeAs('profile/',$foto_profileName);
 
-        $foto_sertifikat = $request->file('foto_sertifikat');
-        $foto_sertifikatName = uniqid() . '.' . $foto_sertifikat->getClientOriginalExtension();
-        $foto_sertifikat->storeAs('sertifikat/',$foto_sertifikatName);
+        // $foto_sertifikat = $request->file('foto_sertifikat');
+        // $foto_sertifikatName = uniqid() . '.' . $foto_sertifikat->getClientOriginalExtension();
+        // $foto_sertifikat->storeAs('sertifikat/',$foto_sertifikatName);
 
-        $foto_ktp = $request->file('foto_ktp');
-        $foto_ktpName = uniqid() . '.' . $foto_ktp->getClientOriginalExtension();
-        $foto_ktp->storeAs('ktp/',$foto_ktpName);
+        // $foto_ktp = $request->file('foto_ktp');
+        // $foto_ktpName = uniqid() . '.' . $foto_ktp->getClientOriginalExtension();
+        // $foto_ktp->storeAs('ktp/',$foto_ktpName);
 
         // dd($user);
         // $foto_profile = $request->hasFile('foto_profile') ? $request->file('foto_profile')->store('profile', 'public') : null;
@@ -176,8 +174,8 @@ class AuthController extends Controller
             'tanggal_lahir' => $request->tanggal_lahir,
             'pendidikan' => $request->pendidikan,
             'alamat' => $request->alamat,
-            'foto_sertifikat' => $foto_sertifikatName,
-            'foto_ktp' => $foto_ktpName,
+            // 'foto_sertifikat' => $foto_sertifikatName,
+            // 'foto_ktp' => $foto_ktpName,
         ]);
         return redirect()->route('loginPage')->with('success', 'tunggu proses konfirmasi akun anda');
     }
