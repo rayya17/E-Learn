@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('materis', function (Blueprint $table) {
             $table->id();
+            $table->string('cover')->default('defaultmateri.jpeg');
             $table->string('mapel');
             $table->string('nama_materi');
             $table->string('file_materi');

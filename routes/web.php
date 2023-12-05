@@ -24,7 +24,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/layout',[LayoutController::class,'index'])->name('layout');
+// Route::post('/layout',[LayoutController::class,'index'])->name('layout');
 
 // Route::get('/home', [HomeController::class, 'home'])->name('HomePage');
 Route::post('/logout',[AuthController::class,'logout'])->name('logout');
@@ -47,6 +47,8 @@ Route::middleware('guru')->group(function(){
     Route::get('dashboardguru',[GuruController::class,'Dashboardguru'])->name('dashboardguru');
     // Route::get('materi',[MateriController::class,'index'])->name('materi');
     Route::resource('materi', MateriController::class);
+    // Route::put('materi-update/{id}',[MateriController::class,'update'])->name('update.materi');
+    // Route::delete('materi/{id}/delete', [MateriController::class, 'destroy'])->name('materi.destroy');
     Route::get('Pengumpulantugas', [GuruController::class, 'Pengumpulantugas'])->name('Pengumpulantugas');
     Route::get('Penarikansaldo', [GuruController::class, 'Penarikansaldo'])->name('Penarikansaldo');
     Route::patch('mengajukandana/{id}', [GuruController::class, 'mengajukandana'])->name('mengajukandana');
