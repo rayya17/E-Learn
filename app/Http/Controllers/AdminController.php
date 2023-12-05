@@ -6,6 +6,7 @@ use App\Mail\sendEmail;
 use App\Mail\sendMail;
 use App\Models\Guru;
 use App\Models\User;
+use App\Models\penarikansaldo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -14,7 +15,9 @@ class AdminController extends Controller
 {
     public function Dashboardadmin()
     {
-        return view('admin.dashboard');
+        $jumlahpemateri = user::where('role', 'guru')->count();
+        $jumlahsiswa = user::where('role', 'user')->count();
+        return view('admin.dashboard', compact('jumlahpemateri', 'jumlahsiswa'));
     }
 
     public function Profileguru(){
@@ -89,6 +92,16 @@ class AdminController extends Controller
         return redirect()->route('loginPage');
     }
 
+    public function pengajuanguru(Request $request){
+        $guru = guru::all();
+        $data = penarikansaldo::where('status', 'sedang mengajukan')->get();
+        return view('admin.pengajuandana', compact('guru', 'data'));
+    }
+
+    public function terimapengajuan($id)
+    {
+        
+    }
 
     public function logout()
     {

@@ -57,7 +57,7 @@
                         <i class="fa-solid fa-graduation-cap"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>1244</h6>
+                      <h6>{{ $jumlahpemateri }}</h6>
                     </div>
                   </div>
 
@@ -78,7 +78,7 @@
                       <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>1244</h6>
+                      <h6>{{ $jumlahsiswa }}</h6>
                     </div>
                   </div>
 

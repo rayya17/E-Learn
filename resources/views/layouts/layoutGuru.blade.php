@@ -36,31 +36,31 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}">
     <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/font-awesome.min.css') }}">
     <!-- Nice Select CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/niceselect.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/niceselect.css') }}">
     <!-- Fancy Box CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/jquery.fancybox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/jquery.fancybox.min.css') }}">
     <!-- Fancy Box CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/cube-portfolio.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/cube-portfolio.min.css') }}">
     <!-- Owl Carousel CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/owl.carousel.min.css') }}">
     <!-- Animate CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/animate.min.css') }}">
     <!-- Slick Nav CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/slicknav.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/slicknav.min.css') }}">
     <!-- Magnific Popup -->
-    <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/magnific-popup.css') }}">
 
     <!-- Eduland Stylesheet -->
-    <link rel="stylesheet" href="{{ asset('assets/css/normalize.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/style2.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/style2.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/responsive.css') }}">
 
     <!-- Eduland Colors -->
-    <link rel="stylesheet" href="{{ asset('assets/css/colors/color1.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/colors/color1.css') }}">
 
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -117,6 +117,54 @@
         .course-body {
             flex: 1; /* Menyesuaikan tinggi secara otomatis untuk konten */
         }
+
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #333; /* Warna latar belakang header */
+            /* color: white; */
+            padding: 20px; /* Padding untuk memberikan ruang di sekitar teks header */
+            text-align: center;
+            box-shadow: 0px 4px 6px rgba(170, 167, 167, 0.1); /* Pusatkan teks header */
+        }
+
+        /* Gaya tambahan untuk memperpanjang header */
+        .extended-header {
+            height: 90px;
+        }
+
+        /* Gaya untuk elemen <thead> */
+        thead {
+            background-color: #4FA987; /* Warna latar belakang thead */
+            border-radius: 15px; /* Border radius pada thead */
+            color: white; /* Warna teks pada thead */
+            height: 50px; /* Sesuaikan ketinggian thead sesuai kebutuhan Anda */
+        }
+
+        .card {
+            border-radius: 15px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            border-radius: 25px; /* Menambahkan radius pada bagian body dari card */
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        /* .btn{
+          color: #ffffff;
+          background-color:#4FA987;
+          font-size: 14px;
+        } */
+
+      
+
     </style>
 </head>
 
@@ -204,13 +252,13 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="">
-                                <form action="{{ route('logout') }}" method="POST">
-                                    @csrf
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="dropdown-item d-flex align-items-center" style="border: none; background: none; cursor: pointer;">
                                     <i class="bi bi-box-arrow-right"></i>
                                     <span>Sign Out</span>
-                                </form>
-                            </a>
+                                </button>
+                            </form>
                         </li>
 
 
@@ -258,7 +306,7 @@
         </ul>
 
     </aside><!-- End Sidebar-->
-    <div class="main-content py-3 px-3">
+    <div class="main-content py-3 px-3 mt-1 ">
         <div class="container-fluid">
             @yield('content')
         </div>
@@ -292,6 +340,8 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/Admin/js/main.js') }}"></script>
+    <script src="path/to/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
+
 
 </body>
 

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Guru;
+use App\Models\Penarikansaldo;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreGuruRequest;
 use App\Http\Requests\UpdateGuruRequest;
+use Illuminate\Http\Request;
+
 
 
 class GuruController extends Controller
@@ -21,17 +24,33 @@ class GuruController extends Controller
      * Display a listing of the resource.
      */
   
-    public function Pengumpulantugas(){
+    public function Pengumpulantugas(Request $request){
         return view('guru.pengumpulan');
     }
 
-    public function Penarikansaldo(){
+    public function Penarikansaldo(Request $request){
+        $mengajukan = new Penarikansaldo;
+        $mengajukan->metodepembayaran = $request->metodepembayaran;
+        $mengajukan->keterangan_pengajuan = $request->keterangan_pengajuan;
+        $mengajukan->tujuan_pengajuan = $request->tujuan_pengajuan;
+        $mengajukan->status = 'sedang mengajukan';
+
+        $mengajukan->save(); 
         return view('guru.pengajuansaldo');
     }
-    // public function index(){
-    //     return view('guru.materi');
-    // }
 
+    public function mengajukandana(Request $request, $id){
+        // Temukan data berdasarkan ID
+        $penarikansaldo = Penarikansaldo::findOrFail($id);
+    
+        // Ubah status menjadi "Telah diajukan"
+        $penarikansaldo->guru_id = $request->guru_id;
+        $penarikansaldo->status = 'Telah diajukan';
+        $penarikansaldo->save();
+    
+        return redirect()->route('pengajuanguru')->with('success', 'Berhasil mengajukan dana!');
+    }
+ 
     public function logout()
     {
         Auth::logout();

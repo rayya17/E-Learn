@@ -33,7 +33,36 @@
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-</head>
+<style>
+      thead {
+            background-color: #4FA987;                                            
+            border-radius: 25px; /* Border radius pada thead */
+            color: white; /* Warna teks pada thead */
+            height: 50px; /* Sesuaikan ketinggian thead sesuai kebutuhan Anda */
+        }
+
+        .card {
+            border-radius: 25px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            border-radius: 25px; /* Menambahkan radius pada bagian body dari card */
+            margin-top: 0px;
+            padding: 20px;
+        }
+
+    
+
+        #example1 {
+          /* border: 2px solid rgb(0, 255, 136); */
+          padding: 10px;
+          border-radius: 30px;
+        }
+  
+</style>
+
+  </head>
 
 <body>
 
@@ -292,6 +321,8 @@
 
 <!-- Template Main JS File -->
 <script src="{{ asset('assets/Admin/js/main.js') }}"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 </body>
 

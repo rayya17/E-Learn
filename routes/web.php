@@ -38,6 +38,8 @@ Route::middleware('admin')->group(function(){
     Route::get('Profileguru',[AdminController::class, 'Profileguru'])->name('Profileguru');
     Route::get('Pengajuandana',[AdminController::class, 'Pengajuandana'])->name('Pengajuandana');
     Route::get('Detailguru/{id}',[AdminController::class, 'Detailguru'])->name('Detailguru');
+    Route::get('pengajuanguru', [AdminController::class, 'pengajuanguru'])->name('pengajuanguru');
+    Route::post('terimapengajuan/{id}', [AdminController::class, 'terimapengajuan'])->name('terimapengajuan');
 
 });
 
@@ -47,6 +49,7 @@ Route::middleware('guru')->group(function(){
     Route::resource('materi', MateriController::class);
     Route::get('Pengumpulantugas', [GuruController::class, 'Pengumpulantugas'])->name('Pengumpulantugas');
     Route::get('Penarikansaldo', [GuruController::class, 'Penarikansaldo'])->name('Penarikansaldo');
+    Route::patch('mengajukandana/{id}', [GuruController::class, 'mengajukandana'])->name('mengajukandana');
 
 
     // Route::resource('materiGuru',GuruController::class);
