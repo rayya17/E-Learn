@@ -16,6 +16,8 @@ class MateriController extends Controller
     public function index()
     {
         $materi = Materi::all();
+        // $user = Auth::id();
+        // $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
         $guru = Guru::with('user')->get();
         return view('guru.materi',compact('materi', 'guru'));
         // return view('guru.materi');

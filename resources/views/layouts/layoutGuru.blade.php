@@ -243,6 +243,10 @@
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
 
+        @php
+            $profile = \App\Models\Guru::where('user_id', Auth::user()->id)->firstOrFail();
+        @endphp
+
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
                 <img src="assets/img/logo.png" alt="">
@@ -278,7 +282,7 @@
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="{{ asset('storage/profile/' . $gr->foto_profile) }}" width="45px" height="50px" alt="Profile" class="rounded-circle" style="object-fit: cover;">
+                        <img src="{{ asset('storage/profile/' . $profile->foto_profile) }}" width="45px" height="50px" alt="Profile" class="rounded-circle" style="object-fit: cover;">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
                     </a>
                     <!-- End Profile Iamge Icon -->

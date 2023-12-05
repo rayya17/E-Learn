@@ -14,18 +14,24 @@ use Illuminate\Http\Request;
 class GuruController extends Controller
 {
     public function Dashboardguru(){
-        return view('guru.dashboardguru');
+        // $user = Auth::id();
+        // $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
+        $guru = Guru::with('user')->get();
+        return view('guru.dashboardguru', compact('guru'));
     }
 
-      public function materi(){
-        return view('guru.materi');
+    public function materi(){
+        $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
+        // $guru = Guru::with('user')->get();
+        return view('guru.materi', compact('guru'));
     }
     /**
      * Display a listing of the resource.
      */
-  
+
     public function Pengumpulantugas(Request $request){
-        return view('guru.pengumpulan');
+        $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
+        return view('guru.pengumpulan', compact('guru'));
     }
 
     public function Penarikansaldo(Request $request){
@@ -35,22 +41,22 @@ class GuruController extends Controller
         $mengajukan->tujuan_pengajuan = $request->tujuan_pengajuan;
         $mengajukan->status = 'sedang mengajukan';
 
-        $mengajukan->save(); 
+        $mengajukan->save();
         return view('guru.pengajuansaldo');
     }
 
     public function mengajukandana(Request $request, $id){
         // Temukan data berdasarkan ID
         $penarikansaldo = Penarikansaldo::findOrFail($id);
-    
+
         // Ubah status menjadi "Telah diajukan"
         $penarikansaldo->guru_id = $request->guru_id;
         $penarikansaldo->status = 'Telah diajukan';
         $penarikansaldo->save();
-    
+
         return redirect()->route('pengajuanguru')->with('success', 'Berhasil mengajukan dana!');
     }
- 
+
     public function logout()
     {
         Auth::logout();
