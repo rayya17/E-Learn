@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use File;
 use App\Models\Materi;
+use App\Models\Guru;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,7 +16,8 @@ class MateriController extends Controller
     public function index()
     {
         $materi = Materi::all();
-        return view('guru.materi',compact('materi'));
+        $guru = Guru::with('user')->get();
+        return view('guru.materi',compact('materi', 'guru'));
         // return view('guru.materi');
     }
 

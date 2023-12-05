@@ -92,33 +92,33 @@
             overflow-x: hidden;
         }
 
-        .col-lg-3,
+        /* .col-lg-3,
         .col-md-4 {
             /* Adjust the width of the sidebar as needed */
             flex: 0 0 25%;
-            max-width: 25%;
+            /* max-width: 25%;
         }
 
         .col-lg-9,
-        .col-md-8 {
+        .col-md-8 { */
             /* Adjust the width of the main content as needed */
-            flex: 0 0 75%;
+            /* flex: 0 0 75%;
             max-width: 75%;
         }
 
-        .single-course {
+        .single-course { */
             /* Add any necessary styling for your course cards */
-            margin-bottom: 20px;
+            /* margin-bottom: 20px;
             display: flex;
             flex-direction: column;
             height: 100%;
         }
 
         .course-body {
-            flex: 1; /* Menyesuaikan tinggi secara otomatis untuk konten */
-        }
+            flex: 1; Menyesuaikan tinggi secara otomatis untuk konten
+        } */ */
 
-        
+
         body {
             margin: 0;
             padding: 0;
@@ -163,14 +163,83 @@
           font-size: 14px;
         } */
 
-      
+        .container-card{
+            padding-top: 10px;
+            width: 350px;
+        }
 
+        .container-card .card{
+            min-height: 400px;
+            overflow: hidden;
+        }
+
+        .container-card .card .bg-image{
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px;
+        }
+
+        .container-card .card .bg-image .background{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .container-card .card .tengah{
+            position: absolute;
+            top: 130px
+        }
+
+        .container-card .card .tengah .profile{
+            overflow: hidden;
+            position: absolute;
+            left: 14px;
+            top: 21px;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            border-radius: 100%;
+        }
+
+        .container-card .card .tengah .profile .rounded-circle{
+            object-fit: cover;
+            width: 60px;
+            height: 60px;
+        }
+
+        .container-card .card .tengah .badge-class{
+            position: absolute;
+            right: 22px;
+            top: 47px;
+        }
+
+        .container-card .card .tengah .badge-class .badge{
+            width: 100%;
+            height: 30px;
+            font-size: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+        .container-card .card .text-card .title{
+            margin-top: 5px;
+            margin-bottom: 2px;
+        }
+
+        .container-card .card .text-card .desc{
+            margin-top: 0px;
+            padding-top: 0px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
 <body>
-
-
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -213,10 +282,6 @@
                         <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
                     </a><!-- End Profile Iamge Icon -->
-
-
-
-
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{ Auth::user()->name }}</h6>
@@ -225,7 +290,6 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                                 <i class="bi bi-person"></i>

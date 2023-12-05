@@ -158,14 +158,14 @@
                                             <ul class="dropdown">
                                                 <li><a href="{{route('Profile')}}"><i class="fa-solid fa-cart-shopping"></i>Profile</a></li>
                                                 <li>
-                                                    <form action="{{ route('logout') }}" method="POST">
-                                                        @csrf
-                                                        <button type="submit" class="dropdown-item d-flex align-items-center" style="border: none; background: none; cursor: pointer;">
-                                                            <i class="bi bi-box-arrow-right"></i>
-                                                            <span>Sign Out</span>
-                                                        </button>
-                                                    </form>
-                                                </li>
+                                                    <form id="logoutForm" action="{{ route('logout') }}" method="POST">
+                                                    @csrf
+                                                    <a href="#" onclick="document.getElementById('logoutForm').submit();">
+                                                        <i class="bi bi-box-arrow-right"></i>
+                                                        <span>Sign Out</span>
+                                                    </a>
+                                                </form>
+                                            </li>
                                             </ul>
                                         </li>
                                     </ul>
