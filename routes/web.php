@@ -75,4 +75,8 @@ Route::middleware('user')->group(function(){
     Route::get('/home', [HomeController::class, 'home'])->name('HomePage');
     Route::get('/detailpemesanan', [HomeController::class, 'detailpemesanan'])->name('DetailPemesanan');
     Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
+    // Route::get('profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/updateProfile/{id}', [ProfileController::class, 'updateProfile'])->name('updateProfile');
+    // Route::put('profileUpdate/{id}', [ProfileController::class, 'profileUpdate'])->name('profileUpdate');
+
 });
