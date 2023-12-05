@@ -22,8 +22,10 @@ class AdminController extends Controller
 
     public function Profileguru(){
         // $profileguru = guru::all();
-        $profileguru = user::where('role', 'guru')->get();
-        return view('admin.profileguru', compact('profileguru'));
+        $profileguru = Guru::with('user')->get();
+        $guruprofile = Guru::all();
+        // dd($profileguru);
+        return view('admin.profileguru', compact('profileguru','guruprofile'));
     }
 
     public function Pengajuandana(){
@@ -31,9 +33,9 @@ class AdminController extends Controller
     }
 
     public function Detailguru($id){
-        $user_id = Auth::id();
-        // $profileguru = guru::all();
-        return view('admin.detailguru', compact( 'user_id'));
+        $gurudetail = Guru::where('id',$id)->get();
+        // $gurudetail = guru::all();
+        return view('admin.detailguru', compact( 'gurudetail'));
     }
 
     public function calonguru(Request $request){

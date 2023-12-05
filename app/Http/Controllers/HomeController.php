@@ -17,4 +17,8 @@ class HomeController extends Controller
     public function detailpemesanan(){
         return view('users.detailpemesanan');
     }
+
+    public function detailpesan(){
+        return view('users.detailpesan');
+    }
 }

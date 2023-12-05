@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MateriController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\User;
@@ -74,9 +76,13 @@ Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->g
 Route::middleware('user')->group(function(){
     Route::get('/home', [HomeController::class, 'home'])->name('HomePage');
     Route::get('/detailpemesanan', [HomeController::class, 'detailpemesanan'])->name('DetailPemesanan');
+    Route::get('/detailpesan',[HomeController::class,'detailpesan'])->name('detailpesan');
     Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
     // Route::get('profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/updateProfile/{id}', [ProfileController::class, 'updateProfile'])->name('updateProfile');
     // Route::put('profileUpdate/{id}', [ProfileController::class, 'profileUpdate'])->name('profileUpdate');
 
+    Route::get('/order',[OrderController::class,'payment'])->name('payment');
 });
+
+Route::get('/coba', [PdfController::class ,'generatePDF']);

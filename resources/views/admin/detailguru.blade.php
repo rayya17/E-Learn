@@ -14,25 +14,28 @@
         <!-- Left side columns -->
         <div class="content-inner mt-3 py-0">
           <div class="row">
-                  <div class="col-lg-6 col-xl-12 mb-4">
-                      <div class="card">
-                          <div class="card-body">
-                              <div class="row">
-                                <div class="col-lg-3 mt-4">
-                                  <div class="card text-white" style="background-color: #4FA987;">
-                                    <div class="card-body text-center">
-                                      <img src="" alt="profile" style="border-radius: 50px;">
-                                      <div class="card-content">
-                                        <h4>Judul Card</h4>
-                                        <h5>subjudul</h5>
-                                      </div>
-                                    </div>
-                                  </div>
+            @foreach ($gurudetail as $gd)
+
+            <div class="col-lg-6 col-xl-12 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                          <div class="col-lg-3 mt-4">
+                            <div class="card text-white" style="background-color: #4FA987;">
+                              <div class="card-body text-center">
+                                <img class="mt-4" src="{{ asset('storage/profile/'.$gd->foto_profile) }}" alt="profile" style="border-radius: 50px; width: 100px; height: 100px;object-fit: cover">
+                                <div class="card-content">
+                                  <h4>{{ $gd->user->name }}</h4>
+                                  <h5>{{ $gd->pendidikan }}</h5>
                                 </div>
                               </div>
+                            </div>
                           </div>
-                      </div>
-                  </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
 
           </div>
       </div>
