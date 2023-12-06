@@ -23,9 +23,12 @@
     <!-- Web Font -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> --}}
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}">
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
     <!-- Nice Select CSS -->
@@ -50,6 +53,9 @@
 
     <!-- Eduland Colors -->
     <link rel="stylesheet" href="{{ asset('assets/css/colors/color1.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/style2.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/bootstrap/css/responsive.css') }}">
 
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

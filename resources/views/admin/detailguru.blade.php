@@ -23,9 +23,9 @@
                           <div class="col-lg-3 mt-4">
                             <div class="card text-white" style="background-color: #4FA987;">
                               <div class="card-body text-center">
-                                <img class="mt-4" src="{{ asset('storage/profile/'.$gd->foto_profile) }}" alt="profile" style="border-radius: 50px; width: 100px; height: 100px;object-fit: cover">
-                                <div class="card-content">
-                                  <h4>{{ $gd->user->name }}</h4>
+                                <img class="mt-4" src="{{ asset('storage/profile/'.$gd->foto_profile) }}" alt="profile" style="border-radius: 50px; width: 100px; height: 100px;object-fit: cover;">
+                                <div class="card-content" style="padding-bottom: 3px;">
+                                  <h4 >{{ $gd->user->name }}</h4>
                                   <h5>{{ $gd->pendidikan }}</h5>
                                 </div>
                               </div>

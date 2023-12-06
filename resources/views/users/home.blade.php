@@ -2,11 +2,26 @@
 
 @section('content')
     <!-- Courses -->
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-nav" id="sidebar-nav">
+            <ul class="nav nav-pills" style="margin-left: 80px;">
+                <li class="nav-item" style="border:2px solid green; border-radius:5px; margin-right:5px;">
+                  <a class="nav-link {{ request()->is('kelas10') ? '' : 'collapsed' }}"  href="{{ url('/home') }}" aria-current="page">Kelas 10</a>
+                </li>
+                <li class="nav-item" style="border:2px solid green; border-radius:5px; margin-right:5px;">
+                  <a class="nav-link {{ request()->is('kelas11') ? '' : 'collapsed' }}" href="{{ url('/home') }}">Kelas 11</a>
+                </li>
+                <li class="nav-item" style="border:2px solid green; border-radius:5px; margin-right:5px;">
+                  <a class="nav-link {{ request()->is('kelas12') ? '' : 'collapsed' }}" href="{{ url('/home') }}">Kelas 12</a>
+                </li>
+              </ul>
+        </ul>
+    </aside>
     <section class="courses section">
         <div class="container">
             <div class="row">
                 @foreach ($materi as $mtr)
-                    <div class="col-lg-4 col-md-6 col-12">
+                    <div class="col-lg-3 col-md-6 col-12">
                         <!-- Single Course -->
                         <div class="single-course" style="min-height: 400px;">
                             <!-- Course Head -->

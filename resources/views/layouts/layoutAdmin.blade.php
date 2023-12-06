@@ -15,7 +15,7 @@
  <!-- Google Fonts -->
  <link href="https://fonts.gstatic.com" rel="preconnect">
  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">  
+ <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
  <!-- Vendor CSS Files -->
  <link href="{{ asset('assets/Admin/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -36,14 +36,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <style>
       thead {
-            background-color: #4FA987;                                            
+            background-color: #4FA987;
             border-radius: 25px; /* Border radius pada thead */
             color: white; /* Warna teks pada thead */
             height: 50px; /* Sesuaikan ketinggian thead sesuai kebutuhan Anda */
         }
 
         .card {
-            border-radius: 25px;
+            border-radius: 15px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
 
@@ -53,14 +53,12 @@
             padding: 20px;
         }
 
-    
-
         #example1 {
           /* border: 2px solid rgb(0, 255, 136); */
           padding: 10px;
           border-radius: 30px;
         }
-  
+
 </style>
 
   </head>

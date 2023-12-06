@@ -22,10 +22,13 @@
                                     <div class="card-body text-center">
                                         <img class="mt-4" src="{{ asset('storage/profile/' . $p->foto_profile) }}"
                                             alt="profile"
-                                            style="border-radius: 50px; width: 100px; height: 100px;object-fit: cover">
+                                            style="border-radius: 50px; width: 100px; height: 100px;object-fit: cover; ">
                                         <!-- Adjust width and height as needed -->
-                                        <div class="card-content mt-3">
-                                            <h4>{{ $p->pendidikan }}</h4>
+                                        <div class="card-content mt-2">
+                                            <h4><strong>{{ $p->user->name }}</strong></h4>
+                                        </div>
+                                        <div class="card-content">
+                                            <p>{{ $p->pendidikan }}</p>
                                         </div>
                                         {{-- <a href="{{ route('Detailguru', ['id' => $p->id]) }}"> --}}
                                         <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
