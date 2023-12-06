@@ -9,17 +9,17 @@
             <div class="row">
                     <div class="col-md-12 col-lg-12 mt-3">
                 <div class="card">
-                    <div class="card-body mt-3"> 
+                    <div class="card-body"> 
                 <!-- Left side columns -->
                 <div class="col-lg-12">
                     <div class="row">
                         <table>
-                            <thead style="background-color: #4FA987; border-radius: 30px   " >
+                            <thead style="background-color: #4FA987;  " >
                                 <tr>
-                                    <th scope="col" style="text-align: center;">Metode Pembayaran</th>
+                                    <th scope="col" style="text-align: center; border-top-left-radius:10px;">Metode Pembayaran</th>
                                     <th scope="col" style="text-align: center;">Tujuan</th>
                                     <th scope="col" style="text-align: center;">Keterangan</th>
-                                    <th scope="col" style="text-align: center;">Aksi</th>
+                                    <th scope="col" style="text-align: center; border-top-right-radius:10px;">Aksi</th>
                                     
                                 </tr>
                                 </thead>
@@ -75,14 +75,14 @@
                       <div class="" value="bank" id="bankInput" style="display: none;">
                         <div class="mb-3">
                           <label for="kelas" class="form-label fw-bold">tujuan</label>
-                          <input type="text" name="tujuan" id="tujuan-bank" class="form-control" value="{{ old('tujuan') }}">
+                          <input type="text" name="tujuan_pengajuan" id="tujuan-bank" class="form-control" value="{{ old('tujuan') }}">
                           @if ($errors->has('keterangan_bank'))
                             <span class="text-tujuan">{{ $errors->first('tujuan') }}</span>
                           @endif
                         </div>
                         <div class="mb-3">
                           <label for="kelas" class="form-label fw-bold">Nomor Rekening</label>
-                          <input type="number" name="keterangan" id="keterangan" class="form-control"
+                          <input type="number" name="keterangan_pengajuan" id="keterangan" class="form-control"
                             value="{{ old('keterangan') }}">
                           @if ($errors->has('keterangan'))
                             <span class="text-danger">{{ $errors->first('keterangan') }}</span>

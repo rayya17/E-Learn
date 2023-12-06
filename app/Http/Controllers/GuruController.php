@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Guru;
 use App\Models\Penarikansaldo;
+use App\Models\Materi;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreGuruRequest;
 use App\Http\Requests\UpdateGuruRequest;
@@ -17,8 +18,9 @@ class GuruController extends Controller
     public function Dashboardguru(){
         // $user = Auth::id();
         // $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
+        $jumlahmateri = guru::count();
         $guru = Guru::with('user')->get();
-        return view('guru.dashboardguru', compact('guru'));
+        return view('guru.dashboardguru', compact('guru', 'jumlahmateri'));
     }
 
     public function materi(){
@@ -57,6 +59,12 @@ class GuruController extends Controller
 
         return redirect()->route('pengajuanguru')->with('success', 'Berhasil mengajukan dana!');
     }
+
+    // public function profileGuru (){
+    //     $user_id = Auth::id();
+    //     $profileGuru = guru::all();
+    //     return view ('guru.profileguru', compact ('user_id'));
+    // }
 
     public function logout()
     {

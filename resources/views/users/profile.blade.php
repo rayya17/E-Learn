@@ -61,18 +61,18 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Foto Profile</label>
-                                    <input type="file" name="foto_user" class="form-control" value="" required>
+                                    <input type="file" name="foto_user" class="form-control" value="" style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" required>
                                 </div>
                                     <div class="form-group">
                                         <label>Nama</label>
-                                        <input type="text" name="name" class="form-control flatpickr" value="{{ Auth::user()->name }}"  required>
+                                        <input type="text" name="name" class="form-control flatpickr" value="{{ Auth::user()->name }}" style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" required>
                                         @if ($errors->has('name'))
                                         <span class="text-danger">{{ $errors->first('name') }}</span>
                                      @endif
                                     </div>
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input type="email" name="email" class="form-control flatpickr" value="{{ Auth::user()->email }}" readonly>
+                                        <input type="email" name="email" class="form-control flatpickr" style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" value="{{ Auth::user()->email }}" readonly>
                                         @if ($errors->has('email'))
                                         <span class="text-danger">{{ $errors->first('email') }}</span>
                                      @endif
@@ -83,14 +83,14 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>No. Telepon</label>
-                                            <input type="number" name="no_telepon" class="form-control flatpickr"  value="0{{ Auth::user()->no_telepon }}" required>
+                                            <input type="number" name="no_telepon" class="form-control flatpickr"  value="0{{ Auth::user()->no_telepon }}" style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" required>
                                             @if ($errors->has('no_telepon'))
                                             <span class="text-danger">{{ $errors->first('no_telepon') }}</span>
                                          @endif
                                         </div>
                                         <div class="form-group">
                                             <label>Tanggal Lahir</label>
-                                            <input type="date" name="tanggal_lahir" class="form-control flatpickr"  value="" aria-placeholder="tanggal_lahir anda">
+                                            <input type="date" name="tanggal_lahir" class="form-control flatpickr"  value="" style="border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);" aria-placeholder="tanggal_lahir anda">
                                             @if ($errors->has('tanggal_lahir'))
                                             <span class="text-danger">{{ $errors->first('tanggal_lahir') }}</span>
                                          @endif
@@ -100,10 +100,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="ms-auto">
-                                <button type="submit" class="btn btn-success" style="border-radius: 15px;">Update</button>
-                            </div>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-danger" style="border-radius: 10px;">update</button>
                         </div>
                     </form>
                     </div>

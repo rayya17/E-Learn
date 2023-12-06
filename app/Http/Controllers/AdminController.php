@@ -6,6 +6,7 @@ use App\Mail\sendEmail;
 use App\Mail\sendMail;
 use App\Models\Guru;
 use App\Models\User;
+use App\Models\Materi;
 use App\Models\penarikansaldo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,7 @@ class AdminController extends Controller
     {
         $jumlahpemateri = user::where('role', 'guru')->count();
         $jumlahsiswa = user::where('role', 'user')->count();
+       
         return view('admin.dashboard', compact('jumlahpemateri', 'jumlahsiswa'));
     }
 

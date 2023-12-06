@@ -21,10 +21,10 @@
                   <table>
                       <thead id="example1">
                           <tr>
-                              <th scope="col" style="text-align: center;">Nama</th>
+                              <th scope="col" style="text-align: center; border-top-right-radius:10px;">Nama</th>
                               <th scope="col" style="text-align: center;">Pembayaran</th>
                               <th scope="col" style="text-align: center;">Keterangan</th>
-                              <th scope="col" style="text-align: center;">Aksi</th>
+                              <th scope="col" style="text-align: center; border-top-left-radius:10px;">Aksi</th>
                               
                           </tr>
                           </thead>

@@ -24,7 +24,7 @@
           <!-- End Sales Card -->
 
             <!-- Revenue Card -->
-            <div class="col-xxl-3 col-md-6">
+            <div class="col-xxl-3 col-md-4">
               <div class="card info-card revenue-card">
 
                 <div class="card-body">
@@ -44,7 +44,7 @@
             </div><!-- End Revenue Card -->
 
             <!-- Customers Card -->
-            <div class="col-xxl-3 col-md-6">
+            <div class="col-xxl-3 col-md-4">
 
               <div class="card info-card customers-card">
 
@@ -66,7 +66,7 @@
 
             </div><!-- End Customers Card -->
 
-            <div class="col-xxl-3 col-md-6">
+            <div class="col-xxl-3 col-md-4">
 
               <div class="card info-card customers-card">
 
@@ -87,7 +87,7 @@
 
             </div>
 
-            <div class="col-xxl-3 col-md-6">
+            {{-- <div class="col-xxl-3 col-md-6">
 
               <div class="card info-card customers-card">
 
@@ -99,14 +99,14 @@
                         <i class="fa-solid fa-book"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>1244</h6>
+                  <h6>{{ $jumlahmateri  }}</h6>
                     </div>
                   </div>
 
                 </div>
               </div>
 
-            </div>
+            </div> --}}
 
             <!-- Reports -->
             <div class="row">
