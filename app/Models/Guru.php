@@ -20,7 +20,6 @@ class Guru extends Model
         'tanggal_lahir',
         'pendidikan',
         'alamat',
-
     ];
 
     public function user(): BelongsTo
@@ -31,6 +30,11 @@ class Guru extends Model
     public function penarikansaldo(): HasMany
     {
         return $this->hasMany(penarikansaldo::class);
+    }
+
+    public function guru(): HasMany
+    {
+        return $this->hasMany(guru::class);
     }
 
 }

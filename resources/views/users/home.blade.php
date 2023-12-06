@@ -18,7 +18,7 @@
                                 <div class="name-price">
                                     <div class="teacher-info">
                                         {{-- @foreach ($guru as $gr) --}}
-                                            <img src="{{ asset('storage/profile/' . $guru->foto_profile) }}"
+                                            <img src="{{ asset('storage/profile/' . $mtr->guru->foto_profile) }}"
                                                 alt="#" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
                                         {{-- @endforeach --}}
                                     </div>

@@ -91,13 +91,13 @@
                                                  alt="">
                                          </div>
                                          <div class="tengah d-flex align-items-center justify-content-between w-100 px-2">
-                                             @foreach ($guru as $gr)
+
                                                  <div class="profile">
                                                      <img class="rounded-circle bg-dark" width="60" height="60"
-                                                         src="{{ asset('storage/profile/' . $gr->foto_profile) }}"
+                                                         src="{{ asset('storage/profile/' . $mtr->guru->foto_profile) }}"
                                                          alt="">
                                                  </div>
-                                             @endforeach
+
                                              <div class="badge-class">
                                                  <span class="badge bg-success">Rp. {{ $mtr->harga }}</span>
                                              </div>
@@ -275,7 +275,7 @@
                          <label for="inputText" class="col-sm-4 col-form-label">Mata Pelajaran</label>
                          <div class="row">
                              <div class="col-sm-12">
-                                 <select class="form-select form-select-sm mb-2" name="mapel"
+                                 <select class="form-select form-select-sm mb-2 @error('mapel') is-invalid @enderror" name="mapel"
                                      aria-label="Large select example" id="mapel" width="200px" value="{{old('mapel')}}">
                                      <option selected>Pilih Mata Pelajaran</option>
                                      <option value="Matematika">Matematika</option>
@@ -292,62 +292,86 @@
                          <label for="inputText" class="col-sm-6 col-form-label">Nama Materi</label>
                          <div class="row mb-2">
                              <div class="col-sm-12">
-                                 <input type="text" name="nama_materi" class="form-control" id="nama_materi"
+                                 <input type="text" name="nama_materi" class="form-control @error('nama_materi') is-invalid @enderror" id="nama_materi"
                                      width="200px" value="{{old('nama_materi')}}">
                              </div>
+                             @error('nama_materi')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                          </div>
                          <label for="inputText" class="col-sm-12 col-form-label">File Materi</label>
                          <div class="row">
                              <div class="col-sm-12">
-                                 <input type="file" name="file_materi" class="form-control" id="file_materi"
+                                 <input type="file" name="file_materi" class="form-control @error('file_materi') is-invalid @enderror" id="file_materi"
                                      width="200px" value="{{old('file_materi')}}">
                              </div>
+                             @error('file_materi')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                          </div>
                          <label for="inputText" class="col-sm-2 col-form-label">Kelas</label>
                          <div class="row">
                              <div class="col-sm-12">
-                                 <select class="form-select form-select-sm mb-1" name="kelas"
+                                 <select class="form-select form-select-sm mb-1  @error('kelas') is-invalid @enderror" name="kelas"
                                      aria-label="Large select example" id="kelas" width="200px" value="{{old('kelas')}}">
                                      <option selected>Pilih Kelas</option>
                                      <option value="10">10</option>
                                      <option value="11">11</option>
                                      <option value="12">12</option>
                                  </select>
+                                 @error('kelas')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                              </div>
                          </div>
                          <label for="inputText" class="col-sm-6 col-form-label">Harga</label>
                          <div class="row">
                              <div class="col-sm-12" width="200px">
-                                 <input type="number" name="harga" class="form-control" id="harga"
+                                 <input type="number" name="harga" class="form-control  @error('harga') is-invalid @enderror" id="harga"
                                      width="200px" value="{{old('harga')}}">
+                                @error('harga')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                              </div>
                          </div>
                          <label for="inputText" class="col-sm-6 col-form-label">Deskripsi</label>
                          <div class="row">
                              <div class="col-sm-12" width="200px">
-                                 <textarea type="text" name="deskripsi" class="form-control" id="deskripsi" width="200px" value="{{old('deskripsi')}}"></textarea>
+                                 <textarea type="text" name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" width="200px" value="{{old('deskripsi')}}"></textarea>
                              </div>
+                             @error('deskripsi')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                          </div>
                          <br>
                          <h6 class="modal-title" id="exampleModalLabel">Tambah Tugas</h6>
                          <label for="inputText" class="col-sm-6 col-form-label">Nama Tugas</label>
                          <div class="row mb-1">
                              <div class="col-sm-12">
-                                 <input type="text" name="tugas" class="form-control" id="tugas"
+                                 <input type="text" name="tugas" class="form-control @error('tugas') is-invalid @enderror" id="tugas"
                                      width="200px" value="{{old('tugas')}}">
+                                @error('tugas')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                              </div>
                          </div>
                          <label for="inputText" class="col-sm-6 col-form-label">Detail Tugas</label>
                          <div class="row mb-1">
                              <div class="col-sm-12">
-                                 <textarea type="text" name="detail_tugas" class="form-control" id="detail_tugas" width="200px" value="{{old('detail_tugas')}}"></textarea>
+                                 <textarea type="text" name="detail_tugas" class="form-control @error('detail_tugas') is-invalid @enderror" id="detail_tugas" width="200px" value="{{old('detail_tugas')}}"></textarea>
+                                 @error('detail_tugas')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                              </div>
                          </div>
                          <label for="inputText" class="col-sm-6 col-form-label">Tanggal Tugas</label>
                          <div class="row mb-1">
                              <div class="col-sm-12">
-                                 <input type="date" name="tanggal_tugas" class="form-control" id="tanggal_tugas"
+                                 <input type="date" name="tanggal_tugas" class="form-control @error('tanggal_tugas') is-invalid @enderror" id="tanggal_tugas"
                                      width="200px" value="{{old('tanggal_tugas')}}">
+                                @error('tanggal_tugas')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                              </div>
                          </div>
                  </div>
