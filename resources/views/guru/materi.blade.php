@@ -121,12 +121,12 @@
                                          </form>
                                      </div>
                                     </div>
-                                    <button type="button" class="large-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
                                 </div>
                                      {{-- </div> --}}
                          @endforeach
+                         <button type="button" class="large-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="fas fa-plus"></i>
+                        </button>
                      </div>
                      {{-- <button type="button" class="edit-button" data-bs-toggle="modal"
                                      data-bs-target="#EditModal">
@@ -276,7 +276,7 @@
                          <div class="row">
                              <div class="col-sm-12">
                                  <select class="form-select form-select-sm mb-2" name="mapel"
-                                     aria-label="Large select example" id="mapel" width="200px">
+                                     aria-label="Large select example" id="mapel" width="200px" value="{{old('mapel')}}">
                                      <option selected>Pilih Mata Pelajaran</option>
                                      <option value="Matematika">Matematika</option>
                                      <option value="IPA">IPA</option>
@@ -284,27 +284,30 @@
                                      <option value="Bahasa Indonesia">Bahasa Indonesia</option>
                                      <option value="Bahasa Inggris">Bahasa Inggris</option>
                                  </select>
+                                 @error('mapel')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                              </div>
                          </div>
                          <label for="inputText" class="col-sm-6 col-form-label">Nama Materi</label>
                          <div class="row mb-2">
                              <div class="col-sm-12">
                                  <input type="text" name="nama_materi" class="form-control" id="nama_materi"
-                                     width="200px">
+                                     width="200px" value="{{old('nama_materi')}}">
                              </div>
                          </div>
                          <label for="inputText" class="col-sm-12 col-form-label">File Materi</label>
                          <div class="row">
                              <div class="col-sm-12">
                                  <input type="file" name="file_materi" class="form-control" id="file_materi"
-                                     width="200px">
+                                     width="200px" value="{{old('file_materi')}}">
                              </div>
                          </div>
                          <label for="inputText" class="col-sm-2 col-form-label">Kelas</label>
                          <div class="row">
                              <div class="col-sm-12">
                                  <select class="form-select form-select-sm mb-1" name="kelas"
-                                     aria-label="Large select example" id="kelas" width="200px">
+                                     aria-label="Large select example" id="kelas" width="200px" value="{{old('kelas')}}">
                                      <option selected>Pilih Kelas</option>
                                      <option value="10">10</option>
                                      <option value="11">11</option>
@@ -316,13 +319,13 @@
                          <div class="row">
                              <div class="col-sm-12" width="200px">
                                  <input type="number" name="harga" class="form-control" id="harga"
-                                     width="200px">
+                                     width="200px" value="{{old('harga')}}">
                              </div>
                          </div>
                          <label for="inputText" class="col-sm-6 col-form-label">Deskripsi</label>
                          <div class="row">
                              <div class="col-sm-12" width="200px">
-                                 <textarea type="text" name="deskripsi" class="form-control" id="deskripsi" width="200px"></textarea>
+                                 <textarea type="text" name="deskripsi" class="form-control" id="deskripsi" width="200px" value="{{old('deskripsi')}}"></textarea>
                              </div>
                          </div>
                          <br>
@@ -331,20 +334,20 @@
                          <div class="row mb-1">
                              <div class="col-sm-12">
                                  <input type="text" name="tugas" class="form-control" id="tugas"
-                                     width="200px">
+                                     width="200px" value="{{old('tugas')}}">
                              </div>
                          </div>
                          <label for="inputText" class="col-sm-6 col-form-label">Detail Tugas</label>
                          <div class="row mb-1">
                              <div class="col-sm-12">
-                                 <textarea type="text" name="detail_tugas" class="form-control" id="detail_tugas" width="200px"></textarea>
+                                 <textarea type="text" name="detail_tugas" class="form-control" id="detail_tugas" width="200px" value="{{old('detail_tugas')}}"></textarea>
                              </div>
                          </div>
                          <label for="inputText" class="col-sm-6 col-form-label">Tanggal Tugas</label>
                          <div class="row mb-1">
                              <div class="col-sm-12">
                                  <input type="date" name="tanggal_tugas" class="form-control" id="tanggal_tugas"
-                                     width="200p'/x">
+                                     width="200px" value="{{old('tanggal_tugas')}}">
                              </div>
                          </div>
                  </div>

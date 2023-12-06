@@ -17,10 +17,10 @@
                             <div class="course-body">
                                 <div class="name-price">
                                     <div class="teacher-info">
-                                        @foreach ($guru as $gr)
-                                            <img src="{{ asset('storage/profile/' . $gr->foto_profile) }}"
+                                        {{-- @foreach ($guru as $gr) --}}
+                                            <img src="{{ asset('storage/profile/' . $guru->foto_profile) }}"
                                                 alt="#" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
-                                        @endforeach
+                                        {{-- @endforeach --}}
                                     </div>
                                     <span class="price" data-toggle="modal" data-target="#exampleModal"
                                         data-materi="{{ $mtr->nama_materi }}" data-harga="{{ $mtr->harga }}">Rp.

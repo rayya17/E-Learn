@@ -85,7 +85,7 @@
         }
 
         .row {
-            margin-right: -10px;
+            margin-right: 15px;
             margin-left: -10px;
         }
 
@@ -96,7 +96,7 @@
         /* .col-lg-3,
         .col-md-4 {
             /* Adjust the width of the sidebar as needed */
-            flex: 0 0 25%;
+            /* flex: 0 0 25%; */
             /* max-width: 25%;
         }
 
@@ -164,7 +164,75 @@
           font-size: 14px;
         } */
 
+        .container-card{
+            padding-top: 10px;
+            width: 325px;
+        }
+        .container-card .card{
+            min-height: 400px;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+        .container-card .card .bg-image{
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8px;
+        }
 
+        .container-card .card .bg-image .background{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .container-card .card .tengah{
+            position: absolute;
+            top: 130px
+        }
+
+        .container-card .card .tengah .profile{
+            overflow: hidden;
+            position: absolute;
+            left: 14px;
+            top: 21px;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            border-radius: 100%;
+        }
+        .container-card .card .tengah .profile .rounded-circle{
+            object-fit: cover;
+            width: 60px;
+            height: 60px;
+        }
+
+        .container-card .card .tengah .badge-class{
+            position: absolute;
+            right: 22px;
+            top: 47px;
+        }
+        .container-card .card .tengah .badge-class .badge{
+            width: 100%;
+            height: 30px;
+            font-size: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+        .container-card .card .text-card .title{
+            margin-top: 5px;
+            margin-bottom: 2px;
+        }
+
+        .container-card .card .text-card .desc{
+            margin-top: 0px;
+            padding-top: 0px;
+            margin-bottom: 10px;
+        }
 
     </style>
 </head>
