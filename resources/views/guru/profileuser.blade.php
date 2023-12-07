@@ -71,9 +71,18 @@
                     </div>
                      </div>
                     </div>
+                    {{-- <div class="d-flex justify-content-start mt-5"> <!-- Add margin-top for spacing between buttons -->
+                        <button type="button" class="btn btn-danger" onclick="cancelUpdate({{ $user->id }})">cancel</button>
+                    </div>
                         <div class="d-flex justify-content-end">
                             <button class="btn btn-danger" style="border-radius: 5px;">update</button>
-                        </div>
+                        </div> --}}
+                        {{-- <div class="modal-footer"> --}}
+                            <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-secondary mr-2" onclick="goToDashboard()" style="border-radius: 5px;" >Kembali</button>
+                            <button type="button" class="btn btn-success" style="border-radius: 5px;">update</button>
+                          </div>
+                    
                 </form>
                 @endforeach
             </div>              
@@ -100,6 +109,10 @@
                 console.log(error);
             }
         });
+    }
+    function goToDashboard() {
+        // Redirect to the dashboard route
+        window.location.href = "{{ route('dashboardguru') }}";
     }
 </script>
 @endsection
