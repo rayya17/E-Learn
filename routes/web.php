@@ -49,15 +49,15 @@ Route::middleware('guru')->group(function(){
     Route::get('dashboardguru',[GuruController::class,'Dashboardguru'])->name('dashboardguru');
     // Route::get('materi',[MateriController::class,'index'])->name('materi');
     Route::resource('materi', MateriController::class);
-    // Route::put('materi-update/{id}',[MateriController::class,'update'])->name('update.materi');
-    // Route::delete('materi/{id}/delete', [MateriController::class, 'destroy'])->name('materi.destroy');
     Route::get('Pengumpulantugas', [GuruController::class, 'Pengumpulantugas'])->name('Pengumpulantugas');
     Route::get('Penarikansaldo', [GuruController::class, 'Penarikansaldo'])->name('Penarikansaldo');
     Route::patch('mengajukandana/{id}', [GuruController::class, 'mengajukandana'])->name('mengajukandana');
-
+    Route::get('/profileguru', [ProfileController::class, 'profileGuru'])->name('profileguru');
+    Route::put('/profileguruUp/{id}', [ProfileController::class, 'profileguruUp'])->name('profileguruUp');
 
     // Route::resource('materiGuru',GuruController::class);
 });
+
 
 Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->group(function () {
     //Register Page
@@ -71,6 +71,12 @@ Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->g
     //Login Page
     Route::get('/login','loginPage')->name('loginPage');
     Route::post('/loginproses', 'loginproses')->name('loginproses');
+
+    //forgot and reset password
+    Route::get('/forgot-password','forgotpassword')->middleware('guest')->name('password.request');
+    Route::post('/forgot-password', 'forgotpassword_store' )->middleware('guest')->name('password.email');
+    Route::get('/reset-password/{token}', 'resetpassword_token')->middleware('guest')->name('password.reset');
+    Route::post('/reset-password', 'resetpassword')->middleware('guest')->name('password.update');
 });
 
 Route::middleware('user')->group(function(){
@@ -78,9 +84,7 @@ Route::middleware('user')->group(function(){
     Route::get('/detailpemesanan', [HomeController::class, 'detailpemesanan'])->name('DetailPemesanan');
     Route::get('/detailpesan',[HomeController::class,'detailpesan'])->name('detailpesan');
     Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
-    // Route::get('profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/updateProfile/{id}', [ProfileController::class, 'updateProfile'])->name('updateProfile');
-    // Route::put('profileUpdate/{id}', [ProfileController::class, 'profileUpdate'])->name('profileUpdate');
 
     Route::get('/order',[OrderController::class,'payment'])->name('payment');
 });
