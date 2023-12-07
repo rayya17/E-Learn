@@ -70,6 +70,20 @@
              transition: background-color 0.3s ease;
              margin-right: 25px
          }
+           .edit-button {
+             position: absolute;
+             bottom: 0;
+             right: 20;
+             margin: 10px;
+             background-color: #9f35dc;
+             color: #fff;
+             border: none;
+             padding: 5px 25px;
+             border-radius: 5px;
+             cursor: pointer;
+             transition: background-color 0.3s ease;
+             margin-right: 25px
+         }
 
          .delete-button:hover {
              background-color: #c82333;
@@ -110,15 +124,21 @@
                                                  <p>{{ $mtr->deskripsi }}</p>
                                              </div>
                                          </div>
-                                         <form id="delete-form-{{ $mtr->id }}"
-                                             action="{{ route('materi.destroy', $mtr->id) }}" method="POST">
-                                             @method('DELETE')
-                                             @csrf
-                                             <button type="button" class="delete-button"
-                                                 onclick="confirmDelete('{{ $mtr->id }}')">
-                                                 <i class="fa-solid fa-trash"></i>
-                                             </button>
-                                         </form>
+                                        <div class="d-flex justify-content-between align-items-center">
+                    <!-- Button with Eye Icon (Align to the left) -->
+                    <button type="button" onclick="window.location='{{ url('/') }}'" class="edit-button">
+                        <i class="fas fa-eye"></i>
+                    </button>
+
+                    <!-- Delete Button (Align to the right) -->
+                    <form id="delete-form-{{ $mtr->id }}" action="{{ route('materi.destroy', $mtr->id) }}" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <button type="button" class="delete-button" onclick="confirmDelete('{{ $mtr->id }}')">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </form>
+                    
                                      </div>
                                     </div>
                                 </div>

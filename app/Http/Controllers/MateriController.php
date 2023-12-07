@@ -107,10 +107,11 @@ class MateriController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Materi $materi)
-    {
-        //
-    }
+  public function show(Materi $materi)
+{
+    return view('guru.detailmateri', compact('materi'));
+}
+
 
     /**
      * Show the form for editing the specified resource.
