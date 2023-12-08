@@ -8,6 +8,7 @@ use App\Models\Guru;
 use App\Models\User;
 use App\Models\Materi;
 use App\Models\penarikansaldo;
+use App\Models\Pendapatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -18,8 +19,9 @@ class AdminController extends Controller
     {
         $jumlahpemateri = user::where('role', 'guru')->count();
         $jumlahsiswa = user::where('role', 'user')->count();
-       
-        return view('admin.dashboard', compact('jumlahpemateri', 'jumlahsiswa'));
+        $pendapatan = Pendapatan::all()->where('user_id', auth()->id())->pluck('pendapatan')->sum();
+
+        return view('admin.dashboard', compact('jumlahpemateri', 'jumlahsiswa', 'pendapatan'));
     }
 
     public function Profileguru(){
@@ -104,7 +106,7 @@ class AdminController extends Controller
 
     public function terimapengajuan($id)
     {
-        
+
     }
 
     public function logout()

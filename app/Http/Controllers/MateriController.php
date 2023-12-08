@@ -82,7 +82,6 @@ class MateriController extends Controller
             $file_name = time() . '_' . $file_materi->getClientOriginalName();
             $file_materi->move(public_path('pdf_files'), $file_name);
             $DataGuru= Guru::where('user_id', Auth()->user()->id)->first();
-            // dd($DataGuru);
 
             $materi = Materi::create([
                 'mapel' => $request->mapel,

@@ -5,8 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
+    <!-- @TODO: replace SET_YOUR_CLIENT_KEY_HERE with your client key -->
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="SB-Mid-client-YBHcDleTAgHLQh8g"></script>
+    <!-- Note: replace with src="https://app.midtrans.com/snap/snap.js" for Production environment -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <style>
     /* Global Rules */
@@ -34,22 +39,22 @@
         box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     }
 
-    .cancel{
+    .cancel {
         font-size: 17px;
         padding: 0.2em 2em;
         border: transparent;
         box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-        background:#F03333;
+        background: #F03333;
         color: white;
         border-radius: 4px;
     }
 
-    .cancel:hover{
+    .cancel:hover {
         background: rgb(2, 0, 36);
         background: linear-gradient(90deg, rgb(255, 34, 30) 0%, rgb(255, 72, 0) 100%);
     }
 
-    .cancel:active{
+    .cancel:active {
         transform: translate(0em, 0.2em);
     }
 
@@ -95,26 +100,70 @@
                                 <img src="{{ url('storage/books.png') }}" class="img-responsive" alt="">
                             </div>
                             <div class="col-6">
-                                <div class="fw-bold">BUDDHA CLASS</div>
-                                <div style="font-family:sans-serif;">Total : 100.000.00</div>
+                                <div class="fw-bold">{{ $orderview['nama_materi'] }}</div>
+                                <div style="font-family:sans-serif;">Total : Rp {{ number_format($orderview['harga']) }}
+                                </div>
                             </div>
                         </div>
                         <div class="row ">
-                            <a href="#" class="btn btn btn-lg col-12 buy-now-btn  ">CheckOut</a>
+                            <button class="btn btn btn-lg col-12 buy-now-btn" id="pay-button">CheckOut</button>
                             <a href="#" class="btn btn btn-sm col-12 mt-3 cancel "
                                 style="font-weight: 700;">Cancel</a>
                         </div>
 
                     </div>
 
+
                 </div>
             </div>
         </div>
     </div>
 
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
     </script>
+    <script type="text/javascript">
+        // For example trigger on button clicked, or any time you need
+        var payButton = document.getElementById('pay-button');
+        window.snap.pay('{{ $snapToken }}', {
+            onSuccess: function(result) {
+                // Tampilkan notifikasi SweetAlert untuk memberi tahu pengguna bahwa pembayaran berhasil
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Pembayaran Berhasil!',
+                    text: 'Terima kasih atas pembayarannya.',
+                }).then(function() {
+                    // Jalankan fungsi callback di sini menggunakan Ajax
+                    // Menggunakan library fetch API tanpa jQuery
+                    fetch('{{ route('callback') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}', // Jangan lupa untuk menyertakan CSRF token jika Anda menggunakan Laravel
+                            },
+                            body: JSON.stringify({
+                                order_id: '{{ $order->id }}',
+                                status_code: 200,
+                            }),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data); // Log response jika perlu
+                            // Setelah menyelesaikan pemanggilan Ajax, lakukan redirect
+                            window.location.href = '{{ route('HomePage') }}';
+                        })
+                        .catch(error => {
+                            console.error(error); // Log error jika perlu
+                            // Setelah menyelesaikan pemanggilan Ajax, lakukan redirect
+                            window.location.href = '{{ route('HomePage') }}';
+                        });
+                });
+            }
+
+        });
+    </script>
+
 </body>
 
 </html>

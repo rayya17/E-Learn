@@ -142,8 +142,11 @@
                                      </div>
                                     </div>
                                 </div>
-                                     {{-- </div> --}}
-                         @endforeach
+                                {{-- </div> --}}
+                                @endforeach
+                                <button type="button" class="large-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <i class="fas fa-plus"></i>
+                                </button>
                          <button type="button" class="large-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="fas fa-plus"></i>
                         </button>

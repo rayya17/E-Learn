@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->bigInteger('total_price');
+            $table->foreignId('materi_id')->references('id')->on('materis')->cascadeOnDelete();
             $table->enum('status',['Unpaid','Paid']);
+            $table->unsignedBigInteger('total_price');
             $table->timestamps();
         });
     }

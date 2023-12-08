@@ -86,7 +86,9 @@ Route::middleware('user')->group(function(){
     Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
     Route::put('/updateProfile/{id}', [ProfileController::class, 'updateProfile'])->name('updateProfile');
 
-    Route::get('/order',[OrderController::class,'payment'])->name('payment');
+    Route::get('/order/{order}',[HomeController::class,'payment'])->name('payment');
+     Route::post('/pesan/{materi}',[HomeController::class,'checkout'])->name('checkout');
+     Route::post('/mitrans-callback',[HomeController::class,'callback'])->name('callback');
 });
 
 Route::get('/coba', [PdfController::class ,'generatePDF']);

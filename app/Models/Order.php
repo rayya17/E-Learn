@@ -12,7 +12,16 @@ class Order extends Model
     protected $quarded = [
 
     ];
+    protected $fillable = [
+        'user_id',
+        'materi_id',
+        'total_price'
+    ];
     public function user(): BelongsTo{
         return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function Materi(): BelongsTo{
+        return $this->belongsTo(Materi::class,'materi_id','id');
     }
 }
