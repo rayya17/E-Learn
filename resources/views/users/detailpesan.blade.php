@@ -107,7 +107,7 @@
                         </div>
                         <div class="row ">
                             <button class="btn btn btn-lg col-12 buy-now-btn" id="pay-button">CheckOut</button>
-                            <a href="#" class="btn btn btn-sm col-12 mt-3 cancel "
+                            <a href="{{ url()->previous() }}" class="btn btn btn-sm col-12 mt-3 cancel "
                                 style="font-weight: 700;">Cancel</a>
                         </div>
 
@@ -125,42 +125,47 @@
     </script>
     <script type="text/javascript">
         // For example trigger on button clicked, or any time you need
+        // Ambil elemen tombol pembayaran berdasarkan ID
         var payButton = document.getElementById('pay-button');
-        window.snap.pay('{{ $snapToken }}', {
-            onSuccess: function(result) {
-                // Tampilkan notifikasi SweetAlert untuk memberi tahu pengguna bahwa pembayaran berhasil
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Pembayaran Berhasil!',
-                    text: 'Terima kasih atas pembayarannya.',
-                }).then(function() {
-                    // Jalankan fungsi callback di sini menggunakan Ajax
-                    // Menggunakan library fetch API tanpa jQuery
-                    fetch('{{ route('callback') }}', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}', // Jangan lupa untuk menyertakan CSRF token jika Anda menggunakan Laravel
-                            },
-                            body: JSON.stringify({
-                                order_id: '{{ $order->id }}',
-                                status_code: 200,
-                            }),
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log(data); // Log response jika perlu
-                            // Setelah menyelesaikan pemanggilan Ajax, lakukan redirect
-                            window.location.href = '{{ route('HomePage') }}';
-                        })
-                        .catch(error => {
-                            console.error(error); // Log error jika perlu
-                            // Setelah menyelesaikan pemanggilan Ajax, lakukan redirect
-                            window.location.href = '{{ route('HomePage') }}';
-                        });
-                });
-            }
 
+        // Tambahkan event listener untuk menanggapi klik pada tombol pembayaran
+        payButton.addEventListener('click', function() {
+            // Jalankan window.snap.pay saat tombol diklik
+            window.snap.pay('{{ $snapToken }}', {
+                onSuccess: function(result) {
+                    // Tampilkan notifikasi SweetAlert untuk memberi tahu pengguna bahwa pembayaran berhasil
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Pembayaran Berhasil!',
+                        text: 'Terima kasih atas pembayarannya.',
+                    }).then(function() {
+                        // Jalankan fungsi callback di sini menggunakan Ajax
+                        // Menggunakan library fetch API tanpa jQuery
+                        fetch('{{ route('callback') }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}', // Jangan lupa untuk menyertakan CSRF token jika Anda menggunakan Laravel
+                                },
+                                body: JSON.stringify({
+                                    order_id: '{{ $order->id }}',
+                                    status_code: 200,
+                                }),
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data); // Log response jika perlu
+                                // Setelah menyelesaikan pemanggilan Ajax, lakukan redirect
+                                window.location.href = '{{ route('HomePage') }}';
+                            })
+                            .catch(error => {
+                                console.error(error); // Log error jika perlu
+                                // Setelah menyelesaikan pemanggilan Ajax, lakukan redirect
+                                window.location.href = '{{ route('HomePage') }}';
+                            });
+                    });
+                }
+            });
         });
     </script>
 

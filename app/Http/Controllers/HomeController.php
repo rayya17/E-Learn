@@ -61,6 +61,17 @@ class HomeController extends Controller
 
     public function checkout(Materi $materi)
     {
+        $existingOrder = Order::where('user_id', auth()->id())->where('materi_id', $materi->id)->first();
+        if ($existingOrder) {
+            if ($existingOrder->status = 'unpaid') {
+                return redirect()->route('payment', $existingOrder->id)->with('success', 'Anda sudah memesan sebelum nya, mohon lanjutkan pembayaran');
+            }
+
+            if ($existingOrder->status = 'paid') {
+                return back()->with('success', 'Anda sudah membeli materi ini sebelum nya');
+            }
+        }
+
         $order = Order::create([
             'user_id' => auth()->id(),
             'materi_id' => $materi->id,
