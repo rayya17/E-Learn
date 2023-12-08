@@ -144,7 +144,7 @@
             background-color: #4FA987; /* Warna latar belakang thead */
             border-radius: 15px; /* Border radius pada thead */
             color: white; /* Warna teks pada thead */
-            height: 50px; /* Sesuaikan ketinggian thead sesuai kebutuhan Anda */
+            height: 45px; /* Sesuaikan ketinggian thead sesuai kebutuhan Anda */
         }
 
         .card {
@@ -154,7 +154,7 @@
 
         .card-body {
             border-radius: 25px; /* Menambahkan radius pada bagian body dari card */
-            margin-top: 20px;
+            margin-top: 10px;
             padding: 20px;
         }
 
@@ -290,7 +290,7 @@
                             <span>{{ Auth::user()->role }}</span>
                         </li>
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                            <a class="dropdown-item d-flex align-items-center" href="profileguru">
                                 <i class="bi bi-person"></i>
                                 <span>My Profile</span>
                             </a>
@@ -368,7 +368,7 @@
             </li>
         </ul>
 
-    </aside><!-- End Sidebar-->
+    </aside><!-- End Sidebar--> 
     <div class="main-content py-3 px-3 mt-1 ">
         <div class="container-fluid">
             @yield('content')
