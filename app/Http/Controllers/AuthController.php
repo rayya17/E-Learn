@@ -6,6 +6,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
+// use App\Http\Controllers\Str;
+use Illuminate\Support\Str;
+use Illuminate\Auth\Events\PasswordReset;
+
 
 class AuthController extends Controller
 {
@@ -154,19 +159,6 @@ class AuthController extends Controller
         $foto_profileName = uniqid() . '.' . $foto_profile->getClientOriginalExtension();
         $foto_profile->storeAs('profile/',$foto_profileName);
 
-        // $foto_sertifikat = $request->file('foto_sertifikat');
-        // $foto_sertifikatName = uniqid() . '.' . $foto_sertifikat->getClientOriginalExtension();
-        // $foto_sertifikat->storeAs('sertifikat/',$foto_sertifikatName);
-
-        // $foto_ktp = $request->file('foto_ktp');
-        // $foto_ktpName = uniqid() . '.' . $foto_ktp->getClientOriginalExtension();
-        // $foto_ktp->storeAs('ktp/',$foto_ktpName);
-
-        // dd($user);
-        // $foto_profile = $request->hasFile('foto_profile') ? $request->file('foto_profile')->store('profile', 'public') : null;
-        // $foto_sertifikat = $request->hasFile('foto_sertifikat') ? $request->file('foto_sertifikat')->store('sertifikat', 'public') : null;
-        // $foto_ktp = $request->hasFile('foto_ktp') ? $request->file('foto_ktp')->store('ktp', 'public') : null;
-
         User::find($user->id)->Guru()->create([
             'foto_profile' => $foto_profileName,
             'user_id' => $user->id,
@@ -178,5 +170,53 @@ class AuthController extends Controller
             // 'foto_ktp' => $foto_ktpName,
         ]);
         return redirect()->route('loginPage')->with('success', 'tunggu proses konfirmasi akun anda');
+    }
+
+    public function forgotpassword()
+    {
+        return view('password.forgot-password');
+    }
+
+    public function forgotpassword_store(Request $request)
+    {
+        $request->validate([ 'email'=> 'required|email']);
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::RESET_LINK_SENT
+        ? back()->with(['status' => __($status)])
+        : back()->withErrors(['email'=>__($status)]);
+    }
+
+    public function resetpassword_token(string $token)
+    {
+        return view('password.reset-password', ['token' => $token]);
+    }
+    public function resetpassword(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8|confirmed',
+        ],[
+            'password.required' => 'password tidak boleh kosong',
+            'password.min' => 'minimal password 8 '
+        ]);
+
+        $status = Password::reset(
+            $request->only( 'email','password', 'token'),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+                $user->save();
+                event(new PasswordReset($user));
+            }
+        );
+
+        return $status === Password::PASSWORD_RESET
+        ? redirect()->route('loginPage')->with('status',  __($status))
+        : back()->withErrors(['email'=> __($status)]);
     }
 }
