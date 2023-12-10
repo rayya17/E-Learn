@@ -1,7 +1,7 @@
 @extends('layouts.layoutAdmin')
 
 @section('content')
-
+{{--
 @foreach($calonguru as $data)
 <div class="modal fade" id="myModal_{{ $data->id }}" tabindex="-1" aria-labelledby="#myModal_{{ $data->id }}" aria-hidden="true">
   <div class="modal-dialog">
@@ -24,13 +24,12 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
       </div>
     </div>
   </div>
 </div>
   </div>
-  @endforeach
+  @endforeach --}}
   <main id="main" class="main">
 
     <div class="pagetitle mt-4">
@@ -81,12 +80,12 @@
                                             alt=""></td>
                                     <td><img width="120px" height="150px" src="{{ asset('storage/ktp/' . $data->foto_ktp) }}" alt=""></td> --}}
                                     <td class="d-flex">
-                                      <a class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#myModal_{{ $data->id }}" ><i class="far fa-eye"></i></a>
+                                      {{-- <a class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#myModal_{{ $data->id }}" ><i class="far fa-eye"></i></a> --}}
 
                                         <form action="{{ route('terimaguru',$data->id) }}" method="post">
                                             @csrf
                                             @method('PATCH')
-                                            <button type="submit" class="btn btn-outline-success"><i
+                                            <button type="submit" class="btn btn-outline-success" style="margin-right: 2px;"><i
                                                     class="fa-solid fa-check"></i></button>
                                         </form>
                                         <form class="d-flex" action="{{ route('tolakguru', $data->id) }}" method="post">

@@ -125,28 +125,25 @@
                                              </div>
                                          </div>
                                         <div class="d-flex justify-content-between align-items-center">
-                    <!-- Button with Eye Icon (Align to the left) -->
-                    <button type="button" onclick="window.location='{{ url('/') }}'" class="edit-button">
-                        <i class="fas fa-eye"></i>
-                    </button>
+                                        <!-- Button with Eye Icon (Align to the left) -->
+                                        <button type="button" onclick="window.location='{{ url('/') }}'" class="edit-button">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
 
-                    <!-- Delete Button (Align to the right) -->
-                    <form id="delete-form-{{ $mtr->id }}" action="{{ route('materi.destroy', $mtr->id) }}" method="POST">
-                        @method('DELETE')
-                        @csrf
-                        <button type="button" class="delete-button" onclick="confirmDelete('{{ $mtr->id }}')">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </form>
-                    
+                                        <!-- Delete Button (Align to the right) -->
+                                        <form id="delete-form-{{ $mtr->id }}" action="{{ route('materi.destroy', $mtr->id) }}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="button" class="delete-button" onclick="confirmDelete('{{ $mtr->id }}')">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+
                                      </div>
                                     </div>
                                 </div>
-                                {{-- </div> --}}
-                                @endforeach
-                                <button type="button" class="large-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    <i class="fas fa-plus"></i>
-                                </button>
+                                     </div>
+                         @endforeach
                          <button type="button" class="large-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="fas fa-plus"></i>
                         </button>
@@ -256,7 +253,7 @@
                                                          value="{{ old('detail_tugas', $mtr->detail_tugas) }}">{{ $mtr->detail_tugas }}</textarea>
                                                  </div>
                                              </div>
-                                             <label for="inputText" class="col-sm-6 col-form-label">Tanggal
+                                             {{-- <label for="inputText" class="col-sm-6 col-form-label">Tanggal
                                                  Tugas</label>
                                              <div class="row mb-1">
                                                  <div class="col-sm-12">
@@ -264,7 +261,7 @@
                                                          id="update_tanggal_tugas" width="200px"
                                                          value="{{ old('tanggal_tugas', $mtr->tanggal_tugas) }}">
                                                  </div>
-                                             </div>
+                                             </div> --}}
                                          </div>
                                          <div class="modal-footer">
                                              <button type="button" class="btn btn-secondary"
@@ -387,7 +384,7 @@
                                 @enderror
                              </div>
                          </div>
-                         <label for="inputText" class="col-sm-6 col-form-label">Tanggal Tugas</label>
+                         {{-- <label for="inputText" class="col-sm-6 col-form-label">Tanggal Tugas</label>
                          <div class="row mb-1">
                              <div class="col-sm-12">
                                  <input type="date" name="tanggal_tugas" class="form-control @error('tanggal_tugas') is-invalid @enderror" id="tanggal_tugas"
@@ -396,7 +393,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                              </div>
-                         </div>
+                         </div> --}}
                  </div>
                  <div class="modal-footer">
                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -37,41 +37,41 @@ class MateriController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            // 'cover_materi' => 'required|mimes:png,jpg',
+            'mapel' => 'required|max:100',
+            'nama_materi' => 'required|max:100',
+            'file_materi' => 'required|mimes:pdf',
+            'kelas' => 'required|min:0|max:15',
+            'harga' => 'required|min:0',
+            'deskripsi' => 'required|max:500',
+            'tugas' => 'required|max:100',
+            'detail_tugas' => 'required|max:500',
+            // 'tanggal_tugas' => 'required|after_or_equal:today|before_or_equal:today'
+        ],[
+            'nama_materi.required' => 'Wajib di isi',
+            'nama_materi.max' => 'Nama Materi melebihi maximal',
+            'mapel.required' => 'Wajib di isi',
+            'mapel.max' => 'Nama mata pelajaran melebihi maximal',
+            'kelas.required' => 'Wajib di isi',
+            'kelas.min' => 'Kelas kurang dari 0',
+            'kelas.max' => 'Kelas melebihi maximal',
+            'file_materi.required' => 'Wajib di isi',
+            'file_materi.mimes' => 'File harus berupa PDF',
+            'harga.required' => 'Wajib di isi',
+            'harga.min' => 'Harga kurang 0',
+            'deskripsi.required' => 'Wajib di isi',
+            'deskripsi.max' => 'Deskripsi melebihi maximal',
+            'tugas.required' => 'Wajib di isi',
+            'tugas.max' => 'Nama Tugas melebihi maximal',
+            'detail_tugas.required' => 'Wajib di isi',
+            'detail_tugas.max' => 'Detail Tugas melebihi maximal',
+            // 'tanggal_tugas.required' => 'Wajib di isi',
+            // 'tanggal_tugas.after_or_equal' => 'Tanggal tidak boleh sesudah tanggal hari ini',
+            // 'tanggal_tugas.before_or_equal' => 'Tanggal tidak boleh sebelum tanggal hari ini',
+        ]);
         try {
             // dd($request);
-            $request->validate([
-                // 'cover_materi' => 'required|mimes:png,jpg',
-                'mapel' => 'required|max:100',
-                'nama_materi' => 'required|max:100',
-                'file_materi' => 'required|mimes:pdf',
-                'kelas' => 'required|min:0|max:15',
-                'harga' => 'required|min:0',
-                'deskripsi' => 'required|max:500',
-                'tugas' => 'required|max:100',
-                'detail_tugas' => 'required|max:500',
-                'tanggal_tugas' => 'required|after_or_equal:today|before_or_equal:today'
-            ],[
-                'nama_materi.required' => 'Wajib di isi',
-                'nama_materi.max' => 'Nama Materi melebihi maximal',
-                'mapel.required' => 'Wajib di isi',
-                'mapel.max' => 'Nama mata pelajaran melebihi maximal',
-                'kelas.required' => 'Wajib di isi',
-                'kelas.min' => 'Kelas kurang dari 0',
-                'kelas.max' => 'Kelas melebihi maximal',
-                'file_materi.required' => 'Wajib di isi',
-                'file_materi.mimes' => 'File harus berupa PDF',
-                'harga.required' => 'Wajib di isi',
-                'harga.min' => 'Harga kurang 0',
-                'deskripsi.required' => 'Wajib di isi',
-                'deskripsi.max' => 'Deskripsi melebihi maximal',
-                'tugas.required' => 'Wajib di isi',
-                'tugas.max' => 'Nama Tugas melebihi maximal',
-                'detail_tugas.required' => 'Wajib di isi',
-                'detail_tugas.max' => 'Detail Tugas melebihi maximal',
-                'tanggal_tugas.required' => 'Wajib di isi',
-                'tanggal_tugas.after_or_equal' => 'Tanggal tidak boleh sesudah tanggal hari ini',
-                'tanggal_tugas.before_or_equal' => 'Tanggal tidak boleh sebelum tanggal hari ini',
-            ]);
             // dd("ghh");
 
             // $cover_materi = $request->file('cover_materi');
@@ -82,6 +82,7 @@ class MateriController extends Controller
             $file_name = time() . '_' . $file_materi->getClientOriginalName();
             $file_materi->move(public_path('pdf_files'), $file_name);
             $DataGuru= Guru::where('user_id', Auth()->user()->id)->first();
+            // dd($DataGuru);
 
             $materi = Materi::create([
                 'mapel' => $request->mapel,
@@ -94,11 +95,12 @@ class MateriController extends Controller
                 'deskripsi' => $request->deskripsi,
                 'tugas' => $request->tugas,
                 'detail_tugas' => $request->detail_tugas,
-                'tanggal_tugas' => $request->tanggal_tugas
+                'tanggal_tugas' => now()
             ]);
 
             return back()->with('success', 'Berhasil menambahkan materi dan tugas');
         } catch (\Exception $e) {
+
             return back()->with('error', 'Gagal menambahkan materi dan tugas. Silakan coba lagi.');
         }
     }
@@ -125,38 +127,39 @@ class MateriController extends Controller
      */
     public function update(Request $request, $materi)
     {
+        $request->validate([
+            'mapel' => 'required|max:100',
+            'nama_materi' => 'required|max:100',
+            'file_materi' => 'nullable|mimes:pdf',
+            'kelas' => 'required|min:0|max:15',
+            'harga' => 'required|min:0',
+            'deskripsi' => 'required|max:225',
+            'tugas' => 'required|max:225',
+            'detail_tugas' => 'required|max:500',
+            // 'tanggal_tugas' => 'required|after_or_equal:today|before_or_equal:today'
+        ],[
+            'nama_materi.required' => 'Wajib di isi',
+            'nama_materi.max' => 'Nama Materi melebihi maximal',
+            'mapel.required' => 'Wajib di isi',
+            'mapel.max' => 'Nama mata pelajaran melebihi maximal',
+            'kelas.required' => 'Wajib di isi',
+            'kelas.min' => 'Kelas kurang dari 0',
+            'kelas.max' => 'Kelas melebihi maximal',
+            // 'file_materi.required' => 'Wajib di isi',
+            'file_materi.mimes' => 'File harus berupa PDF',
+            'harga.required' => 'Wajib di isi',
+            'harga.min' => 'Harga kurang 0',
+            'deskripsi.required' => 'Wajib di isi',
+            'deskripsi.max' => 'Deskripsi melebihi maximal',
+            'tugas.required' => 'Wajib di isi',
+            'tugas.max' => 'Nama Tugas melebihi maximal',
+            'detail_tugas.required' => 'Wajib di isi',
+            'detail_tugas.max' => 'Detail Tugas melebihi maximal',
+            // 'tanggal_tugas.required' => 'Wajib di isi',
+            // 'tanggal_tugas.after_or_equal' => 'Tanggal tidak boleh sesudah tanggal hari ini',
+            // 'tanggal_tugas.before_or_equal' => 'Tanggal tidak boleh sebelum tanggal hari ini',
+        ]);
         try {
-            $request->validate([
-                'mapel' => 'required|max:100',
-                'nama_materi' => 'required|max:100',
-                'file_materi' => 'nullable|mimes:pdf',
-                'kelas' => 'required|min:0|max:15',
-                'harga' => 'required|min:0',
-                'deskripsi' => 'required|max:225',
-                'tugas' => 'required|max:225',
-                'detail_tugas' => 'required|max:500',
-                'tanggal_tugas' => 'required|after_or_equal:today|before_or_equal:today'
-            ],[
-                'nama_materi.required' => 'Wajib di isi',
-                'nama_materi.max' => 'Nama Materi melebihi maximal',
-                'mapel.required' => 'Wajib di isi',
-                'mapel.max' => 'Nama mata pelajaran melebihi maximal',
-                'kelas.required' => 'Wajib di isi',
-                'kelas.min' => 'Kelas kurang dari 0',
-                'kelas.max' => 'Kelas melebihi maximal',
-                // 'file_materi.required' => 'Wajib di isi',
-                'file_materi.mimes' => 'File harus berupa PDF',
-                'harga.required' => 'Wajib di isi',
-                'harga.min' => 'Harga kurang 0',
-                'deskripsi.required' => 'Wajib di isi',
-                'deskripsi.max' => 'Deskripsi melebihi maximal',
-                'tugas.required' => 'Wajib di isi',
-                'tugas.max' => 'Nama Tugas melebihi maximal',
-                'detail_tugas.required' => 'Wajib di isi',
-                'detail_tugas.max' => 'Detail Tugas melebihi maximal',
-                'tanggal_tugas.required' => 'Wajib di isi',
-                'tanggal_tugas.after_or_equal' => 'Tanggal tidak boleh sesudah tanggal hari ini',
-                'tanggal_tugas.before_or_equal' => 'Tanggal tidak boleh sebelum tanggal hari ini',]);
 
             $materi = Materi::findOrFail($materi);
 
@@ -182,7 +185,7 @@ class MateriController extends Controller
                     'deskripsi' => $request->deskripsi,
                     'tugas' => $request->tugas,
                     'detail_tugas' => $request->detail_tugas,
-                    'tanggal_tugas' => $request->tanggal_tugas,
+                    'tanggal_tugas' => now(),
                 ]);
 
                 return redirect()->route('materi.index')->with('success', 'Materi berhasil diupdate!');
@@ -197,7 +200,7 @@ class MateriController extends Controller
                 'deskripsi' => $request->deskripsi,
                 'tugas' => $request->tugas,
                 'detail_tugas' => $request->detail_tugas,
-                'tanggal_tugas' => $request->tanggal_tugas,
+                'tanggal_tugas' => now(),
             ]);
 
             return redirect()->route('materi.index')->with('success', 'Materi berhasil diupdate!');

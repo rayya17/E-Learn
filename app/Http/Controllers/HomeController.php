@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use file;
 use App\Models\Guru;
 use App\Models\Order;
 use App\Models\Materi;
 use App\Models\Pendapatan;
 use App\Models\User;
+use App\Models\Ulasan;
+use App\Models\DetailMateri;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -14,9 +17,11 @@ class HomeController extends Controller
 {
     public function home()
     {
+        $ulasan = Ulasan::all();
         $materi = Materi::all();
+        $detailmateri = detailmateri::where('materi_id'  )->get();
         $guru = Guru::with('user')->get();
-        return view('users.home', compact('materi', 'guru'));
+        return view('users.home',compact('detailmateri', 'guru', 'materi', 'ulasan'));
     }
 
     public function detailpemesanan()
@@ -114,5 +119,11 @@ class HomeController extends Controller
             // Redirect ke rute detailpesan dengan pesan kesalahan
             return redirect()->route('detailpesan')->with('error', 'Transaksi gagal');
         }
+    }
+
+    public function detailmateri_user($id){
+        $ulasan = Ulasan::with('user')->where('materi_id', $id)->get();
+        $materi = Materi::findOrFail($id);
+        return view('users.detailmateri_user', compact('materi', 'ulasan'));
     }
 }

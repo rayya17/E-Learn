@@ -323,14 +323,10 @@
                                 </button>
                             </form>
                         </li>
-
-
                     </ul><!-- End Profile Dropdown Items -->
                 </li><!-- End Profile Nav -->
-
             </ul>
         </nav><!-- End Icons Navigation -->
-
     </header><!-- End Header -->
 
 
@@ -364,7 +360,11 @@
                 <a class="nav-link {{ request()->is('Penarikansaldo') ? '' : 'collapsed' }}" href="{{ url ('Penarikansaldo') }}">
                     <i class="bi bi-bar-chart"></i><span>Penarikan Saldo</span>
                 </a>
-
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->is('detailmateri') ? '' : 'collapsed' }}" href="{{ url ('detailmateri') }}">
+                    <i class="bi bi-bar-chart"></i><span>Benefits</span>
+                </a>
             </li>
         </ul>
 

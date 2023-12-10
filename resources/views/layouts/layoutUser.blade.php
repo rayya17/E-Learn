@@ -119,6 +119,24 @@
             background-color: transparent !important; /* Override the background color */
             border: none; /* Remove border */
         }
+
+                /* Add this CSS to make the profile picture circular */
+        .profile-image {
+            width: 55px; /* Adjust the width as needed */
+            height: 50px; /* Adjust the height as needed */
+            border-radius: 50%; /* Make it a circle */
+            object-fit: cover; /* Ensure the entire image is visible in the circle */
+            border: 2px solid #ffffff; /* Optional: Add a border around the circle */
+        }
+
+        /* You might want to adjust the styles for the dropdown and other elements as needed */
+        .dropdown img {
+            width: 50px; /* Adjust the width as needed */
+            height: 30px; /* Adjust the height as needed */
+            border-radius: 50%; /* Make it a circle */
+            object-fit: cover; /* Ensure the entire image is visible in the circle */
+        }
+
     </style>
 </head>
 
@@ -158,7 +176,7 @@
                                         </li>
                                         <li>
                                             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                                                <img src="{{ asset('storage/' . Auth::user()->foto_user) }}" alt="Profile" class="rounded-circle profile-image">
                                                 <span class="d-none d-md-block dropdown-toggle ps-2"></span>
                                             </a>
                                             <ul class="dropdown">

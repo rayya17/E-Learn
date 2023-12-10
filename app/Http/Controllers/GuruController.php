@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreGuruRequest;
 use App\Http\Requests\UpdateGuruRequest;
 use App\Models\Materi;
+use App\Models\DetailMateri;
 use App\Models\Order;
 use App\Models\Pendapatan;
 use App\Models\User;

@@ -5,7 +5,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MateriController;
+use App\Http\Controllers\DetailMateriController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UlasanController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +49,8 @@ Route::middleware('admin')->group(function(){
 
 Route::middleware('guru')->group(function(){
     Route::get('dashboardguru',[GuruController::class,'Dashboardguru'])->name('dashboardguru');
+    Route::resource('detailmateri', DetailMateriController::class);
+    Route::put('detailmateri-update/{id}', [DetailMateriController::class,'update'])->name("update-detailMateri");
     // Route::get('materi',[MateriController::class,'index'])->name('materi');
     Route::resource('materi', MateriController::class);
     Route::get('Pengumpulantugas', [GuruController::class, 'Pengumpulantugas'])->name('Pengumpulantugas');
@@ -81,11 +85,12 @@ Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->g
 
 Route::middleware('user')->group(function(){
     Route::get('/home', [HomeController::class, 'home'])->name('HomePage');
+    Route::resource('/ulasan', UlasanController::class);
     Route::get('/detailpemesanan', [HomeController::class, 'detailpemesanan'])->name('DetailPemesanan');
     Route::get('/detailpesan',[HomeController::class,'detailpesan'])->name('detailpesan');
     Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
     Route::put('/updateProfile/{id}', [ProfileController::class, 'updateProfile'])->name('updateProfile');
-
+    Route::get('/detailmateri_user/{id}',[HomeController::class,'detailmateri_user'])->name('detailmateri_user');
     Route::get('/order/{order}',[HomeController::class,'payment'])->name('payment');
      Route::post('/pesan/{materi}',[HomeController::class,'checkout'])->name('checkout');
      Route::post('/mitrans-callback',[HomeController::class,'callback'])->name('callback');

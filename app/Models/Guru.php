@@ -37,4 +37,9 @@ class Guru extends Model
         return $this->hasMany(guru::class);
     }
 
+    public function detailmateri(): BelongsTo
+    {
+        return $this->belongsTo(DetailMateri::class);
+    }
+
 }

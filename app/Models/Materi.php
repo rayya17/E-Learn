@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 
 class Materi extends Model
 {
@@ -14,14 +16,19 @@ class Materi extends Model
 
     ];
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
     public function guru()
     {
-        return $this->belongsTo(Guru::class);
+        return $this->belongsTo(Guru::class, 'guru_id');
+    }
+
+    public function detailmateri()
+    {
+        return $this->hasMany(DetailMateri::class, 'materi_id');
+    }
+
+    public function ulasan()
+    {
+        return $this->hasMany(Ulasan::class, 'ulasan_id');
     }
 }
 

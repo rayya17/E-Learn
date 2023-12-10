@@ -54,7 +54,8 @@ class User extends Authenticatable
         return $this->belongsTo(guru::class, 'user_id');
     }
 
-    
-
-
+    public function ulasan()
+    {
+        return $this->hasMany(Ulasan::class, 'ulasan_id');
+    }
 }
