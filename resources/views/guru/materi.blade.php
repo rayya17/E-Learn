@@ -126,7 +126,7 @@
                                          </div>
                                         <div class="d-flex justify-content-between align-items-center">
                                         <!-- Button with Eye Icon (Align to the left) -->
-                                        <button type="button" onclick="window.location='{{ url('/') }}'" class="edit-button">
+                                        <button type="button" onclick="window.location='{{ route('materidetail') }}'" class="edit-button">
                                             <i class="fas fa-eye"></i>
                                         </button>
 

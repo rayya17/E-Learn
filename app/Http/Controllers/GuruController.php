@@ -88,4 +88,10 @@ class GuruController extends Controller
 
         return redirect()->route('loginPage')->with('success', 'berhasil logout');
     }
+
+
+      public function materidetail(Request $request)
+    {
+      return view('guru.materidetail');
+    }
 }
