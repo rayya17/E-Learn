@@ -25,7 +25,7 @@ use App\Http\Middleware\User;
 */
 
 Route::get('/', function () {
-    return view('guru.detailmateri');
+    return view('index');
 });
 
 // Route::post('/layout',[LayoutController::class,'index'])->name('layout');

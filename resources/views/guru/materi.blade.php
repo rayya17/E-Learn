@@ -112,9 +112,9 @@
                                                          alt="">
                                                  </div>
 
-                                             <div class="badge-class">
-                                                 <span class="badge bg-success">Rp. {{ $mtr->harga }}</span>
-                                             </div>
+                                                 <div class="badge-class">
+                                                    <span class="badge bg-success">Rp. {{ number_format($mtr->harga, 0, ',', '.') }}</span>
+                                                </div>
                                          </div>
                                          <div class="text-card p-4">
                                              <h5 class="title">

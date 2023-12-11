@@ -38,17 +38,34 @@
                                                 alt="#" class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
                                         {{-- @endforeach --}}
                                     </div>
+                                    @if ($order->status === 'Paid')
+                                     <!-- Tidak menampilkan harga jika status order sudah dibayar -->
+                                    @else
                                     <span class="price"
-                                        data-materi="{{ $mtr->nama_materi }}" data-harga="{{ $mtr->harga }}">Rp.
-                                        {{ $mtr->harga }}</span>
+                                    data-materi="{{ $mtr->nama_materi }}"
+                                    data-harga="{{ $mtr->harga }}">
+                                    Rp. {{ number_format($mtr->harga, 0, ',', '.') }}
+                                </span>
+
+                                    @endif
                                 </div>
                                 <h4 class="c-title"><a href="course-single.html">{{ $mtr->nama_materi }}</a></h4>
                                 <p>{{ $mtr->deskripsi }}</p>
                             </div>
-                            <button type="button" class="btn-ulasan" data-materi="{{$mtr->id}}" data-toggle="modal" data-target="#UlasanModal" style="position: absolute; bottom: 10px; right: 30px; font-size: 15px; background-color:#388064; width:90px; border-radius:10px; color:white">
-                            <i class="fa-regular fa-message" style="margin:5px;">
-                            </i>
-                            <span>Ulasan</span>
+                                <form action="{{ route('checkout', $mtr->id) }}" method="post">
+                                    @csrf
+                                    @if ($order->status === 'Paid')
+                                    <button type="button" class="btn-ulasan" data-materi="{{$mtr->id}}" data-toggle="modal" data-target="#UlasanModal" style="position: absolute; bottom: 10px; right: 30px; font-size: 15px; background-color:#388064; width:90px; border-radius:10px; color:white">
+                                    <i class="fa-regular fa-message" style="margin:5px;">
+                                    </i>
+                                    <span>Ulasan</span>
+                                    @else
+
+                                    <button class="btn btn btn-sm buy-now-btn" type="submit" style="border-radius: 30px; margin-right: 10px">Pesan Sekarang</button>
+
+                                    @endif
+                                </form>
+
                             </button>
                         </div>
                         </a>

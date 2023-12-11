@@ -21,7 +21,8 @@ class HomeController extends Controller
         $materi = Materi::all();
         $detailmateri = detailmateri::where('materi_id'  )->get();
         $guru = Guru::with('user')->get();
-        return view('users.home',compact('detailmateri', 'guru', 'materi', 'ulasan'));
+        $order = Order::first();
+        return view('users.home',compact('detailmateri', 'guru', 'materi', 'ulasan' ,'order'));
     }
 
     public function detailpemesanan()
@@ -71,7 +72,6 @@ class HomeController extends Controller
             if ($existingOrder->status = 'unpaid') {
                 return redirect()->route('payment', $existingOrder->id)->with('success', 'Anda sudah memesan sebelum nya, mohon lanjutkan pembayaran');
             }
-
             if ($existingOrder->status = 'paid') {
                 return back()->with('success', 'Anda sudah membeli materi ini sebelum nya');
             }
