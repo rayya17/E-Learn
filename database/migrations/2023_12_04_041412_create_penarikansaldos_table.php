@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('penarikansaldos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('guru_id')->nullable()->constrained('gurus')->onUpdate('cascade');
-            // $table->foreignId('saldo_id')->constrained('saldo')->onUpdate('cascade');
+            // $table->foreignId('guru_id')->nullable()->constrained('gurus')->onUpdate('cascade');
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade');
             $table->string('metodepembayaran')->nullable();
             $table->string('keterangan_pengajuan')->nullable();
             $table->string('tujuan_pengajuan')->nullable();

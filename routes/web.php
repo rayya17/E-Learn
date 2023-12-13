@@ -46,6 +46,7 @@ Route::middleware('admin')->group(function(){
     Route::get('pengajuanguru', [AdminController::class, 'pengajuanguru'])->name('pengajuanguru');
     Route::post('terimapengajuan/{id}', [AdminController::class, 'terimapengajuan'])->name('terimapengajuan');
     // Route::post('/notifDelete/{id}', [NotifikasiController::class, 'markRead'])->name('notifDelete');
+    Route::post('tolakpengajuan/{id}', [AdminController::class, 'tolakpengajuan'])->name('tolakpengajuan');
 
 });
 
@@ -56,7 +57,8 @@ Route::middleware('guru')->group(function(){
     // Route::get('materi',[MateriController::class,'index'])->name('materi');
     Route::resource('materi', MateriController::class);
     Route::get('Pengumpulantugas', [GuruController::class, 'Pengumpulantugas'])->name('Pengumpulantugas');
-    Route::get('Penarikansaldo', [GuruController::class, 'Penarikansaldo'])->name('Penarikansaldo');
+    Route::resource('Pembayaran', GuruController::class);
+    // Route::get('Penarikansaldo', [GuruController::class, 'Penarikansaldo'])->name('Penarikansaldo');
     Route::patch('mengajukandana/{id}', [GuruController::class, 'mengajukandana'])->name('mengajukandana');
     Route::get('/profileguru', [ProfileController::class, 'profileGuru'])->name('profileguru');
     Route::put('/profileguruUp/{id}', [ProfileController::class, 'profileguruUp'])->name('profileguruUp');
@@ -99,6 +101,7 @@ Route::middleware('user')->group(function(){
      Route::post('/mitrans-callback',[HomeController::class,'callback'])->name('callback');
     // Route::post('/notifDelete/{id}', [NotifikasiController::class, 'markRead'])->name('notifDelete');
 
+    //  Route::get('/searchingMateri', [HomeController::class, 'searchingMateri'])->name('searchingMateri');
 });
 
 // NOTIFIKASI ACTION

@@ -70,13 +70,12 @@
                             </div>
                         </div>
                         <div class="col-lg-6 col-xl-5">
-                            <h2 class="mb-6 fs-8 fw-bolder">Welcome to Spike Admin</h2>
-                            <p class="text-dark fs-4 mb-7">Your Admin Dashboard</p>
+                            <h2 class="mb-6 fs-8 fw-bolder" style="">Selamat Datang</h2>
+                            <p class="text-dark fs-4 mb-7">Silahkan Login</p>
                             <form action="{{ route('loginproses') }}" method="POST">
                                 @csrf
                                 <div class="mb-7">
-                                    <label for="exampleInputEmail1" class="form-label text-dark fw-bold">Email
-                                        Address</label>
+                                    <label for="exampleInputEmail1" class="form-label text-dark fw-bold">Email</label>
                                     <input type="email" class="form-control py-6" id="email"
                                         placeholder="Masukan email yang valid" name="email">
                                     @error('email')
@@ -85,26 +84,31 @@
                                 </div>
                                 <div class="mb-9">
                                     <label for="exampleInputPassword1"
-                                        class="form-label text-dark fw-bold">Password</label>
+                                        class="form-label text-dark fw-bold">Kata sandi</label>
                                     <input type="password" class="form-control py-6" id="password"
-                                        placeholder="Masukan password" name="password">
+                                        placeholder="Masukan kata sandi anda" name="password">
                                     @error('password')
                                         <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mb-7 pb-1">
-                                    <div class="form-check">
-                                        <input class="form-check-input primary" type="checkbox" value=""
-                                            id="flexCheckChecked" checked>
+                                    {{-- <div class="form-check">
+                                        <input class="form-check-input primary" type="checkbox" value=""  required>
                                         <label class="form-check-label text-dark fs-3" for="flexCheckChecked">
-                                            Remeber this Device
+                                            Ingat Perangkat ini
+                                        </label>
+                                    </div> --}}
+                                    <div class="form-check">
+                                        <input class="form-check-input primary" type="checkbox" value="" id="flexCheckChecked" onchange="enableLoginButton()">
+                                        <label class="form-check-label text-dark fs-3" for="flexCheckChecked">
+                                            Ingat perangkat Ini
                                         </label>
                                     </div>
                                     <a class="text-primary fw-medium fs-3 fw-bold"
-                                        href="authentication-forgot-password.html">Forgot Password ?</a>
+                                        href="forgot-password">Lupa Password ?</a>
                                 </div>
-                                <button class="btn btn-success w-100 mb-7 mt-2 rounded-pill"
-                                    type="submit">Login</button>
+                                <button   id="loginButton" onclick="validateLogin()" disabled class="btn btn-success w-100 mb-7 mt-2 rounded-pill"
+                                    type="submit">Masuk</button>
                                 <div class="d-flex align-items-center">
                                     {{-- <p class="fs-3 mb-0 fw-medium">New to Spike?</p>
                                     <a class="text-primary fw-bold ms-2 fs-3" href="{{ route('registerPage') }}">Create
@@ -120,7 +124,7 @@
                                                         <div class="card-body" style="border: 2px solid #ddd; border-radius: 10px;">
                                                             <a href="{{ route('registerPage') }}">
                                                                 <img src="{{asset('assets/Admin/admin/siswa.jpg')}}"
-                                                                    class="card-img-top" alt="..." width="250" height="180">
+                                                                    class="card-img-top" alt="..." width="250" height="100px">
                                                             </a>
                                                             <h5 class="card-title"></h5>
                                                             <center>
@@ -180,6 +184,27 @@
     <script src="{{ asset('assets/js/simplebar.min.js') }}"></script>
     <script src="{{ asset('assets/js/sidebarmenu.js') }}"></script>
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <script>
+        function enableLoginButton() {
+            var checkBox = document.getElementById("flexCheckChecked");
+            var loginButton = document.getElementById("loginButton");
+    
+            loginButton.disabled = !checkBox.checked;
+        }
+    
+        function validateLogin() {
+            var checkBox = document.getElementById("flexCheckChecked");
+    
+            if (!checkBox.checked) {
+                alert("Please check 'Remember this Device' before logging in.");
+            } else {
+                // Lanjutkan dengan proses login
+                // Misalnya, panggil fungsi untuk melakukan login
+                performLogin();
+            }
+        }
+    
+    </script>
 
 </body>
 

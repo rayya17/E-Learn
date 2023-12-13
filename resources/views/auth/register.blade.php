@@ -18,7 +18,6 @@
 
     <title>E-Learn</title>
 </head>
-
 <style>
 
 </style>
@@ -55,7 +54,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="text-name"
-                                                            class="form-label text-dark fw-bold">Name</label>
+                                                            class="form-label text-dark fw-bold">Nama</label>
                                                         <input type="text" class="form-control py-6" id="text-name"
                                                             value="{{ old('name') }}" name="name"
                                                             class="form-control @error('name')is-invalid @enderror">
@@ -77,7 +76,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="text-email"
-                                                            class="form-label text-dark fw-bold">Email Address</label>
+                                                            class="form-label text-dark fw-bold">Alamat E-Mail</label>
                                                         <input type="email" class="form-control py-6" id="text-email"
                                                             value="{{ old('email') }}" name="email"
                                                             class="form-control @error('email')is-invalid @enderror">
@@ -101,7 +100,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="text-password"
-                                                            class="form-label text-dark fw-bold">Password</label>
+                                                            class="form-label text-dark fw-bold">Kata Sandi</label>
                                                         <input type="password" class="form-control py-6"
                                                             id="text-password" name="password"
                                                             class="form-control @error('password')is-invalid @enderror">
@@ -113,8 +112,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="text-confirm-pwd"
-                                                            class="form-label text-dark fw-bold">Confirm
-                                                            Password</label>
+                                                            class="form-label text-dark fw-bold">Konfirmasi Kata Sandi</label>
                                                         <input type="password" class="form-control py-6"
                                                             id="text-confirm-pwd" name="re-password"
                                                             class="form-control @error('re-password')is-invalid @enderror">
@@ -129,9 +127,9 @@
                                                     type="submit">Daftar</button>
                                             </div>
                                             <div class="d-flex align-items-center">
-                                                <p class="fs-3 mb-0 fw-medium">Already have an Account?</p>
+                                                <p class="fs-3 mb-0 fw-medium">Sudah Punya Akun?</p>
                                                 <a class="text-primary fw-bold ms-2 fs-3"
-                                                    href="{{ route('loginPage') }}">Sign In</a>
+                                                    href="{{ route('loginPage') }}">Masuk</a>
                                             </div>
                                         </form>
                                     </div>

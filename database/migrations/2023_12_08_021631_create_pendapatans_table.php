@@ -18,6 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('pendapatan');
             $table->timestamps();
         });
+        Schema::table('penarikansaldos', function (Blueprint $table){
+            $table->foreignId('pendapatan_id')->nullable()->constrained('pendapatans')->onUpdate('cascade');
+
+        });
     }
 
     /**

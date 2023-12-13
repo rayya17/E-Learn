@@ -38,11 +38,7 @@ class AdminController extends Controller
         return view('admin.profileguru', compact('profileguru','guruprofile', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
-    public function Pengajuandana(){
-        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
-        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
-        return view('admin.pengajuandana', compact('Notifikasi', 'unreadNotificationsCount'));
-    }
+
 
     public function Detailguru($id){
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
@@ -111,15 +107,69 @@ class AdminController extends Controller
         return redirect()->route('loginPage');
     }
 
-    public function pengajuanguru(Request $request){
-        $guru = guru::all();
-        $data = penarikansaldo::where('status', 'sedang mengajukan')->get();
-        return view('admin.pengajuandana', compact('guru', 'data'));
-    }
+    // public function Pengajuandana(){
+    //     $guru = penarikansaldo::where('status', 'telah diajukan')->get();
+    //     return view('admin.pengajuandana', compact('guru'));
+    // }
 
+    // public function pengajuanguru(Request $request){
+    //     $guru = penarikansaldo::all();
+    //     $data = penarikansaldo::where('status', 'telah diajukan')->get();
+    //     return view('admin.pengajuandana', compact('guru', 'data'));
+    // }
+
+    // public function terimapengajuan($id)
+    // {
+    //     $pengajuanPenjual = Penarikansaldo::findOrFail($id);
+
+    //     // Pastikan bahwa pengajuan masih dalam status 'mengajukan'
+    //     if ($pengajuanPenjual->status == 'telah diajukan') {
+    //         // Update status menjadi 'pengajuanDiterima'
+    //         $pengajuanPenjual->status = 'pengajuanDiterima';
+    //         $pengajuanPenjual->save();
+
+    //         // Kurangkan saldo guru
+    //         $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
+    //         $pendapatanDiterima = Pendapatan::where('id', $pengajuanPenjual->pendapatan_id)->first();
+
+    //       // Pastikan pengajuan terkait memiliki status 'telah diajukan'
+    //     if ($pendapatanDiterima && $pendapatanDiterima->status == 'pengajuanDiterima') {
+    //         $guru->saldo -= $pendapatanDiterima->pendapatan;
+    //         $guru->save();
+    //     }
+
+    //         return redirect()->back()->with('success', 'Pengambilan saldo telah disetujui');
+    //     } else {
+    //         return redirect()->back()->with('error', 'Pengajuan sudah pernah diproses sebelumnya');
+    //     }
+    // }
+
+    public function Pengajuandana(){
+        $guru = penarikansaldo::where('status', 'telah diajukan')->get();
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
+        return view('admin.pengajuandana', compact('guru','Notifikasi', 'unreadNotificationsCount'));
+    }
+    
     public function terimapengajuan($id)
     {
+        $pengajuanPenjual = penarikansaldo::findOrFail($id);
+        $pengajuanPenjual->status = 'pengajuanDiterima';
+        $pengajuanPenjual->save();
+        $pendapatan = Pendapatan::where('user_id', $pengajuanPenjual->user_id)->first();
+        $pendapatan->pendapatan = 0;
+        $pendapatan->save();
+        
+        return redirect()->back()->with('success', 'pengambilan saldo telah di setujui');
+    }
 
+    public function tolakpengajuan($id)
+    {
+        $pengajuanPenjual = penarikansaldo::findOrFail($id);
+        $pengajuanPenjual->status = 'pengajuanDitolak';
+        $pengajuanPenjual->save();
+        
+        return redirect()->back()->with('error', 'pengambilan saldo di tolak');
     }
 
     public function logout()

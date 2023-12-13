@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Auth\Passwords\CanResetPassword;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -64,4 +64,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notifikasi::class);
     }
+    public function penarikansaldo(): HasMany 
+    {
+        return $this->hasMany(penarikansaldo::class, 'user_id');
+    } 
 }

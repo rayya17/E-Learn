@@ -39,26 +39,24 @@
 
     <section class="section dashboard">
       {{-- <div class="row"> --}}
-<div class="col-lg-12 mt-4">
-        <!-- Left side columns -->
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card border-0 shadow rounded">
-                    <div class="card-body">
-                    <table class="table">
-                        <thead >
+<div class="row">
+  <div class="col-md-12 col-lg-12">
+      <div class="card">
+          <div class="card-body"> 
+      <!-- Left side columns -->
+      <div class="col-lg-12">
+          <div class="row">
+                    <table>
+                        <thead id="example1">
                             <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Foto Anda</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Pendidikan Terakhir</th>
-                                <th scope="col">No Telp</th>
-                                <th scope="col">Tanggal Lahir</th>
-                                <th scope="col">Alamat</th>
-                                {{-- <th scope="col">Sertifikat</th>
-                                <th scope="col">Ktp</th> --}}
-                                <th scope="col">Action</th>
+                               <th scope="col" style="text-align: center; border-top-left-radius:10px;">No</th>
+                               <th scope="col" style="text-align: center;">Foto Anda</th>
+                                <th scope="col" style="text-align: center;">Nama</th>
+                                <th scope="col" style="text-align: center;">Pendidikan Terakhir</th>
+                                <th scope="col" style="text-align: center;">No Telp</th>
+                                <th scope="col" style="text-align: center;">Tanggal Lahir</th>
+                                <th scope="col" style="text-align: center;">Alamat</th>
+                                <th scope="col" style="text-align: center; border-top-right-radius:10px;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,30 +65,26 @@
                             @endphp
                             @foreach ($calonguru as $data)
                                 <tr>
-                                    <td>{{ $no++ }}</td>
-                                    <td><img width="120px" height="100px"
-                                      src="{{ asset('storage/profile/' . $data->user->foto_user)}}" alt=""></td>
-                                      <td>{{ $data->user->name }}</td>
-                                      <td>{{ $data->pendidikan }}</td>
-                                      <td>{{ $data->user->no_telepon }}</td>
-                                    <td>{{ $data->tanggal_lahir }}</td>
-                                    <td>{{ $data->alamat }}</td>
-                                    {{-- <td><img width="120px" height="150px"
-                                            src="{{ asset('storage/sertifikat/' . $data->foto_sertifikat)}}"
-                                            alt=""></td>
-                                    <td><img width="120px" height="150px" src="{{ asset('storage/ktp/' . $data->foto_ktp) }}" alt=""></td> --}}
-                                    <td  class="d-flex">
-                                      {{-- <a class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#myModal_{{ $data->id }}" ><i class="far fa-eye"></i></a> --}}
+                                    <td style="text-align: center;">{{ $no++ }}</td>
+                                    <td  style="text-align: center;" ><img width="120px" height="100px"
+                                      src="{{ asset('storage/profile/' . $data->foto_profile)}}" alt=""></td>
+                                      <td style="text-align: center;">{{ $data->user->name }}</td>
+                                      <td  style="text-align: center;">{{ $data->pendidikan }}</td>
+                                      <td  style="text-align: center;">{{ $data->user->no_telepon }}</td>
+                                    <td  style="text-align: center;">{{ $data->tanggal_lahir }}</td>
+                                    <td  style="text-align: center;">{{Str::limit($data->alamat, 10)  }}</td>
+                                    <td class="d-flex mt-4"  style="text-align: center;">
                                         <form action="{{ route('terimaguru',$data->id) }}" method="post">
                                             @csrf
                                             @method('PATCH')
                                             <button type="submit" class="btn btn-outline-success" style="margin-right: 2px;"><i
                                                     class="fa-solid fa-check"></i></button>
                                         </form>
-                                        <form class="d-flex" action="{{ route('tolakguru', $data->id) }}" method="post">
+                                        <form class="d-flex" id="delete-form-{{ $data->id }}"
+                                            action="{{ route('tolakguru', $data->id) }}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-outline-danger btn-sm me-2" onclick="confirmDelete(event)"><i
+                                            <button class="btn btn-outline-danger btn-sm me-2 delete-btn" style="padding: 6px 12px;" data-id="{{ $data->id }}"><i
                                                     class="fas fa-trash-alt"></i>
                                             </button>
                                         </form>
@@ -98,15 +92,40 @@
 
                             @endforeach
                         </tbody>
-                    </table>
-
-                    <!-- Modal -->
+                    </table>   
                 </div>
             </div>
         </div>
     </div>
-        </div><!-- End Left side columns -->
+        </div>
     </div>
+  </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+      // Tambahkan event listener untuk tombol delete dengan class 'delete-btn'
+      document.querySelectorAll('.delete-btn').forEach(function(btn) {
+          btn.addEventListener('click', function(e) {
+              e.preventDefault();
+              var id = this.getAttribute('data-id');
+
+              Swal.fire({
+                  title: 'Apakah anda yakin?',
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonText: 'Lanjutkan!',
+                  cancelButtonText: 'Batalkan!',
+                  reverseButtons: true
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      // Jika user mengonfirmasi, submit form ddelete dengan ID yang sesuai
+                      document.getElementById('delete-form-' + id).submit();
+                  }
+              });
+          });
+      });
+  </script>
+  
 
         <!-- Right side columns -->
       <!-- End Right side columns -->
