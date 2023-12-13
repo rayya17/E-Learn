@@ -47,9 +47,9 @@
                             <div class="modal-dialog" style="width: 150%;">
                                 <div class="modal-content" style="width: 150%;">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Detail Profile</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel" style="font-size: 25px;">Detail Profile</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                                            aria-label="Close" style="font-size: 50px;"></button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="col-lg-12">
@@ -62,7 +62,7 @@
                                                             <img class="mt-4" src="{{ asset('storage/profile/'.$p->user->foto_user) }}" alt="profile" style="border-radius: 50px; width: 100px; height: 100px;object-fit: cover">
                                                             <div class="card-content">
                                                               <h4>{{ $p->user->name }}</h4>
-                                                              <h5>{{ $p->pendidikan }}</h5>
+                                                              <h6>{{ $p->pendidikan }}</h6>
                                                             </div>
                                                           </div>
                                                         </div>

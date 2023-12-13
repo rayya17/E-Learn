@@ -104,6 +104,9 @@ class GuruController extends Controller
 
       public function materidetail(Request $request)
     {
-      return view('guru.materidetail');
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
+
+      return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount'));
     }
 }

@@ -25,8 +25,7 @@
                 <div class="card">
                     <div class="card-body"  style="text-align: center;">
                         @if (Auth::user()->foto_user)
-                            <img src="{{ asset('storage/' . $profileuser->foto_user) }}" width="50px" height="50px" alt="Profile" class="rounded-circle profile-image">
-                            <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+                            <img src="{{ asset('storage/' . $profileuser->foto_user) }}"  style=" width: 140px; height: 140px; border-radius: 30px;"  alt="Profile" class="rounded-circle profile-image">
                         @else
                             <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
                             <img width="50px" height="50px" class="rounded-circle profile-image"

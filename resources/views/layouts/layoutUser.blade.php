@@ -323,15 +323,15 @@
                                             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 @if (Auth::user()->foto_user)
                                                     <img src="{{ asset('storage/' . Auth::user()->foto_user) }}" width="50px" height="50px" alt="Profile" class="rounded-circle profile-image">
-                                                    <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+                                                    <span class="d-none d-md-block dropdown-toggle ps-2" style="margin-left: 15px;"></span>
                                                 @else
                                                     <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
                                                     <img width="50px" height="50px" class="rounded-circle profile-image"
                                                         src="{{ asset('storage/default/defaultprofile.jpeg') }}" alt="Placeholder">
                                                 @endif
-                                            </a>    
-                                            <ul class="dropdown">
-                                                <li><a href="{{route('Profile')}}"><i class="fa-solid fa-cart-shopping"></i>Profile</a></li>
+                                            </a>
+                                            <ul class="dropdown" style="right: 100px;">
+                                                <li><a href="{{route('Profile')}}"><i class="fa-solid fa-user" style=""></i>Profile</a></li>
                                                 <li>
                                                     <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                                                     @csrf

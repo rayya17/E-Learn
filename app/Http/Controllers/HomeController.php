@@ -88,11 +88,12 @@ class HomeController extends Controller
             'total_price' => $materi->harga,
         ]);
 
+        $guru = User::where('role', 'guru')->first();
         Notifikasi::create([
             'sender_id' => Auth::user()->id,
-            'user_id' => $materi->guru_id,
+            'user_id' => $guru->id,
             'title' => Auth::user()->name,
-            'message' => "Your art has been purchased by " . Auth::user()->name,
+            'message' => Auth::user()->name . " Telah membeli kelas " .$materi->nama_materi,
             'materi_id' => $materi->id,
         ]);
 

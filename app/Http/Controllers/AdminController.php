@@ -56,7 +56,8 @@ class AdminController extends Controller
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $calonguru = Guru::with('user')->whereHas('user',function($query){
-    })->get();
+            $query->where('role','=','gurunotapprove');})->get();
+
     return view('admin.calonguru', compact('calonguru', 'Notifikasi', 'unreadNotificationsCount'));
    }
 
