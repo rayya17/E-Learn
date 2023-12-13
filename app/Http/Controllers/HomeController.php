@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use file;
+use Auth;
 use App\Models\Guru;
 use App\Models\Order;
 use App\Models\Materi;
 use App\Models\Pendapatan;
+use App\Models\Notifikasi;
 use App\Models\User;
 use App\Models\Ulasan;
 use App\Models\DetailMateri;
@@ -17,12 +19,14 @@ class HomeController extends Controller
 {
     public function home()
     {
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $ulasan = Ulasan::all();
         $materi = Materi::all();
         $detailmateri = detailmateri::where('materi_id'  )->get();
         $guru = Guru::with('user')->get();
         $order = Order::first();
-        return view('users.home',compact('detailmateri', 'guru', 'materi', 'ulasan' ,'order'));
+        return view('users.home',compact('detailmateri', 'guru', 'materi', 'ulasan' ,'order', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
     public function detailpemesanan()
@@ -84,6 +88,14 @@ class HomeController extends Controller
             'total_price' => $materi->harga,
         ]);
 
+        Notifikasi::create([
+            'sender_id' => Auth::user()->id,
+            'user_id' => $materi->guru_id,
+            'title' => Auth::user()->name,
+            'message' => "Your art has been purchased by " . Auth::user()->name,
+            'materi_id' => $materi->id,
+        ]);
+
         return redirect()->route('payment', $order->id)->with('success', 'berhasil menambahkan');
     }
 
@@ -122,8 +134,10 @@ class HomeController extends Controller
     }
 
     public function detailmateri_user($id){
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $ulasan = Ulasan::with('user')->where('materi_id', $id)->get();
         $materi = Materi::findOrFail($id);
-        return view('users.detailmateri_user', compact('materi', 'ulasan'));
+        return view('users.detailmateri_user', compact('materi', 'ulasan', 'Notifikasi', 'unreadNotificationsCount'));
     }
 }

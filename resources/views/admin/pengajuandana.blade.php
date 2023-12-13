@@ -14,18 +14,18 @@
       <div class="row">
               <div class="col-md-12 col-lg-12">
           <div class="card">
-              <div class="card-body"> 
+              <div class="card-body">
           <!-- Left side columns -->
           <div class="col-lg-12">
               <div class="row">
                   <table>
                       <thead id="example1">
                           <tr>
-                              <th scope="col" style="text-align: center; border-top-right-radius:10px;">Nama</th>
+                              <th scope="col" style="text-align: center; border-top-left-radius:10px;">Nama</th>
                               <th scope="col" style="text-align: center;">Pembayaran</th>
                               <th scope="col" style="text-align: center;">Keterangan</th>
-                              <th scope="col" style="text-align: center; border-top-left-radius:10px;">Aksi</th>
-                              
+                              <th scope="col" style="text-align: center; border-top-right-radius:10px;">Aksi</th>
+
                           </tr>
                           </thead>
                           <tbody>
@@ -47,7 +47,7 @@
                               </tr>
                                   <!-- Add more rows as needed -->
                               </tbody>
-              
+
                            </table>
                         </div>
                   </div>
@@ -55,6 +55,6 @@
       </div>
   </div>
 </div>
-</section>    
+</section>
   </main><!-- End #main -->
 @endsection

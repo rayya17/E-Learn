@@ -2,7 +2,7 @@
 
     @section('content')
         <!-- Courses -->
-    
+
             <div class="container">
                 {{-- <form style="margin-top: 50px;" class="detail"> --}}
                 <div style="width: 100%;
@@ -21,14 +21,21 @@
                     </fieldset>
                 </div>
             <div class="d-flex justify-content-between">
-            
-                <div class="card">        
+
+                <div class="card">
                     <div class="card-body"  style="text-align: center;">
-                            <img src="{{ asset('storage/'. $profileuser->foto_user ) }}"  style=" width: 140px; height: 175px border-radius: 30px;" class="card-img-top" alt="...">
+                        @if (Auth::user()->foto_user)
+                            <img src="{{ asset('storage/' . $profileuser->foto_user) }}" width="50px" height="50px" alt="Profile" class="rounded-circle profile-image">
+                            <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+                        @else
+                            <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
+                            <img width="50px" height="50px" class="rounded-circle profile-image"
+                                src="{{ asset('storage/default/defaultprofile.jpeg') }}" alt="Placeholder">
+                        @endif
                             {{-- <img src="{{ asset('storage/profile' . $profileuser->fotoProfile) }}" alt="Foto Profil" id="fotoProfilePreview" style="width: 140px; height: 175px; border-radius: 30px;"> --}}
                             <div class="card-body" style="text-align: center;">
                                 <p class="card-text" style="font-weight: bold; font-size: 20px;">{{ Auth::user()->name }}</p>
-                            </div>   
+                            </div>
                             <hr style="margin-top: 0;">
                             <div class="d-flex justify-content-between mb-2" style="font-weight: bold; font-size: 15px ">
                             <p>Nama :</p><span> {{ $profileuser ->name}}</span>
@@ -44,15 +51,15 @@
                                     <span>Data tidak tersedia</span>
                                 @endif
                             </div>
-                            
+
                             <div class="d-flex justify-content-between mb-2" style="font-weight: bold; font-size: 15px">
                                 <p>Email :</p><span>{{$profileuser->email}}</span>
                             </div>
                     </div>
                 </div>
-                
+
                 <div class="card" style="flex-grow: 1;">
-                    <div class="card-body">          
+                    <div class="card-body">
                         <form action="{{ route('updateProfile', $profileuser->id) }}"
                             method="post" enctype="multipart/form-data">
                             @csrf
@@ -95,7 +102,7 @@
                                             <span class="text-danger">{{ $errors->first('tanggal_lahir') }}</span>
                                          @endif
                                         </div>
-                                    
+
                                     </div>
                                 </div>
                             </div>
@@ -105,9 +112,9 @@
                         </div>
                     </form>
                     </div>
-                    
+
                 </div>
-            
+
             </div>
         </div>
 
@@ -129,7 +136,7 @@
                         </div>
                     </fieldset>
                 </div>
-                <div class="col-lg-12">                 
+                <div class="col-lg-12">
                     <div class="row">
                         <div class="card" >
                             <div class="card-header" style="color: #3B9680; font-size: 20px;"><strong>Geometri</strong></div>
@@ -141,13 +148,13 @@
                                     <center><a href="#" class="btn btn-primary" style="border-radius: 8px; text-align: center; margin-top: 20px">Bayar Sekarang</a></center>
                                 </blockquote>
                             </div>
-                    
+
                     </div>
                 </div>
             </div>
             </div>
         {{-- </form> --}}
-    
+
             <!--/ End Courses -->
             {{-- <script>
                 document.getElementById('fotoProfileInput').addEventListener('change', function (e) {

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use File;
+use Auth;
 use App\Models\Materi;
 use App\Models\Guru;
+use App\Models\User;
+use App\Models\Notifikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,11 +18,14 @@ class MateriController extends Controller
      */
     public function index()
     {
-        $materi = Materi::all();
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
+        $guru = Guru::with('materi')->where('user_id', Auth::user()->id)->first();
+        $materi = $guru->materi;
         // $user = Auth::id();
         // $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
-        $guru = Guru::with('user')->get();
-        return view('guru.materi',compact('materi', 'guru'));
+        // $guru = Guru::with('user')->get();
+        return view('guru.materi',compact('materi', 'guru', 'Notifikasi', 'unreadNotificationsCount'));
         // return view('guru.materi');
     }
 
@@ -96,6 +102,16 @@ class MateriController extends Controller
                 'tugas' => $request->tugas,
                 'detail_tugas' => $request->detail_tugas,
                 'tanggal_tugas' => now()
+            ]);
+
+            $admin = User::where('role', 'admin')->first();
+
+            Notifikasi::create([
+                'sender_id' => Auth::user()->id,
+                'user_id' => $admin->id,
+                'title' => Auth::user()->name,
+                'message' => Auth::user()->name . " Memposting materi baru yang bernama " . $materi->nama_materi,
+                'materi_id' => $materi->id,
             ]);
 
             return back()->with('success', 'Berhasil menambahkan materi dan tugas');

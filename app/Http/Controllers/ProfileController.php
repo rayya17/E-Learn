@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Profile;
 use App\Models\user;
 use App\Models\guru;
-
+use App\Models\Notifikasi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -19,10 +20,12 @@ class ProfileController extends Controller
      */
     public function index()
     {
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $user_id  = Auth::id();
         $profileuser = User::findOrFail($user_id);
         // dd($user_id);
-        return view('users.profile', compact('profileuser', 'user_id'));
+        return view('users.profile', compact('profileuser', 'user_id', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
     // public function edit($id)
@@ -47,7 +50,7 @@ class ProfileController extends Controller
             'no_telepon.required'=> 'no telepon harus diisi',
             'no_telepon.numeric'=> 'nomor telepon harus berupa angka',
             'no_telepon.regex'=> 'nomor telepon tidak sesuai format',
-            'no_telepon.digits_between'=> 'nomor telepon antara 10 sampai 12 angka', 
+            'no_telepon.digits_between'=> 'nomor telepon antara 10 sampai 12 angka',
 
         ]);
 
@@ -61,71 +64,93 @@ class ProfileController extends Controller
             $filePath = $request->file('foto_user')->store('fotouser', 'public');
             $user->foto_user = $filePath;
         }
-     
+
 
         $user->name = $request->input('name');
         $user->tanggal_lahir = $request->input('tanggal_lahir');
         $user->no_telepon= $request->input('no_telepon');
         $user->save();
         return redirect()->route('Profile')->with('success', 'Profile berhasil diperbarui');
- 
+
     }
-    
- 
+
+
     public function profileGuru (){
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $user_id = Auth::id();
-        $profileguru = guru::where('user_id', $user_id)->get();
-        return view ('guru.profileuser', compact('profileguru', 'user_id'));
+        $profileguru = Guru::where('user_id', $user_id)->get();
+        return view ('guru.profileuser', compact('profileguru', 'user_id', 'Notifikasi', 'unreadNotificationsCount'));
     }
- 
-    public function profileguruUp(Request $request, $id){
-        // dd($request->all());
-        $user = guru::findOrFail($id);
-        $users = user::findOrFail($user->user_id);
+
+    public function profileguruUp(Request $request, $id)
+    {
+        $user = Guru::findOrFail($id);
+        $users = User::find($user->user_id);
+
+        if (!$users) {
+            return redirect()->back()->with('error', 'User not found');
+        }
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'alamat' => 'required|min:10|max:255',
-            'no_telepon' => 'required|numeric|regex:/^\d*$/|digits_between:10,12',
-            'pendidikan'=> 'required',
-        ],[
-            'name.required'=>'nama harus diisi',
-            'alamat.required'=> 'alamat harus diisi',
-            'alamat.min'=> 'alamat diisi minimal 10 huruf',
-            'alamat.max'=> 'alamat diisi maksimal 255 huruf',
-            'no_telepon.required'=> 'no telepon harus diisi',
-            'no_telepon.numeric'=> 'nomor telepon harus berupa angka',
-            'no_telepon.regex'=> 'nomor telepon tidak sesuai format',
-            'no_telepon.digits_between'=> 'nomor telepon antara 10 sampai 12 angka', 
-            'pendidikan'=> 'harus diisi'
-
+            'name' => 'string|max:255',
+            'alamat' => 'min:10|max:255',
+            'no_telepon' => 'numeric|regex:/^\d*$/|digits_between:10,12',
+            // 'pendidikan' => 'required',
+            'foto_user' => 'image|mimes:jpeg,png,jpg',
+        ], [
+            // 'name.required' => 'nama harus diisi',
+            // 'alamat.required' => 'alamat harus diisi',
+            'alamat.min' => 'alamat diisi minimal 10 huruf',
+            'alamat.max' => 'alamat diisi maksimal 255 huruf',
+            // 'no_telepon.required' => 'no telepon harus diisi',
+            'no_telepon.numeric' => 'nomor telepon harus berupa angka',
+            'no_telepon.regex' => 'nomor telepon tidak sesuai format',
+            'no_telepon.digits_between' => 'nomor telepon antara 10 sampai 12 angka',
+            // 'pendidikan.required' => 'harus diisi',
+            'foto_user.image' => 'Foto harus berupa file gambar (jpeg, png, jpg)',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
+        // dd($request->all());
+        // Update the user data
         $users->name = $request->name;
-        $user->alamat = $request->input('alamat');
-        $users->no_telepon = $request->input('no_telepon');
+        $users->no_telepon = $request->no_telepon;
         $users->save();
-      
 
-        $user->pendidikan = $request->input('pendidikan');
 
-        if ($request->hasFile('foto_profile')) {
-            if ($user->foto_profile) {
-                Storage::delete('public/' . $user->foto_profile);
-            }
-            $filePath = $request->file('foto_profile')->store('profile', 'public');
-            $user->foto_profile = $filePath;
-            $user->save();
+        // Update the guru data
+        $user->alamat = $request->alamat;
+        $user->pendidikan = $request->pendidikan;
+        $user->save();
+
+
+        if ($request->hasFile('foto_user')) {
+            // Delete the old file
+
+                // Storage::disk('public')->delete($user->foto_user);
+            Storage::delete('profile/'.$users->foto_user);
+
+            $fileName = $request->file('foto_user')->hashName();
+
+            // Upload and save the new file
+            $filePath = $request->file('foto_user')->storeAs('profile', $fileName);
+            $filePathFinal = Str::substr($filePath, 8);
+
+            $sue = User::findOrFail(Auth::user()->id)->update([
+                'foto_user' => $fileName,
+            ]);
+
         }
-        
-      
+
+        $user->save();
 
         return redirect()->back()->with('success', 'Profile Berhasil diperbarui');
-
     }
+
 
     public function create()
     {

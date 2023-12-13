@@ -137,6 +137,62 @@
             object-fit: cover; /* Ensure the entire image is visible in the circle */
         }
 
+        .nav-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* Update CSS for .dropdown-menu.notifications */
+        .dropdown-menu.notifications {
+            margin-right: 20px;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 10px; /* Adjust the distance from the icon as needed */
+            max-width: 300px;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        /* Update CSS for .nav-icon */
+        .nav-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* Update CSS for #notificationIcon */
+        #notificationIcon {
+            margin-top: 10px; /* Adjust the margin from the top as needed */
+            position: relative;
+        }
+
+        /* Update CSS for #notif-count */
+        #notif-count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            /* Add other styling as needed */
+        }
+
+        /* Update CSS for .notification-item */
+        .notification-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        /* Update CSS for .notification-item:hover */
+        .notification-item:hover {
+            background-color: #f8f9fa; /* Adjust the background color as needed */
+        }
+
+        /* p {
+            color: #555;
+            margin-left: 70px;
+        } */
+
     </style>
 </head>
 
@@ -169,16 +225,111 @@
                                         <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="contact.html"  style="color: #ffffff">IPS</a></li>
                                         <li class="{{ request()->is('teachers') ? 'active' : '' }}"><a href="events.html"  style="color: #ffffff">Bahasa Inggris</a></li>
                                         <li class="{{ request()->is('teachers') ? 'active' : '' }}"><a href="events.html"  style="color: #ffffff">Bahasa Indonesia</a></li>
-                                        <li class="{{ request()->is('teachers') ? 'active' : '' }}"><a href="#"  style="color: #ffffff">Pages <i class="fa-solid fa-chevron-up fa-rotate-180"></i></a>
+                                        {{-- <li class="{{ request()->is('teachers') ? 'active' : '' }}"><a href="#"  style="color: #ffffff">Pages <i class="fa-solid fa-chevron-up fa-rotate-180"></i></a>
                                             <ul class="dropdown">
                                                 <li><a href="/detailpemesanan"><i class="fa-solid fa-cart-shopping"></i>Detail Pesanan</a></li>
+                                            </ul>
+                                        </li> --}}
+
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" id="notificationIcon" style="margin-top: 10px">
+                                                <i class="fa-regular fa-bell" id="bellIcon" style="font-size: 22px; color: #ffff; margin-right: 25px; position: relative;">
+                                                    @if ($unreadNotificationsCount > 0)
+                                                        <span id="notif-count" class="badge seniman-badge bg-dark text-white" style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
+                                                    @endif
+                                                </i>
+                                                <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                                                <script>
+                                                    $(document).ready(function () {
+                                                        // Ambil token CSRF dari meta tag
+                                                        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                                                        // Menangani klik pada notifikasi
+                                                        $('.notification-item').on('click', function (e) {
+                                                            e.preventDefault();
+                                                            var notificationId = $(this).data('notification-id');
+                                                            var $notificationItem = $(this);
+
+                                                            // Lakukan AJAX untuk menandai notifikasi sebagai sudah dibaca
+                                                            $.ajax({
+                                                                url: '{{ route('notifDelete', ['id' => ':id']) }}'.replace(':id', notificationId),
+                                                                method: 'POST',
+                                                                // Sertakan token CSRF dalam header
+                                                                headers: {
+                                                                    'X-CSRF-TOKEN': csrfToken,
+                                                                },
+                                                                success: function (response) {
+                                                                    if (response.success) {
+                                                                        // Perbarui tampilan notifikasi di frontend
+                                                                        $('#notificationIcon #notif-count').text(response.unreadNotificationcount);
+
+                                                                        // Hapus notifikasi dari tampilan tanpa reload
+                                                                        $notificationItem.remove();
+                                                                    }
+                                                                },
+                                                                error: function (error) {
+                                                                    console.error(error);
+                                                                }
+                                                            });
+                                                        });
+                                                    });
+                                                </script>
+                                            </a>
+
+                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" style="min-width: 300px; max-height: 350px ; overflow-y: auto; margin-right: 20px !important; margin-left: -257px">
+                                                <li class="dropdown-header">
+                                                    <center>
+                                                    <span style="font-size: 20px; margin-left: 75px;">Notifikasi</span>
+                                                    </center>
+                                                </li>
+                                                <hr style="margin-bottom: 0px; margin-top: 45px;">
+                                                <center>
+                                                @if (count($Notifikasi) > 0)
+                                                    @foreach ($Notifikasi as $notifikasi)
+                                                        <li class="notification-item" data-notification-id="{{ $notifikasi->id }}">
+                                                            <div class="profile">
+                                                                @if ($notifikasi->user && $notifikasi->user->foto_user)
+                                                                    <img width="20px" height="20px" class="rounded-circle border me-2"
+                                                                        src="{{ $notifikasi->user->foto_user }}" alt="{{ $notifikasi->user->name }}">
+                                                                @else
+                                                                    <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
+                                                                    <img width="50px" height="50px" class="rounded-circle border me-2"
+                                                                        src="storage/default/defaultprofile.jpeg" alt="Placeholder">
+                                                                @endif
+                                                            </div>
+                                                            <div class="notif-text w-100">
+                                                                <div class="username">
+                                                                    <p class="mb-1" style="color: #555; margin-left: 70px;">{{ $notifikasi->title }}</p>
+                                                                </div>
+                                                                <div class="message">{{ $notifikasi->message }}</div>
+                                                                <div class="date">
+                                                                    <p class="mb-0" style="color: #555; margin-left: 70px;">{{ $notifikasi->created_at->diffForHumans() }}</p>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <hr class="dropdown-divider">
+                                                        </li>
+                                                    @endforeach
+                                                @else
+                                                    <li class="no-notif pt-3">
+                                                        <p class="mb-0" style="color: #555; margin-left: 70px;">Tidak ada notifikasi</p>
+                                                    </li>
+                                                @endif
+                                            </center>
                                             </ul>
                                         </li>
                                         <li>
                                             <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src="{{ asset('storage/' . Auth::user()->foto_user) }}" alt="Profile" class="rounded-circle profile-image">
-                                                <span class="d-none d-md-block dropdown-toggle ps-2"></span>
-                                            </a>
+                                                @if (Auth::user()->foto_user)
+                                                    <img src="{{ asset('storage/' . Auth::user()->foto_user) }}" width="50px" height="50px" alt="Profile" class="rounded-circle profile-image">
+                                                    <span class="d-none d-md-block dropdown-toggle ps-2"></span>
+                                                @else
+                                                    <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
+                                                    <img width="50px" height="50px" class="rounded-circle profile-image"
+                                                        src="{{ asset('storage/default/defaultprofile.jpeg') }}" alt="Placeholder">
+                                                @endif
+                                            </a>    
                                             <ul class="dropdown">
                                                 <li><a href="{{route('Profile')}}"><i class="fa-solid fa-cart-shopping"></i>Profile</a></li>
                                                 <li>
@@ -264,6 +415,16 @@
 <script src="{{ asset('assets/js/gmaps.min.html') }}"></script>
 <!-- Main JS-->
 <script src="{{ asset('assets/js/main.js') }}"></script>
+
+<script src="{{ asset('assets/Admin/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+{{-- <script src="{{ asset('assets/Admin/quill/quill.min.js') }}"></script>
+<script src="{{ asset('assets/Admin/simple-datatables/simple-datatables.js') }}"></script>
+<script src="{{ asset('assets/Admin/tinymce/tinymce.min.js"') }}"></script>
+<script src="{{ asset('assets/Admin/php-email-form/validate.js') }}"></script> --}}
+
+<!-- Template Main JS File -->
+<script src="{{ asset('assets/Admin/js/main.js') }}"></script>
+{{-- <script src="path/to/bootstrap.bundle.min.js"></script>  --}}
 
 {{-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

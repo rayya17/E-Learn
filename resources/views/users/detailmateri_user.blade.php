@@ -58,7 +58,7 @@
         <div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
 
             <div class="cover">
-                <img style="width: 700px;" src="{{ asset('storage/default/' . $materi->cover) }}">
+                <img style="width: 500px;" src="{{ asset('storage/default/' . $materi->cover) }}">
             </div>
             <div class="title" style="margin-bottom: 50px;">
                 <div class="kelas d-flex">

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\DetailMateri;
 use App\Models\Materi;
 use App\Models\Guru;
+use App\Models\Notifikasi;
 use Illuminate\Http\Request;
 
 class DetailMateriController extends Controller
@@ -14,10 +16,12 @@ class DetailMateriController extends Controller
      */
     public function index()
     {
-        $materi = Materi::all();
-        $guru = Guru::with('user')->get();
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
+        $guru = Guru::with('materi')->where('user_id', Auth::user()->id)->first();
+        $materi = $guru->materi;
         $detailmateri = DetailMateri::all();
-        return view('guru.detailmateri',compact('materi', 'guru', 'detailmateri'));
+        return view('guru.detailmateri',compact('materi', 'guru', 'detailmateri', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
     /**

@@ -18,4 +18,8 @@ class Ulasan extends Model
     public function materi(): BelongsTo{
         return $this->belongsTo(Materi::class,'materi_id');
     }
+
+    public function guru(): BelongsTo{
+        return $this->belongsTo(Guru::class,'materi_id');
+    }
 }

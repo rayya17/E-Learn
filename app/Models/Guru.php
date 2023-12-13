@@ -16,7 +16,6 @@ class Guru extends Model
     protected $fillable =
     [
         'user_id',
-        'foto_profile',
         'tanggal_lahir',
         'pendidikan',
         'alamat',
@@ -32,9 +31,9 @@ class Guru extends Model
         return $this->hasMany(penarikansaldo::class);
     }
 
-    public function guru(): HasMany
+    public function ulasan(): HasMany
     {
-        return $this->hasMany(guru::class);
+        return $this->hasMany(Ulasan::class);
     }
 
     public function detailmateri(): BelongsTo
@@ -42,4 +41,8 @@ class Guru extends Model
         return $this->belongsTo(DetailMateri::class);
     }
 
+    public function materi()
+    {
+        return $this->hasMany(Materi::class);
+    }
 }

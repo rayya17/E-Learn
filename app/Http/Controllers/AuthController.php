@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use App\Models\Notifikasi;
 // use App\Http\Controllers\Str;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
@@ -127,7 +128,7 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users,email',
             'no_telepon' => 'required|numeric',
             'tanggal_lahir' => 'required',
-            'foto_profile' => 'image|mimes:jpeg,png,jpg',
+            'foto_user' => 'image|mimes:jpeg,png,jpg',
             'password' => 'required|min:6',
             're-password' => 'required|same:password',
         ], [
@@ -144,9 +145,15 @@ class AuthController extends Controller
             're-password.required' => 'Konfirmasi password harus diisi.',
             're-password.same' => 'Konfirmasi password tidak cocok dengan password.',
         ]);
+
+        $foto_user = $request->file('foto_user');
+        $foto_userName = uniqid() . '.' . $foto_user->getClientOriginalExtension();
+        // dd($foto_userName);
+        $foto_user->storeAs('profile/',$foto_userName);
         // $user  = $request->all();
         // $user['password'] = Hash::make($user['password']);
         $user = User::create([
+            'foto_user' => $foto_userName,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -155,21 +162,38 @@ class AuthController extends Controller
 
         ]);
 
-        $foto_profile = $request->file('foto_profile');
-        $foto_profileName = uniqid() . '.' . $foto_profile->getClientOriginalExtension();
-        $foto_profile->storeAs('profile/',$foto_profileName);
+        $user = User::where('email', $request->email)->first();
 
-        User::find($user->id)->Guru()->create([
-            'foto_profile' => $foto_profileName,
-            'user_id' => $user->id,
-            'no_telepon' => $request->no_telepon,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'pendidikan' => $request->pendidikan,
-            'alamat' => $request->alamat,
-            // 'foto_sertifikat' => $foto_sertifikatName,
-            // 'foto_ktp' => $foto_ktpName,
-        ]);
-        return redirect()->route('loginPage')->with('success', 'tunggu proses konfirmasi akun anda');
+        if ($user){
+
+            $user->Guru()->create([
+                'user_id' => $user->id,
+                'no_telepon' => $request->no_telepon,
+                'tanggal_lahir' => $request->tanggal_lahir,
+                'pendidikan' => $request->pendidikan,
+                'alamat' => $request->alamat,
+                // 'foto_sertifikat' => $foto_sertifikatName,
+                // 'foto_ktp' => $foto_ktpName,
+            ]);
+
+            // Find admin user
+            $admin = User::where('role', 'admin')->first();
+
+            // Check if the admin user exists before creating a notification
+            if ($admin) {
+                Notifikasi::create([
+                    'sender_id' => $user->id,
+                    'user_id' => $admin->id,
+                    'title' => $user->name,
+                    'message' => $user->name . " registered as a guru",
+                ]);
+            }
+
+            return redirect()->route('loginPage')->with('success', 'Tunggu proses konfirmasi akun anda');
+        }
+
+        // Handle the case where the user was not found
+        return redirect()->route('loginPage')->with('error', 'Gagal membuat akun guru. Silakan coba lagi.');
     }
 
     public function forgotpassword()

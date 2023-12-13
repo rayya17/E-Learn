@@ -20,7 +20,7 @@
                                 <div class="card text-white" style="background-color: #4FA987;">
                                     <!-- Change bg-success to your desired background color -->
                                     <div class="card-body text-center">
-                                        <img class="mt-4" src="{{ asset('storage/profile/' . $p->foto_profile) }}"
+                                        <img class="mt-4" src="{{ asset('storage/profile/' . $p->user->foto_user) }}"
                                             alt="profile"
                                             style="border-radius: 50px; width: 100px; height: 100px;object-fit: cover; ">
                                         <!-- Adjust width and height as needed -->
@@ -59,7 +59,7 @@
                                                       <div class="col-lg-4 mt-4">
                                                         <div class="card text-white" style="background-color: #4FA987;">
                                                           <div class="card-body text-center">
-                                                            <img class="mt-4" src="{{ asset('storage/profile/'.$p->foto_profile) }}" alt="profile" style="border-radius: 50px; width: 100px; height: 100px;object-fit: cover">
+                                                            <img class="mt-4" src="{{ asset('storage/profile/'.$p->user->foto_user) }}" alt="profile" style="border-radius: 50px; width: 100px; height: 100px;object-fit: cover">
                                                             <div class="card-content">
                                                               <h4>{{ $p->user->name }}</h4>
                                                               <h5>{{ $p->pendidikan }}</h5>

@@ -8,6 +8,7 @@
     <title>GURU</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicons -->
     <link href="assets/img/favicon.png" rel="icon">
@@ -15,7 +16,8 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
@@ -96,20 +98,20 @@
         /* .col-lg-3,
         .col-md-4 {
             /* Adjust the width of the sidebar as needed */
-            /* flex: 0 0 25%; */
-            /* max-width: 25%;
+        /* flex: 0 0 25%; */
+        /* max-width: 25%;
         }
 
         .col-lg-9,
         .col-md-8 { */
-            /* Adjust the width of the main content as needed */
-            /* flex: 0 0 75%;
+        /* Adjust the width of the main content as needed */
+        /* flex: 0 0 75%;
             max-width: 75%;
         }
 
         .single-course { */
-            /* Add any necessary styling for your course cards */
-            /* margin-bottom: 20px;
+        /* Add any necessary styling for your course cards */
+        /* margin-bottom: 20px;
             display: flex;
             flex-direction: column;
             height: 100%;
@@ -117,21 +119,22 @@
 
         .course-body {
             flex: 1; Menyesuaikan tinggi secara otomatis untuk konten
-        } */ */
-
-
-        body {
+        } */
+        */ body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
         }
 
         header {
-            background-color: #333; /* Warna latar belakang header */
+            background-color: #333;
+            /* Warna latar belakang header */
             /* color: white; */
-            padding: 20px; /* Padding untuk memberikan ruang di sekitar teks header */
+            padding: 20px;
+            /* Padding untuk memberikan ruang di sekitar teks header */
             text-align: center;
-            box-shadow: 0px 4px 6px rgba(170, 167, 167, 0.1); /* Pusatkan teks header */
+            box-shadow: 0px 4px 6px rgba(170, 167, 167, 0.1);
+            /* Pusatkan teks header */
         }
 
         /* Gaya tambahan untuk memperpanjang header */
@@ -141,10 +144,14 @@
 
         /* Gaya untuk elemen <thead> */
         thead {
-            background-color: #4FA987; /* Warna latar belakang thead */
-            border-radius: 15px; /* Border radius pada thead */
-            color: white; /* Warna teks pada thead */
-            height: 45px; /* Sesuaikan ketinggian thead sesuai kebutuhan Anda */
+            background-color: #4FA987;
+            /* Warna latar belakang thead */
+            border-radius: 15px;
+            /* Border radius pada thead */
+            color: white;
+            /* Warna teks pada thead */
+            height: 45px;
+            /* Sesuaikan ketinggian thead sesuai kebutuhan Anda */
         }
 
         .card {
@@ -153,7 +160,8 @@
         }
 
         .card-body {
-            border-radius: 25px; /* Menambahkan radius pada bagian body dari card */
+            border-radius: 25px;
+            /* Menambahkan radius pada bagian body dari card */
             margin-top: 10px;
             padding: 20px;
         }
@@ -164,16 +172,18 @@
           font-size: 14px;
         } */
 
-        .container-card{
+        .container-card {
             padding-top: 10px;
             width: 325px;
         }
-        .container-card .card{
+
+        .container-card .card {
             min-height: 400px;
             overflow: hidden;
             margin-right: 15px;
         }
-        .container-card .card .bg-image{
+
+        .container-card .card .bg-image {
             width: 100%;
             height: 200px;
             overflow: hidden;
@@ -183,18 +193,19 @@
             padding: 8px;
         }
 
-        .container-card .card .bg-image .background{
+        .container-card .card .bg-image .background {
             width: 100%;
             height: 100%;
             object-fit: cover;
             border-radius: 5px;
         }
-        .container-card .card .tengah{
+
+        .container-card .card .tengah {
             position: absolute;
             top: 130px
         }
 
-        .container-card .card .tengah .profile{
+        .container-card .card .tengah .profile {
             overflow: hidden;
             position: absolute;
             left: 14px;
@@ -202,18 +213,20 @@
             box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
             border-radius: 100%;
         }
-        .container-card .card .tengah .profile .rounded-circle{
+
+        .container-card .card .tengah .profile .rounded-circle {
             object-fit: cover;
             width: 60px;
             height: 60px;
         }
 
-        .container-card .card .tengah .badge-class{
+        .container-card .card .tengah .badge-class {
             position: absolute;
             right: 22px;
             top: 47px;
         }
-        .container-card .card .tengah .badge-class .badge{
+
+        .container-card .card .tengah .badge-class .badge {
             width: 100%;
             height: 30px;
             font-size: 15px;
@@ -223,17 +236,88 @@
             border-radius: 10px;
         }
 
-        .container-card .card .text-card .title{
+        .container-card .card .text-card .title {
             margin-top: 5px;
             margin-bottom: 2px;
         }
 
-        .container-card .card .text-card .desc{
+        .container-card .card .text-card .desc {
             margin-top: 0px;
             padding-top: 0px;
             margin-bottom: 10px;
         }
 
+        .notification-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .notification-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .profile img {
+            border-radius: 50%;
+        }
+
+        .notif-text {
+            flex-grow: 1;
+            margin-left: 10px;
+        }
+
+        .notif-text .username {
+            font-weight: bold;
+        }
+
+        .notif-text .message {
+            color: #555;
+            margin-top: 5px;
+            font-size: 13px;
+        }
+
+        .notif-text .date {
+            color: #777;
+            font-size: 12px;
+        }
+
+        .no-notif {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .badge.seniman-badge {
+            position: absolute;
+            top: 20px;
+            right: 3px;
+        }
+
+        .header-nav .profile {
+            min-width: 35px;
+            padding-bottom: 0;
+            top: 8px !important;
+        }
+
+        .dropdown-menu .dropdown-header,
+        .dropdown-menu .dropdown-footer {
+            text-align: center;
+            font-size: 15px;
+            padding: 0px 29px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 20px;
+            padding-right: 5px;
+        }
+
+        .header-nav .nav-icon {
+            font-size: 22px;
+            color: #ffff;
+            margin-right: 2px;
+            position: relative;
+        }
     </style>
 </head>
 
@@ -241,9 +325,9 @@
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
 
-        @php
+        {{-- @php
             $profile = \App\Models\Guru::where('user_id', Auth::user()->id)->firstOrFail();
-        @endphp
+        @endphp --}}
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
@@ -269,18 +353,102 @@
                     </a>
                 </li><!-- End Search Icon-->
 
-                <li class="nav-item dropdown">
+                {{-- <meta name="csrf-token" content="{{ csrf_token() }}" /> --}}
 
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                        <i class="bi bi-bell"></i>
-                        <span class="badge bg-primary badge-number">4</span>
-                    </a><!-- End Notification Icon -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" id="notificationIcon">
+                        <i class="fa-regular fa-bell" id="bellIcon">
+                            @if ($unreadNotificationsCount > 0)
+                                <span id="notif-count" class="badge seniman-badge bg-dark text-white" style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
+                            @endif
+                        </i>
+                        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                        <script>
+                            $(document).ready(function () {
+                                // Ambil token CSRF dari meta tag
+                                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                                // Menangani klik pada notifikasi
+                                $('.notification-item').on('click', function (e) {
+                                    e.preventDefault(); // Menghentikan tindakan default dari tautan
+                                    var notificationId = $(this).data('notification-id');
+                                    var $notificationItem = $(this);
+
+                                    // Lakukan AJAX untuk menandai notifikasi sebagai sudah dibaca
+                                    $.ajax({
+                                        url: '{{ route('notifDelete', ['id' => ':id']) }}'.replace(':id', notificationId),
+                                        method: 'POST',
+                                        // Sertakan token CSRF dalam header
+                                        headers: {
+                                            'X-CSRF-TOKEN': csrfToken,
+                                        },
+                                        success: function (response) {
+                                            if (response.success) {
+                                                // Perbarui tampilan notifikasi di frontend
+                                                $('#notificationIcon #notif-count').text(response.unreadNotificationcount);
+
+                                                // Hapus notifikasi dari tampilan tanpa reload
+                                                $notificationItem.remove();
+                                            }
+                                        },
+                                        error: function (error) {
+                                            console.error(error);
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" style="min-width: 300px; max-height: 350px; overflow-y: auto;">
+                        <li class="dropdown-header">
+                            <h5>Notifikasi</h5>
+                        </li>
+                        <hr style="margin-bottom: 0px">
+                        @if (count($Notifikasi) > 0)
+                            @foreach ($Notifikasi as $notifikasi)
+                                <li class="notification-item" data-notification-id="{{ $notifikasi->id }}">
+                                    <div class="profile">
+                                        @if ($notifikasi->sender->foto_user)
+                                            <img width="50px" height="50px" class="rounded-circle border me-2"
+                                                src="{{ asset('storage/' . $notifikasi->sender->foto_user) }}" alt="{{ $notifikasi->sender->name }}">
+                                        @else
+                                            <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
+                                            <img width="50px" height="50px" class="rounded-circle border me-2"
+                                                src="storage/default/defaultprofile.jpeg" alt="Placeholder">
+                                        @endif
+                                    </div>
+                                    <div class="notif-text w-100">
+                                        <div class="username">
+                                            <p class="mb-1">{{ $notifikasi->title }}</p>
+                                        </div>
+                                        <div class="message">{{ $notifikasi->message }}</div>
+                                        <div class="date">
+                                            <p class="mb-0">{{ $notifikasi->created_at->diffForHumans() }}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                            @endforeach
+                        @else
+                            <li class="no-notif pt-3">
+                                <p class="mb-0">Tidak ada notifikasi</p>
+                            </li>
+                        @endif
+                    </ul>
+                    <!-- End Notification Dropdown Items -->
+                    <!-- End Notification Dropdown Items -->
+                </li>
 
 
                 <li class="nav-item dropdown pe-3">
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="{{ asset('storage/profile/' . $profile->foto_profile) }}" width="45px" height="50px" alt="Profile" class="rounded-circle" style="object-fit: cover;">
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+                        data-bs-toggle="dropdown">
+                        <img src="{{ asset('storage/profile/' . Auth::user()->foto_user) }}" width="40px" height="50px" alt="Profile"
+                            class="rounded-circle" style="object-fit: cover;">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
                     </a>
                     <!-- End Profile Iamge Icon -->
@@ -300,24 +468,10 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                                <i class="bi bi-gear"></i>
-                                <span>Account Settings</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="dropdown-item d-flex align-items-center" style="border: none; background: none; cursor: pointer;">
+                                <button type="submit" class="dropdown-item d-flex align-items-center"
+                                    style="border: none; background: none; cursor: pointer;">
                                     <i class="bi bi-box-arrow-right"></i>
                                     <span>Sign Out</span>
                                 </button>
@@ -351,24 +505,27 @@
             </li><!-- End Tables Nav -->
 
             <li class="nav-item">
-                <a class="nav-link {{ request()->is('Pengumpulantugas') ? '' : 'collapsed' }}" href="{{ route('Pengumpulantugas') }}">
+                <a class="nav-link {{ request()->is('Pengumpulantugas') ? '' : 'collapsed' }}"
+                    href="{{ route('Pengumpulantugas') }}">
                     <i class="bi bi-bar-chart"></i><span>Pengumpulan Tugas</span>
                 </a>
             </li><!-- End Charts Nav -->
 
             <li class="nav-item">
-                <a class="nav-link {{ request()->is('Penarikansaldo') ? '' : 'collapsed' }}" href="{{ url ('Penarikansaldo') }}">
+                <a class="nav-link {{ request()->is('Penarikansaldo') ? '' : 'collapsed' }}"
+                    href="{{ url('Penarikansaldo') }}">
                     <i class="bi bi-bar-chart"></i><span>Penarikan Saldo</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->is('detailmateri') ? '' : 'collapsed' }}" href="{{ url ('detailmateri') }}">
+                <a class="nav-link {{ request()->is('detailmateri') ? '' : 'collapsed' }}"
+                    href="{{ url('detailmateri') }}">
                     <i class="bi bi-bar-chart"></i><span>Benefits</span>
                 </a>
             </li>
         </ul>
 
-    </aside><!-- End Sidebar--> 
+    </aside><!-- End Sidebar-->
     <div class="main-content py-3 px-3 mt-1 ">
         <div class="container-fluid">
             @yield('content')

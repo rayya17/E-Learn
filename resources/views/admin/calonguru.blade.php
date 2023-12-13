@@ -69,7 +69,7 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td><img width="120px" height="100px"
-                                      src="{{ asset('storage/profile/' . $data->foto_profile)}}" alt=""></td>
+                                      src="{{ asset('storage/profile/' . $data->user->foto_user)}}" alt=""></td>
                                       <td>{{ $data->user->name }}</td>
                                       <td>{{ $data->pendidikan }}</td>
                                       <td>{{ $data->user->no_telepon }}</td>
@@ -79,9 +79,8 @@
                                             src="{{ asset('storage/sertifikat/' . $data->foto_sertifikat)}}"
                                             alt=""></td>
                                     <td><img width="120px" height="150px" src="{{ asset('storage/ktp/' . $data->foto_ktp) }}" alt=""></td> --}}
-                                    <td class="d-flex">
+                                    <td  class="d-flex">
                                       {{-- <a class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#myModal_{{ $data->id }}" ><i class="far fa-eye"></i></a> --}}
-
                                         <form action="{{ route('terimaguru',$data->id) }}" method="post">
                                             @csrf
                                             @method('PATCH')

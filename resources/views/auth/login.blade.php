@@ -17,6 +17,37 @@
     <link rel="stylesheet" href="{{ URL::asset('assets/css/login.css') }}" />
 
     <title>Spike Bootstrap Admin</title>
+    <style>
+        .dlab-sign-up.style-2 {
+            position: relative;
+            /* text-align: center; */
+        }
+        .dlab-sign-up.style-2::before,
+        .dlab-sign-up.style-2::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 25%;
+            height: 1px;
+            background-color: #00000051; /* Adjust the color of the lines as needed */
+        }
+
+        .dlab-sign-up.style-2::before {
+            left: 35px;
+            transform: translateX(-1%);
+        }
+
+        .dlab-sign-up.style-2::after {
+            /* margin-right: 10px; */
+            right: 35px;
+            transform: translateX(1%);
+        }
+        h6{
+            line-height: 1.5;
+            color:rgba(0, 0, 0, 0.612);
+            font-weight: 600;
+        }
+    </style>
 </head>
 
 <body>
@@ -78,12 +109,15 @@
                                     {{-- <p class="fs-3 mb-0 fw-medium">New to Spike?</p>
                                     <a class="text-primary fw-bold ms-2 fs-3" href="{{ route('registerPage') }}">Create
                                         an account</a> --}}
-                                    
+                                </div>
+                                <div class="text-center my-3 mt-1">
+                                    <h6 class="dlab-sign-up style-2">Register</h6>
+                                </div>
                                         <center>
                                             <div class="row" style="padding-top: 25px;">
                                                 <div class="col-sm-6">
                                                     <div class="card">
-                                                        <div class="card-body">
+                                                        <div class="card-body" style="border: 2px solid #ddd; border-radius: 10px;">
                                                             <a href="{{ route('registerPage') }}">
                                                                 <img src="{{asset('assets/Admin/admin/siswa.jpg')}}"
                                                                     class="card-img-top" alt="..." width="250" height="180">
@@ -97,10 +131,10 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="card">
-                                                        <div class="card-body">
+                                                        <div class="card-body" style="border: 2px solid #ddd; border-radius: 10px;">
                                                             <a href="{{ route('registerguruPage') }}">
                                                                 <img src="{{asset('assets/Admin/admin/teacher.jpg')}}"
-                                                                    class="card-img-top" alt="...">
+                                                                    class="card-img-top" alt="..." width="250" height="180">
                                                             </a>
                                                             <h5 class="card-title"></h5>
                                                             <center>
@@ -117,12 +151,12 @@
                                                 color: blue;
                                                 text-decoration: none;
                                             }
-        
+
                                             .card-link:hover {
                                                 text-decoration: underline;
                                             }
                                         </style>
-        
+
                                         <style>
                                             .card:hover {
                                                 transform: translateY(-5px);

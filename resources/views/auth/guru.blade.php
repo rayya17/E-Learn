@@ -122,7 +122,7 @@
                                                                     class="form-label text-dark fw-bold">Foto
                                                                     Anda</label>
                                                                 <input type="file" class="form-control py-6"
-                                                                    id="text-confirm-pwd" name="foto_profile" id="foto_profile"
+                                                                    id="text-confirm-pwd" name="foto_user" id="foto_user"
                                                                     class="form-control">
                                                             </div>
                                                         </div>

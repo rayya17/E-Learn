@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\DetailMateriController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\UlasanController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
@@ -44,6 +45,7 @@ Route::middleware('admin')->group(function(){
     Route::get('Detailguru/{id}',[AdminController::class, 'Detailguru'])->name('Detailguru');
     Route::get('pengajuanguru', [AdminController::class, 'pengajuanguru'])->name('pengajuanguru');
     Route::post('terimapengajuan/{id}', [AdminController::class, 'terimapengajuan'])->name('terimapengajuan');
+    // Route::post('/notifDelete/{id}', [NotifikasiController::class, 'markRead'])->name('notifDelete');
 
 });
 
@@ -62,6 +64,7 @@ Route::middleware('guru')->group(function(){
     // Route::resource('materiGuru',GuruController::class);
 });
 
+Route::post('/notifDelete/{id}', [NotifikasiController::class, 'markRead'])->name('notifDelete');
 
 Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->group(function () {
     //Register Page
@@ -94,6 +97,11 @@ Route::middleware('user')->group(function(){
     Route::get('/order/{order}',[HomeController::class,'payment'])->name('payment');
      Route::post('/pesan/{materi}',[HomeController::class,'checkout'])->name('checkout');
      Route::post('/mitrans-callback',[HomeController::class,'callback'])->name('callback');
+    // Route::post('/notifDelete/{id}', [NotifikasiController::class, 'markRead'])->name('notifDelete');
+
 });
+
+// NOTIFIKASI ACTION
+// Route::get('/markRead/{id}', [NotifikasiController::class, 'markRead']);
 
 Route::get('/coba', [PdfController::class ,'generatePDF']);

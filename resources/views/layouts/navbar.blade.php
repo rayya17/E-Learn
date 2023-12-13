@@ -227,14 +227,14 @@
         }
 
         .container-card .card .text-card .title{
-            margin-top: 5px;
+            margin-top: 2px;
             margin-bottom: 2px;
         }
 
         .container-card .card .text-card .desc{
             margin-top: 0px;
             padding-top: 0px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -243,9 +243,9 @@
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
 
-        @php
+        {{-- @php
             $profile = \App\Models\Guru::where('user_id', Auth::user()->id)->firstOrFail();
-        @endphp
+        @endphp --}}
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
@@ -273,16 +273,98 @@
 
                 <li class="nav-item dropdown">
 
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                        <i class="bi bi-bell"></i>
-                        <span class="badge bg-primary badge-number">4</span>
-                    </a><!-- End Notification Icon -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" id="notificationIcon" style="margin-top: 3px; right: -50px;">
+                            <i class="fa-regular fa-bell" id="bellIcon" style="font-size: 22px; color: #ffff; margin-right: 25px; position: relative;">
+                                @if ($unreadNotificationsCount > 0)
+                                    <span id="notif-count" class="badge seniman-badge bg-dark text-white" style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
+                                @endif
+                            </i>
+                            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                            <script>
+                                $(document).ready(function () {
+                                    // Ambil token CSRF dari meta tag
+                                    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+                                    // Menangani klik pada notifikasi
+                                    $('.notification-item').on('click', function (e) {
+                                        e.preventDefault();
+                                        var notificationId = $(this).data('notification-id');
+                                        var $notificationItem = $(this);
+
+                                        // Lakukan AJAX untuk menandai notifikasi sebagai sudah dibaca
+                                        $.ajax({
+                                            url: '{{ route('notifDelete', ['id' => ':id']) }}'.replace(':id', notificationId),
+                                            method: 'POST',
+                                            // Sertakan token CSRF dalam header
+                                            headers: {
+                                                'X-CSRF-TOKEN': csrfToken,
+                                            },
+                                            success: function (response) {
+                                                if (response.success) {
+                                                    // Perbarui tampilan notifikasi di frontend
+                                                    $('#notificationIcon #notif-count').text(response.unreadNotificationcount);
+
+                                                    // Hapus notifikasi dari tampilan tanpa reload
+                                                    $notificationItem.remove();
+                                                }
+                                            },
+                                            error: function (error) {
+                                                console.error(error);
+                                            }
+                                        });
+                                    });
+                                });
+                            </script>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" style="min-width: 300px; max-height: 350px ; overflow-y: auto; margin-right: 20px !important; margin-left: -257px">
+                            <li class="dropdown-header">
+                                <span style="font-size: 20px;">Notifikasi</span>
+                            </li>
+                            <hr style="margin-bottom: 0px;">
+                            <center>
+                            @if (count($Notifikasi) > 0)
+                                @foreach ($Notifikasi as $notifikasi)
+                                    <li class="notification-item" data-notification-id="{{ $notifikasi->id }}">
+                                        <div class="profile">
+                                            @if ($notifikasi->user && $notifikasi->user->foto_profile)
+                                                <img width="20px" height="20px" class="rounded-circle border me-2"
+                                                    src="{{ $notifikasi->user->foto_profile }}" alt="{{ $notifikasi->user->name }}">
+                                            @else
+                                                <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
+                                                <img width="50px" height="50px" class="rounded-circle border me-2"
+                                                    src="storage/default/defaultprofile.jpeg" alt="Placeholder">
+                                            @endif
+                                        </div>
+                                        <div class="notif-text w-100">
+                                            <div class="username">
+                                                <p class="mb-1">{{ $notifikasi->title }}</p>
+                                            </div>
+                                            <div class="message">{{ $notifikasi->message }}</div>
+                                            <div class="date">
+                                                <p class="mb-0">{{ $notifikasi->created_at->diffForHumans() }}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                @endforeach
+                            @else
+                                <li class="no-notif pt-3">
+                                    <p class="mb-0">Tidak ada notifikasi</p>
+                                </li>
+                            @endif
+                        </center>
+                        </ul>
+                    </li>
 
 
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                        <img src="{{ asset('storage/profile/' . $profile->foto_profile) }}" width="45px" height="50px" alt="Profile" class="rounded-circle" style="object-fit: cover;">
+                        <img src="{{ asset('storage/profile/' . Auth::user()->foto_user) }}" width="40px" height="50px" alt="Profile" class="rounded-circle" style="object-fit: cover;">
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
                     </a>
                     <!-- End Profile Iamge Icon -->

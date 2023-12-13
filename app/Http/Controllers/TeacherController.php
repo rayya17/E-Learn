@@ -12,7 +12,9 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        return view('guru.index');
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
+        return view('guru.index', compact( 'Notifikasi', 'unreadNotificationsCount'));
     }
 
     /**

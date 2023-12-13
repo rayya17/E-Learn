@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Guru;
+use App\Models\Notifikasi;
 use App\Models\Penarikansaldo;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreGuruRequest;
@@ -21,6 +22,8 @@ class GuruController extends Controller
     public function Dashboardguru()
     {
         // $user = Auth::id();
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
         $jumlahmateri = guru::count();
         $guru = Guru::with('user')->get();
@@ -28,14 +31,17 @@ class GuruController extends Controller
         $pendapatan = $pendapatanguru->pluck('pendapatan')->sum();
         $jumlahtransaksi = $pendapatanguru->count();
 
-        return view('guru.dashboardguru', compact('guru', 'jumlahmateri', 'pendapatan', 'jumlahtransaksi'));
+        return view('guru.dashboardguru', compact('guru', 'jumlahmateri', 'pendapatan', 'jumlahtransaksi', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
     public function materi()
     {
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
+
         $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
         // $guru = Guru::with('user')->get();
-        return view('guru.materi', compact('guru'));
+        return view('guru.materi', compact('guru', 'Notifikasi', 'unreadNotificationsCount'));
     }
     /**
      * Display a listing of the resource.
@@ -43,12 +49,18 @@ class GuruController extends Controller
 
     public function Pengumpulantugas(Request $request)
     {
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
-        return view('guru.pengumpulan', compact('guru'));
+        return view('guru.pengumpulan', compact('guru', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
     public function Penarikansaldo(Request $request)
     {
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
+
+
         $mengajukan = new Penarikansaldo;
         $mengajukan->metodepembayaran = $request->metodepembayaran;
         $mengajukan->keterangan_pengajuan = $request->keterangan_pengajuan;
@@ -56,7 +68,7 @@ class GuruController extends Controller
         $mengajukan->status = 'sedang mengajukan';
 
         $mengajukan->save();
-        return view('guru.pengajuansaldo');
+        return view('guru.pengajuansaldo', compact('Notifikasi', 'unreadNotificationsCount'));
     }
 
     public function mengajukandana(Request $request, $id)

@@ -23,5 +23,8 @@ class penarikansaldo extends Model
         return $this->belongsTo(guru::class,'guru_id');
     }
 
-
+    public function notifikasi()
+    {
+        return $this->hasMany(Notifikasi::class);
+    }
 }

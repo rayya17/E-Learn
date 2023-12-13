@@ -25,6 +25,11 @@
  <link href="{{ asset('assets/Admin/quill/quill.bubble.css') }}" rel="stylesheet">
  <link href="{{ asset('assets/Admin/remixicon/remixicon.css') }}" rel="stylesheet">
  <link href="{{ asset('assets/Admin/simple-datatables/style.css') }}" rel="stylesheet">
+ <script src="{{ asset('assets/Admin/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+
+  {{-- JQuery --}}
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
  <!-- Template Main CSS File -->
  <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
@@ -59,7 +64,75 @@
           border-radius: 30px;
         }
 
+        .nav-item.dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu.notifications {
+            width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+    .notification-item:hover {
+        background-color: #f8f9fa;
+    }
+
+    .profile img {
+        border-radius: 50%;
+    }
+
+    .notif-text {
+        flex-grow: 1;
+        margin-left: 10px;
+    }
+
+    .notif-text .username {
+        font-weight: bold;
+    }
+
+    .notif-text .message {
+        color: #555;
+        margin-top: 5px;
+        font-size: 13px;
+    }
+
+    .notif-text .date {
+        color: #777;
+        font-size: 12px;
+    }
+
+    .no-notif {
+        text-align: center;
+        padding: 10px;
+    }
+
+    .badge.seniman-badge {
+        position: absolute;
+        top: -1px;
+        right: -9px;
+    }
+
+    .header-nav .profile {
+        min-width: 35px;
+        padding-bottom: 0;
+        top: 8px !important;
+    }
+
+    .dropdown-menu .dropdown-header, .dropdown-menu .dropdown-footer {
+        text-align: center;
+        font-size: 15px;
+        padding: 0px 29px;
+    }
 </style>
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
   </head>
 
@@ -73,7 +146,7 @@
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">NiceAdmin</span>
       </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
+      <i class="bi bi-list toggle-sidebar-btn" style="color: #ffff"></i>
     </div><!-- End Logo -->
 
     <div class="search-bar">
@@ -92,143 +165,118 @@
           </a>
         </li><!-- End Search Icon-->
 
-        <li class="nav-item dropdown">
+        {{-- <div class="notif"> --}}
+            <li class="nav-item dropdown">
+                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" id="notificationIcon">
+                    <i class="fa-regular fa-bell" id="bellIcon">
+                        @if ($unreadNotificationsCount > 0)
+                            <span id="notif-count" class="badge seniman-badge bg-dark text-white" style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
+                        @endif
+                    </i>
+                    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                    <script>
+                        $(document).ready(function () {
+                            // Ambil token CSRF dari meta tag
+                            var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
-          </a><!-- End Notification Icon -->
+                            // Menangani klik pada notifikasi
+                            $('.notification-item').on('click', function (e) {
+                                e.preventDefault(); // Menghentikan tindakan default dari tautan
+                                var notificationId = $(this).data('notification-id');
+                                var $notificationItem = $(this);
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-            <li class="dropdown-header">
-              You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                                // Lakukan AJAX untuk menandai notifikasi sebagai sudah dibaca
+                                $.ajax({
+                                    url: '{{ route('notifDelete', ['id' => ':id']) }}'.replace(':id', notificationId),
+                                    method: 'POST',
+                                    // Sertakan token CSRF dalam header
+                                    headers: {
+                                        'X-CSRF-TOKEN': csrfToken,
+                                    },
+                                    success: function (response) {
+                                        if (response.success) {
+                                            // Perbarui tampilan notifikasi di frontend
+                                            $('#notificationIcon #notif-count').text(response.unreadNotificationcount);
+
+                                            // Hapus notifikasi dari tampilan tanpa reload
+                                            $notificationItem.remove();
+                                        }
+                                    },
+                                    error: function (error) {
+                                        console.error(error);
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" style="min-width: 245px; max-height: 300px; overflow-y: auto;">
+                    <li class="dropdown-header">
+                        <h5>Notifikasi</h5>
+                    </li>
+                    <hr style="margin-bottom: 0px;">
+                    @if (count($Notifikasi) > 0)
+                        @foreach ($Notifikasi as $notifikasi)
+                            <li class="notification-item" data-notification-id="{{ $notifikasi->id }}">
+                                <div class="profile">
+                                    @if ($notifikasi->sender->foto_user)
+                                        <img width="50px" height="50px" class="rounded-circle border me-2"
+                                            src="{{ asset('storage/profile/' . $notifikasi->sender->foto_user) }}" alt="{{ $notifikasi->sender->name }}">
+                                    @else
+                                        <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
+                                        <img width="50px" height="50px" class="rounded-circle border me-2"
+                                            src="storage/default/defaultprofile.jpeg" alt="Placeholder">
+                                    @endif
+                                </div>
+                                <div class="notif-text w-100">
+                                    <div class="username">
+                                        <p class="mb-1">{{ $notifikasi->title }}</p>
+                                    </div>
+                                    <div class="message">{{ $notifikasi->message }}</div>
+                                    <div class="date">
+                                        <p class="mb-0">{{ $notifikasi->created_at->diffForHumans() }}</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                        @endforeach
+                    @else
+                        <li class="no-notif pt-3">
+                            <p class="mb-0">Tidak ada notifikasi</p>
+                        </li>
+                    @endif
+                </ul>
+                <!-- End Notification Dropdown Items -->
+                <!-- End Notification Dropdown Items -->
             </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
-
-          </ul><!-- End Notification Dropdown Items -->
-
-        </li><!-- End Notification Nav -->
-
-        <li class="nav-item dropdown">
-
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text"></i>
-            <span class="badge bg-success badge-number">3</span>
-          </a><!-- End Messages Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-            <li class="dropdown-header">
-              You have 3 new messages
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Maria Hudson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>4 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/messages-2.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Anna Nelson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>6 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>David Muldon</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>8 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
-            </li>
-
-          </ul><!-- End Messages Dropdown Items -->
-
-        </li><!-- End Messages Nav -->
+            <!-- End Notification Nav -->
+        {{-- </div> --}}
 
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
+            {{-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> --}}
+            <span class="d-none d-md-block dropdown-toggle ps-2" style="color: #ffff">{{ Auth::user()->name }}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>{{ Auth::user()->name }}</h6>
-              <span>Web Designer</span>
+              <span>{{ Auth::user()->role }}</span>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
-            <li>
+            {{-- <li>
               <a class="dropdown-item d-flex align-items-center" href="profileguru">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
-            </li>
+            </li> --}}
 
             <li>
               <hr class="dropdown-divider">
@@ -311,6 +359,8 @@
 <!-- Vendor JS Files -->
 <script src="{{ asset('assets/Admin/apexcharts/apexcharts.min.js')}}"></script>
 <script src="{{ asset('assets/Admin/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('assets/Admin/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
 <script src="{{ asset('assets/Admin/chart.js/chart.umd.js')}}"></script>
 <script src="{{ asset('assets/Admin/echarts/echarts.min.js') }}"></script>
 <script src="{{asset('assets/Admin/quill/quill.min.js')}}"></script>

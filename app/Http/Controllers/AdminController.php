@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\sendEmail;
 use App\Mail\sendMail;
 use App\Models\Guru;
+use App\Models\Notifikasi;
 use App\Models\User;
 use App\Models\Materi;
 use App\Models\penarikansaldo;
@@ -17,35 +18,46 @@ class AdminController extends Controller
 {
     public function Dashboardadmin()
     {
+
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $jumlahpemateri = user::where('role', 'guru')->count();
         $jumlahsiswa = user::where('role', 'user')->count();
         $pendapatan = Pendapatan::all()->where('user_id', auth()->id())->pluck('pendapatan')->sum();
 
-        return view('admin.dashboard', compact('jumlahpemateri', 'jumlahsiswa', 'pendapatan'));
+        return view('admin.dashboard', compact('jumlahpemateri', 'jumlahsiswa', 'pendapatan', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
     public function Profileguru(){
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         // $profileguru = guru::all();
         $profileguru = Guru::with('user')->get();
         $guruprofile = Guru::all();
         // dd($profileguru);
-        return view('admin.profileguru', compact('profileguru','guruprofile'));
+        return view('admin.profileguru', compact('profileguru','guruprofile', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
     public function Pengajuandana(){
-        return view('admin.pengajuandana');
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
+        return view('admin.pengajuandana', compact('Notifikasi', 'unreadNotificationsCount'));
     }
 
     public function Detailguru($id){
-        $gurudetail = Guru::where('id',$id)->get();
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
+        $gurudetail = Guru::where('id',$id)->with('user')->get();
         // $gurudetail = guru::all();
-        return view('admin.detailguru', compact( 'gurudetail'));
+        return view('admin.detailguru', compact( 'gurudetail', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
     public function calonguru(Request $request){
-    $calonguru = Guru::with('user')->whereHas('user',function($query){
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
+        $calonguru = Guru::with('user')->whereHas('user',function($query){
     })->get();
-    return view('admin.calonguru', compact('calonguru'));
+    return view('admin.calonguru', compact('calonguru', 'Notifikasi', 'unreadNotificationsCount'));
    }
 
     public function guruterima(String $id)

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Ulasan;
 use App\Models\User;
+use App\Models\Guru;
 use App\Models\Materi;
+use App\Models\Notifikasi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -15,9 +17,11 @@ class UlasanController extends Controller
      */
     public function index()
     {
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $user = User::all();
         $materi = Materi::all();
-        return view('users.detailmateri_user', compact('user', 'materi'));
+        return view('users.detailmateri_user', compact('user', 'materi', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
     /**
@@ -43,6 +47,16 @@ class UlasanController extends Controller
             'user_id' => Auth::user()->id,
             'ulasan' => $request->ulasan,
             'tanggal' => now()
+        ]);
+
+        $notif = Materi::with('guru')->findOrFail($request->materi);
+
+        // Notifikasi
+        Notifikasi::create([
+            'sender_id' => Auth::user()->id,
+            'user_id' => $notif->guru->user_id,
+            'title' => Auth::user()->name,
+            'message' => 'Memberikan ulasan pada materi anda yang berjudul '. $notif->nama_materi,
         ]);
 
         return redirect()->route('HomePage')->with('success', 'Ulasan berhasil ditambahkan');

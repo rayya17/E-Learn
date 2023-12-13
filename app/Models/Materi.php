@@ -30,5 +30,14 @@ class Materi extends Model
     {
         return $this->hasMany(Ulasan::class, 'ulasan_id');
     }
+
+    public function notifikasi()
+    {
+        return $this->hasMany(Notifikasi::class);
+    }
+
+    public function Kelas(){
+        return $this->belongsTo(Kelas::class,'kelas_id');
+    }
 }
 

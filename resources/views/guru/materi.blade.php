@@ -37,7 +37,7 @@
          .large-button {
              position: fixed;
              bottom: 30px;
-             right: 10px;
+             right: 25px;
              width: 70px;
              height: 70px;
              background-color: #4FA987;
@@ -48,7 +48,7 @@
              cursor: pointer;
              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
              transition: background-color 0.3s ease;
-             padding: 10px;
+             padding: 5px;
          }
 
          .large-button:hover {
@@ -108,7 +108,7 @@
 
                                                  <div class="profile">
                                                      <img class="rounded-circle bg-dark" width="60" height="60"
-                                                         src="{{ asset('storage/profile/' . $mtr->guru->foto_profile) }}"
+                                                         src="{{ asset('storage/profile/' . $mtr->guru->user->foto_user) }}"
                                                          alt="">
                                                  </div>
 
@@ -319,7 +319,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                          </div>
-                         <label for="inputText" class="col-sm-12 col-form-label">File Materi</label>
+                         <label for="inputText" class="col-sm-12 col-form-label">File Materi <span style="font-size: 12px; color: #b9b7b7;">(File berupa PDF)</span></label>
                          <div class="row">
                              <div class="col-sm-12">
                                  <input type="file" name="file_materi" class="form-control @error('file_materi') is-invalid @enderror" id="file_materi"
