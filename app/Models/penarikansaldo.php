@@ -40,4 +40,9 @@ class penarikansaldo extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function materi()
+    {
+        return $this->belongsTo(Materi::class, 'materi_id');
+    }
+
 }

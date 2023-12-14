@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('nama_materi');
             $table->string('kelas');
             $table->string('harga');
-            $table->string('deskripsi');
-            $table->date('tanggal_tugas');
+            $table->string('deskripsi_materi');
+            $table->string('keterangan_benefit');
+            $table->date('tanggal_materi');
             $table->timestamps();
         });
     }

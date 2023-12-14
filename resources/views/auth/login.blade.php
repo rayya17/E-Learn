@@ -105,10 +105,9 @@
                                         </label>
                                     </div>
                                     <a class="text-primary fw-medium fs-3 fw-bold"
-                                        href="forgot-password">Lupa Password ?</a>
+                                        href="forgot-password">Lupa Password?</a>
                                 </div>
-                                <button id="loginButton" onclick="validateLogin()" class="btn btn-success w-100 mb-7 mt-2 rounded-pill"
-                                    type="submit">Masuk</button>
+                                <button id="loginButton" onclick="validateLogin()" class="btn btn-success w-100 mb-7 mt-2 rounded-pill" type="submit">Masuk</button>
                                 <div class="d-flex align-items-center">
                                     {{-- <p class="fs-3 mb-0 fw-medium">New to Spike?</p>
                                     <a class="text-primary fw-bold ms-2 fs-3" href="{{ route('registerPage') }}">Create
@@ -117,39 +116,36 @@
                                 <div class="text-center my-3 mt-1">
                                     <h6 class="dlab-sign-up style-2">Register</h6>
                                 </div>
-                                        <center>
-                                            <div class="row" style="padding-top: 25px;">
-                                                <div class="col-sm-6">
-                                                    <div class="card">
-                                                        <div class="card-body" style="border: 2px solid #ddd; border-radius: 10px;">
-                                                            <a href="{{ route('registerPage') }}">
-                                                                <img src="{{asset('assets/Admin/admin/siswa.jpg')}}"
-                                                                    class="card-img-top" alt="..." width="250" height="100px">
-                                                            </a>
-                                                            <h5 class="card-title"></h5>
-                                                            <center>
-                                                                <p>siswa</p>
-                                                            </center>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="card">
-                                                        <div class="card-body" style="border: 2px solid #ddd; border-radius: 10px;">
-                                                            <a href="{{ route('registerguruPage') }}">
-                                                                <img src="{{asset('assets/Admin/admin/teacher.jpg')}}"
-                                                                    class="card-img-top" alt="..." width="250" height="180">
-                                                            </a>
-                                                            <h5 class="card-title"></h5>
-                                                            <center>
-                                                                <p>Pemateri</p>
-                                                            </center>
-                                                        </div>
-                                                    </div>
+                                <center>
+                                    <div class="row" style="padding-top: 25px;">
+                                        <div class="col-sm-6">
+                                            <div class="card" style="border: 2px solid #ddd; border-radius: 10px; min-height: 300px;">
+                                                <div class="card-body">
+                                                    <a href="{{ route('registerPage') }}">
+                                                        <img src="{{ asset('assets/Admin/admin/siswa.jpg') }}" class="card-img-top" alt="..." width="250" height="180px">
+                                                    </a>
+                                                    <h5 class="card-title"></h5>
+                                                    <center>
+                                                        <p>siswa</p>
+                                                    </center>
                                                 </div>
                                             </div>
-                                        </center>
-
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="card" style="border: 2px solid #ddd; border-radius: 10px; min-height: 300px;">
+                                                <div class="card-body">
+                                                    <a href="{{ route('registerguruPage') }}">
+                                                        <img src="{{ asset('assets/Admin/admin/teacher.jpg') }}" class="card-img-top" alt="..." width="250" height="180">
+                                                    </a>
+                                                    <h5 class="card-title"></h5>
+                                                    <center>
+                                                        <p>Pemateri</p>
+                                                    </center>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </center>
                                         <style>
                                             .card-link {
                                                 color: blue;

@@ -54,8 +54,8 @@ Route::middleware('admin')->group(function(){
 
 Route::middleware('guru')->group(function () {
     Route::get('dashboardguru', [GuruController::class, 'Dashboardguru'])->name('dashboardguru');
-    Route::resource('detailmateri', DetailMateriController::class);
-    Route::put('detailmateri-update/{id}', [DetailMateriController::class, 'update'])->name("update-detailMateri");
+    // Route::resource('detailmateri', DetailMateriController::class);
+    // Route::put('detailmateri-update/{id}', [DetailMateriController::class, 'update'])->name("update-detailMateri");
     // Route::get('materi',[MateriController::class,'index'])->name('materi');
     Route::resource('materi', MateriController::class);
     Route::get('Pengumpulantugas', [GuruController::class, 'Pengumpulantugas'])->name('Pengumpulantugas');

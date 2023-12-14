@@ -142,7 +142,7 @@ public function getYearIncomeData()
         return redirect()->route('loginPage');
     }
 
-   
+
 
     public function pengajuanguru(Request $request){
         $data = penarikansaldo::all();
@@ -161,6 +161,14 @@ public function getYearIncomeData()
         $pendapatan->pendapatan = 0;
         $pendapatan->save();
 
+        $guru = User::where('role', 'guru')->first();
+        Notifikasi::create([
+            'sender_id' => Auth::user()->id,
+            'user_id' => $guru->id,
+            'title' => Auth::user()->name,
+            'message' => Auth::user()->name . " Penarikan saldo status " . $penarikansaldo->status,
+        ]);
+
         return redirect()->back()->with('success', 'pengambilan saldo telah di setujui');
     }
 
@@ -169,6 +177,14 @@ public function getYearIncomeData()
         $pengajuanPenjual = penarikansaldo::findOrFail($id);
         $pengajuanPenjual->status = 'pengajuanDitolak';
         $pengajuanPenjual->save();
+
+        $guru = User::where('role', 'guru')->first();
+        Notifikasi::create([
+            'sender_id' => Auth::user()->id,
+            'user_id' => $guru->id,
+            'title' => Auth::user()->name,
+            'message' => Auth::user()->name . " Penarikan saldo status " . $penarikansaldo->status,
+        ]);
 
         return redirect()->back()->with('error', 'pengambilan saldo di tolak');
     }

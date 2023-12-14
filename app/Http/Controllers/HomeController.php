@@ -24,11 +24,11 @@ class HomeController extends Controller
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $ulasan = Ulasan::all();
         $materi = Materi::all();
-        $detailmateri = detailmateri::where('materi_id')->get();
+        // $detailmateri = detailmateri::where('materi_id')->get();
         $guru = Guru::with('user')->get();
         $order = Order::all();
         $ordertah = Order::whereIn('materi_id', $materi->pluck('id'))->get();
-        return view('users.home',compact('detailmateri', 'guru', 'materi', 'ulasan' ,'order','ordertah', 'Notifikasi', 'unreadNotificationsCount'));
+        return view('users.home',compact('guru', 'materi', 'ulasan' ,'order','ordertah', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
     public function detailpemesanan()
@@ -116,7 +116,7 @@ class HomeController extends Controller
             'sender_id' => Auth::user()->id,
             'user_id' => $guru->id,
             'title' => Auth::user()->name,
-            'message' => Auth::user()->name . " Telah membeli kelas " .$materi->nama_materi,
+            'message' => Auth::user()->name . " Telah membeli kelas " .$materi->materi,
             'materi_id' => $materi->id,
         ]);
 

@@ -337,21 +337,21 @@
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
 
-        <div class="search-bar">
+        {{-- <div class="search-bar">
             <form class="search-form d-flex align-items-center" method="POST" action="#">
                 <input type="text" name="query" placeholder="Search" title="Enter search keyword">
                 <button type="submit" title="Search"><i class="bi bi-search"></i></button>
             </form>
-        </div><!-- End Search Bar -->
+        </div><!-- End Search Bar --> --}}
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
 
-                <li class="nav-item d-block d-lg-none">
+                {{-- <li class="nav-item d-block d-lg-none">
                     <a class="nav-link nav-icon search-bar-toggle " href="#">
                         <i class="bi bi-search"></i>
                     </a>
-                </li><!-- End Search Icon-->
+                </li><!-- End Search Icon--> --}}
 
                 {{-- <meta name="csrf-token" content="{{ csrf_token() }}" /> --}}
 
@@ -359,7 +359,7 @@
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" id="notificationIcon">
                         <i class="fa-regular fa-bell" id="bellIcon">
                             @if ($unreadNotificationsCount > 0)
-                                <span id="notif-count" class="badge seniman-badge bg-dark text-white" style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
+                                <span id="notif-count" class="badge seniman-badge bg-danger text-white" style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
                             @endif
                         </i>
                         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -507,21 +507,21 @@
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('Pengumpulantugas') ? '' : 'collapsed' }}"
                     href="{{ route('Pengumpulantugas') }}">
-                    <i class="bi bi-bar-chart"></i><span>Pengumpulan Tugas</span>
+                    <i class="bi bi-book"></i><span>Pengumpulan Tugas</span>
                 </a>
             </li><!-- End Charts Nav -->
 
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('Pembayaran') ? '' : 'collapsed' }}" href="{{ url ('Pembayaran') }}">
-                    <i class="bi bi-bar-chart"></i><span>Penarikan Saldo</span>
+                    <i class="bi bi-cash-coin"></i><span>Penarikan Saldo</span>
                 </a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link {{ request()->is('detailmateri') ? '' : 'collapsed' }}"
                     href="{{ url('detailmateri') }}">
                     <i class="bi bi-bar-chart"></i><span>Benefits</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
 
     </aside><!-- End Sidebar-->

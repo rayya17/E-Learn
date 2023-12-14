@@ -78,7 +78,7 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'no_telepon' => 'required|numeric',
+            'no_telepon' => 'required|numeric|digits_between:10,12',
             'asal_sekolah' => 'required',
             'password' => 'required|min:6',
             're-password' => 'required|same:password',
@@ -90,6 +90,7 @@ class AuthController extends Controller
             'email.unique' => 'Email sudah terdaftar.',
             'no_telepon.required' => 'Nomor telepon harus diisi.',
             'no_telepon.numeric' => 'Nomor telepon harus berupa angka.',
+            'no_telepon.digits_between'=> 'nomor telepon antara 10 sampai 12 angka',
             'asal_sekolah.required' => 'Asal sekolah harus diisi.',
             'password.required' => 'Password harus diisi.',
             'password.min' => 'Password minimal 6 karakter.',
@@ -126,7 +127,7 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|unique:users,name',
             'email' => 'required|email|unique:users,email',
-            'no_telepon' => 'required|numeric',
+            'no_telepon' => 'required|numeric|digits_between:10,12',
             'tanggal_lahir' => 'required',
             'foto_user' => 'image|mimes:jpeg,png,jpg',
             'password' => 'required|min:6',
@@ -139,6 +140,7 @@ class AuthController extends Controller
             'email.unique' => 'Email sudah terdaftar.',
             'no_telepon.required' => 'Nomor telepon harus diisi.',
             'no_telepon.numeric' => 'Nomor telepon harus berupa angka.',
+            'no_telepon.digits_between'=> 'nomor telepon antara 10 sampai 12 angka',
             'tanggal_lahir.required' => ' harus diisi.',
             'password.required' => 'Password harus diisi.',
             'password.min' => 'Password minimal 6 karakter.',
@@ -185,7 +187,7 @@ class AuthController extends Controller
                     'sender_id' => $user->id,
                     'user_id' => $admin->id,
                     'title' => $user->name,
-                    'message' => $user->name . " registered as a guru",
+                    'message' => $user->name . " Register sebagai guru",
                 ]);
             }
 

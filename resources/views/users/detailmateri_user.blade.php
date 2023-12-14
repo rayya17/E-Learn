@@ -69,9 +69,7 @@
                         </div>
                         <h1 style="font-size: 80px;"><strong>{{ $materi->nama_materi }}</strong></h1>
                         <div class="content">
-                            @foreach ($materi->detailmateri as $item)
-                                <p style="font-size: 20px;">{{ $item->keterangan }}</p>
-                            @endforeach
+                                <p style="font-size: 20px;">{{ $materi->keterangan_benefit }}</p>
 
                             <p><strong>Pemateri : {{ $materi->guru->user->name }}</strong></p>
                         </div>
@@ -90,7 +88,47 @@
                 <center>Ulasan Pengguna</center>
             </h2>
             <!-- Komentar pertama -->
-            @foreach ($ulasan as $ul)
+            <div id="testimoni" class="w-full bg-slate-100   h-screen">
+                <div class="mx-5 justify-content-center">
+                    <div class="mt-8">
+                        <div class=" mx-auto mt-4 mb-4">
+                            {{-- <p class="text-4xl text-center font-semibold mb-2">Testimoni Kami</p> --}}
+                            <p class=" text-center text-base " style="font-size: 15px;">Berikut adalah beberapa ulasan
+                                dari <br>user yang telah memesan materi disni</p>
+                        </div>
+                        <div class="row justify-content-center">
+                            @foreach ($ulasan as $ul)
+                                <div class="col-md-3">
+                                    <div class="card hover:-translate-y-2 rounded-lg duration-300 ease-in-out transition border-2 hover:border-blue-600  shadow-md"
+                                        style="min-height: 250px;">
+                                        <div class="card-body">
+                                            <div class="text-2xl text-center font-semibold flex gap-x-[20rem] ">
+                                                @if ($ul->user->foto_user)
+                                                <img src="{{ asset('storage/' . $ul->user->foto_user) }}"
+                                                    style="margin-bottom: 10px;" alt="Profile Picture"
+                                                    class="profile-picture">
+                                                    @else
+                                                    <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
+                                                    <img class="rounded-circle profile-image" src="{{ asset('storage/default/defaultprofile.jpeg') }}" style="width: 80px; height: 80px; margin-bottom: 10px;" alt="Placeholder">
+                                                @endif
+                                                <p class="text-xl font-bold mb-1" style="font-weight: bold;">
+                                                    {{ $ul->user->name }} </p>
+                                                <p class="text-base font-bold"><span style="font-weight: bold;">Ulasan
+                                                        :</span> <span class="font-semibold">{{ $ul->ulasan }} </span>
+                                                </p>
+                                                <span
+                                                    class="comment-date">{{ date('d F Y', strtotime($ul->tanggal)) }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Komentar pertama -->
+            {{-- @foreach ($ulasan as $ul)
                 <div class="comment-card">
                     <img src="{{ asset('storage/' . $ul->user->foto_user) }}" alt="Profile Picture" class="profile-picture">
                     <div class="comment-info">
@@ -99,7 +137,7 @@
                         <span class="comment-date">{{ $ul->tanggal }}</span>
                     </div>
                 </div>
-            @endforeach
+            @endforeach --}}
 
             <!-- Komentar kedua -->
             {{-- <div class="comment-card">

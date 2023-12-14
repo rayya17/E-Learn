@@ -50,7 +50,7 @@ class GuruController extends Controller
             for ($month = 1; $month <= 12; $month++) {
                 $date = Carbon::createFromDate($currentYear, $month, 1);
                 $yearMonth = $date->isoFormat('MMMM');
-                
+
             $color = ($currentYear == $currentYear && $month == $currentMonth) ? 'blue' : 'green';
 
             $processeddata[$yearMonth]= [
@@ -64,7 +64,7 @@ class GuruController extends Controller
                 $yearMonth = Carbon::createFromDate($item->year, $item->month, 1)->isoFormat('MMMM');
 
                 if (isset($processeddata[$yearMonth])) {
-                    $jumlah = $pendapatan;                   
+                    $jumlah = $pendapatan;
                     $processeddata[$yearMonth][Auth()->user()->id] = $jumlah;
                 }
             }
@@ -102,7 +102,7 @@ class GuruController extends Controller
         $pendapatan = $pendapatanguru->pluck('pendapatan')->sum();
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
-       
+
         return view('guru.pengajuansaldo', compact('mengajukan', 'saldo', 'pendapatan','Notifikasi', 'unreadNotificationsCount'));
     }
 
@@ -113,7 +113,7 @@ class GuruController extends Controller
 
     public function store(Request $request){
          $request->validate([
-            
+
             'metodepembayaran' => 'required',
             'keterangan_pengajuan' => 'required',
             'tujuan_pengajuan' => 'required',
@@ -129,7 +129,7 @@ class GuruController extends Controller
         $mengajukan->keterangan_pengajuan = $request->keterangan_pengajuan;
         $mengajukan->tujuan_pengajuan = $request->tujuan_pengajuan;
         $mengajukan->status = 'mengajukan';
-    
+
         $mengajukan->save();
         return back()->with('success', 'berhasil menambahkan data');
     }
@@ -137,36 +137,36 @@ class GuruController extends Controller
     public function update(Request $request, $id){
 
         $penarikansaldo = Penarikansaldo::find($id);
-    
+
         $request->validate([
             'metodepembayaran' => 'required',
             'keterangan_pengajuan' => 'required',
             'tujuan_pengajuan' => 'required',
         ]);
-    
+
         $penarikansaldo->metodepembayaran = $request->metodepembayaran;
         $penarikansaldo->keterangan_pengajuan = $request->keterangan_pengajuan;
         $penarikansaldo->tujuan_pengajuan = $request->tujuan_pengajuan;
-    
+
         $penarikansaldo->save();
-    
+
         return back()->with('success', 'Data berhasil diubah');
     }
 
     public function destroy($id){
 
         $penarikansaldo = Penarikansaldo::find($id);
-    
+
         if (!$penarikansaldo) {
             return back()->with('error', 'Pengajuan tidak ditemukan');
         }
-    
+
         $penarikansaldo->delete();
-    
+
         return redirect()->route('Pembayaran.index')->with('success', 'Data berhasil dihapus');
     }
-    
-    
+
+
 
         public function mengajukandana(Request $request, $id)
     {
@@ -175,11 +175,13 @@ class GuruController extends Controller
         // dd($request->all());
         // Pemeriksaan apakah saldo guru mencukupi
         $pendapatan = Pendapatan::where('user_id',auth()->user()->id)->first();
+
         if ($pendapatan && $pendapatan->pendapatan <= 0) {
             return response()->json([
                 'success' => false,
                 'message' => 'tidak ada saldo'
             ]);
+            
         }else{
              // Ubah status menjadi "Telah diajukan"
             $penarikansaldo->status = 'telah diajukan';
@@ -193,7 +195,7 @@ class GuruController extends Controller
     }
 
 
-    
+
     public function logout()
     {
         Auth::logout();
@@ -201,7 +203,7 @@ class GuruController extends Controller
         request()->session()->invalidate();
 
         request()->session()->regenerateToken();
-        
+
         return redirect()->route('loginPage')->with('success', 'berhasil logout');
     }
 

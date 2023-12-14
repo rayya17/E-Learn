@@ -235,7 +235,7 @@
                                             <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" id="notificationIcon" style="margin-top: 10px">
                                                 <i class="fa-regular fa-bell" id="bellIcon" style="font-size: 22px; color: #ffff; margin-right: 25px; position: relative;">
                                                     @if ($unreadNotificationsCount > 0)
-                                                        <span id="notif-count" class="badge seniman-badge bg-dark text-white" style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
+                                                        <span id="notif-count" class="badge seniman-badge bg-danger text-white" style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
                                                     @endif
                                                 </i>
                                                 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -328,19 +328,36 @@
                                                     <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
                                                     <img width="50px" height="50px" class="rounded-circle profile-image"
                                                         src="{{ asset('storage/default/defaultprofile.jpeg') }}" alt="Placeholder">
+                                                        <span class="d-none d-md-block dropdown-toggle ps-2" style="margin-left: 15px;"></span>
                                                 @endif
                                             </a>
-                                            <ul class="dropdown" style="right: 100px;">
-                                                <li><a href="{{route('Profile')}}"><i class="fa-solid fa-user" style=""></i>Profile</a></li>
+                                            <ul class="dropdown" style="width: 150px;">
                                                 <li>
+                                                <a class="dropdown-item d-flex align-items-center" href="{{route('Profile')}}">
+                                                    <i class="fa-solid fa-user" style="margin-top: 0px; padding-top: 0px;"></i>
+                                                    <span style="margin-left:20px;">My Profile</span>
+                                                </a>
+                                                </li>
+                                                {{-- <li><a href="{{route('Profile')}}"><i class="fa-solid fa-user" style=""></i>Profile</a></li> --}}
+                                                <li>
+                                                    <form action="{{ route('logout') }}" method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="dropdown-item d-flex align-items-center"
+                                                            style="border: none; background: none; cursor: pointer;">
+                                                            <i class="fa-solid fa-right-from-bracket" style="margin-top: 0px; padding-top: 0px;"></i>
+                                                            <span style="margin-left:20px;">Keluar</span>
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                                {{-- <li>
                                                     <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                                                     @csrf
                                                     <a href="#" onclick="document.getElementById('logoutForm').submit();">
-                                                        <i class="bi bi-box-arrow-right"></i>
-                                                        <span>Sign Out</span>
+                                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                                        <span>Keluar</span>
                                                     </a>
                                                 </form>
-                                            </li>
+                                            </li> --}}
                                             </ul>
                                         </li>
                                     </ul>

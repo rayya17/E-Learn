@@ -123,7 +123,7 @@
                                                  <strong> {{ $mtr->nama_materi }} </strong>
                                              </h5>
                                              <div class="desc">
-                                                 <p>{{ $mtr->deskripsi }}</p>
+                                                 <p>{{ $mtr->deskripsi_materi }}</p>
                                              </div>
                                          </div>
                                          <div class="d-flex justify-content-between align-items-center">
@@ -239,13 +239,12 @@
                                      @method('PUT')
                                      @csrf
                                      <div class="modal-header">
-                                         <h3 class="modal-title" id="exampleModalLabel">Edit Materi dan
-                                             Tugas</h3>
+                                         <h4 class="modal-title" id="exampleModalLabel"><strong>Edit Materi </strong></h4>
                                          <button type="button" class="btn-close" data-bs-dismiss="modal"
                                              aria-label="Close"></button>
                                      </div>
                                      <div class="modal-body">
-                                         <h6 class="modal-title" id="exampleModalLabel">Tambah Materi</h6>
+                                         <h6 class="modal-title" id="exampleModalLabel">Edit Materi</h6>
                                          <label for="inputText" class="col-sm-4 col-form-label">Mata
                                              Pelajaran</label>
                                          <div class="row">
@@ -272,15 +271,6 @@
                                                      value="{{ old('nama_materi', $mtr->nama_materi) }}">
                                              </div>
                                          </div>
-                                         <label for="inputText" class="col-sm-12 col-form-label">File
-                                             Materi</label>
-                                         <div class="row">
-                                             <div class="col-sm-12">
-                                                 <input type="file" name="file_materi" class="form-control"
-                                                     id="update_file_materi" width="200px"
-                                                     value="{{ old('file_materi', $mtr->file_materi) }}">
-                                             </div>
-                                         </div>
                                          <label for="inputText" class="col-sm-2 col-form-label">Kelas</label>
                                          <div class="row">
                                              <div class="col-sm-12">
@@ -302,31 +292,20 @@
                                                      value="{{ old('harga', $mtr->harga) }}">
                                              </div>
                                          </div>
-                                         <label for="inputText" class="col-sm-6 col-form-label">Deskripsi</label>
+                                         <label for="inputText" class="col-sm-6 col-form-label">Deskripsi Materi</label>
                                          <div class="row">
                                              <div class="col-sm-12" width="200px"
-                                                 value="{{ old('deskripsi', $mtr->deskripsi) }}">
-                                                 <textarea type="text" name="deskripsi" class="form-control" id="update_deskripsi" width="200px"
-                                                     value="{{ old('deskripsi', $mtr->deskripsi) }}">{{ $mtr->deskripsi }}</textarea>
+                                                 value="{{ old('deskripsi_materi', $mtr->deskripsi_materi) }}">
+                                                 <textarea type="text" name="deskripsi_materi" class="form-control" id="update_deskripsi_materi" width="200px"
+                                                     value="{{ old('deskripsi_materi', $mtr->deskripsi_materi) }}">{{ $mtr->deskripsi_materi }}</textarea>
                                              </div>
                                          </div>
-                                         <br>
-                                         <h6 class="modal-title" id="exampleModalLabel">Tambah Tugas</h6>
-                                         <label for="inputText" class="col-sm-6 col-form-label">Nama
-                                             Tugas</label>
+                                         <label for="inputText" class="col-sm-6 col-form-label">Keterangan
+                                             Benefits</label>
                                          <div class="row mb-1">
                                              <div class="col-sm-12">
-                                                 <input type="text" name="tugas" class="form-control"
-                                                     id="update_tugas" width="200px"
-                                                     value="{{ old('tugas', $mtr->tugas) }}">
-                                             </div>
-                                         </div>
-                                         <label for="inputText" class="col-sm-6 col-form-label">Detail
-                                             Tugas</label>
-                                         <div class="row mb-1">
-                                             <div class="col-sm-12">
-                                                 <textarea type="text" name="detail_tugas" class="form-control" id="update_detail_tugas" width="200px"
-                                                     value="{{ old('detail_tugas', $mtr->detail_tugas) }}">{{ $mtr->detail_tugas }}</textarea>
+                                                 <textarea type="text" name="keterangan_benefit" class="form-control" id="update_keterangan_benefit" width="200px"
+                                                     value="{{ old('keterangan_benefit', $mtr->keterangan_benefit) }}">{{ $mtr->keterangan_benefit }}</textarea>
                                              </div>
                                          </div>
                                          {{-- <label for="inputText" class="col-sm-6 col-form-label">Tanggal
@@ -342,8 +321,7 @@
                                      <div class="modal-footer">
                                          <button type="button" class="btn btn-secondary"
                                              data-bs-dismiss="modal">Close</button>
-                                         <button type="submit" class="btn btn-primary">Save
-                                             changes</button>
+                                         <button type="submit" class="btn btn-primary">Save changes</button>
                                      </div>
                                  </form>
                              </div>
@@ -361,7 +339,7 @@
          <div class="modal-dialog">
              <div class="modal-content">
                  <div class="modal-header">
-                     <h3 class="modal-title" id="exampleModalLabel">Tambah Materi dan Tugas</h3>
+                     <h4 class="modal-title" id="exampleModalLabel"><strong>Tambah Materi</strong></h4>
                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                  </div>
                  <div class="modal-body">
@@ -424,24 +402,34 @@
                                  @enderror
                              </div>
                          </div>
-                         <label for="inputText" class="col-sm-6 col-form-label">Deskripsi</label>
+                         <label for="inputText" class="col-sm-6 col-form-label">Deskripsi Materi</label>
                          <div class="row">
                              <div class="col-sm-12" width="200px">
-                                 <textarea type="text" name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror"
-                                     id="deskripsi" width="200px" value="{{ old('deskripsi') }}"></textarea>
+                                 <textarea type="text" name="deskripsi_materi" class="form-control @error('deskripsi_materi') is-invalid @enderror"
+                                     id="deskripsi_materi" width="200px" value="{{ old('deskripsi') }}"></textarea>
                              </div>
                              @error('deskripsi')
                                  <div class="invalid-feedback">{{ $message }}</div>
                              @enderror
                          </div>
-                         <br>
+                         <label for="inputText" class="col-sm-6 col-form-label">Keterangan Benefit</label>
+                         <div class="row">
+                             <div class="col-sm-12" width="200px">
+                                 <textarea type="text" name="keterangan_benefit" class="form-control @error('keterangan_benefit') is-invalid @enderror"
+                                     id="keterangan_benefit" width="200px" value="{{ old('keterangan_benefit') }}"></textarea>
+                             </div>
+                             @error('keterangan_benefit')
+                                 <div class="invalid-feedback">{{ $message }}</div>
+                             @enderror
+                         </div>
+                         {{-- <br> --}}
 
                          {{-- <label for="inputText" class="col-sm-6 col-form-label">Tanggal Tugas</label>
                          <div class="row mb-1">
                              <div class="col-sm-12">
-                                 <input type="date" name="tanggal_tugas" class="form-control @error('tanggal_tugas') is-invalid @enderror" id="tanggal_tugas"
-                                     width="200px" value="{{old('tanggal_tugas')}}">
-                                @error('tanggal_tugas')
+                                 <input type="date" name="tanggal_materi" class="form-control @error('tanggal_tugas') is-invalid @enderror" id="tanggal_materi"
+                                     width="200px" value="{{old('tanggal_materi')}}">
+                                @error('tanggal_materi')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                              </div>

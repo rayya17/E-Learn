@@ -7,9 +7,11 @@ use App\Models\User;
 use App\Models\Materi;
 use Illuminate\Http\File;
 use App\Models\Notifikasi;
+use App\Models\PenarikanSaldo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\QueryException;
 
 class MateriController extends Controller
 {
@@ -43,19 +45,22 @@ class MateriController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $request->validate([
             // 'cover_materi' => 'required|mimes:png,jpg',
             'mapel' => 'required|max:100',
             'nama_materi' => 'required|max:100',
-
+            'keterangan_benefit' => 'required|max:225',
             'kelas' => 'required|min:0|max:15',
             'harga' => 'required|min:0',
-            'deskripsi' => 'required|max:500',
+            'deskripsi_materi' => 'required|max:225',
 
             // 'tanggal_tugas' => 'required|after_or_equal:today|before_or_equal:today'
         ], [
             'nama_materi.required' => 'Wajib di isi',
             'nama_materi.max' => 'Nama Materi melebihi maximal',
+            'keterangan_benefit.required' => 'Wajib di isi',
+            'keterangan_benefit.max' => 'Keterangan Benefits melebihi maximal',
             'mapel.required' => 'Wajib di isi',
             'mapel.max' => 'Nama mata pelajaran melebihi maximal',
             'kelas.required' => 'Wajib di isi',
@@ -63,8 +68,8 @@ class MateriController extends Controller
             'kelas.max' => 'Kelas melebihi maximal',
             'harga.required' => 'Wajib di isi',
             'harga.min' => 'Harga kurang 0',
-            'deskripsi.required' => 'Wajib di isi',
-            'deskripsi.max' => 'Deskripsi melebihi maximal',
+            'deskripsi_materi.required' => 'Wajib di isi',
+            'deskripsi_materi.max' => 'Deskripsi melebihi maximal',
         ]);
         try {
             // dd($request);
@@ -80,16 +85,24 @@ class MateriController extends Controller
                 'mapel' => $request->mapel,
                 'nama_materi' => $request->nama_materi,
                 'guru_id' => $DataGuru->id,
-                // 'cover_materi' => $cover,
                 'kelas' => $request->kelas,
                 'harga' => $request->harga,
-                'deskripsi' => $request->deskripsi,
-                'tanggal_tugas' => now()
+                'deskripsi_materi' => $request->deskripsi_materi,
+                'keterangan_benefit' => $request->keterangan_benefit,
+                'tanggal_materi' => now()
+            ]);
+
+            $admin = User::where('role', 'admin')->first();
+
+            Notifikasi::create([
+                'sender_id' => $user->id,
+                'user_id' => $admin->id,
+                'title' => $user->name,
+                'message' => $user->name . " Menambahkan materi baru bernama " . $materi->nama_materi,
             ]);
 
             return back()->with('success', 'Berhasil menambahkan materi');
         } catch (\Exception $e) {
-
             return back()->with('error', 'Gagal menambahkan materi dan tugas. Silakan coba lagi.');
         }
     }
@@ -119,77 +132,69 @@ class MateriController extends Controller
         $request->validate([
             'mapel' => 'required|max:100',
             'nama_materi' => 'required|max:100',
-            'file_materi' => 'nullable|mimes:pdf',
+            'keterangan_benefit' => 'required|max:225',
             'kelas' => 'required|min:0|max:15',
             'harga' => 'required|min:0',
-            'deskripsi' => 'required|max:225',
-            'tugas' => 'required|max:225',
-            'detail_tugas' => 'required|max:500',
+            'deskripsi_materi' => 'required|max:225',
+
             // 'tanggal_tugas' => 'required|after_or_equal:today|before_or_equal:today'
         ], [
             'nama_materi.required' => 'Wajib di isi',
             'nama_materi.max' => 'Nama Materi melebihi maximal',
+            'keterangan_benefit.required' => 'Wajib di isi',
+            'keterangan_benefit.max' => 'Keterangan Benefits melebihi maximal',
             'mapel.required' => 'Wajib di isi',
             'mapel.max' => 'Nama mata pelajaran melebihi maximal',
             'kelas.required' => 'Wajib di isi',
             'kelas.min' => 'Kelas kurang dari 0',
             'kelas.max' => 'Kelas melebihi maximal',
-            // 'file_materi.required' => 'Wajib di isi',
-            'file_materi.mimes' => 'File harus berupa PDF',
             'harga.required' => 'Wajib di isi',
             'harga.min' => 'Harga kurang 0',
-            'deskripsi.required' => 'Wajib di isi',
-            'deskripsi.max' => 'Deskripsi melebihi maximal',
-            'tugas.required' => 'Wajib di isi',
-            'tugas.max' => 'Nama Tugas melebihi maximal',
-            'detail_tugas.required' => 'Wajib di isi',
-            'detail_tugas.max' => 'Detail Tugas melebihi maximal',
-            // 'tanggal_tugas.required' => 'Wajib di isi',
-            // 'tanggal_tugas.after_or_equal' => 'Tanggal tidak boleh sesudah tanggal hari ini',
-            // 'tanggal_tugas.before_or_equal' => 'Tanggal tidak boleh sebelum tanggal hari ini',
+            'deskripsi_materi.required' => 'Wajib di isi',
+            'deskripsi_materi.max' => 'Deskripsi melebihi maximal',
         ]);
         try {
 
             $materi = Materi::findOrFail($materi);
 
             // Jika file baru diunggah, hapus file lama dan simpan yang baru
-            if ($request->hasFile('file_materi')) {
-                // Menghapus file lama
-                $oldFilePath = public_path('pdf_files') . '/' . $materi->file_materi;
-                if (File::exists($oldFilePath)) {
-                    File::delete($oldFilePath);
-                }
+            // if ($request->hasFile('file_materi')) {
+            // //     // Menghapus file lama
+            // //     $oldFilePath = public_path('pdf_files') . '/' . $materi->file_materi;
+            // //     if (File::exists($oldFilePath)) {
+            // //         File::delete($oldFilePath);
+            // //     }
 
-                // Menangani unggahan file PDF yang baru
-                $file_materi = $request->file('file_materi');
-                $file_name = time() . '_' . $file_materi->getClientOriginalName();
-                $file_materi->move(public_path('pdf_files'), $file_name);
+            // //     // Menangani unggahan file PDF yang baru
+            // //     $file_materi = $request->file('file_materi');
+            // //     $file_name = time() . '_' . $file_materi->getClientOriginalName();
+            // //     $file_materi->move(public_path('pdf_files'), $file_name);
 
-                $materi->update([
-                    'mapel' => $request->mapel,
-                    'nama_materi' => $request->nama_materi,
-                    'file_materi' => $file_name,
-                    'kelas' => $request->kelas,
-                    'harga' => $request->harga,
-                    'deskripsi' => $request->deskripsi,
-                    'tugas' => $request->tugas,
-                    'detail_tugas' => $request->detail_tugas,
-                    'tanggal_tugas' => now(),
-                ]);
+            //     $materi->update([
+            //         'mapel' => $request->mapel,
+            //         'nama_materi' => $request->nama_materi,
+            //         'file_materi' => $file_name,
+            //         'kelas' => $request->kelas,
+            //         'harga' => $request->harga,
+            //         'deskripsi' => $request->deskripsi,
+            //         'tugas' => $request->tugas,
+            //         'detail_tugas' => $request->detail_tugas,
+            //         'tanggal_tugas' => now(),
+            //     ]);
 
-                return redirect()->route('materi.index')->with('success', 'Materi berhasil diupdate!');
-            }
+            //     return redirect()->route('materi.index')->with('success', 'Materi berhasil diupdate!');
+            // }
 
             // Jika tidak ada file baru diunggah, hanya update informasi lainnya
             $materi->update([
                 'mapel' => $request->mapel,
                 'nama_materi' => $request->nama_materi,
+                'guru_id' => $DataGuru->id,
+                'keterangan_benefit' => $request->keterangan_benefit,
                 'kelas' => $request->kelas,
                 'harga' => $request->harga,
-                'deskripsi' => $request->deskripsi,
-                'tugas' => $request->tugas,
-                'detail_tugas' => $request->detail_tugas,
-                'tanggal_tugas' => now(),
+                'deskripsi_materi' => $request->deskripsi_materi,
+                'tanggal_materi' => now()
             ]);
 
             return redirect()->route('materi.index')->with('success', 'Materi berhasil diupdate!');
@@ -203,17 +208,27 @@ class MateriController extends Controller
      */
     public function destroy(Materi $materi)
     {
-        // $materi = Materi::findOrFail($materi);
+        try {
+            // Check if there are associated records in penarikansaldos
+            $relatedRecordsCount = $materi->penarikansaldos()->count();
 
-        // Hapus file terkait jika ada
-        $filePath = public_path('pdf_files') . '/' . $materi->file_materi;
-        if (File::exists($filePath)) {
-            File::delete($filePath);
+            if ($relatedRecordsCount > 0) {
+                return back()->with('error', 'Materi tidak dapat dihapus karena telah di order.');
+            }
+
+            // // Hapus file terkait jika ada
+            // $filePath = public_path('pdf_files') . '/' . $materi->file_materi;
+            // if (File::exists($filePath)) {
+            //     File::delete($filePath);
+            // }
+
+            // Hapus record dari database
+            $materi->delete();
+
+            return redirect()->route('materi.index')->with('success', 'Materi berhasil dihapus!');
+        } catch (QueryException $e) {
+            // Handle database errors, such as integrity constraint violation
+            return back()->with('error', 'Gagal menghapus materi. Silakan coba lagi.');
         }
-
-        // Hapus record dari database
-        $materi->delete();
-
-        return redirect()->route('materi.index')->with('success', 'Materi berhasil dihapus!');
     }
 }

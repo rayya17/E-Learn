@@ -39,5 +39,11 @@ class Materi extends Model
     public function Kelas(){
         return $this->belongsTo(Kelas::class,'kelas_id');
     }
+
+    public function penarikansaldos()
+    {
+        return $this->hasMany(PenarikanSaldo::class, 'pendapatan_id');
+    }
+
 }
 

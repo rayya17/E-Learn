@@ -47,9 +47,9 @@ class TugasController extends Controller
                 'detail_tugas' => $request->detail_tugas
             ]);
 
-            return back()->with('success', 'Berhasil menambahkan tugas dan materi baru');
+            return back()->with('success', 'Berhasil menambahkan tugas baru');
         } catch (\Exception $e) {
-            return back()->with('error', 'Gagal Menambahkan tugas dan materi baru');
+            return back()->with('error', 'Gagal Menambahkan tugas baru');
         }
     }
 

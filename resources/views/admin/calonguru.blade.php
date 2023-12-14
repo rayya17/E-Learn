@@ -42,7 +42,7 @@
 <div class="row">
   <div class="col-md-12 col-lg-12">
       <div class="card">
-          <div class="card-body"> 
+          <div class="card-body">
       <!-- Left side columns -->
       <div class="col-lg-12">
           <div class="row">
@@ -63,11 +63,11 @@
                             @php
                                 $no = 1;
                             @endphp
-                            @foreach ($calonguru as $data)
+                            @forelse ($calonguru as $data)
                                 <tr>
                                     <td style="text-align: center;">{{ $no++ }}</td>
                                     <td  style="text-align: center;" ><img width="120px" height="100px"
-                                      src="{{ asset('storage/profile/' . $data->foto_profile)}}" alt=""></td>
+                                      src="{{ asset('storage/profile/' . $data->user->foto_user)}}" alt=""></td>
                                       <td style="text-align: center;">{{ $data->user->name }}</td>
                                       <td  style="text-align: center;">{{ $data->pendidikan }}</td>
                                       <td  style="text-align: center;">{{ $data->user->no_telepon }}</td>
@@ -89,10 +89,14 @@
                                             </button>
                                         </form>
                                     </td>
-
-                            @endforeach
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="8" style="text-align: center;"><h7>Data Tidak Ada</h7></td>
+                                </tr>
+                            @endforelse
                         </tbody>
-                    </table>   
+                    </table>
                 </div>
             </div>
         </div>
@@ -125,7 +129,7 @@
           });
       });
   </script>
-  
+
 
         <!-- Right side columns -->
       <!-- End Right side columns -->

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('file_tugas');
             $table->string('tugas');
             $table->string('detail_tugas');
+            $table->date('tanggal_tugas');
             $table->timestamps();
         });
     }

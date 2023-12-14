@@ -8,7 +8,7 @@
             height: 50px;
             float: right;
             border-radius: 10px;
-             margin-top: 45px; 
+             margin-top: 45px;
         }
 
         .card-body {
@@ -88,7 +88,7 @@
     <i class="fas fa-pencil-alt"></i>
 </button>
 
-</div>             
+</div>
 
  <hr style="border-top: 3px solid #000000;">
 
@@ -121,8 +121,6 @@
                                                                     <th scope="col" style="text-align: center;">Materi</th>
                                                                     <th scope="col" style="text-align: center;">Tanggal Mulai</th>
                                                                    <th scope="col" style="text-align: center;">Aksi</th>
-
-                                                                   
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -131,7 +129,7 @@
                                                                     <td style="text-align: center;">Bank</td>
                                                                     <td style="text-align: center;">Mandiri</td>
                                                                   <td><button  type="submit" class="btn btn-secondary btn-md keluar col-12">File</button>
-                                                                 <td style="text-align: center;">Mandiri</td>                              
+                                                                 <td style="text-align: center;">Mandiri</td>
                                                      <td>
                                                     <button type="submit" class="btn btn-light btn-sm point"><i class="fas fa-pencil-alt" style="font-size: 16px;"></i></button>
                                                     <button type="submit" class="btn btn-danger btn-sm point"><i class="fas fa-trash-alt" style="font-size: 16px;"></i></button>
@@ -153,7 +151,7 @@
 </button>
                     </div>
                         </div>
-                       
+
             </section>
         </div>
     </main><!-- End #main -->

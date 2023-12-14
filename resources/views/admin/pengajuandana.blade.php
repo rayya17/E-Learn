@@ -28,20 +28,20 @@
                               <th scope="col" style="text-align: center;">Keterangan</th>
 
                               <th scope="col" style="border-top-right-radius:10px;">Aksi</th>
-                              
+
                           </tr>
                           </thead>
                           <tbody>
                             @php
                             $no = 1;
-                        @endphp 
-                            @foreach ($guru as $p)                        
+                        @endphp
+                            @forelse ($guru as $p)
                             <tr>
                               <td scope="row">{{ $no++ }}</td>
                                 <td style="text-align: center;">{{ $p->user->name }}</td>
                                 <td style="text-align: center;">{{ $p->metodepembayaran }}</td>
                                 <td style="text-align: center;">{{ $p->tujuan_pengajuan }}</td>
-                                <td style="text-align: center;">{{ $p-> keterangan_pengajuan }}</td>
+                                <td style="text-align: center;">{{ $p->keterangan_pengajuan }}</td>
                                 <td style="text-align: center;">
                                   <div class="d-flex">
 
@@ -61,11 +61,14 @@
                                   </div>
                             </td>
                         </tr>
-                        
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="8" style="text-align: center;"><h7>Data Tidak Ada</h7></td>
+                        </tr>
+                        @endforelse
                         <!-- Add more rows as needed -->
                     </tbody>
-              
+
                            </table>
                         </div>
                   </div>
@@ -75,7 +78,7 @@
 </div>
 {{-- modal detail --}}
 
-</section>    
+</section>
 
   </main><!-- End #main -->
 @endsection

@@ -20,8 +20,8 @@ class DetailMateriController extends Controller
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $guru = Guru::with('materi')->where('user_id', Auth::user()->id)->first();
         $materi = $guru->materi;
-        $detailmateri = DetailMateri::all();
-        return view('guru.detailmateri',compact('materi', 'guru', 'detailmateri', 'Notifikasi', 'unreadNotificationsCount'));
+        // $detailmateri = DetailMateri::all();
+        return view('guru.detailmateri',compact('materi', 'guru', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
     /**
