@@ -2,26 +2,6 @@
 
 @section('content')
     <style>
-        .edit-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #33a797;
-            border: none;
-            color: #fff;
-            padding: 18px;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .edit-icon {
-            width: 20px;
-            height: 20px;
-            fill: #ffffff;
-            margin-right: 5px;
-        }
-
         .oval-box {
             background-color: #1c865d;
             width: 75px;
@@ -47,6 +27,7 @@
           .green-bg {
         height: 40px; /* Sesuaikan tinggi hijau di atas card */
         background-color: #1c865d; /* Warna hijau */
+         border-radius: 10px;
     }
      .custom-img {
         width: 310px; /* Lebar foto */
@@ -77,9 +58,10 @@
                     <div class="swiper-pagination"></div>
                 </div>
             </div>
-<div class="col-lg-8">
+
+ <div class="col-lg-8">
     <div class="card" style="border: 1px solid #000; height: 400px;"> <!-- Sesuaikan tinggi card -->
-        <div class="green-bg" style="height: 60px; padding: 5px;">
+        <div class="green-bg" style="height: 60px; padding: 8px;">
             <h4 class="card-title" style="color: rgb(255, 255, 255); margin: 0;">Deskripsi</h4>
         </div>
         <div class="card-body">
@@ -94,51 +76,33 @@
                 </li>
             </ul>
             <div class="card-footer"></div>
-            <div class="oval-box">
+            <div class="oval-box" style="width: auto;">
                 <div class="card-body">
-                    <h5>harga</h5>
+                    <h5>harga ee banyak banget</h5>
                     <p class="card-text"></p>
                 </div>
             </div>
         </div>
     </div>
+<button type="button" class="btn btn-success" style="float: right;">
+    <i class="fas fa-pencil-alt"></i>
+</button>
+
 </div>             
 
  <hr style="border-top: 3px solid #000000;">
 
                     <!-- Navigation Tabs -->
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active text-left" id="home-tab" data-toggle="tab" data-target="#mapel"
-                                type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true"
-                                style="font-size: 18px;">Materi</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link text-left" id="profile-tab" data-toggle="tab" data-target="#tab2"
-                                type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"
-                                style="font-size: 18px;">Tugas</button>
-                        </li>
+
+                     <li class="nav-item" role="presentation">
+    <button class="nav-link text-left btn" id="profile-tab" data-toggle="tab" data-target="#tab2"
+        type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"
+        style="font-size: 18px;">Tugas</button>
+</li>
+
                     </ul>
-
-                    <!-- Tab Content -->
 <div class="tab-content">
-    <!-- Detail Tab -->
-    <div class="tab-pane fade show active" id="mapel" role="tabpanel" aria-labelledby="home-tab">
-        <div class="semua text-center">
-            <h2 class="mb-4"> Materi PDF</h2>
-            <div class="card mb-3" style="width: 1010px; height: 50px; border: 1px solid #000;">
-                <div class="card-body">
-                    <h5 class="card-title">PDF Document</h5>
-                    <!-- Add your PDF viewer or embed code here -->
-                    <embed src="" type="" width="150%" height="50%" />
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-                        <!-- Ulasan Tab -->
+                    <!-- Ulasan Tab -->
                         <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="profile-tab">
                             <div class="text-center">
                                 <h2 class="mb-4">Tugas</h2>
@@ -154,7 +118,10 @@
                                                                     <th scope="col" style="text-align: center;">No</th>
                                                                     <th scope="col" style="text-align: center;">Tugas</th>
                                                                     <th scope="col" style="text-align: center;">Deskripsi</th>
+                                                                    <th scope="col" style="text-align: center;">Materi</th>
                                                                     <th scope="col" style="text-align: center;">Tanggal Mulai</th>
+                                                                   <th scope="col" style="text-align: center;">Aksi</th>
+
                                                                    
                                                                 </tr>
                                                             </thead>
@@ -163,8 +130,13 @@
                                                                     <td style="text-align: center;">Mark nct</td>
                                                                     <td style="text-align: center;">Bank</td>
                                                                     <td style="text-align: center;">Mandiri</td>
-                                                                    <td style="text-align: center;">Mandiri</td>
-                                                                </tr>
+                                                                  <td><button  type="submit" class="btn btn-secondary btn-md keluar col-12">File</button>
+                                                                 <td style="text-align: center;">Mandiri</td>                              
+                                                     <td>
+                                                    <button type="submit" class="btn btn-light btn-sm point"><i class="fas fa-pencil-alt" style="font-size: 16px;"></i></button>
+                                                    <button type="submit" class="btn btn-danger btn-sm point"><i class="fas fa-trash-alt" style="font-size: 16px;"></i></button>
+                                                </td>
+
                                                                 <!-- Add more rows as needed -->
                                                             </tbody>
                                                         </table>
@@ -175,16 +147,13 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Edit Button -->
-                        <button class="edit-button">
-                            <div class="icon">
-                                <i class="bi bi-pencil-fill"></i>
-                                <div class="label">
-                                </div>
-                            </div>
-                        </button>
+                             <!-- Edit Button -->
+                      <button type="button" class="btn btn-success" style="float: right;">
+    <i class="fas fa-pencil-alt"></i>
+</button>
                     </div>
+                        </div>
+                       
             </section>
         </div>
     </main><!-- End #main -->
