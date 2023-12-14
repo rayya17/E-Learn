@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use file;
-use Auth;
 use App\Models\Guru;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Materi;
-use App\Models\Pendapatan;
-use App\Models\Notifikasi;
-use App\Models\User;
 use App\Models\Ulasan;
+use App\Models\Notifikasi;
+use App\Models\Pendapatan;
 use App\Models\DetailMateri;
+use App\Models\Tugas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,21 +24,43 @@ class HomeController extends Controller
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $ulasan = Ulasan::all();
         $materi = Materi::all();
-        $detailmateri = detailmateri::where('materi_id'  )->get();
+        $detailmateri = detailmateri::where('materi_id')->get();
         $guru = Guru::with('user')->get();
-        $order = Order::first();
-        return view('users.home',compact('detailmateri', 'guru', 'materi', 'ulasan' ,'order', 'Notifikasi', 'unreadNotificationsCount'));
+        $order = Order::all();
+        $ordertah = Order::whereIn('materi_id', $materi->pluck('id'))->get();
+        return view('users.home',compact('detailmateri', 'guru', 'materi', 'ulasan' ,'order','ordertah', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
     public function detailpemesanan()
     {
         return view('users.detailpemesanan');
     }
+    public function kumpultugas($id)
+    {
+        $tugas = Tugas::all();
+        $materi = Materi::findOrFail($id);
+        $detailTugas = Tugas::findOrFail($id);
+        $detailMateri = $detailTugas->materi;
+
+        return view('users.kumpultugas',compact('materi','detailTugas','tugas','detailMateri'));
+    }
+    public function detailtugas($id)
+    {
+        $tugas = Tugas::all();
+        $materi = Materi::findOrFail($id);
+        return view('users.detailtugas',compact('materi','tugas'));
+    }
 
     public function detailpesan()
     {
 
         return view('users.detailpesan');
+    }
+
+    public function isimateri($id)
+    {
+        $materi = Materi::findOrFail($id);
+        return view('users.isimateri',compact('materi'));
     }
 
     public function payment(Order $order)
@@ -141,4 +164,5 @@ class HomeController extends Controller
         $materi = Materi::findOrFail($id);
         return view('users.detailmateri_user', compact('materi', 'ulasan', 'Notifikasi', 'unreadNotificationsCount'));
     }
+
 }

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use File;
-use Auth;
-use App\Models\Materi;
 use App\Models\Guru;
 use App\Models\User;
+use App\Models\Materi;
+use Illuminate\Http\File;
 use App\Models\Notifikasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class MateriController extends Controller
@@ -22,10 +22,10 @@ class MateriController extends Controller
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $guru = Guru::with('materi')->where('user_id', Auth::user()->id)->first();
         $materi = $guru->materi;
-        // $user = Auth::id();
-        // $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
-        // $guru = Guru::with('user')->get();
-        return view('guru.materi',compact('materi', 'guru', 'Notifikasi', 'unreadNotificationsCount'));
+        $user = Auth::id();
+        $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
+        $guru = Guru::with('user')->get();
+        return view('guru.materi', compact('materi', 'guru', 'Notifikasi', 'unreadNotificationsCount'));
         // return view('guru.materi');
     }
 
@@ -47,14 +47,13 @@ class MateriController extends Controller
             // 'cover_materi' => 'required|mimes:png,jpg',
             'mapel' => 'required|max:100',
             'nama_materi' => 'required|max:100',
-            'file_materi' => 'required|mimes:pdf',
+
             'kelas' => 'required|min:0|max:15',
             'harga' => 'required|min:0',
             'deskripsi' => 'required|max:500',
-            'tugas' => 'required|max:100',
-            'detail_tugas' => 'required|max:500',
+
             // 'tanggal_tugas' => 'required|after_or_equal:today|before_or_equal:today'
-        ],[
+        ], [
             'nama_materi.required' => 'Wajib di isi',
             'nama_materi.max' => 'Nama Materi melebihi maximal',
             'mapel.required' => 'Wajib di isi',
@@ -62,59 +61,33 @@ class MateriController extends Controller
             'kelas.required' => 'Wajib di isi',
             'kelas.min' => 'Kelas kurang dari 0',
             'kelas.max' => 'Kelas melebihi maximal',
-            'file_materi.required' => 'Wajib di isi',
-            'file_materi.mimes' => 'File harus berupa PDF',
             'harga.required' => 'Wajib di isi',
             'harga.min' => 'Harga kurang 0',
             'deskripsi.required' => 'Wajib di isi',
             'deskripsi.max' => 'Deskripsi melebihi maximal',
-            'tugas.required' => 'Wajib di isi',
-            'tugas.max' => 'Nama Tugas melebihi maximal',
-            'detail_tugas.required' => 'Wajib di isi',
-            'detail_tugas.max' => 'Detail Tugas melebihi maximal',
-            // 'tanggal_tugas.required' => 'Wajib di isi',
-            // 'tanggal_tugas.after_or_equal' => 'Tanggal tidak boleh sesudah tanggal hari ini',
-            // 'tanggal_tugas.before_or_equal' => 'Tanggal tidak boleh sebelum tanggal hari ini',
         ]);
         try {
             // dd($request);
             // dd("ghh");
-
-            // $cover_materi = $request->file('cover_materi');
-            // $cover = Str::random(40) . '.' . $cover_materi->getClientOriginalExtension();
-            // $request->cover_materi->storeAs('cover_materi', $cover, 'public');
             // Menangani unggahan file PDF
-            $file_materi = $request->file('file_materi');
-            $file_name = time() . '_' . $file_materi->getClientOriginalName();
-            $file_materi->move(public_path('pdf_files'), $file_name);
-            $DataGuru= Guru::where('user_id', Auth()->user()->id)->first();
+            // $file_materi = $request->file('file_materi');
+            // $file_name = time() . '_' . $file_materi->getClientOriginalName();
+            // $file_materi->move(public_path('storage/pdf'), $file_name);
+            $DataGuru = Guru::where('user_id', Auth()->user()->id)->first();
             // dd($DataGuru);
 
             $materi = Materi::create([
                 'mapel' => $request->mapel,
                 'nama_materi' => $request->nama_materi,
-                'file_materi' => $file_name,
                 'guru_id' => $DataGuru->id,
                 // 'cover_materi' => $cover,
                 'kelas' => $request->kelas,
                 'harga' => $request->harga,
                 'deskripsi' => $request->deskripsi,
-                'tugas' => $request->tugas,
-                'detail_tugas' => $request->detail_tugas,
                 'tanggal_tugas' => now()
             ]);
 
-            $admin = User::where('role', 'admin')->first();
-
-            Notifikasi::create([
-                'sender_id' => Auth::user()->id,
-                'user_id' => $admin->id,
-                'title' => Auth::user()->name,
-                'message' => Auth::user()->name . " Memposting materi baru yang bernama " . $materi->nama_materi,
-                'materi_id' => $materi->id,
-            ]);
-
-            return back()->with('success', 'Berhasil menambahkan materi dan tugas');
+            return back()->with('success', 'Berhasil menambahkan materi');
         } catch (\Exception $e) {
 
             return back()->with('error', 'Gagal menambahkan materi dan tugas. Silakan coba lagi.');
@@ -124,10 +97,10 @@ class MateriController extends Controller
     /**
      * Display the specified resource.
      */
-  public function show(Materi $materi)
-{
-    return view('guru.detailmateri', compact('materi'));
-}
+    public function show(Materi $materi)
+    {
+        return view('guru.detailmateri', compact('materi'));
+    }
 
 
     /**
@@ -153,7 +126,7 @@ class MateriController extends Controller
             'tugas' => 'required|max:225',
             'detail_tugas' => 'required|max:500',
             // 'tanggal_tugas' => 'required|after_or_equal:today|before_or_equal:today'
-        ],[
+        ], [
             'nama_materi.required' => 'Wajib di isi',
             'nama_materi.max' => 'Nama Materi melebihi maximal',
             'mapel.required' => 'Wajib di isi',

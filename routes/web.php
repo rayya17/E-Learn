@@ -11,6 +11,7 @@ use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\UlasanController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TugasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\User;
 
@@ -32,7 +33,7 @@ Route::get('/', function () {
 // Route::post('/layout',[LayoutController::class,'index'])->name('layout');
 
 // Route::get('/home', [HomeController::class, 'home'])->name('HomePage');
-Route::post('/logout',[AuthController::class,'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 Route::middleware('admin')->group(function(){
@@ -49,13 +50,12 @@ Route::middleware('admin')->group(function(){
     Route::post('terimapengajuan/{id}', [AdminController::class, 'terimapengajuan'])->name('terimapengajuan');
     // Route::post('/notifDelete/{id}', [NotifikasiController::class, 'markRead'])->name('notifDelete');
     Route::post('tolakpengajuan/{id}', [AdminController::class, 'tolakpengajuan'])->name('tolakpengajuan');
-
 });
 
-Route::middleware('guru')->group(function(){
-    Route::get('dashboardguru',[GuruController::class,'Dashboardguru'])->name('dashboardguru');
+Route::middleware('guru')->group(function () {
+    Route::get('dashboardguru', [GuruController::class, 'Dashboardguru'])->name('dashboardguru');
     Route::resource('detailmateri', DetailMateriController::class);
-    Route::put('detailmateri-update/{id}', [DetailMateriController::class,'update'])->name("update-detailMateri");
+    Route::put('detailmateri-update/{id}', [DetailMateriController::class, 'update'])->name("update-detailMateri");
     // Route::get('materi',[MateriController::class,'index'])->name('materi');
     Route::resource('materi', MateriController::class);
     Route::get('Pengumpulantugas', [GuruController::class, 'Pengumpulantugas'])->name('Pengumpulantugas');
@@ -65,6 +65,8 @@ Route::middleware('guru')->group(function(){
     Route::get('/profileguru', [ProfileController::class, 'profileGuru'])->name('profileguru');
     Route::put('/profileguruUp/{id}', [ProfileController::class, 'profileguruUp'])->name('profileguruUp');
     Route::get('materidetail', [GuruController::class, 'materidetail'])->name('materidetail');
+    Route::post('/tugas/{materi_id}', [TugasController::class, 'createTugas'])->name('tugas');
+
     // Route::resource('materiGuru',GuruController::class);
 });
 
@@ -80,33 +82,34 @@ Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->g
     Route::post('/createregisguru', 'createregisguru')->name('createregisguru');
 
     //Login Page
-    Route::get('/login','loginPage')->name('loginPage');
+    Route::get('/login', 'loginPage')->name('loginPage');
     Route::post('/loginproses', 'loginproses')->name('loginproses');
 
     //forgot and reset password
-    Route::get('/forgot-password','forgotpassword')->middleware('guest')->name('password.request');
-    Route::post('/forgot-password', 'forgotpassword_store' )->middleware('guest')->name('password.email');
+    Route::get('/forgot-password', 'forgotpassword')->middleware('guest')->name('password.request');
+    Route::post('/forgot-password', 'forgotpassword_store')->middleware('guest')->name('password.email');
     Route::get('/reset-password/{token}', 'resetpassword_token')->middleware('guest')->name('password.reset');
     Route::post('/reset-password', 'resetpassword')->middleware('guest')->name('password.update');
 });
 
-Route::middleware('user')->group(function(){
+Route::middleware('user')->group(function () {
     Route::get('/home', [HomeController::class, 'home'])->name('HomePage');
     Route::resource('/ulasan', UlasanController::class);
     Route::get('/detailpemesanan', [HomeController::class, 'detailpemesanan'])->name('DetailPemesanan');
-    Route::get('/detailpesan',[HomeController::class,'detailpesan'])->name('detailpesan');
+    Route::get('/detailpesan', [HomeController::class, 'detailpesan'])->name('detailpesan');
     Route::get('/profile', [ProfileController::class, 'index'])->name('Profile');
     Route::put('/updateProfile/{id}', [ProfileController::class, 'updateProfile'])->name('updateProfile');
-    Route::get('/detailmateri_user/{id}',[HomeController::class,'detailmateri_user'])->name('detailmateri_user');
-    Route::get('/order/{order}',[HomeController::class,'payment'])->name('payment');
-     Route::post('/pesan/{materi}',[HomeController::class,'checkout'])->name('checkout');
-     Route::post('/mitrans-callback',[HomeController::class,'callback'])->name('callback');
+    Route::get('/detailmateri_user/{id}', [HomeController::class, 'detailmateri_user'])->name('detailmateri_user');
+    Route::get('/order/{order}', [HomeController::class, 'payment'])->name('payment');
+    Route::post('/pesan/{materi}', [HomeController::class, 'checkout'])->name('checkout');
+    Route::post('/mitrans-callback', [HomeController::class, 'callback'])->name('callback');
     // Route::post('/notifDelete/{id}', [NotifikasiController::class, 'markRead'])->name('notifDelete');
-
+    Route::get('/kumpultugas/{id}', [HomeController::class, 'kumpultugas'])->name('Kumpultugas');
+    Route::get('dashboar-materi/{id}', [HomeController::class, 'detailtugas'])->name('Detailtugas');
+    Route::get('/isi-materi/{id}', [HomeController::class, 'isimateri'])->name('Isimateri');
+    Route::post('/kumpultugas/kirim', [TugasController::class, 'kirimTugas'])->name('pengumpulan');
     //  Route::get('/searchingMateri', [HomeController::class, 'searchingMateri'])->name('searchingMateri');
 });
-
-// NOTIFIKASI ACTION
-// Route::get('/markRead/{id}', [NotifikasiController::class, 'markRead']);
-
-Route::get('/coba', [PdfController::class ,'generatePDF']);
+Route::get('/pdf/upload', [PdfController::class, 'showForm'])->name('pdf.form');
+Route::post('/pdf/upload', [PdfController::class, 'uploadPdf'])->name('pdf.upload');
+// Route::get('/pdf/show/{path}', [PdfController::class, 'showPdf'])->name('pdf.show');

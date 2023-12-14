@@ -138,13 +138,16 @@
                 <div class="col-lg-12">
                     <div class="row">
                         <div class="card" >
-                            <div class="card-header" style="color: #3B9680; font-size: 20px;"><strong>Geometri</strong></div>
+                            <div class="card-header" style="color: #3B9680; font-size: 20px;"><strong>Transformasi Geometri</strong></div>
                             <div class="card-body">
-                                <blockquote class="blockquote mb-0">
+                                <blockquote class="blockquote mb-0" style="position: relative;">
                                     <p style="color: #3B9680; padding-bottom: 12px">Pengajar : Renjun</p>
                                     <p style="color: #3B9680; padding-bottom: 12px">Jangka Pemesanan : 1 Bulan</p>
                                     <p style="color: #3B9680; padding-bottom: 12px">Harga : Rp. 200.000</p>
-                                    <center><a href="#" class="btn btn-primary" style="border-radius: 8px; text-align: center; margin-top: 20px">Bayar Sekarang</a></center>
+                                    <p style="color: #3B9680; padding-bottom: 12px">status : altif</p>
+                                    <br><br>
+                                    <h4 style="position: absolute; right:1%; bottom:0;n margin: 0;">Lunas</h4>
+
                                 </blockquote>
                             </div>
 

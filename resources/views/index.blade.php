@@ -386,7 +386,7 @@
                     <div class="section-title mb-4 pb-2">
                         <h6>Siapa Saja Yang Mengerjakan Web ini?</h6>
                         <h4 class="title mb-4">Dalam Pengerjaan Project ini</h4>
-                        <p class="text-muted para-desc mx-auto mb-0">Start working with <span
+                        <p class="text-muted para-desc mx-auto mb-0">project ini dikerjakan dengan <span
                                 class="text-primary fw-bold">Landrick</span> that can provide everything you need to
                             generate awareness, drive traffic, connect.</p>
                     </div>

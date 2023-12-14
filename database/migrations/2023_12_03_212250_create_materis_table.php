@@ -17,12 +17,9 @@ return new class extends Migration
             $table->ForeignId('guru_id')->references('id')->on('gurus')->onUpdate('cascade');
             $table->string('mapel');
             $table->string('nama_materi');
-            $table->string('file_materi');
             $table->string('kelas');
             $table->string('harga');
             $table->string('deskripsi');
-            $table->string('tugas');
-            $table->string('detail_tugas');
             $table->date('tanggal_tugas');
             $table->timestamps();
         });

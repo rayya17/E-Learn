@@ -70,7 +70,8 @@
              transition: background-color 0.3s ease;
              margin-right: 25px
          }
-           .edit-button {
+
+         .edit-button {
              position: absolute;
              bottom: 0;
              right: 20;
@@ -106,15 +107,16 @@
                                          </div>
                                          <div class="tengah d-flex align-items-center justify-content-between w-100 px-2">
 
-                                                 <div class="profile">
-                                                     <img class="rounded-circle bg-dark" width="60" height="60"
-                                                         src="{{ asset('storage/profile/' . $mtr->guru->user->foto_user) }}"
-                                                         alt="">
-                                                 </div>
+                                             <div class="profile">
+                                                 <img class="rounded-circle bg-dark" width="60" height="60"
+                                                     src="{{ asset('storage/profile/' . $mtr->guru->user->foto_user) }}"
+                                                     alt="">
+                                             </div>
 
-                                                 <div class="badge-class">
-                                                    <span class="badge bg-success">Rp. {{ number_format($mtr->harga, 0, ',', '.') }}</span>
-                                                </div>
+                                             <div class="badge-class">
+                                                 <span class="badge bg-success">Rp.
+                                                     {{ number_format($mtr->harga, 0, ',', '.') }}</span>
+                                             </div>
                                          </div>
                                          <div class="text-card p-4">
                                              <h5 class="title">
@@ -124,136 +126,210 @@
                                                  <p>{{ $mtr->deskripsi }}</p>
                                              </div>
                                          </div>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                        <!-- Button with Eye Icon (Align to the left) -->
-                                        <button type="button" onclick="window.location='{{ route('materidetail') }}'" class="edit-button">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
+                                         <div class="d-flex justify-content-between align-items-center">
+                                             <!-- Button with Eye Icon (Align to the left) -->
+                                             <button type="button" onclick="window.location='{{ route('materidetail') }}'"
+                                                 class="edit-button">
+                                                 <i class="fas fa-eye"></i>
+                                             </button>
+                                             <button type="button" data-bs-toggle="modal" data-bs-target="#tambahTugas"
+                                                 class="btn btn-success">
+                                                 Tambah tugas <i class="fas fa-plus"></i>
+                                             </button>
+                                             <div class="modal fade" id="tambahTugas" tabindex="-1"
+                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                 <div class="modal-dialog">
+                                                     <div class="modal-content">
+                                                         <div class="modal-header">
+                                                             <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                             <button type="button" class="btn-close"
+                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
+                                                         </div>
+                                                         <div class="modal-body">
+                                                             <form action="{{ route('tugas',$mtr->id) }}" method="POST"
+                                                                 enctype="multipart/form-data">
+                                                                 @csrf
+                                                                 <label for="inputText"
+                                                                     class="col-sm-12 col-form-label">File Materi <span
+                                                                         style="font-size: 12px; color: #b9b7b7;">(File
+                                                                         berupa PDF)</span></label>
+                                                                 <div class="row">
+                                                                     <div class="col-sm-12">
+                                                                         <input type="file" name="file_tugas"
+                                                                             class="form-control @error('file_tugas') is-invalid @enderror"
+                                                                             id="file_tugas" width="200px"
+                                                                             value="{{ old('file_tugas') }}">
+                                                                     </div>
+                                                                     @error('file_tugas')
+                                                                         <div class="invalid-feedback">{{ $message }}
+                                                                         </div>
+                                                                     @enderror
+                                                                 </div>
 
-                                        <!-- Delete Button (Align to the right) -->
-                                        <form id="delete-form-{{ $mtr->id }}" action="{{ route('materi.destroy', $mtr->id) }}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="button" class="delete-button" onclick="confirmDelete('{{ $mtr->id }}')">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </form>
-
+                                                                 <label for="inputText" class="col-sm-6 col-form-label">Nama
+                                                                     Tugas</label>
+                                                                 <div class="row mb-1">
+                                                                     <div class="col-sm-12">
+                                                                         <input type="text" name="tugas"
+                                                                             class="form-control @error('tugas') is-invalid @enderror"
+                                                                             id="tugas" width="200px"
+                                                                             value="{{ old('tugas') }}">
+                                                                         @error('tugas')
+                                                                             <div class="invalid-feedback">
+                                                                                 {{ $message }}</div>
+                                                                         @enderror
+                                                                     </div>
+                                                                 </div>
+                                                                 <label for="inputText"
+                                                                     class="col-sm-6 col-form-label">Detail
+                                                                     Tugas</label>
+                                                                 <div class="row mb-1">
+                                                                     <div class="col-sm-12">
+                                                                         <textarea type="text" name="detail_tugas" class="form-control @error('detail_tugas') is-invalid @enderror"
+                                                                             id="detail_tugas" width="200px" value="{{ old('detail_tugas') }}"></textarea>
+                                                                         @error('detail_tugas')
+                                                                             <div class="invalid-feedback">
+                                                                                 {{ $message }}</div>
+                                                                         @enderror
+                                                                     </div>
+                                                                 </div>
+                                                              </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary">Save
+                                                                        changes</button>
+                                                                </div>
+                                                           </div>
+                                                     </form>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         <!-- Delete Button (Align to the right) -->
+                                         <form id="delete-form-{{ $mtr->id }}"
+                                             action="{{ route('materi.destroy', $mtr->id) }}" method="POST">
+                                             @method('DELETE')
+                                             @csrf
+                                             <button type="button" class="delete-button"
+                                                 onclick="confirmDelete('{{ $mtr->id }}')">
+                                                 <i class="fa-solid fa-trash"></i>
+                                             </button>
+                                         </form>
                                      </div>
-                                    </div>
-                                </div>
-                                     </div>
-                         @endforeach
-                         <button type="button" class="large-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="fas fa-plus"></i>
-                        </button>
+                                 </div>
+                             </div>
                      </div>
-                     {{-- <button type="button" class="edit-button" data-bs-toggle="modal"
+                     @endforeach
+                     <button type="button" class="large-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                         <i class="fas fa-plus"></i>
+                     </button>
+                 </div>
+                 {{-- <button type="button" class="edit-button" data-bs-toggle="modal"
                                      data-bs-target="#EditModal">
                                         <i class="fa-solid fa-pencil"></i>
                                     </button> --}}
-                     <!-- Modal Edit -->
-                     @foreach ($materi as $mtr)
-                         <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                             aria-hidden="true">
-                             <div class="modal-dialog">
-                                 <div class="modal-content">
-                                     <form action="{{ route('materi.update', $mtr) }}" method="post"
-                                         enctype="multipart/form-data">
-                                         @method('PUT')
-                                         @csrf
-                                         <div class="modal-header">
-                                             <h3 class="modal-title" id="exampleModalLabel">Edit Materi dan
-                                                 Tugas</h3>
-                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                 aria-label="Close"></button>
+                 <!-- Modal Edit -->
+                 @foreach ($materi as $mtr)
+                     <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                         <div class="modal-dialog">
+                             <div class="modal-content">
+                                 <form action="{{ route('materi.update', $mtr) }}" method="post"
+                                     enctype="multipart/form-data">
+                                     @method('PUT')
+                                     @csrf
+                                     <div class="modal-header">
+                                         <h3 class="modal-title" id="exampleModalLabel">Edit Materi dan
+                                             Tugas</h3>
+                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                             aria-label="Close"></button>
+                                     </div>
+                                     <div class="modal-body">
+                                         <h6 class="modal-title" id="exampleModalLabel">Tambah Materi</h6>
+                                         <label for="inputText" class="col-sm-4 col-form-label">Mata
+                                             Pelajaran</label>
+                                         <div class="row">
+                                             <div class="col-sm-12">
+                                                 <select class="form-select form-select-sm mb-2" name="mapel"
+                                                     aria-label="Large select example" id="update_mapel" width="200px"
+                                                     value="{{ old('mapel') }}">
+                                                     <option selected>{{ $mtr->mapel }}</option>
+                                                     <option value="Matematika">Matematika</option>
+                                                     <option value="IPA">IPA</option>
+                                                     <option value="IPS">IPS</option>
+                                                     <option value="Bahasa Indonesia">Bahasa Indonesia
+                                                     </option>
+                                                     <option value="Bahasa Inggris">Bahasa Inggris</option>
+                                                 </select>
+                                             </div>
                                          </div>
-                                         <div class="modal-body">
-                                             <h6 class="modal-title" id="exampleModalLabel">Tambah Materi</h6>
-                                             <label for="inputText" class="col-sm-4 col-form-label">Mata
-                                                 Pelajaran</label>
-                                             <div class="row">
-                                                 <div class="col-sm-12">
-                                                     <select class="form-select form-select-sm mb-2" name="mapel"
-                                                         aria-label="Large select example" id="update_mapel" width="200px"
-                                                         value="{{ old('mapel') }}">
-                                                         <option selected>{{ $mtr->mapel }}</option>
-                                                         <option value="Matematika">Matematika</option>
-                                                         <option value="IPA">IPA</option>
-                                                         <option value="IPS">IPS</option>
-                                                         <option value="Bahasa Indonesia">Bahasa Indonesia
-                                                         </option>
-                                                         <option value="Bahasa Inggris">Bahasa Inggris</option>
-                                                     </select>
-                                                 </div>
+                                         <label for="inputText" class="col-sm-6 col-form-label">Nama
+                                             Materi</label>
+                                         <div class="row mb-2">
+                                             <div class="col-sm-12">
+                                                 <input type="text" name="nama_materi" class="form-control"
+                                                     id="update_nama_materi" width="200px"
+                                                     value="{{ old('nama_materi', $mtr->nama_materi) }}">
                                              </div>
-                                             <label for="inputText" class="col-sm-6 col-form-label">Nama
-                                                 Materi</label>
-                                             <div class="row mb-2">
-                                                 <div class="col-sm-12">
-                                                     <input type="text" name="nama_materi" class="form-control"
-                                                         id="update_nama_materi" width="200px"
-                                                         value="{{ old('nama_materi', $mtr->nama_materi) }}">
-                                                 </div>
+                                         </div>
+                                         <label for="inputText" class="col-sm-12 col-form-label">File
+                                             Materi</label>
+                                         <div class="row">
+                                             <div class="col-sm-12">
+                                                 <input type="file" name="file_materi" class="form-control"
+                                                     id="update_file_materi" width="200px"
+                                                     value="{{ old('file_materi', $mtr->file_materi) }}">
                                              </div>
-                                             <label for="inputText" class="col-sm-12 col-form-label">File
-                                                 Materi</label>
-                                             <div class="row">
-                                                 <div class="col-sm-12">
-                                                     <input type="file" name="file_materi" class="form-control"
-                                                         id="update_file_materi" width="200px"
-                                                         value="{{ old('file_materi', $mtr->file_materi) }}">
-                                                 </div>
+                                         </div>
+                                         <label for="inputText" class="col-sm-2 col-form-label">Kelas</label>
+                                         <div class="row">
+                                             <div class="col-sm-12">
+                                                 <select class="form-select form-select-sm mb-1" name="kelas"
+                                                     aria-label="Large select example" id="update_kelas" width="200px"
+                                                     value="{{ old('kelas', $mtr->kelas) }}">
+                                                     <option selected>{{ $mtr->kelas }}</option>
+                                                     <option value="10">10</option>
+                                                     <option value="11">11</option>
+                                                     <option value="12">12</option>
+                                                 </select>
                                              </div>
-                                             <label for="inputText" class="col-sm-2 col-form-label">Kelas</label>
-                                             <div class="row">
-                                                 <div class="col-sm-12">
-                                                     <select class="form-select form-select-sm mb-1" name="kelas"
-                                                         aria-label="Large select example" id="update_kelas" width="200px"
-                                                         value="{{ old('kelas', $mtr->kelas) }}">
-                                                         <option selected>{{ $mtr->kelas }}</option>
-                                                         <option value="10">10</option>
-                                                         <option value="11">11</option>
-                                                         <option value="12">12</option>
-                                                     </select>
-                                                 </div>
+                                         </div>
+                                         <label for="inputText" class="col-sm-6 col-form-label">Harga</label>
+                                         <div class="row">
+                                             <div class="col-sm-12" width="200px">
+                                                 <input type="number" name="harga" class="form-control"
+                                                     id="update_harga" width="200px"
+                                                     value="{{ old('harga', $mtr->harga) }}">
                                              </div>
-                                             <label for="inputText" class="col-sm-6 col-form-label">Harga</label>
-                                             <div class="row">
-                                                 <div class="col-sm-12" width="200px">
-                                                     <input type="number" name="harga" class="form-control"
-                                                         id="update_harga" width="200px"
-                                                         value="{{ old('harga', $mtr->harga) }}">
-                                                 </div>
+                                         </div>
+                                         <label for="inputText" class="col-sm-6 col-form-label">Deskripsi</label>
+                                         <div class="row">
+                                             <div class="col-sm-12" width="200px"
+                                                 value="{{ old('deskripsi', $mtr->deskripsi) }}">
+                                                 <textarea type="text" name="deskripsi" class="form-control" id="update_deskripsi" width="200px"
+                                                     value="{{ old('deskripsi', $mtr->deskripsi) }}">{{ $mtr->deskripsi }}</textarea>
                                              </div>
-                                             <label for="inputText" class="col-sm-6 col-form-label">Deskripsi</label>
-                                             <div class="row">
-                                                 <div class="col-sm-12" width="200px"
-                                                     value="{{ old('deskripsi', $mtr->deskripsi) }}">
-                                                     <textarea type="text" name="deskripsi" class="form-control" id="update_deskripsi" width="200px"
-                                                         value="{{ old('deskripsi', $mtr->deskripsi) }}">{{ $mtr->deskripsi }}</textarea>
-                                                 </div>
+                                         </div>
+                                         <br>
+                                         <h6 class="modal-title" id="exampleModalLabel">Tambah Tugas</h6>
+                                         <label for="inputText" class="col-sm-6 col-form-label">Nama
+                                             Tugas</label>
+                                         <div class="row mb-1">
+                                             <div class="col-sm-12">
+                                                 <input type="text" name="tugas" class="form-control"
+                                                     id="update_tugas" width="200px"
+                                                     value="{{ old('tugas', $mtr->tugas) }}">
                                              </div>
-                                             <br>
-                                             <h6 class="modal-title" id="exampleModalLabel">Tambah Tugas</h6>
-                                             <label for="inputText" class="col-sm-6 col-form-label">Nama
-                                                 Tugas</label>
-                                             <div class="row mb-1">
-                                                 <div class="col-sm-12">
-                                                     <input type="text" name="tugas" class="form-control"
-                                                         id="update_tugas" width="200px"
-                                                         value="{{ old('tugas', $mtr->tugas) }}">
-                                                 </div>
+                                         </div>
+                                         <label for="inputText" class="col-sm-6 col-form-label">Detail
+                                             Tugas</label>
+                                         <div class="row mb-1">
+                                             <div class="col-sm-12">
+                                                 <textarea type="text" name="detail_tugas" class="form-control" id="update_detail_tugas" width="200px"
+                                                     value="{{ old('detail_tugas', $mtr->detail_tugas) }}">{{ $mtr->detail_tugas }}</textarea>
                                              </div>
-                                             <label for="inputText" class="col-sm-6 col-form-label">Detail
-                                                 Tugas</label>
-                                             <div class="row mb-1">
-                                                 <div class="col-sm-12">
-                                                     <textarea type="text" name="detail_tugas" class="form-control" id="update_detail_tugas" width="200px"
-                                                         value="{{ old('detail_tugas', $mtr->detail_tugas) }}">{{ $mtr->detail_tugas }}</textarea>
-                                                 </div>
-                                             </div>
-                                             {{-- <label for="inputText" class="col-sm-6 col-form-label">Tanggal
+                                         </div>
+                                         {{-- <label for="inputText" class="col-sm-6 col-form-label">Tanggal
                                                  Tugas</label>
                                              <div class="row mb-1">
                                                  <div class="col-sm-12">
@@ -262,22 +338,22 @@
                                                          value="{{ old('tanggal_tugas', $mtr->tanggal_tugas) }}">
                                                  </div>
                                              </div> --}}
-                                         </div>
-                                         <div class="modal-footer">
-                                             <button type="button" class="btn btn-secondary"
-                                                 data-bs-dismiss="modal">Close</button>
-                                             <button type="submit" class="btn btn-primary">Save
-                                                 changes</button>
-                                         </div>
-                                     </form>
-                                 </div>
+                                     </div>
+                                     <div class="modal-footer">
+                                         <button type="button" class="btn btn-secondary"
+                                             data-bs-dismiss="modal">Close</button>
+                                         <button type="submit" class="btn btn-primary">Save
+                                             changes</button>
+                                     </div>
+                                 </form>
                              </div>
                          </div>
-                        @endforeach
-                 </div>
-                 <!--/ End Single Course -->
-            </section>
+                     </div>
+                 @endforeach
          </div>
+         <!--/ End Single Course -->
+         </section>
+     </div>
      </div>
 
      <!-- Modal -->
@@ -295,8 +371,9 @@
                          <label for="inputText" class="col-sm-4 col-form-label">Mata Pelajaran</label>
                          <div class="row">
                              <div class="col-sm-12">
-                                 <select class="form-select form-select-sm mb-2 @error('mapel') is-invalid @enderror" name="mapel"
-                                     aria-label="Large select example" id="mapel" width="200px" value="{{old('mapel')}}">
+                                 <select class="form-select form-select-sm mb-2 @error('mapel') is-invalid @enderror"
+                                     name="mapel" aria-label="Large select example" id="mapel" width="200px"
+                                     value="{{ old('mapel') }}">
                                      <option selected>Pilih Mata Pelajaran</option>
                                      <option value="Matematika">Matematika</option>
                                      <option value="IPA">IPA</option>
@@ -305,85 +382,60 @@
                                      <option value="Bahasa Inggris">Bahasa Inggris</option>
                                  </select>
                                  @error('mapel')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                     <div class="invalid-feedback">{{ $message }}</div>
+                                 @enderror
                              </div>
                          </div>
                          <label for="inputText" class="col-sm-6 col-form-label">Nama Materi</label>
                          <div class="row mb-2">
                              <div class="col-sm-12">
-                                 <input type="text" name="nama_materi" class="form-control @error('nama_materi') is-invalid @enderror" id="nama_materi"
-                                     width="200px" value="{{old('nama_materi')}}">
+                                 <input type="text" name="nama_materi"
+                                     class="form-control @error('nama_materi') is-invalid @enderror" id="nama_materi"
+                                     width="200px" value="{{ old('nama_materi') }}">
                              </div>
                              @error('nama_materi')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                         </div>
-                         <label for="inputText" class="col-sm-12 col-form-label">File Materi <span style="font-size: 12px; color: #b9b7b7;">(File berupa PDF)</span></label>
-                         <div class="row">
-                             <div class="col-sm-12">
-                                 <input type="file" name="file_materi" class="form-control @error('file_materi') is-invalid @enderror" id="file_materi"
-                                     width="200px" value="{{old('file_materi')}}">
-                             </div>
-                             @error('file_materi')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                                 <div class="invalid-feedback">{{ $message }}</div>
+                             @enderror
                          </div>
                          <label for="inputText" class="col-sm-2 col-form-label">Kelas</label>
                          <div class="row">
                              <div class="col-sm-12">
-                                 <select class="form-select form-select-sm mb-1  @error('kelas') is-invalid @enderror" name="kelas"
-                                     aria-label="Large select example" id="kelas" width="200px" value="{{old('kelas')}}">
+                                 <select class="form-select form-select-sm mb-1  @error('kelas') is-invalid @enderror"
+                                     name="kelas" aria-label="Large select example" id="kelas" width="200px"
+                                     value="{{ old('kelas') }}">
                                      <option selected>Pilih Kelas</option>
                                      <option value="10">10</option>
                                      <option value="11">11</option>
                                      <option value="12">12</option>
                                  </select>
                                  @error('kelas')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                     <div class="invalid-feedback">{{ $message }}</div>
+                                 @enderror
                              </div>
                          </div>
                          <label for="inputText" class="col-sm-6 col-form-label">Harga</label>
                          <div class="row">
                              <div class="col-sm-12" width="200px">
-                                 <input type="number" name="harga" class="form-control  @error('harga') is-invalid @enderror" id="harga"
-                                     width="200px" value="{{old('harga')}}">
-                                @error('harga')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                                 <input type="number" name="harga"
+                                     class="form-control  @error('harga') is-invalid @enderror" id="harga"
+                                     width="200px" value="{{ old('harga') }}">
+                                 @error('harga')
+                                     <div class="invalid-feedback">{{ $message }}</div>
+                                 @enderror
                              </div>
                          </div>
                          <label for="inputText" class="col-sm-6 col-form-label">Deskripsi</label>
                          <div class="row">
                              <div class="col-sm-12" width="200px">
-                                 <textarea type="text" name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" width="200px" value="{{old('deskripsi')}}"></textarea>
+                                 <textarea type="text" name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror"
+                                     id="deskripsi" width="200px" value="{{ old('deskripsi') }}"></textarea>
                              </div>
                              @error('deskripsi')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                                 <div class="invalid-feedback">{{ $message }}</div>
+                             @enderror
                          </div>
                          <br>
-                         <h6 class="modal-title" id="exampleModalLabel">Tambah Tugas</h6>
-                         <label for="inputText" class="col-sm-6 col-form-label">Nama Tugas</label>
-                         <div class="row mb-1">
-                             <div class="col-sm-12">
-                                 <input type="text" name="tugas" class="form-control @error('tugas') is-invalid @enderror" id="tugas"
-                                     width="200px" value="{{old('tugas')}}">
-                                @error('tugas')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                             </div>
-                         </div>
-                         <label for="inputText" class="col-sm-6 col-form-label">Detail Tugas</label>
-                         <div class="row mb-1">
-                             <div class="col-sm-12">
-                                 <textarea type="text" name="detail_tugas" class="form-control @error('detail_tugas') is-invalid @enderror" id="detail_tugas" width="200px" value="{{old('detail_tugas')}}"></textarea>
-                                 @error('detail_tugas')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                             </div>
-                         </div>
+
                          {{-- <label for="inputText" class="col-sm-6 col-form-label">Tanggal Tugas</label>
                          <div class="row mb-1">
                              <div class="col-sm-12">
