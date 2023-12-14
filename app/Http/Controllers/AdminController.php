@@ -8,10 +8,12 @@ use App\Models\Guru;
 use App\Models\Notifikasi;
 use App\Models\User;
 use App\Models\Materi;
+use App\Models\Order;
 use App\Models\penarikansaldo;
 use App\Models\Pendapatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
@@ -24,8 +26,19 @@ class AdminController extends Controller
         $jumlahpemateri = user::where('role', 'guru')->count();
         $jumlahsiswa = user::where('role', 'user')->count();
         $pendapatan = Pendapatan::all()->where('user_id', auth()->id())->pluck('pendapatan')->sum();
+        $topMateriOrders = Order::select('materi_id')
+    ->selectRaw('COUNT(*) as total_orders')
+    ->where('status', 'paid')
+    ->has('Materi') // Pastikan relasi Materi ada
+    ->has('user')   // Pastikan relasi User ada
+    ->groupBy('materi_id')
+    ->orderByDesc('total_orders')
+    ->with('Materi')
+    ->take(5)
+    ->get();
+        $materi = Materi::all();
 
-        return view('admin.dashboard', compact('jumlahpemateri', 'jumlahsiswa', 'pendapatan', 'Notifikasi', 'unreadNotificationsCount'));
+        return view('admin.dashboard', compact('jumlahpemateri', 'jumlahsiswa', 'pendapatan', 'Notifikasi', 'unreadNotificationsCount', 'materi', 'topMateriOrders'));
     }
 
     public function getMonthlyIncomeData()
@@ -38,6 +51,16 @@ class AdminController extends Controller
 
 
     return response()->json(['data' => $monthlyIncomeData]);
+}
+public function getYearIncomeData()
+{
+    $yearIncomeData = Pendapatan::selectRaw('YEAR(created_at) as year, SUM(pendapatan) as total_income')
+        ->where('user_id', auth()->id())
+        ->groupByRaw('YEAR(created_at)')
+        ->orderByRaw('YEAR(created_at) ASC')
+        ->get();
+
+    return response()->json(['data' => $yearIncomeData]);
 }
 
     public function Profileguru(){

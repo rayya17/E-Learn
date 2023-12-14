@@ -199,52 +199,61 @@
 
                                     <script>
                                         document.addEventListener("DOMContentLoaded", () => {
-                                            new ApexCharts(document.querySelector("#tahunChart"), {
-                                                series: [{
-                                                    name: 'Sales',
-                                                    data: [31, 40, 28, 51, 42, 82, 56],
-                                                }],
-                                                chart: {
-                                                    height: 350,
-                                                    type: 'area',
-                                                    toolbar: {
-                                                        show: false
-                                                    },
-                                                },
-                                                markers: {
-                                                    size: 4
-                                                },
-                                                colors: ['#4154f1'],
-                                                fill: {
-                                                    type: "gradient",
-                                                    gradient: {
-                                                        shadeIntensity: 1,
-                                                        opacityFrom: 0.3,
-                                                        opacityTo: 0.4,
-                                                        stops: [0, 90, 100]
-                                                    }
-                                                },
-                                                dataLabels: {
-                                                    enabled: false
-                                                },
-                                                stroke: {
-                                                    curve: 'smooth',
-                                                    width: 2
-                                                },
-                                                xaxis: {
-                                                    type: 'datetime',
-                                                    categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z",
-                                                        "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z",
-                                                        "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z",
-                                                        "2018-09-19T06:30:00.000Z"
-                                                    ]
-                                                },
-                                                tooltip: {
-                                                    x: {
-                                                        format: 'dd/MM/yy HH:mm'
-                                                    },
-                                                }
-                                            }).render();
+                                            fetch('/get-year-income')
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    const formattedData = data.data.map(item => {
+                                                        return {
+                                                            x: item.year,
+                                                            y: parseInt(item.total_income)
+                                                        };
+                                                    });
+
+                                                    new ApexCharts(document.querySelector("#tahunChart"), {
+                                                        series: [{
+                                                            name: 'Pendapatan',
+                                                            data: formattedData,
+                                                        }],
+                                                        chart: {
+                                                            height: 350,
+                                                            type: 'area',
+                                                            toolbar: {
+                                                                show: false
+                                                            },
+                                                        },
+                                                        markers: {
+                                                            size: 4
+                                                        },
+                                                        colors: ['#ff771d'],
+                                                        fill: {
+                                                            type: "gradient",
+                                                            gradient: {
+                                                                shadeIntensity: 1,
+                                                                opacityFrom: 0.3,
+                                                                opacityTo: 0.4,
+                                                                stops: [0, 90, 100]
+                                                            }
+                                                        },
+                                                        dataLabels: {
+                                                            enabled: false
+                                                        },
+                                                        stroke: {
+                                                            curve: 'smooth',
+                                                            width: 2
+                                                        },
+                                                        xaxis: {
+                                                            type: 'category' // Menggunakan kategori sebagai sumbu X
+                                                        },
+                                                        tooltip: {
+                                                            x: {
+                                                                format: 'dd/MM/yy HH:mm'
+                                                            },
+                                                        }
+                                                    }).render();
+                                                })
+                                                .catch(error => {
+                                                    console.error('Error:', error);
+                                                });
                                         });
                                     </script>
                                     <!-- End Line Chart -->
@@ -277,54 +286,28 @@
                             </div>
 
                             <div class="card-body">
-                                <h5 class="card-title">Kelas Terpopuler </h5>
+                                <h5 class="card-title">Meteri Terpopuler </h5>
 
                                 <table class="table table-borderless datatable">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
+                                            <th scope="col">Materi</th>
                                             <th scope="col">Kelas</th>
                                             <th scope="col">Guru</th>
-                                            <th scope="col">Rating</th>
                                             {{-- <th scope="col">Status</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($topMateriOrders as $key => $item)
                                         <tr>
-                                            <th scope="row"><a>1</a></th>
-                                            <td>Matematika</td>
-                                            <td><a>Huang Renjun</a></td>
-                                            <td>⭐⭐⭐⭐⭐</td>
+                                            <th scope="row"><a>{{++$key}}</a></th>
+                                            <td>{{ $item->Materi->nama_materi }}</td>
+                                            <td>{{ $item->Materi->mapel }}</td>
+                                            <td><a>{{ $item->Materi->guru->user->name }}</a></td>
                                             {{-- <td><span class="badge bg-success">Approved</span></td> --}}
                                         </tr>
-                                        <tr>
-                                            <th scope="row"><a>2</a></th>
-                                            <td>Bahasa Inggris</td>
-                                            <td><a>Lin Qiunan</a></td>
-                                            <td>⭐⭐⭐⭐⭐</td>
-                                            {{-- <td><span class="badge bg-warning">Pending</span></td> --}}
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a>3</a></th>
-                                            <td>Bahasa Indonesia</td>
-                                            <td><a>Susanti Putri</a></td>
-                                            <td>⭐⭐⭐⭐</td>
-                                            {{-- <td><span class="badge bg-success">Approved</span></td> --}}
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a>4</a></th>
-                                            <td>Matematika</td>
-                                            <td><a>Na Jaemin</a></td>
-                                            <td>⭐⭐⭐</td>
-                                            {{-- <td><span class="badge bg-danger">Rejected</span></td> --}}
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a>5</a></th>
-                                            <td>IPA</td>
-                                            <td><a>Husain Putra</a></td>
-                                            <td>⭐⭐⭐</td>
-                                            {{-- <td><span class="badge bg-success">Approved</span></td> --}}
-                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
 
