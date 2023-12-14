@@ -167,34 +167,29 @@ class GuruController extends Controller
     }
     
     
-    // public function mengajukandana(Request $request, $id)
-    // {
-    //     // Temukan data berdasarkan ID
-    //     $penarikansaldo = Penarikansaldo::findOrFail($id);
-       
-    //     // Ubah status menjadi "Telah diajukan"
-    //     $penarikansaldo->guru_id = $request->guru_id;
-    //     $penarikansaldo->status = 'telah diajukan';
-    //     $penarikansaldo->save();
 
-    //     return redirect()->route('pengajuanguru')->with('success', 'Berhasil mengajukan dana!');
-    // }
         public function mengajukandana(Request $request, $id)
     {
         // Temukan data berdasarkan ID
         $penarikansaldo = Penarikansaldo::findOrFail($id);
-
+        // dd($request->all());
         // Pemeriksaan apakah saldo guru mencukupi
-        $guru = Guru::find($penarikansaldo->guru_id);
-        if (!$guru || $guru->pendapatan <= 0) {
-            return redirect()->route('pengajuanguru')->with('error', 'Saldo tidak mencukupi untuk penarikan');
+        $pendapatan = Pendapatan::where('user_id',auth()->user()->id)->first();
+        if ($pendapatan && $pendapatan->pendapatan <= 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'tidak ada saldo'
+            ]);
+        }else{
+             // Ubah status menjadi "Telah diajukan"
+            $penarikansaldo->status = 'telah diajukan';
+            $penarikansaldo->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Penarikan berhasil'
+            ]);
         }
-
-        // Ubah status menjadi "Telah diajukan"
-        $penarikansaldo->status = 'telah diajukan';
-        $penarikansaldo->save();
-
-        return redirect()->route('pengajuanguru')->with('success', 'Berhasil mengajukan dana!');
     }
 
 

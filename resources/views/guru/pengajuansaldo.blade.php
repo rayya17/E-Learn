@@ -32,11 +32,11 @@
                                     <td style="text-align: center; ">{{ $item->keterangan_pengajuan }}</td>
                                     <td style="text-align: center; ">{{ $item->tujuan_pengajuan }}</td>
                                     <td style="text-align: center;">                                 
-                                    <form id="mengajukanForm" action="{{ route('mengajukandana', $item->id) }}" method="post">
+                                    <form id="mengajukanForm{{ $item->id }}" action="{{ route('mengajukandana', $item->id) }}" method="post">
                                       @csrf
                                       @method('patch')
-                                      <button type="submit" class="btn btn-warning" data-status="{{ $item->status }}">
-                                          {{ $item->status === 'mengajukan' ? 'Ajukan' : 'Telah Diajukan' }}
+                                      <button type="submit" class="text-light btn {{ $item->status === 'mengajukan' ? 'btn-warning' : 'btn-success' }}" id="btn-ajukan{{ $item->id }}" onclick="AjukanButton({{ $item->id }})" data-status="{{ $item->status }}">
+                                          {{ $item->status === 'mengajukan' ? 'Ajukan' : 'telah diajukan' }}
                                       </button>
                                   </form> 
                                     </td>
@@ -159,6 +159,7 @@
         </div>
     </form>
     @endforeach
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
           const selectMetode = document.getElementById('selectMetode');
@@ -176,33 +177,37 @@
 
       <!-- Include this script at the end of your HTML body or in your JavaScript file -->
 <script>
-  document.getElementById('mengajukanForm').addEventListener('submit', function (event) {
-      // Prevent the default form submission
+
+  function AjukanButton(num){
+    $('#mengajukanForm'+num).off('submit');
+    $('#mengajukanForm'+num).submit(function(event){
       event.preventDefault();
-
-      // Update the button text or appearance
-      var button = this.querySelector('button');
-      button.textContent = 'Telah Diajukan';
-      button.classList.remove('btn-warning');
-      button.classList.add('btn-info');
-
-      fetch(this.action, {
-          method: 'POST',
-          body: new FormData(this),
-          headers: {
-              'X-CSRF-Token': this.querySelector('input[name="_token"]').value,
-              'X-HTTP-Method-Override': this.querySelector('input[name="_method"]').value,
-          },
-      })
-          .then(response => response.json())
-          .then(data => {
-              // Handle the response if needed
-              console.log(data);
-          })
-          .catch(error => {
-              console.error('Error:', error);
-          });
-  });
+      let route = $('#mengajukanForm'+num).attr('action');
+      let data = new FormData($('#mengajukanForm'+num)[0]);
+      $.ajax({
+        url : route,
+        type : 'PATCH',
+        data : data,
+        processData : false,
+        contentType : false,
+        headers : {
+          "X-CSRF-Token": "{{ csrf_token() }}",
+        },
+        success: function success(response){
+          if(response.success){
+            $('#btn-ajukan'+num).text('Telah diajukan');
+            $('#btn-ajukan'+num).removeClass('btn-warning');
+            $('#btn-ajukan'+num).addClass('btn-success');
+          }else{
+            alert(response.message);
+          }
+        },
+        error: function error (xhr, error){
+          alert(xhr.responseText);
+        }
+      });
+    });
+  }
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

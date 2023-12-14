@@ -45,7 +45,7 @@
                                 <td style="text-align: center;">
                                   <div class="d-flex">
 
-                                    <button style="margin-right: 10px;" class="btn btn-outline-warning detail-button" data-bs-toggle="modal" data-bs-target="#Modal"><i class="bi bi-eye"></i></button>
+                                    {{-- <button style="margin-right: 10px;" class="btn btn-outline-warning detail-button" data-bs-toggle="modal" data-bs-target="#modalDetail"><i class="bi bi-eye"></i></button> --}}
                                     <form action="{{ route('terimapengajuan', ['id' => $p->id]) }}" method="post">
                                         @csrf
                                     <button style="margin-right: 10px;" type="submit" class="btn btn-outline-success"
@@ -61,6 +61,7 @@
                                   </div>
                             </td>
                         </tr>
+                        
                         @endforeach
                         <!-- Add more rows as needed -->
                     </tbody>
@@ -73,27 +74,6 @@
   </div>
 </div>
 {{-- modal detail --}}
-<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="modalDetailLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalDetailLabel">View Details</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          </button>
-        </div>
-        <div class="modal-body">
-            <div class="mb-3">
-                <label for="kelas" class="form-label fw-bold">Jumlah yang diajukan </label>
-                <input type="text" name="tujuan_pengajuan" id="tujuan-bank" class="form-control" value="{{ old('tujuan') }}">
-                @if ($errors->has('tujuan_pengajuan'))
-                  <span class="text-tujuan">{{ $errors->first('tujuan_pengajuan') }}</span>
-                @endif
-              </div>
-           
-        </div>
-      </div>
-    </div>
-  </div>
 
 </section>    
 
