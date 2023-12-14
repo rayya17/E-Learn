@@ -28,6 +28,18 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('jumlahpemateri', 'jumlahsiswa', 'pendapatan', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
+    public function getMonthlyIncomeData()
+{
+    $monthlyIncomeData = Pendapatan::selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, SUM(pendapatan) as total_income')
+        ->where('user_id', auth()->id())
+        ->groupByRaw('YEAR(created_at), MONTH(created_at)')
+        ->orderByRaw('YEAR(created_at) ASC, MONTH(created_at) ASC')
+        ->get();
+
+
+    return response()->json(['data' => $monthlyIncomeData]);
+}
+
     public function Profileguru(){
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
@@ -150,7 +162,7 @@ class AdminController extends Controller
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         return view('admin.pengajuandana', compact('guru','Notifikasi', 'unreadNotificationsCount'));
     }
-    
+
     public function terimapengajuan($id)
     {
         $pengajuanPenjual = penarikansaldo::findOrFail($id);
@@ -159,7 +171,7 @@ class AdminController extends Controller
         $pendapatan = Pendapatan::where('user_id', $pengajuanPenjual->user_id)->first();
         $pendapatan->pendapatan = 0;
         $pendapatan->save();
-        
+
         return redirect()->back()->with('success', 'pengambilan saldo telah di setujui');
     }
 
@@ -168,7 +180,7 @@ class AdminController extends Controller
         $pengajuanPenjual = penarikansaldo::findOrFail($id);
         $pengajuanPenjual->status = 'pengajuanDitolak';
         $pengajuanPenjual->save();
-        
+
         return redirect()->back()->with('error', 'pengambilan saldo di tolak');
     }
 

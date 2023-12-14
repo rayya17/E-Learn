@@ -40,6 +40,7 @@ Route::middleware('admin')->group(function(){
     Route::Patch('terima/{id}',[AdminController::class,'guruterima'])->name('terimaguru');
     Route::delete('tolak/{id}',[AdminController::class,'tolakguru'])->name('tolakguru');
     Route::get('Dashboardadmin',[AdminController::class,'Dashboardadmin'])->name('Dashboardadmin');
+    Route::get('/get-monthly-income',[AdminController::class,'getMonthlyIncomeData'])->name('getMonthlyIncomeData');
     Route::get('Profileguru',[AdminController::class, 'Profileguru'])->name('Profileguru');
     Route::get('Pengajuandana',[AdminController::class, 'Pengajuandana'])->name('Pengajuandana');
     Route::get('Detailguru/{id}',[AdminController::class, 'Detailguru'])->name('Detailguru');

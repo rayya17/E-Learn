@@ -107,7 +107,7 @@
                                     <a class="text-primary fw-medium fs-3 fw-bold"
                                         href="forgot-password">Lupa Password ?</a>
                                 </div>
-                                <button   id="loginButton" onclick="validateLogin()" disabled class="btn btn-success w-100 mb-7 mt-2 rounded-pill"
+                                <button id="loginButton" onclick="validateLogin()" class="btn btn-success w-100 mb-7 mt-2 rounded-pill"
                                     type="submit">Masuk</button>
                                 <div class="d-flex align-items-center">
                                     {{-- <p class="fs-3 mb-0 fw-medium">New to Spike?</p>
@@ -188,13 +188,13 @@
         function enableLoginButton() {
             var checkBox = document.getElementById("flexCheckChecked");
             var loginButton = document.getElementById("loginButton");
-    
+
             loginButton.disabled = !checkBox.checked;
         }
-    
+
         function validateLogin() {
             var checkBox = document.getElementById("flexCheckChecked");
-    
+
             if (!checkBox.checked) {
                 alert("Please check 'Remember this Device' before logging in.");
             } else {
@@ -203,7 +203,7 @@
                 performLogin();
             }
         }
-    
+
     </script>
 
 </body>
