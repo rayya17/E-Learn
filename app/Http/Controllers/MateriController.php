@@ -95,15 +95,15 @@ class MateriController extends Controller
             $admin = User::where('role', 'admin')->first();
 
             Notifikasi::create([
-                'sender_id' => $user->id,
+                'sender_id' => Auth::user()->id,
                 'user_id' => $admin->id,
-                'title' => $user->name,
-                'message' => $user->name . " Menambahkan materi baru bernama " . $materi->nama_materi,
+                'title' => Auth::user()->name,
+                'message' => Auth::user()->name . " Menambahkan materi baru bernama " . $materi->nama_materi,
             ]);
 
             return back()->with('success', 'Berhasil menambahkan materi');
         } catch (\Exception $e) {
-            return back()->with('error', 'Gagal menambahkan materi dan tugas. Silakan coba lagi.');
+            return back()->with('error', 'Gagal menambahkan materi. Silakan coba lagi.');
         }
     }
 
