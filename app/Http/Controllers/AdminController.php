@@ -166,7 +166,7 @@ public function getYearIncomeData()
             'sender_id' => Auth::user()->id,
             'user_id' => $guru->id,
             'title' => Auth::user()->name,
-            'message' => Auth::user()->name . " Penarikan saldo status " . $penarikansaldo->status,
+            'message' => Auth::user()->name . " Penarikan saldo status " . $pengajuanPenjual->status,
         ]);
 
         return redirect()->back()->with('success', 'pengambilan saldo telah di setujui');
@@ -183,7 +183,7 @@ public function getYearIncomeData()
             'sender_id' => Auth::user()->id,
             'user_id' => $guru->id,
             'title' => Auth::user()->name,
-            'message' => Auth::user()->name . " Penarikan saldo status " . $penarikansaldo->status,
+            'message' => Auth::user()->name . " Penarikan saldo status " . $pengajuanPenjual->status,
         ]);
 
         return redirect()->back()->with('error', 'pengambilan saldo di tolak');
