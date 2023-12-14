@@ -6,6 +6,7 @@ use App\Models\Profile;
 use App\Models\user;
 use App\Models\guru;
 use App\Models\Notifikasi;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -24,8 +25,10 @@ class ProfileController extends Controller
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $user_id  = Auth::id();
         $profileuser = User::findOrFail($user_id);
+        $user = User::find($user_id);
+        $riwayat = $user->Order()->where('status', 'paid')->with('materi')->get();
         // dd($user_id);
-        return view('users.profile', compact('profileuser', 'user_id', 'Notifikasi', 'unreadNotificationsCount'));
+        return view('users.profile', compact('profileuser', 'user_id', 'Notifikasi', 'unreadNotificationsCount', 'riwayat'));
     }
 
     // public function edit($id)
