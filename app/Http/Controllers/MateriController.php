@@ -72,19 +72,12 @@ class MateriController extends Controller
             'deskripsi_materi.max' => 'Deskripsi melebihi maximal',
         ]);
         try {
-            // dd($request);
-            // dd("ghh");
-            // Menangani unggahan file PDF
-            // $file_materi = $request->file('file_materi');
-            // $file_name = time() . '_' . $file_materi->getClientOriginalName();
-            // $file_materi->move(public_path('storage/pdf'), $file_name);
-            $DataGuru = Guru::where('user_id', Auth()->user()->id)->first();
-            // dd($DataGuru);
+            $dataGuru = Guru::where('user_id', Auth()->user()->id)->first();
 
             $materi = Materi::create([
                 'mapel' => $request->mapel,
                 'nama_materi' => $request->nama_materi,
-                'guru_id' => $DataGuru->id,
+                'guru_id' => $dataGuru->id,
                 'kelas' => $request->kelas,
                 'harga' => $request->harga,
                 'deskripsi_materi' => $request->deskripsi_materi,
@@ -98,7 +91,7 @@ class MateriController extends Controller
                 'sender_id' => Auth::user()->id,
                 'user_id' => $admin->id,
                 'title' => Auth::user()->name,
-                'message' => Auth::user()->name . " Menambahkan materi baru bernama " . $materi->nama_materi,
+                'message' => Auth::user()->name . " menambahkan materi baru bernama " . $materi->nama_materi ,
             ]);
 
             return back()->with('success', 'Berhasil menambahkan materi');
