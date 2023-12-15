@@ -64,7 +64,7 @@ Route::middleware('guru')->group(function () {
     Route::patch('mengajukandana/{id}', [GuruController::class, 'mengajukandana'])->name('mengajukandana');
     Route::get('/profileguru', [ProfileController::class, 'profileGuru'])->name('profileguru');
     Route::put('/profileguruUp/{id}', [ProfileController::class, 'profileguruUp'])->name('profileguruUp');
-    Route::get('materidetail', [GuruController::class, 'materidetail'])->name('materidetail');
+    Route::get('materidetail/{id}', [GuruController::class, 'materidetail'])->name('materidetail');
     Route::post('/tugas/{materi_id}', [TugasController::class, 'createTugas'])->name('tugas');
 
     // Route::resource('materiGuru',GuruController::class);

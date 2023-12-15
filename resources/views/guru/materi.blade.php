@@ -128,7 +128,7 @@
                                          </div>
                                          <div class="d-flex justify-content-between align-items-center">
                                              <!-- Button with Eye Icon (Align to the left) -->
-                                             <button type="button" onclick="window.location='{{ route('materidetail') }}'"
+                                             <button type="button" onclick="window.location='{{ route('materidetail', $mtr->id) }}'"
                                                  class="edit-button">
                                                  <i class="fas fa-eye"></i>
                                              </button>
@@ -228,110 +228,10 @@
                                      data-bs-target="#EditModal">
                                         <i class="fa-solid fa-pencil"></i>
                                     </button> --}}
-                 <!-- Modal Edit -->
-                 @foreach ($materi as $mtr)
-                     <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                         aria-hidden="true">
-                         <div class="modal-dialog">
-                             <div class="modal-content">
-                                 <form action="{{ route('materi.update', $mtr) }}" method="post"
-                                     enctype="multipart/form-data">
-                                     @method('PUT')
-                                     @csrf
-                                     <div class="modal-header">
-                                         <h4 class="modal-title" id="exampleModalLabel"><strong>Edit Materi </strong></h4>
-                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                             aria-label="Close"></button>
-                                     </div>
-                                     <div class="modal-body">
-                                         <h6 class="modal-title" id="exampleModalLabel">Edit Materi</h6>
-                                         <label for="inputText" class="col-sm-4 col-form-label">Mata
-                                             Pelajaran</label>
-                                         <div class="row">
-                                             <div class="col-sm-12">
-                                                 <select class="form-select form-select-sm mb-2" name="mapel"
-                                                     aria-label="Large select example" id="update_mapel" width="200px"
-                                                     value="{{ old('mapel') }}">
-                                                     <option selected>{{ $mtr->mapel }}</option>
-                                                     <option value="Matematika">Matematika</option>
-                                                     <option value="IPA">IPA</option>
-                                                     <option value="IPS">IPS</option>
-                                                     <option value="Bahasa Indonesia">Bahasa Indonesia
-                                                     </option>
-                                                     <option value="Bahasa Inggris">Bahasa Inggris</option>
-                                                 </select>
-                                             </div>
-                                         </div>
-                                         <label for="inputText" class="col-sm-6 col-form-label">Nama
-                                             Materi</label>
-                                         <div class="row mb-2">
-                                             <div class="col-sm-12">
-                                                 <input type="text" name="nama_materi" class="form-control"
-                                                     id="update_nama_materi" width="200px"
-                                                     value="{{ old('nama_materi', $mtr->nama_materi) }}">
-                                             </div>
-                                         </div>
-                                         <label for="inputText" class="col-sm-2 col-form-label">Kelas</label>
-                                         <div class="row">
-                                             <div class="col-sm-12">
-                                                 <select class="form-select form-select-sm mb-1" name="kelas"
-                                                     aria-label="Large select example" id="update_kelas" width="200px"
-                                                     value="{{ old('kelas', $mtr->kelas) }}">
-                                                     <option selected>{{ $mtr->kelas }}</option>
-                                                     <option value="10">10</option>
-                                                     <option value="11">11</option>
-                                                     <option value="12">12</option>
-                                                 </select>
-                                             </div>
-                                         </div>
-                                         <label for="inputText" class="col-sm-6 col-form-label">Harga</label>
-                                         <div class="row">
-                                             <div class="col-sm-12" width="200px">
-                                                 <input type="number" name="harga" class="form-control"
-                                                     id="update_harga" width="200px"
-                                                     value="{{ old('harga', $mtr->harga) }}">
-                                             </div>
-                                         </div>
-                                         <label for="inputText" class="col-sm-6 col-form-label">Deskripsi Materi</label>
-                                         <div class="row">
-                                             <div class="col-sm-12" width="200px"
-                                                 value="{{ old('deskripsi_materi', $mtr->deskripsi_materi) }}">
-                                                 <textarea type="text" name="deskripsi_materi" class="form-control" id="update_deskripsi_materi" width="200px"
-                                                     value="{{ old('deskripsi_materi', $mtr->deskripsi_materi) }}">{{ $mtr->deskripsi_materi }}</textarea>
-                                             </div>
-                                         </div>
-                                         <label for="inputText" class="col-sm-6 col-form-label">Keterangan
-                                             Benefits</label>
-                                         <div class="row mb-1">
-                                             <div class="col-sm-12">
-                                                 <textarea type="text" name="keterangan_benefit" class="form-control" id="update_keterangan_benefit" width="200px"
-                                                     value="{{ old('keterangan_benefit', $mtr->keterangan_benefit) }}">{{ $mtr->keterangan_benefit }}</textarea>
-                                             </div>
-                                         </div>
-                                         {{-- <label for="inputText" class="col-sm-6 col-form-label">Tanggal
-                                                 Tugas</label>
-                                             <div class="row mb-1">
-                                                 <div class="col-sm-12">
-                                                     <input type="date" name="tanggal_tugas" class="form-control"
-                                                         id="update_tanggal_tugas" width="200px"
-                                                         value="{{ old('tanggal_tugas', $mtr->tanggal_tugas) }}">
-                                                 </div>
-                                             </div> --}}
-                                     </div>
-                                     <div class="modal-footer">
-                                         <button type="button" class="btn btn-secondary"
-                                             data-bs-dismiss="modal">Close</button>
-                                         <button type="submit" class="btn btn-primary">Save changes</button>
-                                     </div>
-                                 </form>
-                             </div>
-                         </div>
-                     </div>
-                 @endforeach
-         </div>
-         <!--/ End Single Course -->
-         </section>
-     </div>
+                </div>
+                    <!--/ End Single Course -->
+             </section>
+        </div>
      </div>
 
      <!-- Modal -->

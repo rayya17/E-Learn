@@ -202,7 +202,7 @@ class GuruController extends Controller
                 'success' => false,
                 'message' => 'Anda tidak mempunyai saldo yang cukup'
             ]);
-            
+
         }else{
              // Ubah status menjadi "Telah diajukan"
             $penarikansaldo->status = 'telah diajukan';
@@ -229,12 +229,13 @@ class GuruController extends Controller
     }
 
 
-      public function materidetail(Request $request)
+    public function materidetail($id)
     {
+        $materi = Materi::findOrFail($id);
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
 
-      return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount'));
+      return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount', 'materi'));
     }
 }
 

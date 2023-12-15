@@ -125,7 +125,6 @@ class MateriController extends Controller
         $request->validate([
             'mapel' => 'required|max:100',
             'nama_materi' => 'required|max:100',
-            'keterangan_benefit' => 'required|max:225',
             'kelas' => 'required|min:0|max:15',
             'harga' => 'required|min:0',
             'deskripsi_materi' => 'required|max:225',
@@ -134,8 +133,6 @@ class MateriController extends Controller
         ], [
             'nama_materi.required' => 'Wajib di isi',
             'nama_materi.max' => 'Nama Materi melebihi maximal',
-            'keterangan_benefit.required' => 'Wajib di isi',
-            'keterangan_benefit.max' => 'Keterangan Benefits melebihi maximal',
             'mapel.required' => 'Wajib di isi',
             'mapel.max' => 'Nama mata pelajaran melebihi maximal',
             'kelas.required' => 'Wajib di isi',
@@ -156,16 +153,16 @@ class MateriController extends Controller
                 'mapel' => $request->mapel,
                 'nama_materi' => $request->nama_materi,
                 'guru_id' => $dataGuru->id,
-                'keterangan_benefit' => $request->keterangan_benefit,
+                // 'keterangan_benefit' => $request->keterangan_benefit,
                 'kelas' => $request->kelas,
                 'harga' => $request->harga,
                 'deskripsi_materi' => $request->deskripsi_materi,
                 'tanggal_materi' => now()
             ]);
 
-            return redirect()->route('materi.index')->with('success', 'Materi berhasil diupdate!');
+            return redirect()->route('materidetail',$materi->id)->with('success', 'Materi berhasil diupdate!');
         } catch (\Exception $e) {
-            return back()->with('error', 'Gagal mengupdate materi. Silakan coba lagi.');
+            return redirect()->route('materidetail',$materi->id)->with('error', 'Gagal mengupdate materi. Silakan coba lagi.');
         }
     }
 
