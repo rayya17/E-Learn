@@ -150,39 +150,12 @@ class MateriController extends Controller
 
             $materi = Materi::findOrFail($materi);
 
-            // Jika file baru diunggah, hapus file lama dan simpan yang baru
-            // if ($request->hasFile('file_materi')) {
-            // //     // Menghapus file lama
-            // //     $oldFilePath = public_path('pdf_files') . '/' . $materi->file_materi;
-            // //     if (File::exists($oldFilePath)) {
-            // //         File::delete($oldFilePath);
-            // //     }
-
-            // //     // Menangani unggahan file PDF yang baru
-            // //     $file_materi = $request->file('file_materi');
-            // //     $file_name = time() . '_' . $file_materi->getClientOriginalName();
-            // //     $file_materi->move(public_path('pdf_files'), $file_name);
-
-            //     $materi->update([
-            //         'mapel' => $request->mapel,
-            //         'nama_materi' => $request->nama_materi,
-            //         'file_materi' => $file_name,
-            //         'kelas' => $request->kelas,
-            //         'harga' => $request->harga,
-            //         'deskripsi' => $request->deskripsi,
-            //         'tugas' => $request->tugas,
-            //         'detail_tugas' => $request->detail_tugas,
-            //         'tanggal_tugas' => now(),
-            //     ]);
-
-            //     return redirect()->route('materi.index')->with('success', 'Materi berhasil diupdate!');
-            // }
-
+            $dataGuru = Guru::where('user_id', Auth()->user()->id)->first();
             // Jika tidak ada file baru diunggah, hanya update informasi lainnya
             $materi->update([
                 'mapel' => $request->mapel,
                 'nama_materi' => $request->nama_materi,
-                'guru_id' => $DataGuru->id,
+                'guru_id' => $dataGuru->id,
                 'keterangan_benefit' => $request->keterangan_benefit,
                 'kelas' => $request->kelas,
                 'harga' => $request->harga,
@@ -224,6 +197,6 @@ class MateriController extends Controller
             return back()->with('error', 'Gagal menghapus materi. Silakan coba lagi.');
         }
     }
-    
-    
+
+
 }
