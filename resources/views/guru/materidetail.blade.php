@@ -94,16 +94,16 @@
 
                     <!-- Navigation Tabs -->
 
-                     <li class="nav-item" role="presentation">
-    <button class="nav-link text-left btn" id="profile-tab" data-toggle="tab" data-target="#tab2"
-        type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"
-        style="font-size: 18px;">Tugas</button>
-</li>
+                        {{-- <li class="nav-item" role="presentation">
+        <button class="nav-link text-left btn" id="profile-tab" data-toggle="tab" data-target="#tab2"
+            type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"
+            style="font-size: 18px;">Tugas</button>
+    </li> --}}
 
                     </ul>
 <div class="tab-content">
                     <!-- Ulasan Tab -->
-                        <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="profile-tab">
+                        {{-- <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="profile-tab"> --}}
                             <div class="text-center">
                                 <h2 class="mb-4">Tugas</h2>
                                 <div class="row">
@@ -145,13 +145,8 @@
                                     </div>
                                 </div>
                             </div>
-                             <!-- Edit Button -->
-                      <button type="button" class="btn btn-success" style="float: right;">
-    <i class="fas fa-pencil-alt"></i>
-</button>
                     </div>
                         </div>
-
             </section>
         </div>
     </main><!-- End #main -->
