@@ -1,19 +1,20 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+use App\Http\Middleware\User;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MateriController;
-use App\Http\Controllers\DetailMateriController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\NotifikasiController;
-use App\Http\Controllers\UlasanController;
-use App\Http\Controllers\PdfController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TugasController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Middleware\User;
+use App\Http\Controllers\MateriController;
+use App\Http\Controllers\UlasanController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\KomentarController;
+use App\Http\Controllers\NotifikasiController;
+use App\Http\Controllers\DetailMateriController;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,6 +114,11 @@ Route::middleware('user')->group(function () {
 
 // Route::get('/', [MateriController::class, 'index'])->name('home');
 Route::get('/materi/search', [MateriController::class, 'searchMateri'])->name('searchMateri');
+
+    Route::post('/komentar/create', [KomentarController::class, 'createKomentar'])->name('komentar.create');
+    Route::get('/komentar/{id}', [KomentarController::class, 'komentar'])->name('komentar.index');
+    Route::delete('/komentar/delete/{komentar}', [KomentarController::class, 'destroy'])->name('komentar.delete');
+    Route::post('/reply/{id}',[KomentarController::class,'reply'])->name('reply.komen');
     //  Route::get('/searchingMateri', [HomeController::class, 'searchingMateri'])->name('searchingMateri');
 });
 Route::get('/pdf/upload', [PdfController::class, 'showForm'])->name('pdf.form');

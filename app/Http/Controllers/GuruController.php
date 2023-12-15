@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Guru;
 use App\Models\Notifikasi;
-use App\Models\Penarikansaldo;
+use App\Models\penarikansaldo;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreGuruRequest;
 use App\Http\Requests\UpdateGuruRequest;
@@ -12,6 +12,7 @@ use App\Models\Materi;
 use App\Models\DetailMateri;
 use App\Models\Order;
 use App\Models\Pendapatan;
+use App\Models\Pengumpulan;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -92,7 +93,9 @@ class GuruController extends Controller
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
-        return view('guru.pengumpulan', compact('guru', 'Notifikasi', 'unreadNotificationsCount'));
+        $tugas_dikumpulkan = Pengumpulan::all();
+        // $pengumpulan = Pengumpulan::all();
+        return view('guru.pengumpulan', compact('guru', 'Notifikasi', 'unreadNotificationsCount','tugas_dikumpulkan'));
     }
 
     public function index(){
@@ -237,26 +240,25 @@ class GuruController extends Controller
 
       return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount', 'materi'));
     }
-}
 
-// public function Penarikansaldo(Request $request)
-// {
-//     $guruId = Auth::id();
+//     public function Penarikansaldo(Request $request)
+//     {
+//         $guruId = Auth::id();
 
-//     // $request->validate([
-//     //     'metodepembayaran' => 'required',
-//     //     'keterangan_pengajuan' => 'required',
-//     //     'tujuan_pengajuan' => 'required',
-//     // ]);
+//         $request->validate([
+//             'metodepembayaran' => 'required',
+//             'keterangan_pengajuan' => 'required',
+//             'tujuan_pengajuan' => 'required',
+//         ]);
 
-//     // $mengajukan = new Penarikansaldo;
-//     // $mengajukan->metodepembayaran = $request->metodepembayaran;
-//     // $mengajukan->keterangan_pengajuan = $request->keterangan_pengajuan;
-//     // $mengajukan->tujuan_pengajuan = $request->tujuan_pengajuan;
-//     // $mengajukan->status = 'mengajukan';
+//         $mengajukan = new Penarikansaldo;
+//     $mengajukan->metodepembayaran = $request->metodepembayaran;
+//     $mengajukan->keterangan_pengajuan = $request->keterangan_pengajuan;
+//     $mengajukan->tujuan_pengajuan = $request->tujuan_pengajuan;
+//     $mengajukan->status = 'mengajukan';
 
-//     // $mengajukan->save();
+//     $mengajukan->save();
 //     $mengajukan = Penarikansaldo::all();
 
 //     return view('guru.pengajuansaldo', compact('guruId', 'mengajukan'));
-// }
+}

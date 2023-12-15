@@ -152,6 +152,7 @@ public function getYearIncomeData()
         return view('admin.pengajuandana', compact('data','guru', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
+
     public function terimapengajuan($id)
     {
         $pengajuanPenjual = penarikansaldo::findOrFail($id);
@@ -200,3 +201,4 @@ public function getYearIncomeData()
         return redirect()->route('loginPage')->with('success', 'berhasil logout');
     }
 }
+

@@ -64,12 +64,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notifikasi::class);
     }
-    public function penarikansaldo(): HasMany 
+    public function penarikansaldo(): HasMany
     {
         return $this->hasMany(penarikansaldo::class, 'user_id');
-    } 
+    }
     public function Order()
     {
         return $this->hasMany(Order::class);
+    }
+    public function komentar(){
+        return $this->hasMany(Komentar::class);
     }
 }

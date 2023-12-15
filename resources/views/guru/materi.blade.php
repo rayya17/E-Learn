@@ -141,7 +141,7 @@
                                                  <div class="modal-dialog">
                                                      <div class="modal-content">
                                                          <div class="modal-header">
-                                                             <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                             <h5 class="modal-title" id="exampleModalLabel">Tambah Tugas</h5>
                                                              <button type="button" class="btn-close"
                                                                  data-bs-dismiss="modal" aria-label="Close"></button>
                                                          </div>
@@ -166,6 +166,7 @@
                                                                      @enderror
                                                                  </div>
 
+                                                                 <input type="hidden" value="$mtr->guru_id" name="guru_id">
                                                                  <label for="inputText" class="col-sm-6 col-form-label">Nama
                                                                      Tugas</label>
                                                                  <div class="row mb-1">
@@ -193,6 +194,19 @@
                                                                          @enderror
                                                                      </div>
                                                                  </div>
+                                                                <label for="tingkatKesulitan" class="col-sm-6 col-form-label">Tingkat Kesulitan</label>
+                                                                <div class="row mb-1">
+                                                                    <div class="col-sm-12">
+                                                                        <select name="tingkat_kesulitan" id="tingkatKesulitan" class="form-control @error('tingkat_kesulitan') is-invalid @enderror">
+                                                                            <option value="rendah" {{ old('tingkat_kesulitan') === 'rendah' ? 'selected' : '' }}>Rendah</option>
+                                                                            <option value="sedang" {{ old('tingkat_kesulitan') === 'sedang' ? 'selected' : '' }}>Sedang</option>
+                                                                            <option value="tinggi" {{ old('tingkat_kesulitan') === 'tinggi' ? 'selected' : '' }}>Tinggi</option>
+                                                                        </select>
+                                                                        @error('tingkat_kesulitan')
+                                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                                        @enderror
+                                                                    </div>
+                                                                </div>
                                                               </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary"

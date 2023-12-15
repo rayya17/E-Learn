@@ -73,7 +73,7 @@
             <div class="row">
                     <div class="col-md-12 col-lg-12 mt-3">
                 <div class="card">
-                    <div class="card-body"> 
+                    <div class="card-body">
                 <!-- Left side columns -->
                 <h6>Saldo Anda : Rp {{ number_format($pendapatan) }}</h6>
                 <div class="col-lg-12">
@@ -86,23 +86,23 @@
                                     <th scope="col" style="text-align: center;">tujuan</th>
                                     <th scope="col" style="text-align: center;">status</th>
                                     <th scope="col" style=" border-top-right-radius:10px;">Aksi</th>
-                                    
+
                                 </tr>
                                 </thead>
                                 <tbody style="mt-4">
-                                  @foreach ($mengajukan as $item)                        
+                                  @foreach ($mengajukan as $item)
                                   <tr>
                                     <td style="text-align: center; ">{{$item->metodepembayaran  }}</td>
                                     <td style="text-align: center; ">{{ $item->keterangan_pengajuan }}</td>
                                     <td style="text-align: center; ">{{ $item->tujuan_pengajuan }}</td>
-                                    <td style="text-align: center;">                                 
+                                    <td style="text-align: center;">
                                     <form id="mengajukanForm{{ $item->id }}" action="{{ route('mengajukandana', $item->id) }}" method="post">
                                       @csrf
                                       @method('patch')
                                       <button type="submit" class="text-light btn {{ $item->status === 'mengajukan' ? 'btn-warning' : 'btn-success' }}" id="btn-ajukan{{ $item->id }}" onclick="AjukanButton({{ $item->id }})" data-status="{{ $item->status }}">
                                           {{ $item->status === 'mengajukan' ? 'Ajukan' : 'telah diajukan' }}
                                       </button>
-                                  </form> 
+                                  </form>
                                     </td>
 
                                     <td style="text-align: center;">
@@ -123,11 +123,11 @@
                                 </div>
                                   </td>
                                 </tr>
-                               
+
                                 @endforeach
                                 <!-- Add more rows as needed -->
                                     </tbody>
-                    
+
                                 </table>
                             </div>
                         </div>
@@ -186,7 +186,7 @@
                       </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">tutup</button>                       
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">tutup</button>
                         <button type="submit" class="btn btn-primary">Kirim</button>
                     </div>
                 </div>
@@ -195,7 +195,7 @@
       </form>
 
       {{-- modal edit --}}
-      @foreach ($mengajukan as $item)    
+      @foreach ($mengajukan as $item)
       <form action="{{ route('Pembayaran.update', $item->id) }}" method="POST">
         @method('PUT')
         @csrf
@@ -252,7 +252,7 @@
         document.addEventListener('DOMContentLoaded', function() {
           const selectMetode = document.getElementById('selectMetode');
           const bankInput = document.getElementById('bankInput');
-  
+
           selectMetode.addEventListener('change', function() {
             if (selectMetode.value === 'bank') {
               bankInput.style.display = 'block';

@@ -15,17 +15,22 @@ class TugasController extends Controller
 {
     public function tugas()
     {
+        $kumpulkan = Pengumpulan::all();
         $tugas = Tugas::all();
-        return view('users.isimateri');
+        return view('users.isimateri', compact('kumpulkan'));
     }
 
 
-    public function createTugas(Request $request,$materi_id)
+    public function createTugas(Request $request, $materi_id)
     {
+        // dd($request);
+
+
         $request->validate([
             'file_tugas' => 'required|mimes:pdf',
             'tugas' => 'required|max:100',
             'detail_tugas' => 'required|max:500',
+            'point' => 'min:0',
         ], [
             'file_tugas.required' => 'Wajib di isi',
             'file_tugas.mimes' => 'File harus berupa PDF',
@@ -33,39 +38,49 @@ class TugasController extends Controller
             'tugas.max' => 'Nama Tugas melebihi maximal',
             'detail_tugas.required' => 'Wajib di isi',
             'detail_tugas.max' => 'Detail Tugas melebihi maximal',
+            'point' => 'nilai point tidak boleh mines',
         ]);
-        try {
             $file_tugas = $request->file('file_tugas');
             $file_name = time() . '_' . $file_tugas->getClientOriginalName();
             $file_tugas->move(public_path('storage/pdf'), $file_name);
             // $materi = Materi::where('materi_id', 'id')->first();
-
+            if ($request->tingkat_kesulitan === 'rendah') {
+                $point = 50;
+            } elseif ($request->tingkat_kesulitan === 'sedang') {
+                $point = 70;
+            } elseif ($request->tingkat_kesulitan === 'tinggi') {
+                $point = 100;
+            }
             $tugas = Tugas::create([
                 'materi_Id' => $materi_id,
                 'tugas' => $request->tugas,
                 'file_tugas' => $file_name,
-                'detail_tugas' => $request->detail_tugas
+                'point' => $point,
+                'tingkat_kesulitan' => $request->tingkat_kesulitan,
+                'detail_tugas' => $request->detail_tugas,
+                'tanggal_tugas' => now()
             ]);
+            // Mengatur nilai default poin berdasarkan tingkat kesulitan
+
+
+            $tugas->save();
 
             return back()->with('success', 'Berhasil menambahkan tugas baru');
-        } catch (\Exception $e) {
-            return back()->with('error', 'Gagal Menambahkan tugas baru');
-        }
     }
 
-    public function kirimTugas(Request $request){
-        dd($request);
+    public function kirimTugas(Request $request)
+    {
         $bukti = $request->file('bukti');
         $file_name = time() . '_' . $bukti->getClientOriginalName();
         $bukti->move(public_path('storage/bukti'), $file_name);
-        $tugas = Tugas::where('tugas_id','id')->first();
-        $guru = Guru::where('user_id', 'id')->first();
-        dd($guru);
+
         $pengumpulan = Pengumpulan::create([
-            'tugas_id' => $tugas,
-            'guru_id' => $guru,
+            'tugas_id' => $request->tugas_id,
+            'guru_id' => $request->guru,
+            'materi_id' => $request->materi_id,
+            'user_id' => auth()->id(),
             'bukti' => $file_name,
-            'point' => $request->point,
         ]);
+        return back()->with('success', 'berhasil mengirimkan tugas anda');
     }
 }

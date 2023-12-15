@@ -303,7 +303,7 @@ License: For each use you must have a valid license purchased only from above li
                                                     <div class="menu-item">
                                                         <!-- Begin: Menu link -->
                                                         @foreach($tugas as $item)
-                                                            <a class="menu-link active mb-2" href="{{ route('Kumpultugas',$item->id) }}">
+                                                            <a class="menu-link active mb-2" href="{{ route('Kumpultugas',$item->id,) }}">
                                                                 <span class="menu-bullet">
                                                                     <span class="bullet bullet-dot"></span>
                                                                 </span>

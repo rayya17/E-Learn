@@ -11,6 +11,13 @@ class Pengumpulan extends Model
     protected $guarded =[
 
     ];
-
-    
+    public function Tugas(){
+        return $this->belongsTo(Tugas::class,'tugas_id');
+    }
+    public function Materi(){
+        return $this->belongsTo(Materi::class,'materi_id');
+    }
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
 }

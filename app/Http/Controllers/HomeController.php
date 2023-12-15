@@ -12,6 +12,7 @@ use App\Models\Ulasan;
 use App\Models\Notifikasi;
 use App\Models\Pendapatan;
 use App\Models\DetailMateri;
+use App\Models\Komentar;
 use App\Models\Tugas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -38,7 +39,7 @@ class HomeController extends Controller
 
         if ($kategori) {
             $materiQuery = $materiQuery->where('kelas', $kategori );
-        }        
+        }
 
         $materi = $materiQuery->get();
         // $detailmateri = detailmateri::where('materi_id')->get();
@@ -58,8 +59,9 @@ class HomeController extends Controller
         $materi = Materi::findOrFail($id);
         $detailTugas = Tugas::findOrFail($id);
         $detailMateri = $detailTugas->materi;
+        $komentar = Komentar::all();
 
-        return view('users.kumpultugas',compact('materi','detailTugas','tugas','detailMateri'));
+        return view('users.kumpultugas',compact('materi','detailTugas','tugas','detailMateri','komentar'));
     }
     public function detailtugas($id)
     {
@@ -185,7 +187,7 @@ class HomeController extends Controller
     {
         $search = $request->input('search');
         $materi = Materi::where('mapel', 'like', '%' . $search . '%')->get();
-    
+
         return view('users.home', compact('materi'));
     }
 

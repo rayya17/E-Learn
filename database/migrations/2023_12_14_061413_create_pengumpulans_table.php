@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('guru_id')->references('id')->on('gurus')->cascadeOnDelete();
             $table->foreignId('tugas_id')->references('id')->on('tugas')->cascadeOnDelete();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('materi_id')->references('id')->on('materis')->cascadeOnDelete();
             $table->string('bukti');
             $table->unsignedBigInteger('point')->nullable();
             $table->timestamps();

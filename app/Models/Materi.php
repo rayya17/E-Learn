@@ -45,5 +45,10 @@ class Materi extends Model
         return $this->hasMany(PenarikanSaldo::class, 'pendapatan_id');
     }
 
+    public function komentar()
+    {
+        return $this->belongsTo(Komentar::class);
+    }
+
 }
 
