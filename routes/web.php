@@ -94,6 +94,8 @@ Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->g
 
 Route::middleware('user')->group(function () {
     Route::get('/home', [HomeController::class, 'home'])->name('HomePage');
+    // Route::get('/searchMateri', [HomeController::class, 'searchMateri'])->name('searchMateri');
+
     Route::resource('/ulasan', UlasanController::class);
     Route::get('/detailpemesanan', [HomeController::class, 'detailpemesanan'])->name('DetailPemesanan');
     Route::get('/detailpesan', [HomeController::class, 'detailpesan'])->name('detailpesan');
@@ -108,6 +110,9 @@ Route::middleware('user')->group(function () {
     Route::get('dashboar-materi/{id}', [HomeController::class, 'detailtugas'])->name('Detailtugas');
     Route::get('/isi-materi/{id}', [HomeController::class, 'isimateri'])->name('Isimateri');
     Route::post('/kumpultugas/kirim', [TugasController::class, 'kirimTugas'])->name('pengumpulan');
+
+Route::get('/', [MateriController::class, 'index'])->name('home');
+Route::get('/materi/search', [MateriController::class, 'searchMateri'])->name('searchMateri');
     //  Route::get('/searchingMateri', [HomeController::class, 'searchingMateri'])->name('searchingMateri');
 });
 Route::get('/pdf/upload', [PdfController::class, 'showForm'])->name('pdf.form');

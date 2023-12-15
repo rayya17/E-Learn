@@ -6,20 +6,31 @@
         <ul class="sidebar-nav" id="sidebar-nav">
             <ul class="nav nav-pills" style="margin-left: 80px;">
                 <li class="nav-item" style="border:2px solid green; border-radius:5px; margin-right:5px;">
-                    <a class="nav-link {{ request()->is('kelas10') ? '' : 'collapsed' }}" href="{{ route('HomePage') }}"
-                        aria-current="page">Kelas 10</a>
+                    <a class="nav-link filter-link {{ request()->get('kategori') === 'kelas10' ? '' : 'collapsed' }}" data-kategori="10" href="{{ route('HomePage', ['kategori' => 'kelas10', 'search' => request('search')]) }}" aria-current="page">Kelas 10</a>
                 </li>
                 <li class="nav-item" style="border:2px solid green; border-radius:5px; margin-right:5px;">
-                    <a class="nav-link {{ request()->is('kelas11') ? '' : 'collapsed' }}" href="{{ route('HomePage') }}">Kelas
-                        11</a>
+                    <a class="nav-link filter-link {{ request()->get('kategori') === 'kelas11' ? '' : 'collapsed' }}" data-kategori="11" href="{{ route('HomePage', ['kategori' => 'kelas11', 'search' => request('search')]) }}">Kelas 11</a>
                 </li>
                 <li class="nav-item" style="border:2px solid green; border-radius:5px; margin-right:5px;">
-                    <a class="nav-link {{ request()->is('kelas12') ? '' : 'collapsed' }}" href="{{ route('HomePage') }}">Kelas
-                        12</a>
+                    <a class="nav-link filter-link {{ request()->get('kategori') === 'kelas12' ? '' : 'collapsed' }}" data-kategori="12" href="{{ route('HomePage', ['kategori' => 'kelas12', 'search' => request('search')]) }}">Kelas 12</a>
                 </li>
             </ul>
         </ul>
     </aside>
+    
+   <script>
+    const filterLinks = document.querySelectorAll('.filter-link');
+
+filterLinks.forEach(link => {
+  link.addEventListener('click', function(event) {
+    event.preventDefault();
+    const kategori = this.dataset.kategori;
+    const currentUrl = new URL(this.href, window.location.href);
+    currentUrl.searchParams.set('kategori', kategori);
+    window.location.href = currentUrl.toString();
+  });
+});
+   </script>
     <section class="courses section">
         <div class="container">
             <div class="row">

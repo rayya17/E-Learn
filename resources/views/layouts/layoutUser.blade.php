@@ -352,7 +352,7 @@
                                                 {{-- <li>
                                                     <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                                                     @csrf
-                                                    <a href="#" onclick="document.getElementById('logoutForm').submit();">
+                                              hom      <a href="#" onclick="document.getElementById('logoutForm').submit();">
                                                         <i class="fa-solid fa-right-from-bracket"></i>
                                                         <span>Keluar</span>
                                                     </a>
@@ -367,12 +367,13 @@
                         </div>
                         <div class="search-area">
                             <a href="#header" class="icon"><i class="fa fa-search"></i></a>
-                            <form class="search-form">
+                            <form class="search-form" action="{{ route('HomePage') }}" method="GET">
                                 <input type="text" placeholder="ex: premium course" name="search">
-                                <button value="search " type="submit"><i class="fa fa-search"></i></button>
+                                <input type="hidden" name="kategori" value="{{ request('kategori') }}">
+                                <button value="search" type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
-                    </div>
+                    </div> 
                 </div>
                 {{-- <div id="kelas" class="kelas">
                     <!-- Your existing navbar content goes here -->

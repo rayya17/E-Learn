@@ -231,4 +231,6 @@ class MateriController extends Controller
             return back()->with('error', 'Gagal menghapus materi. Silakan coba lagi.');
         }
     }
+    
+    
 }

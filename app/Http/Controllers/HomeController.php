@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use file;
 use App\Models\Guru;
+use Illuminate\Support\Facades\Input;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Materi;
@@ -15,15 +16,31 @@ use App\Models\Tugas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Console\Input\Input as InputInput;
 
 class HomeController extends Controller
 {
-    public function home()
+    public function home(Request $request)
     {
+
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $ulasan = Ulasan::all();
-        $materi = Materi::all();
+        $materiQuery = new Materi();
+
+        $search = $request->input('search');
+        $kategori = $request->kategori;
+
+
+        if ($search) {
+            $materiQuery = $materiQuery->where('mapel', 'like', "%$search%");
+        }
+
+        if ($kategori) {
+            $materiQuery = $materiQuery->where('kelas', $kategori );
+        }        
+
+        $materi = $materiQuery->get();
         // $detailmateri = detailmateri::where('materi_id')->get();
         $guru = Guru::with('user')->get();
         $order = Order::all();
@@ -163,6 +180,13 @@ class HomeController extends Controller
         $ulasan = Ulasan::with('user')->where('materi_id', $id)->get();
         $materi = Materi::findOrFail($id);
         return view('users.detailmateri_user', compact('materi', 'ulasan', 'Notifikasi', 'unreadNotificationsCount'));
+    }
+    public function searchMateri(Request $request)
+    {
+        $search = $request->input('search');
+        $materi = Materi::where('mapel', 'like', '%' . $search . '%')->get();
+    
+        return view('users.home', compact('materi'));
     }
 
 }
