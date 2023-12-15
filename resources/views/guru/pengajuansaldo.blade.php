@@ -2,6 +2,70 @@
 
 @section('content')
 
+    {{-- Alert --}}
+    {{-- <script>
+      $(document).ready(function() {
+          // Listen for the submit event on all forms with the name "store"
+          $("form[name='store']").submit(function(event) {
+              event.preventDefault();
+  
+              // Validate the form data within this specific form
+              var tujuan_pengajuan = $(this).find("input[name='tujuan_pengajuan']").val();
+              var keterangan_pengajuan = $(this).find("input[name='keterangan_pengajuan']").val();
+              var isDuplicate = checkUniquenessKeterangan(keterangan_pengajuan, this);
+  
+              if (isDuplicate) {
+                  Swal.fire({
+                      title: 'Peringatan',
+                      text: 'Keterangan harus unik.',
+                      icon: 'warning',
+                  });
+                  return;
+              }
+  
+              if (keterangan_pengajuan === "") {
+                  Swal.fire({
+                      title: 'Peringatan',
+                      text: 'Tujuan tidak boleh kosong.',
+                      icon: 'warning',
+                  });
+                  return;
+              }
+  
+              // Use regex to check if the input is a numeric value greater than 0
+              var numericRegex = /^[1-9]\d*$/;
+  
+              if (!numericRegex.test(keterangan_pengajuan)) {
+                  Swal.fire({
+                      title: 'Peringatan',
+                      text: 'Format tidak sesuai. Harus berupa angka lebih dari 0.',
+                      icon: 'warning',
+                  });
+                  return;
+              }
+  
+              Swal.fire('success', 'Berhasil menambahkan data', 'success');
+  
+              // Menghapus event handler submit agar form tidak disubmit kembali
+              $(this).off("submit");
+  
+              // Submit form
+              this.submit();
+          });
+  
+          function checkUniquenessKeterangan(keterangan_pengajuan, currentForm) {
+              var isDuplicate = false;
+              $("form[name='store']").not(currentForm).each(function() {
+                  var existingKeterangan = $(this).find("input[name='keterangan_pengajuan']").val();
+                  if (keterangan_pengajuan === existingKeterangan) {
+                      isDuplicate = true;
+                      return false; // Hentikan iterasi jika ada yang sama
+                  }
+              });
+              return isDuplicate;
+          }
+      });
+  </script> --}}
   <main id="main" class="main">
       <!-- End Page Title -->
         <section class="section dashboard">
@@ -96,12 +160,21 @@
                       </div>
                       <div class="" value="bank" id="bankInput" style="display: none;">
                         <div class="mb-3">
-                          <label for="kelas" class="form-label fw-bold">tujuan</label>
-                          <input type="text" name="tujuan_pengajuan" id="tujuan-bank" class="form-control" value="{{ old('tujuan') }}">
-                          @if ($errors->has('tujuan_pengajuan'))
+                          <label for="tujuan_pengajuan" class="form-label fw-bold">tujuan</label>
+                          <select class="form-select form-select-sm mb-1  @error('tujuan_pengajuan') is-invalid @enderror"
+                          name="tujuan_pengajuan" aria-label="Large select example" id="tujuan_pengajuan" width="200px"
+                          value="{{ old('tujuan_pengajuan') }}">
+                          <option selected disabled>Pilih tujuan pengajuan</option>
+                          <option value="Mandiri">Mandiri</option>
+                          <option value="BNI">BNI</option>
+                          <option value="BCA">BCA</option>
+                          <option value="BRI">BNI</option>
+                          <option value="Jatim">Jatim</option>
+                      </select>
+                      @if ($errors->has('tujuan_pengajuan'))
                             <span class="text-tujuan">{{ $errors->first('tujuan_pengajuan') }}</span>
-                          @endif
-                        </div>
+                          @endif  
+                      </div>
                         <div class="mb-3">
                           <label for="kelas" class="form-label fw-bold">Nomor Rekening</label>
                           <input type="number" name="keterangan_pengajuan" id="keterangan" class="form-control"
@@ -142,12 +215,27 @@
 
                         <div class="mb-3">
                           <label for="tujuan_pengajuan" class="form-label fw-bold">tujuan</label>
-                          <input type="text" name="tujuan_pengajuan" id="tujuan_pengajuan" class="form-control" value="{{ $item->tujuan_pengajuan }}">
+                          <select class="form-select form-select-sm mb-2" name="tujuan_pengajuan"
+                          aria-label="Large select example" id="tujuan_pengajuan" width="200px"
+                          value="{{ old('tujuan_pengajuan') }}">
+                          <option selected>{{ $item->tujuan_pengajuan }}</option>
+                          <option value="Mandiri">Mandiri</option>
+                          <option value="BNI">BNI</option>
+                          <option value="BCA">BCA</option>
+                          <option value="BRI">BNI</option>
+                          <option value="Jatim">Jatim</option>
+                      </select>
+                      @if ($errors->has('tujuan_pengajuan'))
+                      <span class="text-tujuan">{{ $errors->first('tujuan_pengajuan') }}</span>
+                    @endif 
                         </div>
 
                          <div class="mb-3">
                           <label for="keterangan_pengajuan" class="form-label fw-bold">Keterangan</label>
                           <input type="text" name="keterangan_pengajuan" id="keterangan_pengajuan" class="form-control" value="{{ $item->keterangan_pengajuan }}">
+                          @if ($errors->has('keterangan_pengajuan'))
+                          <span class="text-tujuan">{{ $errors->first('keterangan_pengajuan') }}</span>
+                        @endif 
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -212,6 +300,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+{{-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> --}}
 <!-- Script untuk menampilkan SweetAlert -->
 <script>
     function confirmDelete(PembayaranId) {

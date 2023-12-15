@@ -112,11 +112,21 @@ class GuruController extends Controller
     }
 
     public function store(Request $request){
-         $request->validate([
-
+        $request->validate([
             'metodepembayaran' => 'required',
-            'keterangan_pengajuan' => 'required',
             'tujuan_pengajuan' => 'required',
+            'keterangan_pengajuan' => 'required|unique:penarikansaldos|min:5|max:20|numeric|regex:/^\d*$/',
+        ], [
+            'metodepembayaran.required'=> 'harus diisi',
+            'tujuan_pengajuan.required'=> 'harus diisi',
+            'keterangan_pengajuan.required'=> 'harus diisi',
+            'keterangan_pengajuan.unique'=>'nomor rekening tidak boleh sama',
+            'keterangan_pengajuan.min'=> 'minimal 5',
+            'keterangan_pengajuan.max'=> 'maksimal 20',
+            'keterangan_pengajuan.numeric'=> 'keterangan harus berupa angka',
+            'keterangan_pengajuan.regex'=> 'keterangan tidak sesuai dengan format',
+            
+        
         ]);
 
         $pendapatan = Pendapatan::findOrFail(Auth::user()->id);
@@ -140,8 +150,19 @@ class GuruController extends Controller
 
         $request->validate([
             'metodepembayaran' => 'required',
-            'keterangan_pengajuan' => 'required',
             'tujuan_pengajuan' => 'required',
+            'keterangan_pengajuan' => 'required|unique:penarikansaldos|min:5|max:20|numeric|regex:/^\d*$/',
+        ], [
+            'metodepembayaran.required'=> 'harus diisi',
+            'tujuan_pengajuan.required'=> 'harus diisi',
+            'keterangan_pengajuan.required'=> 'harus diisi',
+            'keterangan_pengajuan.unique'=>'nomor rekening tidak boleh sama',
+            'keterangan_pengajuan.min'=> 'minimal 5',
+            'keterangan_pengajuan.max'=> 'maksimal 20',
+            'keterangan_pengajuan.numeric'=> 'keterangan harus berupa angka',
+            'keterangan_pengajuan.regex'=> 'keterangan tidak sesuai dengan format',
+            
+        
         ]);
 
         $penarikansaldo->metodepembayaran = $request->metodepembayaran;
@@ -179,7 +200,7 @@ class GuruController extends Controller
         if ($pendapatan && $pendapatan->pendapatan <= 0) {
             return response()->json([
                 'success' => false,
-                'message' => 'tidak ada saldo'
+                'message' => 'Anda tidak mempunyai saldo yang cukup'
             ]);
             
         }else{
