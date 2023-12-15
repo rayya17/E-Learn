@@ -204,7 +204,7 @@
         <div class="header-inner overlay">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-md-3 col-6">
+                    <div class="col-12">
                         <!-- Logo -->
                         <div class="logo">
                             {{-- <a href="index-2.html"><img src="assets/images/learnlogo.png" alt="#"></a> --}}
@@ -212,7 +212,7 @@
                         <!--/ End Logo -->
                         <div class="mobile-menu"></div>
                     </div>
-                    <div class="col-lg-9 col-md-9 col-12">
+                    <div class="col-lg-10 col-md-10 col-12">
                         <div class="menu-bar">
                             <nav class="navbar navbar-default">
                                 <div class="navbar-collapse">
@@ -365,8 +365,8 @@
                                 </div>
                             </nav>
                         </div>
-                        <div class="search-area">
-                            <a href="#header" class="icon"><i class="fa fa-search"></i></a>
+                        <div class="search-area" style="width: 50px; height: 50px">
+                            <a href="#header" class="icon d-flex justify-content-center align-items-center" style="width: 100%; height: 100%"><i style="font-size: 30px" class="fa fa-search"></i></a>
                             <form class="search-form" action="{{ route('HomePage') }}" method="GET">
                                 <input type="text" placeholder="ex: premium course" name="search">
                                 <input type="hidden" name="kategori" value="{{ request('kategori') }}">

@@ -2,21 +2,21 @@
 
 @section('content')
     <!-- Courses -->
-    <aside id="sidebar" class="sidebar">
+    <header id="sidebar" class="sidebar justify-content-center d-flex mb-3">
         <ul class="sidebar-nav" id="sidebar-nav">
-            <ul class="nav nav-pills" style="margin-left: 80px;">
+            <ul class="nav nav-pills">
                 <li class="nav-item" style="border:2px solid green; border-radius:5px; margin-right:5px;">
-                    <a class="nav-link filter-link {{ request()->get('kategori') === 'kelas10' ? '' : 'collapsed' }}" data-kategori="10" href="{{ route('HomePage', ['kategori' => 'kelas10', 'search' => request('search')]) }}" aria-current="page">Kelas 10</a>
+                    <a class="nav-link filter-link {{ request()->get('kategori') === 'kelas10' ? '' : 'collapsed' }} text-dark" data-kategori="10" href="{{ route('HomePage', ['kategori' => 'kelas10', 'search' => request('search')]) }}" aria-current="page">Kelas 10</a>
                 </li>
                 <li class="nav-item" style="border:2px solid green; border-radius:5px; margin-right:5px;">
-                    <a class="nav-link filter-link {{ request()->get('kategori') === 'kelas11' ? '' : 'collapsed' }}" data-kategori="11" href="{{ route('HomePage', ['kategori' => 'kelas11', 'search' => request('search')]) }}">Kelas 11</a>
+                    <a class="nav-link filter-link {{ request()->get('kategori') === 'kelas11' ? '' : 'collapsed' }} text-dark" data-kategori="11" href="{{ route('HomePage', ['kategori' => 'kelas11', 'search' => request('search')]) }}">Kelas 11</a>
                 </li>
                 <li class="nav-item" style="border:2px solid green; border-radius:5px; margin-right:5px;">
-                    <a class="nav-link filter-link {{ request()->get('kategori') === 'kelas12' ? '' : 'collapsed' }}" data-kategori="12" href="{{ route('HomePage', ['kategori' => 'kelas12', 'search' => request('search')]) }}">Kelas 12</a>
+                    <a class="nav-link filter-link {{ request()->get('kategori') === 'kelas12' ? '' : 'collapsed' }} text-dark" data-kategori="12" href="{{ route('HomePage', ['kategori' => 'kelas12', 'search' => request('search')]) }}">Kelas 12</a>
                 </li>
             </ul>
         </ul>
-    </aside>
+    </header>
     
    <script>
     const filterLinks = document.querySelectorAll('.filter-link');
@@ -31,9 +31,9 @@ filterLinks.forEach(link => {
   });
 });
    </script>
-    <section class="courses section">
+    <section class="courses section" style="background-color: white">
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-center">
                 @foreach ($materi as $mtr)
                     <div class="col-lg-3 col-md-6 col-12">
                             <!-- Single Course -->
@@ -72,6 +72,7 @@ filterLinks.forEach(link => {
                                     <p>{{ $mtr->keterangan_benefit }}</p>
                                 </div>
                             </a>
+                            <div>
                                 @if ($currentOrder)
                                     <!-- Iterate through the order collection and access status property -->
                                     @foreach ($ordertah as $orderItem)
@@ -87,23 +88,24 @@ filterLinks.forEach(link => {
                                             <!-- Display Pesan Sekarang button for Unpaid orders -->
                                             <form action="{{ route('checkout', $mtr->id) }}" method="post">
                                                 @csrf
-                                                <button class="btn btn btn-sm buy-now-btn" type="submit"
+                                                <button class="btn btn btn-sm buy-now-btn d-flex justify-content-center align-items-center" type="submit"
                                                     style="border-radius: 30px; margin-right: 10px">
                                                     Pesan Sekarang
                                                 </button>
                                             </form>
                                         @endif
                                     @endforeach
-                                 {{-- @else
+                                 @else
                                     <!-- Display Pesan Sekarang button if no order found -->
                                     <form action="{{ route('checkout', $mtr->id) }}" method="post">
                                         @csrf
-                                        <button class="btn btn btn-sm buy-now-btn" type="submit"
-                                            style="border-radius: 30px; margin-right: 10px">
+                                        <button class="btn btn btn-sm buy-now-btn d-flex justify-content-center align-items-center" type="submit"
+                                            style="border-radius: 30px; margin-right: 10px; position: absolute; bottom: 10px; right: 20px">
                                             Pesan Sekarang
                                         </button>
-                                    </form> --}}
+                                    </form>
                                 @endif
+                            </div>
                             </div>
                         <!--/ End Single Course -->
                     </div>

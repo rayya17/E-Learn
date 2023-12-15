@@ -132,7 +132,7 @@
                                                             y: parseInt(item.total_income)
                                                         };
                                                     });
-
+                                    
                                                     new ApexCharts(document.querySelector("#bulanChart"), {
                                                         series: [{
                                                             name: 'Pendapatan',
@@ -169,6 +169,9 @@
                                                             x: {
                                                                 format: 'dd/MM/yy HH:mm'
                                                             },
+                                                        },
+                                                        xaxis: {
+                                                            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
                                                         }
                                                     }).render();
                                                 })
@@ -176,7 +179,7 @@
                                                     console.error('Error:', error);
                                                 });
                                         });
-                                    </script>
+                                    </script>                                    
                                     <!-- End Line Chart -->
 
                                 </div>
@@ -300,13 +303,13 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($topMateriOrders as $key => $item)
-                                        <tr>
-                                            <th scope="row"><a>{{++$key}}</a></th>
-                                            <td>{{ $item->Materi->nama_materi }}</td>
-                                            <td>{{ $item->Materi->mapel }}</td>
-                                            <td><a>{{ $item->Materi->guru->user->name }}</a></td>
-                                            {{-- <td><span class="badge bg-success">Approved</span></td> --}}
-                                        </tr>
+                                            <tr>
+                                                <th scope="row"><a>{{ ++$key }}</a></th>
+                                                <td>{{ $item->Materi->nama_materi }}</td>
+                                                <td>{{ $item->Materi->mapel }}</td>
+                                                <td><a>{{ $item->Materi->guru->user->name }}</a></td>
+                                                {{-- <td><span class="badge bg-success">Approved</span></td> --}}
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
