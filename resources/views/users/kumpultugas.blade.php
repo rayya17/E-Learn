@@ -148,14 +148,14 @@
 
     <!-- Tampilan Komentar Card -->
     <div id="itemKomentar">
-        @foreach ($komentar as $komentar)
-            <div class="card mb-4 comment-{{ $komentar->id }}">
+        @foreach ($komentar as $km)
+            <div class="card mb-4 comment-{{ $km->id }}">
                 <div class="chat px-4 pt-3 d-flex justify-content-between">
                     <div class="left d-flex">
                         <div class="profile me-3">
                             <div class="photo rounded-circle" style="margin-right: 10px">
-                                @if ($komentar->user->profile)
-                                    <img src="{{ asset('storage/' . $komentar->user->profile) }}"
+                                @if ($km->user->profile)
+                                    <img src="{{ asset('storage/' . $km->user->profile) }}"
                                         alt="Profile Image" width="45px" height="45px">
                                 @else
                                     <img src="{{ asset('images/profiledefault.jpg') }}"
@@ -165,26 +165,26 @@
                         </div>
                         <div class="chat-column">
                             <div class="username">
-                                <p>{{ $komentar->user->name }}</p>
+                                <p>{{ $km->user->name }}</p>
                             </div>
                             <div class="text-chat">
-                                <p>{{ $komentar->komentar }}</p>
+                                <p>{{ $km->komentar }}</p>
                             </div>
                             <div class="tanggal-chat">
-                                <p>{{ date('d F Y', strtotime($komentar->tanggal)) }}</p>
+                                <p>{{ date('d F Y', strtotime($km->tanggal)) }}</p>
                             </div>
-                            <button onclick="reply({{ $komentar->id }})"
+                            <button onclick="reply({{ $km->id }})"
                                 class="btn btn-light-warning font-medium text-warning px-4 rounded-pill"
                                 type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseExample{{ $komentar->id }}" aria-expanded="true"
-                                aria-controls="collapseExample{{ $komentar->id }}">
+                                data-bs-target="#collapseExample{{ $km->id }}" aria-expanded="true"
+                                aria-controls="collapseExample{{ $km->id }}">
                                 Lihat Komentar
                             </button>
-                            <div class="collapse" id="{{ $komentar->id }}" style="">
+                            <div class="collapse" id="{{ $km->id }}" style="">
                                 <div class="card card-body lebarcart" style="">
                                     {{-- Foreach Komentar --}}
 
-                                    <form id="addKomentar" action="{{ route('reply.komen', $komentar->id) }}"
+                                    <form id="addKomentar" action="{{ route('reply.komen', $km->id) }}"
                                         method="post">
                                         @csrf
                                         <input type="hidden" id="tugas_id" name="tugas_id"
@@ -201,7 +201,8 @@
                                             </div>
                                         </div>
                                     </form>
-                                    {{-- @foreach ($komentar->reply($komentar->id, $tugas->id) as $item)
+                                    {{-- @dd($komentar) --}}
+                                    @foreach ($komentar->where('parent_id',$km->id) as $item)
                                         <div class="card mb-4 comment-{{ $item->id }}" >
                                             <div class="chat px-4 pt-3 d-flex justify-content-between">
                                                 <div class="left d-flex">
@@ -233,14 +234,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach --}}
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="right">
                         <div class="action">
-                            @if (auth()->check() && $komentar->user_id == auth()->user()->id)
+                            @if (auth()->check() && $km->user_id == auth()->user()->id)
                                 <div class="dropdown">
                                     <button class="btn dropdown-toggle" type="button"
                                         id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
@@ -249,7 +250,7 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <li>
-                                            <form action="{{ route('komentar.delete', $komentar->id) }}"
+                                            <form action="{{ route('komentar.delete', $km->id) }}"
                                                 method="post">
                                                 @method('DELETE')
                                                 @csrf
@@ -274,6 +275,22 @@
     </div>
 
 </div>
+<script>
+    function reply(id) {
+        let btn = false;
+
+        if (!btn) {
+            const reply = document.getElementById(id);
+            reply.classList.toggle('show');
+            btn = !btn
+        }
+    }
+
+
+
+    // Call the function with the film's title when the page loads
+
+</script>
 
 <script>
         function toggleTask(button) {

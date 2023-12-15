@@ -27,7 +27,7 @@ class KomentarController extends Controller
     }
 
     public function createKomentar(Request $request){
-    
+
         $this->validate($request,[
             'komentar' => 'required'
         ],[
@@ -51,17 +51,21 @@ class KomentarController extends Controller
 
     public function reply(Request $request,string $id){
         try{
+
+            $komentar = Komentar::find($id);
+            // dd($request,$id,$komentar);
+
             komentar::create([
                 'user_id'=> Auth::user()->id,
-                'materi_id' => $request->input('materi_id'),
+                'materi_id' => $komentar->materi_id,
+                'tugas_id' => $komentar->tugas_id,
                 'parent_id' => $id,
                 'komentar' => $request->input('komentar'),
                 'tanggal' => now()
-
             ]);
             return back()->with('success','berhasil menambahkan komentar');
         }catch(\Exception $e){
-            return abort(404);
+            return response()->json($e);
         }
     }
 
