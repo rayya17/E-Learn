@@ -14,6 +14,7 @@ use App\Models\Order;
 use App\Models\Pendapatan;
 use App\Models\Pengumpulan;
 use App\Models\User;
+use App\Models\Profile;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -128,8 +129,8 @@ class GuruController extends Controller
             'keterangan_pengajuan.max'=> 'maksimal 20',
             'keterangan_pengajuan.numeric'=> 'keterangan harus berupa angka',
             'keterangan_pengajuan.regex'=> 'keterangan tidak sesuai dengan format',
-            
-        
+
+
         ]);
 
         $pendapatan = Pendapatan::findOrFail(Auth::user()->id);
@@ -164,8 +165,8 @@ class GuruController extends Controller
             'keterangan_pengajuan.max'=> 'maksimal 20',
             'keterangan_pengajuan.numeric'=> 'keterangan harus berupa angka',
             'keterangan_pengajuan.regex'=> 'keterangan tidak sesuai dengan format',
-            
-        
+
+
         ]);
 
         $penarikansaldo->metodepembayaran = $request->metodepembayaran;
@@ -234,11 +235,12 @@ class GuruController extends Controller
 
     public function materidetail($id)
     {
+        $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
         $materi = Materi::findOrFail($id);
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
 
-      return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount', 'materi'));
+      return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount', 'materi', 'guru'));
     }
 
 //     public function Penarikansaldo(Request $request)
