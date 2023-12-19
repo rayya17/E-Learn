@@ -53,7 +53,7 @@
             <section id="breadcrumbs" class="breadcrumbs">
                 <div class="container">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h2>{{$materi->mapel}} <span class="text-danger"></span></h2>
+                        <h2><strong>{{$materi->mapel}} </strong><span class="text-danger"></span></h2>
                         <ol></ol>
                     </div>
                 </div>
@@ -61,8 +61,8 @@
             <!-- Portfolio Details Section -->
             <section id="portfolio-details" class="portfolio-details">
                 <div class="container">
-                    <div class="row gy-4">
-                        <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4">
                             <div class="portfolio-details-slider swiper">
                                 <div class="align-items-center">
                                     <img src="{{ asset('storage/default/' . $materi->cover) }}"
@@ -70,9 +70,6 @@
                                 </div>
                                 <div class="swiper-pagination"></div>
                             </div>
-                        </div>
-
-                        <div class="col-lg-8">
                             <div class="card" style="border: 1px solid #000; height: 400px;">
                                 <!-- Sesuaikan tinggi card -->
                                 <div class="green-bg" style="height: 60px; padding: 8px;">

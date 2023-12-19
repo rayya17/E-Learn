@@ -15,4 +15,8 @@ class Tugas extends Model
     public function materi(){
         return $this->belongsTo(Materi::class,'materi_id');
     }
+
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
 }

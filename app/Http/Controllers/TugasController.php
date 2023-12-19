@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\Guru;
 use App\Models\Materi;
 use App\Models\Pengumpulan;
 use App\Models\Tugas;
+use App\Models\User;
+use App\Models\Order;
+use App\Models\Notifikasi;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 
@@ -15,9 +19,12 @@ class TugasController extends Controller
 {
     public function tugas()
     {
+        $user = Auth::id();
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $kumpulkan = Pengumpulan::all();
         $tugas = Tugas::all();
-        return view('users.isimateri', compact('kumpulkan'));
+        return view('users.isimateri', compact('kumpulkan', 'Notifikasi', 'unreadNotificationsCount', 'user'));
     }
 
 
@@ -62,8 +69,20 @@ class TugasController extends Controller
             ]);
             // Mengatur nilai default poin berdasarkan tingkat kesulitan
 
-
             $tugas->save();
+
+            $order = Order::where('materi_id', $materi_id)->get();
+            foreach ($order as $key => $value) {
+                # code...
+
+
+            Notifikasi::create([
+                'sender_id' => Auth::user()->id,
+                'user_id' => $value->user_id,
+                'title' => Auth::user()->name,
+                'message' => Auth::user()->name . " menambahkan tugas baru" ,
+            ]);
+        }
 
             return back()->with('success', 'Berhasil menambahkan tugas baru');
     }
@@ -78,9 +97,18 @@ class TugasController extends Controller
             'tugas_id' => $request->tugas_id,
             'guru_id' => $request->guru,
             'materi_id' => $request->materi_id,
-            'user_id' => auth()->id(),
+            'user_id' => Auth::user()->id,
             'bukti' => $file_name,
         ]);
+
+        // $guru = User::where('role', 'guru')->first();
+
+            Notifikasi::create([
+                'sender_id' => Auth::user()->id,
+                'user_id' => $request->guru,
+                'title' => Auth::user()->name,
+                'message' => Auth::user()->name . " mengumpulkan tugas" ,
+            ]);
         return back()->with('success', 'berhasil mengirimkan tugas anda');
     }
 }
