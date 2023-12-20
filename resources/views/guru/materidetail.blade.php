@@ -4,8 +4,7 @@
     <style>
         .oval-box {
             background-color: #1c865d;
-            width: 75px;
-            height: 50px;
+            width: max-content;
             float: right;
             border-radius: 15px;
             margin-top: 45px;
@@ -62,48 +61,38 @@
             <section id="portfolio-details" class="portfolio-details">
                 <div class="container">
                     <div class="row">
+                        <div class="portfolio-details-slider swiper col-md-6 col-12">
+                            <div style="width: 100%; height: 100%">
+                                <img style="width: 90%; height: 90%" class="mt-4 me-2" src="{{ asset('storage/default/' . $materi->cover) }}" alt="foto default materi">
+                            </div>
+                        </div>
+                        <div class="card col-md-6 col-12" style="border: 1px solid #000; height: 400px;">
+                            <!-- Sesuaikan tinggi card -->
+                            <div class="green-bg" style="height: 60px; padding: 8px;">
+                                <h4 class="card-title"
+                                    style="color: rgb(255, 255, 255); margin-top: -8px; margin-left: 15px;">Deskripsi
+                                </h4>
+                            </div>
+                            <div class="card-body" style="height: 100%; display:flex; flex-direction: column; justify-content: space-between">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        {{ $materi->deskripsi_materi }}
+                                    </li>
+                                </ul>
+                                <div class="" style="width: 100%; display: flex; justify-content: end;">
+                                    <div class="oval-box" style="width: max-content; padding: 10px;">
+                                        <p style="padding: 0px; margin: 0px" class="fw-bold text-white"> RP. {{ number_format($materi->harga, 0, ',', '.') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {{-- <div class="oval-box" style="width: auto;">
+                                <div class="card-body">
+                                    <h5>Rp.{{ $materi->harga }}</h5>
+                                    <p class="card-text"></p>
+                                </div>
+                            </div> --}}
+                        </div>
                         <div class="col-lg-4 col-md-4">
-                            <div class="portfolio-details-slider swiper">
-                                <div class="align-items-center">
-                                    <img src="{{ asset('storage/default/' . $materi->cover) }}"
-                                        class="card-img-top custom-img" alt="foto default materi">
-                                </div>
-                                <div class="swiper-pagination"></div>
-                            </div>
-                            <div class="card" style="border: 1px solid #000; height: 400px;">
-                                <!-- Sesuaikan tinggi card -->
-                                <div class="green-bg" style="height: 60px; padding: 8px;">
-                                    <h4 class="card-title"
-                                        style="color: rgb(255, 255, 255); margin-top: -8px; margin-left: 15px;">Deskripsi
-                                    </h4>
-                                </div>
-                                <div class="card-body" style="height: 100%; display:flex; flex-direction: column; justify-content: space-between">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                            {{ $materi->deskripsi_materi }}
-                                        </li>
-                                    </ul>
-                                    <div class="" style="width:100%; display: flex; justify-content: end">
-                                        <div class="oval-box" style="width: 20%;">
-                                            <div class="card-body">
-                                                <h5> Rp. {{ number_format($materi->harga, 0, ',', '.') }}</h5>
-                                                <p class="card-text"></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{-- <div class="oval-box" style="width: auto;">
-                                    <div class="card-body">
-                                        <h5>Rp.{{ $materi->harga }}</h5>
-                                        <p class="card-text"></p>
-                                    </div>
-                                </div> --}}
-                            </div>
-                            <button type="button" class="btn btn-success" style="float: right;" data-bs-toggle="modal"
-                                data-bs-target="#EditModal">
-                                <i class="fas fa-pencil-alt"></i>
-                            </button>
-
                             <!-- Modal Edit -->
                                 <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                                     aria-hidden="true">
@@ -218,55 +207,54 @@
                             {{-- <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="profile-tab"> --}}
                             <div class="text-center">
                                 <h2 class="mb-4">Tugas</h2>
-                                <div class="row">
-                                    <div class="col-md-12 col-lg-12">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="col-lg-12">
-                                                    <div class="row">
-                                                        <table>
-                                                            <thead id="example1">
-                                                                <tr>
-                                                                    <th scope="col" style="text-align: center;">No</th>
-                                                                    <th scope="col" style="text-align: center;">Tugas
-                                                                    </th>
-                                                                    <th scope="col" style="text-align: center;">Deskripsi
-                                                                    </th>
-                                                                    <th scope="col" style="text-align: center;">Materi
-                                                                    </th>
-                                                                    <th scope="col" style="text-align: center;">Tanggal
-                                                                        Mulai</th>
-                                                                    <th scope="col" style="text-align: center;">Aksi</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td style="text-align: center;">Mark nct</td>
-                                                                    <td style="text-align: center;">Bank</td>
-                                                                    <td style="text-align: center;">Mandiri</td>
-                                                                    <td><button type="submit"
-                                                                            class="btn btn-secondary btn-md keluar col-12">File</button>
-                                                                    <td style="text-align: center;">Mandiri</td>
-                                                                    <td>
-                                                                        <button type="submit"
-                                                                            class="btn btn-light btn-sm point"><i
-                                                                                class="fas fa-pencil-alt"
-                                                                                style="font-size: 16px;"></i></button>
-                                                                        <button type="submit"
-                                                                            class="btn btn-danger btn-sm point"><i
-                                                                                class="fas fa-trash-alt"
-                                                                                style="font-size: 16px;"></i></button>
-                                                                    </td>
-                                                                </tr>
-                                                                    <!-- Add more rows as needed -->
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <table>
+                                                    <thead id="example1">
+                                                        <tr>
+                                                            <th scope="col" style="text-align: center;">No</th>
+                                                            <th scope="col" style="text-align: center;">Tugas
+                                                            </th>
+                                                            <th scope="col" style="text-align: center;">Deskripsi
+                                                            </th>
+                                                            <th scope="col" style="text-align: center;">Materi
+                                                            </th>
+                                                            <th scope="col" style="text-align: center;">Tanggal
+                                                                Mulai</th>
+                                                            <th scope="col" style="text-align: center;">Aksi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="text-align: center;">Mark nct</td>
+                                                            <td style="text-align: center;">Bank</td>
+                                                            <td style="text-align: center;">Mandiri</td>
+                                                            <td><button type="submit" class="btn btn-secondary btn-md keluar col-12 mt-2">File</button>
+                                                            <td style="text-align: center;">Mandiri</td>
+                                                            <td>
+                                                                <button type="submit"
+                                                                    class="btn btn-light btn-sm point"><i
+                                                                        class="fas fa-pencil-alt"
+                                                                        style="font-size: 16px;"></i></button>
+                                                                <button type="submit"
+                                                                    class="btn btn-danger btn-sm point"><i
+                                                                        class="fas fa-trash-alt"
+                                                                        style="font-size: 16px;"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                            <!-- Add more rows as needed -->
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <button type="button" class="btn btn-success" style="float: right;" data-bs-toggle="modal"
+                                data-bs-target="#EditModal">
+                                <i class="fas fa-pencil-alt"></i>
+                            </button>
                             </div>
                         </div>
                     </div>

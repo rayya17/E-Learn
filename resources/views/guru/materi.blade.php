@@ -94,25 +94,27 @@
          <div class="row">
              <section class="courses section">
                  <div class="container">
-                     <div class="row">
+                     <div class="row justify-content-center">
                          @foreach ($materi as $mtr)
                              <div class="col-lg-4 col-md-4 col-4">
                                  <!-- Single Course -->
                                  <div class="container-card row">
                                      {{-- <div class="col-md-4"> --}}
                                      <div class="card">
+                                         <div class="button-eye mt-3">
+                                             <!-- Button with Eye Icon (Align to the left) -->
+                                             <button type="button" onclick="window.location='{{ route('materidetail', $mtr->id) }}'" class="btn btn-primary"><i class="fas fa-eye"></i>
+                                             </button>
+                                         </div>
                                          <div class="bg-image">
-                                             <img class="background" src="{{ asset('storage/default/' . $mtr->cover) }}"
-                                                 alt="">
+                                             <img class="background" src="{{ asset('storage/default/' . $mtr->cover) }}" alt="">
                                          </div>
                                          <div class="tengah d-flex align-items-center justify-content-between w-100 px-2">
-
                                              <div class="profile">
                                                  <img class="rounded-circle bg-dark" width="60" height="60"
                                                      src="{{ asset('storage/profile/' . $mtr->guru->user->foto_user) }}"
                                                      alt="">
                                              </div>
-
                                              <div class="badge-class">
                                                  <span class="badge bg-success">Rp.
                                                      {{ number_format($mtr->harga, 0, ',', '.') }}</span>
@@ -126,27 +128,33 @@
                                                  <p>{{ $mtr->deskripsi_materi }}</p>
                                              </div>
                                          </div>
-                                         <div class="d-flex justify-content-between align-items-center">
-                                             <!-- Button with Eye Icon (Align to the left) -->
-                                             <button type="button" onclick="window.location='{{ route('materidetail', $mtr->id) }}'"
-                                                 class="edit-button">
-                                                 <i class="fas fa-eye"></i>
-                                             </button>
+
+                                         <div class="button mb-3" style="display: flex; justify-content: space-between">
                                              <button type="button" data-bs-toggle="modal" data-bs-target="#tambahTugas"
-                                                 class="btn btn-success">
-                                                 Tambah tugas <i class="fas fa-plus"></i>
-                                             </button>
+                                                 class="btn btn-success">Tambah tugas <i class="fas fa-plus"></i></button>
+                                             <form id="delete-form-{{ $mtr->id }}"
+                                                 action="{{ route('materi.destroy', $mtr->id) }}" method="POST">
+                                                 @method('DELETE')
+                                                 @csrf
+                                                 <button type="button" class="btn btn-danger"
+                                                     onclick="confirmDelete('{{ $mtr->id }}')">
+                                                     <i class="fa-solid fa-trash"></i>
+                                                 </button>
+                                             </form>
+                                         </div>
+                                         <div class="d-flex justify-content-between align-items-center">
                                              <div class="modal fade" id="tambahTugas" tabindex="-1"
                                                  aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                  <div class="modal-dialog">
                                                      <div class="modal-content">
                                                          <div class="modal-header">
-                                                             <h5 class="modal-title" id="exampleModalLabel">Tambah Tugas</h5>
+                                                             <h5 class="modal-title" id="exampleModalLabel">Tambah Tugas
+                                                             </h5>
                                                              <button type="button" class="btn-close"
                                                                  data-bs-dismiss="modal" aria-label="Close"></button>
                                                          </div>
                                                          <div class="modal-body">
-                                                             <form action="{{ route('tugas',$mtr->id) }}" method="POST"
+                                                             <form action="{{ route('tugas', $mtr->id) }}" method="POST"
                                                                  enctype="multipart/form-data">
                                                                  @csrf
                                                                  <label for="inputText"
@@ -194,46 +202,48 @@
                                                                          @enderror
                                                                      </div>
                                                                  </div>
-                                                                <label for="tingkatKesulitan" class="col-sm-6 col-form-label">Tingkat Kesulitan</label>
-                                                                <div class="row mb-1">
-                                                                    <div class="col-sm-12">
-                                                                        <select name="tingkat_kesulitan" id="tingkatKesulitan" class="form-control @error('tingkat_kesulitan') is-invalid @enderror">
-                                                                            <option value="rendah" {{ old('tingkat_kesulitan') === 'rendah' ? 'selected' : '' }}>Rendah</option>
-                                                                            <option value="sedang" {{ old('tingkat_kesulitan') === 'sedang' ? 'selected' : '' }}>Sedang</option>
-                                                                            <option value="tinggi" {{ old('tingkat_kesulitan') === 'tinggi' ? 'selected' : '' }}>Tinggi</option>
-                                                                        </select>
-                                                                        @error('tingkat_kesulitan')
-                                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                                        @enderror
-                                                                    </div>
-                                                                </div>
-                                                              </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">Close</button>
-                                                                    <button type="submit" class="btn btn-primary">Save
-                                                                        changes</button>
-                                                                </div>
-                                                           </div>
+                                                                 <label for="tingkatKesulitan"
+                                                                     class="col-sm-6 col-form-label">Tingkat
+                                                                     Kesulitan</label>
+                                                                 <div class="row mb-1">
+                                                                     <div class="col-sm-12">
+                                                                         <select name="tingkat_kesulitan"
+                                                                             id="tingkatKesulitan"
+                                                                             class="form-control @error('tingkat_kesulitan') is-invalid @enderror">
+                                                                             <option value="rendah"
+                                                                                 {{ old('tingkat_kesulitan') === 'rendah' ? 'selected' : '' }}>
+                                                                                 Rendah</option>
+                                                                             <option value="sedang"
+                                                                                 {{ old('tingkat_kesulitan') === 'sedang' ? 'selected' : '' }}>
+                                                                                 Sedang</option>
+                                                                             <option value="tinggi"
+                                                                                 {{ old('tingkat_kesulitan') === 'tinggi' ? 'selected' : '' }}>
+                                                                                 Tinggi</option>
+                                                                         </select>
+                                                                         @error('tingkat_kesulitan')
+                                                                             <div class="invalid-feedback">{{ $message }}
+                                                                             </div>
+                                                                         @enderror
+                                                                     </div>
+                                                                 </div>
+                                                         </div>
+                                                         <div class="modal-footer">
+                                                             <button type="button" class="btn btn-secondary"
+                                                                 data-bs-dismiss="modal">Close</button>
+                                                             <button type="submit" class="btn btn-primary">Save
+                                                                 changes</button>
+                                                         </div>
+                                                     </div>
                                                      </form>
                                                  </div>
                                              </div>
                                          </div>
-                                         <!-- Delete Button (Align to the right) -->
-                                         <form id="delete-form-{{ $mtr->id }}"
-                                             action="{{ route('materi.destroy', $mtr->id) }}" method="POST">
-                                             @method('DELETE')
-                                             @csrf
-                                             <button type="button" class="delete-button"
-                                                 onclick="confirmDelete('{{ $mtr->id }}')">
-                                                 <i class="fa-solid fa-trash"></i>
-                                             </button>
-                                         </form>
+
                                      </div>
                                  </div>
                              </div>
+                         @endforeach
                      </div>
-                     @endforeach
                      <button type="button" class="large-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
                          <i class="fas fa-plus"></i>
                      </button>
@@ -242,10 +252,10 @@
                                      data-bs-target="#EditModal">
                                         <i class="fa-solid fa-pencil"></i>
                                     </button> --}}
-                </div>
-                    <!--/ End Single Course -->
-             </section>
-        </div>
+         </div>
+         <!--/ End Single Course -->
+         </section>
+     </div>
      </div>
 
      <!-- Modal -->
@@ -329,8 +339,9 @@
                          <label for="inputText" class="col-sm-6 col-form-label">Keterangan Benefit</label>
                          <div class="row">
                              <div class="col-sm-12" width="200px">
-                                 <textarea type="text" name="keterangan_benefit" class="form-control @error('keterangan_benefit') is-invalid @enderror"
-                                     id="keterangan_benefit" width="200px" value="{{ old('keterangan_benefit') }}"></textarea>
+                                 <textarea type="text" name="keterangan_benefit"
+                                     class="form-control @error('keterangan_benefit') is-invalid @enderror" id="keterangan_benefit" width="200px"
+                                     value="{{ old('keterangan_benefit') }}"></textarea>
                              </div>
                              @error('keterangan_benefit')
                                  <div class="invalid-feedback">{{ $message }}</div>
