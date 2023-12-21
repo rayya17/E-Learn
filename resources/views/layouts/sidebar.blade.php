@@ -148,7 +148,7 @@ License: For each use you must have a valid license purchased only from above li
                     <!--begin::Mobile logo-->
                     <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
                         <a href="index.html" class="d-lg-none">
-                            <img alt="Logo" src="logo" class="h-30px" />
+                            <img width="300" src="{{ url('storage/logoh.png') }}"  alt="">
                         </a>
                     </div>
                     <!--end::Mobile logo-->
@@ -271,11 +271,8 @@ License: For each use you must have a valid license purchased only from above li
                     <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
                         <!--begin::Logo image-->
                         <a href="index.html">
-                            <img alt="Logo" src="assets/media/logos/default-dark.svg"
-                                class="h-25px app-sidebar-logo-default" />
+                            <img width="300" src="{{ url('storage/logoh.png') }}"  alt="">
 
-                            <img alt="Logo" src="assets/media/logos/default-small.svg"
-                                class="h-20px app-sidebar-logo-minimize" />
                         </a>
 
                     </div>

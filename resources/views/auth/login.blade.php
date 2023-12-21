@@ -57,11 +57,12 @@
             <div class="auth-login-wrapper card mb-0 container position-relative z-1 h-100" data-simplebar
                 style="max-height: 770px;">
                 <div class="card-body">
-                    <a href="index.html" class="">
-                        <img src="https://bootstrapdemos.wrappixel.com/spike/dist/assets/images/logos/logo-dark.svg"
+                    <a href="login.html" class="">
+                        {{-- <img src="https://bootstrapdemos.wrappixel.com/spike/dist/assets/images/logos/logo-dark.svg"
                             class="light-logo" alt="Logo-Dark" />
                         <img src="https://bootstrapdemos.wrappixel.com/spike/dist/assets/images/logos/logo-light.svg"
-                            class="dark-logo" alt="Logo-light" />
+                            class="dark-logo" alt="Logo-light" /> --}}
+                            <img width="300" src="{{ url('storage/logoh.png') }}"  alt="">
                     </a>
                     <div class="row align-items-center justify-content-around pt-7 pb-5">
                         <div class="col-lg-6 col-xl-5 d-none d-lg-block">

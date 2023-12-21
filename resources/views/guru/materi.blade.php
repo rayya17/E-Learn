@@ -89,31 +89,53 @@
          .delete-button:hover {
              background-color: #c82333;
          }
+
+         .container-card .card .tengah {
+            position: absolute;
+            top: 180px;
+            display: flex;
+        }
+
+        .container-card .card .tengah .profile {
+            overflow: hidden;
+            position: absolute;
+            left: 14px;
+            top: 21px;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            border-radius: 100%;
+        }
+
+        .container-card .card .tengah .profile .rounded-circle {
+            object-fit: cover;
+            width: 60px;
+            height: 60px;
+        }
      </style>
      <div class="container-fluid">
          <div class="row">
              <section class="courses section">
                  <div class="container">
-                     <div class="row justify-content-center">
+                     <div class="row">
                          @foreach ($materi as $mtr)
-                             <div class="col-lg-4 col-md-4 col-4">
+                             <div class="col-lg-4 col-md-4 col-4 mb-4">
                                  <!-- Single Course -->
                                  <div class="container-card row">
                                      {{-- <div class="col-md-4"> --}}
                                      <div class="card">
                                          <div class="button-eye mt-3">
                                              <!-- Button with Eye Icon (Align to the left) -->
-                                             <button type="button" onclick="window.location='{{ route('materidetail', $mtr->id) }}'" class="btn btn-primary"><i class="fas fa-eye"></i>
+                                             <button type="button"
+                                                 onclick="window.location='{{ route('materidetail', $mtr->id) }}'"
+                                                 class="btn btn-primary"><i class="fas fa-eye"></i>
                                              </button>
                                          </div>
                                          <div class="bg-image">
-                                             <img class="background" src="{{ asset('storage/default/' . $mtr->cover) }}" alt="">
+                                             <img class="background" src="{{ asset('storage/default/' . $mtr->cover) }}"
+                                                 alt="">
                                          </div>
                                          <div class="tengah d-flex align-items-center justify-content-between w-100 px-2">
                                              <div class="profile">
-                                                 <img class="rounded-circle bg-dark" width="60" height="60"
-                                                     src="{{ asset('storage/profile/' . $mtr->guru->user->foto_user) }}"
-                                                     alt="">
+                                                 <img class="rounded-circle bg-dark" width="60" height="60" src="{{ asset('storage/profile/' . $mtr->guru->user->foto_user) }}" alt="">
                                              </div>
                                              <div class="badge-class">
                                                  <span class="badge bg-success">Rp.
@@ -124,7 +146,7 @@
                                              <h5 class="title">
                                                  <strong> {{ $mtr->nama_materi }} </strong>
                                              </h5>
-                                             <div class="desc">
+                                             <div class="d-inline-block text-truncate" style="max-width: 200px">
                                                  <p>{{ $mtr->deskripsi_materi }}</p>
                                              </div>
                                          </div>

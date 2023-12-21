@@ -251,11 +251,11 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                                 <button type="button" class="btn btn-success" style="float: right;" data-bs-toggle="modal"
                                 data-bs-target="#EditModal">
                                 <i class="fas fa-pencil-alt"></i>
                             </button>
-                            </div>
                         </div>
                     </div>
             </section>
