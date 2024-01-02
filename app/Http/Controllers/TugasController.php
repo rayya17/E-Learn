@@ -111,4 +111,69 @@ class TugasController extends Controller
             ]);
         return back()->with('success', 'berhasil mengirimkan tugas anda');
     }
+
+    public function editTugas($tugas_id)
+    {
+        $tugas = Tugas::findOrFail($tugas_id);
+        // Tambahkan logika untuk menampilkan form edit tugas, jika diperlukan
+        return view('edit_tugas', compact('tugas'));
+    }
+
+    public function updateTugas(Request $request, $tugas_id)
+    {
+        $request->validate([
+            'file_tugas' => 'nullable|mimes:pdf',
+            'tugas' => 'required|max:100',
+            'detail_tugas' => 'required|max:500',
+            'point' => 'min:0',
+        ], [
+            'file_tugas.mimes' => 'File harus berupa PDF',
+            'tugas.required' => 'Wajib di isi',
+            'tugas.max' => 'Nama Tugas melebihi maximal',
+            'detail_tugas.required' => 'Wajib di isi',
+            'detail_tugas.max' => 'Detail Tugas melebihi maximal',
+            'point.min' => 'Nilai point tidak boleh kurang dari 0',
+        ]);
+
+        $tugas = Tugas::findOrFail($tugas_id);
+
+        // Handle file upload jika ada
+        if ($request->hasFile('file_tugas')) {
+            $file_tugas = $request->file('file_tugas');
+            $file_name = time() . '_' . $file_tugas->getClientOriginalName();
+            $file_tugas->move(public_path('storage/pdf'), $file_name);
+            $tugas->file_tugas = $file_name;
+        }
+
+        // Update nilai point berdasarkan tingkat kesulitan
+        if ($request->tingkat_kesulitan === 'rendah') {
+            $point = 50;
+        } elseif ($request->tingkat_kesulitan === 'sedang') {
+            $point = 70;
+        } elseif ($request->tingkat_kesulitan === 'tinggi') {
+            $point = 100;
+        } else {
+            $point = $request->point;
+        }
+
+        $tugas->update([
+            'tugas' => $request->tugas,
+            'point' => $point,
+            'tingkat_kesulitan' => $request->tingkat_kesulitan,
+            'detail_tugas' => $request->detail_tugas,
+        ]);
+
+        return back()->with('success', 'Berhasil mengupdate tugas');
+    }
+
+    public function deleteTugas($id)
+    {
+        $tugas = Tugas::findOrFail($id);
+        $tugas->delete();
+
+        // Tambahkan logika jika diperlukan, misalnya memberikan notifikasi
+
+        return back()->with('success', 'Berhasil menghapus tugas');
+    }
+
 }

@@ -55,19 +55,23 @@ class HomeController extends Controller
     }
     public function kumpultugas($id)
     {
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $tugas = Tugas::all();
         $materi = Materi::findOrFail($id);
         $detailTugas = Tugas::findOrFail($id);
         $detailMateri = $detailTugas->materi;
         $komentar = Komentar::all();
 
-        return view('users.kumpultugas',compact('materi','detailTugas','tugas','detailMateri','komentar'));
+        return view('users.kumpultugas',compact('materi','detailTugas','tugas','detailMateri','komentar', 'Notifikasi', 'unreadNotificationsCount'));
     }
     public function detailtugas($id)
     {
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $tugas = Tugas::all();
         $materi = Materi::findOrFail($id);
-        return view('users.detailtugas',compact('materi','tugas'));
+        return view('users.detailtugas',compact('materi','tugas', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
     public function detailpesan()
@@ -78,8 +82,10 @@ class HomeController extends Controller
 
     public function isimateri($id)
     {
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $materi = Materi::findOrFail($id);
-        return view('users.isimateri',compact('materi'));
+        return view('users.isimateri',compact('materi', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
     public function payment(Order $order)
@@ -185,10 +191,12 @@ class HomeController extends Controller
     }
     public function searchMateri(Request $request)
     {
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $search = $request->input('search');
         $materi = Materi::where('mapel', 'like', '%' . $search . '%')->get();
 
-        return view('users.home', compact('materi'));
+        return view('users.home', compact('materi', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
 }

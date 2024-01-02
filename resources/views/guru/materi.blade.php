@@ -231,7 +231,7 @@
                                                                      <div class="col-sm-12">
                                                                          <select name="tingkat_kesulitan"
                                                                              id="tingkatKesulitan"
-                                                                             class="form-control @error('tingkat_kesulitan') is-invalid @enderror">
+                                                                             class="form-select @error('tingkat_kesulitan') is-invalid @enderror">
                                                                              <option value="rendah"
                                                                                  {{ old('tingkat_kesulitan') === 'rendah' ? 'selected' : '' }}>
                                                                                  Rendah</option>
