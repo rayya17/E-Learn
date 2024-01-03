@@ -12,6 +12,7 @@ use App\Models\Materi;
 use App\Models\DetailMateri;
 use App\Models\Order;
 use App\Models\Pendapatan;
+use App\Models\Tugas;
 use App\Models\Pengumpulan;
 use App\Models\User;
 use App\Models\Profile;
@@ -239,8 +240,9 @@ class GuruController extends Controller
         $materi = Materi::findOrFail($id);
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
+        $tugas = Tugas::where('materi_id', $materi->id)->get();
 
-      return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount', 'materi', 'guru'));
+      return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount','tugas' ,'materi', 'guru'));
     }
 
 //     public function Penarikansaldo(Request $request)

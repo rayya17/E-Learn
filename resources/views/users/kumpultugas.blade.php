@@ -25,7 +25,7 @@
     }
 
     form {
-        margin-bottom: 20px;
+        margin-bottom: 0px;
     }
 
     label,
@@ -60,7 +60,7 @@
     }
 
     .baten-materi {
-        background-color: rgb(69, 177, 69);
+        background-color: #4FA987;
         color: white;
     }
 
@@ -68,6 +68,15 @@
         padding: 10px;
     }
 </style>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var dropdowns = document.querySelectorAll('.dropdown');
+
+        dropdowns.forEach(function (dropdown) {
+            new bootstrap.Dropdown(dropdown);
+        });
+    });
+</script>
 
 @section('content')
 <div class="container">
@@ -156,16 +165,16 @@
                             <div class="photo rounded-circle" style="margin-right: 10px">
                                 @if ($km->user->profile)
                                     <img src="{{ asset('storage/' . $km->user->profile) }}"
-                                        alt="Profile Image" width="45px" height="45px">
+                                        alt="Profile Image" width="45px" height="45px" style="border-radius:50%;">
                                 @else
-                                    <img src="{{ asset('images/profiledefault.jpg') }}"
-                                        alt="Default Profile Image">
+                                    <img src="{{ asset('storage/default/defaultprofile.jpeg') }}"
+                                        alt="Default Profile Image"  width="45px" height="45px" style="border-radius:50%;">
                                 @endif
                             </div>
                         </div>
                         <div class="chat-column">
                             <div class="username">
-                                <p>{{ $km->user->name }}</p>
+                                <h5><strong>{{ $km->user->name }}</strong></h5>
                             </div>
                             <div class="text-chat">
                                 <p>{{ $km->komentar }}</p>
@@ -173,31 +182,25 @@
                             <div class="tanggal-chat">
                                 <p>{{ date('d F Y', strtotime($km->tanggal)) }}</p>
                             </div>
-                            <button onclick="reply({{ $km->id }})"
-                                class="btn btn-light-warning font-medium text-warning px-4 rounded-pill"
-                                type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseExample{{ $km->id }}" aria-expanded="true"
+                            <button onclick="reply({{ $km->id }})"  class="btn btn-light-warning font-medium text-warning px-4 rounded-pill"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample{{ $km->id }}" aria-expanded="true"
                                 aria-controls="collapseExample{{ $km->id }}">
                                 Lihat Komentar
                             </button>
-                            <div class="collapse" id="{{ $km->id }}" style="">
+                            <div class="collapse" id="{{ $km->id }}" style="width:900px; margin-top: 5px;;">
                                 <div class="card card-body lebarcart" style="">
                                     {{-- Foreach Komentar --}}
 
-                                    <form id="addKomentar" action="{{ route('reply.komen', $km->id) }}"
-                                        method="post">
+                                    <form id="addKomentar" action="{{ route('reply.komen', $km->id) }}" method="post">
                                         @csrf
-                                        <input type="hidden" id="tugas_id" name="tugas_id"
-                                            >
+                                        <input type="hidden" id="tugas_id" name="tugas_id">
                                         <div class="card mb-3 p-2">
                                             <div class="form-floating d-flex">
                                                 <input type="text" name="komentar" id="komentar"
-                                                    class="form-control me-2" id="floatingInput"
-                                                    placeholder="Komentar">
-                                                <label for="floatingInput"></label>
+                                                    class="form-control me-3" id="floatingInput" placeholder="Komentar">
+                                                <label for="floatingInput">Balasan Komentar</label>
                                                 <button type="submit" name="submit"
-                                                    class="btn btn-primary"><i
-                                                        class="bi bi-send-fill"></i></button>
+                                                    class="btn btn-success"><i class="bi bi-send-fill"></i></button>
                                             </div>
                                         </div>
                                     </form>
@@ -211,17 +214,16 @@
                                                             style="margin-right: 10px">
                                                             @if ($item->user->profile)
                                                                 <img src="{{ asset('storage/' . $item->user->profile) }}"
-                                                                    alt="Profile Image" width="45px"
-                                                                    height="45px">
+                                                                    alt="Profile Image" width="45px" height="45px" style="border-radius:50%;">
                                                             @else
-                                                                <img src="{{ asset('images/profiledefault.jpg') }}"
-                                                                    alt="Default Profile Image">
+                                                                <img src="{{ asset('storage/default/defaultprofile.jpeg') }}"
+                                                                    alt="Default Profile Image" width="45px" height="45px" style="border-radius:50%;">
                                                             @endif
                                                         </div>
                                                     </div>
                                                     <div class="chat-column">
                                                         <div class="username">
-                                                            <p>{{ $item->user->name }}</p>
+                                                            <h5><strong>{{ $item->user->name }}</strong></h5>
                                                         </div>
                                                         <div class="text-chat">
                                                             <p>{{ $item->komentar }}</p>
@@ -243,21 +245,15 @@
                         <div class="action">
                             @if (auth()->check() && $km->user_id == auth()->user()->id)
                                 <div class="dropdown">
-                                    <button class="btn dropdown-toggle" type="button"
-                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="actionDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <ul class="dropdown-menu" aria-labelledby="actionDropdown">
                                         <li>
-                                            <form action="{{ route('komentar.delete', $km->id) }}"
-                                                method="post">
+                                            <form action="{{ route('komentar.delete', $km->id) }}" method="post">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="submit"
-                                                    class="delete-comment-btn dropdown-item"
-                                                    style="border: none; background: none; cursor: pointer;">
-                                                    <i class="bi bi-trash"> Delete</i>
+                                                <button type="submit" class="delete-comment-btn dropdown-item">
+                                                    <i class="bi bi-trash"></i> Delete
                                                 </button>
                                             </form>
                                         </li>
@@ -266,6 +262,7 @@
                             @endif
                         </div>
                     </div>
+
                 </div>
             </div>
         @endforeach
