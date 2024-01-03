@@ -118,6 +118,14 @@
             border-radius: 10px;
         }
 
+        .card-bodeh {
+            color: #3B9680;
+            background-color: #ffffff;
+            /* Ganti warna latar belakang sesuai kebutuhan */
+            border-radius: 0px;
+
+        }
+
         .logout-btn {
             color: #3B9680 !important;
             /* Override the color */
@@ -222,14 +230,7 @@
         <div class="header-inner overlay">
             <div class="container">
                 <div class="row">
-                    <div class="col-12">
-                        <!-- Logo -->
-                        <div class="logo">
-                            {{-- <a href="index-2.html"><img src="assets/images/learnlogo.png" alt="#"></a> --}}
-                        </div>
-                        <!--/ End Logo -->
-                        <div class="mobile-menu"></div>
-                    </div>
+                    
                     <div class="col-lg-10 col-md-10 col-12">
                         <div class="menu-bar">
                             <nav class="navbar navbar-default">

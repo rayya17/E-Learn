@@ -153,19 +153,23 @@
             <div class="col-lg-12">
                 <div class="row">
                     @foreach ($riwayat as $order)
-                    <div class="card mx-2">
-                        <div class="card-header" style="color: #3B9680; font-size: 20px;"><strong>{{ $order->materi->nama_materi }}</strong></div>
+                    <div class="card mx-2" style="background-color: #3B9680">
+                        <div class="card-header" style="color: #ffffff; font-size: 20px"><strong>{{ $order->materi->nama_materi }}</strong></div>
                         <div class="card-body">
                             <blockquote class="blockquote mb-0" style="position: relative;">
-                                    <p style="color: #3B9680; padding-bottom: 12px">
+                                    <p class="ml-2 mt-2" style="color: #3B9680; padding-bottom: 12px">
                                         Pengajar : {{ $order->materi->guru->user->name }}
                                     </p>
-                                <p style="color: #3B9680; padding-bottom: 12px">Harga : {{ $order->total_price }}</p>
+                                    <p class="ml-2" style="color: #3B9680; padding-bottom: 12px">
+                                        Kelas : {{ $order->materi->kelas }}
+                                    </p>
+
+                                <p class="ml-2" style="color: #3B9680; padding-bottom: 12px">Harga : {{ $order->total_price }}</p>
                                 <br><br>
-                                <h4 style="position: absolute; right:1%; bottom:0;n margin: 0;">Lunas</h4>
+                                <h4 style="position: absolute; right:1%; bottom:0;n margin: 0;" class="mr-2 mb-2">Lunas</h4>
                             </blockquote>
                         </div>
-                        
+
                     </div>
                     @endforeach
                 </div>
