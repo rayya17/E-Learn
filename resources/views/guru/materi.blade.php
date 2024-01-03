@@ -164,25 +164,19 @@
                                                  </button>
                                              </form>
                                          </div>
-                                         <div class="d-flex justify-content-between align-items-center">
-                                             <div class="modal fade" id="tambahTugas" tabindex="-1"
-                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                         <div class="d-flex justify-content-between align-items-center" >
+                                             <div class="modal fade" id="tambahTugas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                  <div class="modal-dialog">
                                                      <div class="modal-content">
                                                          <div class="modal-header">
-                                                             <h5 class="modal-title" id="exampleModalLabel">Tambah Tugas
-                                                             </h5>
-                                                             <button type="button" class="btn-close"
-                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
+                                                             <h5 class="modal-title" id="exampleModalLabel">Tambah Tugas</h5>
+                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                          </div>
                                                          <div class="modal-body">
-                                                             <form action="{{ route('tugas', $mtr->id) }}" method="POST"
-                                                                 enctype="multipart/form-data">
+                                                             <form action="{{ route('tugas', $mtr->id) }}" method="POST" enctype="multipart/form-data">
                                                                  @csrf
-                                                                 <label for="inputText"
-                                                                     class="col-sm-12 col-form-label">File Materi <span
-                                                                         style="font-size: 12px; color: #b9b7b7;">(File
-                                                                         berupa PDF)</span></label>
+                                                                 <label for="inputText" class="col-sm-12 col-form-label">File Materi <span
+                                                                         style="font-size: 12px; color: #b9b7b7;">(File berupa PDF)</span></label>
                                                                  <div class="row">
                                                                      <div class="col-sm-12">
                                                                          <input type="file" name="file_tugas"
@@ -197,8 +191,7 @@
                                                                  </div>
 
                                                                  <input type="hidden" value="$mtr->guru_id" name="guru_id">
-                                                                 <label for="inputText" class="col-sm-6 col-form-label">Nama
-                                                                     Tugas</label>
+                                                                 <label for="inputText" class="col-sm-6 col-form-label">Nama Tugas</label>
                                                                  <div class="row mb-1">
                                                                      <div class="col-sm-12">
                                                                          <input type="text" name="tugas"
@@ -225,22 +218,17 @@
                                                                      </div>
                                                                  </div>
                                                                  <label for="tingkatKesulitan"
-                                                                     class="col-sm-6 col-form-label">Tingkat
-                                                                     Kesulitan</label>
+                                                                     class="col-sm-6 col-form-label">Tingkat Kesulitan</label>
                                                                  <div class="row mb-1">
                                                                      <div class="col-sm-12">
-                                                                         <select name="tingkat_kesulitan"
-                                                                             id="tingkatKesulitan"
-                                                                             class="form-select @error('tingkat_kesulitan') is-invalid @enderror">
+                                                                         <select name="tingkat_kesulitan" id="tingkatKesulitan"
+                                                                             class="form-select @error('tingkat_kesulitan') is-invalid @enderror" >
                                                                              <option value="rendah"
-                                                                                 {{ old('tingkat_kesulitan') === 'rendah' ? 'selected' : '' }}>
-                                                                                 Rendah</option>
+                                                                                 {{ old('tingkat_kesulitan') === 'rendah' ? 'selected' : '' }}> Rendah</option>
                                                                              <option value="sedang"
-                                                                                 {{ old('tingkat_kesulitan') === 'sedang' ? 'selected' : '' }}>
-                                                                                 Sedang</option>
+                                                                                 {{ old('tingkat_kesulitan') === 'sedang' ? 'selected' : '' }}> Sedang</option>
                                                                              <option value="tinggi"
-                                                                                 {{ old('tingkat_kesulitan') === 'tinggi' ? 'selected' : '' }}>
-                                                                                 Tinggi</option>
+                                                                                 {{ old('tingkat_kesulitan') === 'tinggi' ? 'selected' : '' }}> Tinggi</option>
                                                                          </select>
                                                                          @error('tingkat_kesulitan')
                                                                              <div class="invalid-feedback">{{ $message }}

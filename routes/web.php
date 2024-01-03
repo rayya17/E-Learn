@@ -67,9 +67,9 @@ Route::middleware('guru')->group(function () {
     Route::put('/profileguruUp/{id}', [ProfileController::class, 'profileguruUp'])->name('profileguruUp');
     Route::get('materidetail/{id}', [GuruController::class, 'materidetail'])->name('materidetail');
     Route::post('/tugas/{materi_id}', [TugasController::class, 'createTugas'])->name('tugas');
-    Route::get('/tugas/{tugas_id}/edit', [TugasController::class, 'editTugas'])->name('tugas.edit');
-    Route::put('/tugas/{tugas_id}', [TugasController::class, 'updateTugas'])->name('tugas.update');
-    Route::delete('/delete-tugas/{id}', [TugasController::class, 'deleteTugas'])->name('tugas.delete');
+    Route::get('/tugas/{tugas_id}/edit', [TugasController::class,  'editTugas'])->name('tugas.edit');
+    Route::put('/tugas/{tugas_id}', [TugasController::class,  'updateTugas'])->name('tugas.update');
+    Route::delete('/delete-tugas/{id}', [TugasController::class,  'deleteTugas'])->name('tugas.delete');
 
 
     // Route::resource('materiGuru',GuruController::class);

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Komentar;
 use App\Models\Materi;
+use App\Models\Guru;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,11 +16,12 @@ class KomentarController extends Controller
         try  {
 
             $Auth = Auth::user();
+            $guru = Guru::with('user')->get();
             $materi = Materi::where('id',$id)->first();
             $komentar = Komentar::where('materi_id',$materi->id)->orderby('created_at','desc')->paginate(25);
 
             if  ($Auth->role === 'user'){
-                return view('users.kumpultugas',compact('materi','komentar','Auth','id'));
+                return view('users.kumpultugas',compact('materi','komentar','Auth','id','guru'));
             }
 
         }catch (Exception $e){
