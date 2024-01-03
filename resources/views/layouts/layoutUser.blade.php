@@ -223,16 +223,20 @@
 </head>
 
 <body>
-
     <!-- Header -->
     <header class="header">
         <!-- Header Inner -->
         <div class="header-inner overlay">
-            <div class="container">
+            <div class="">
+
                 <div class="row">
-                    
-                    <div class="col-lg-10 col-md-10 col-12">
+
+                    <div class="col-lg-11 col-md-11 col-12">
                         <div class="menu-bar">
+                            <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+                                <!-- Navbar content -->
+                            </nav>
+
                             <nav class="navbar navbar-default">
                                 <div class="navbar-collapse">
                                     <!-- Main Menu -->
@@ -241,6 +245,7 @@
                                             class="{{ request()->is('home') && !request()->has('kategori') && !request()->has('search') ? 'active' : '' }}">
                                             <a href="/home"
                                                 @if (request()->is('home') && !request()->has('kategori') && !request()->has('search')) style="color: #ffffff" @endif>
+
                                                 <i></i>Home
                                             </a>
                                         </li>
@@ -268,55 +273,54 @@
 
                                         <li class="nav-item dropdown">
                                             <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"
-                                                id="notificationIcon" style="margin-top: 10px">
-                                                <i class="fa-regular fa-bell" id="bellIcon"
-                                                    style="font-size: 22px; color: #ffff; margin-right: 25px; position: relative;">
-                                                    @if ($unreadNotificationsCount > 0)
-                                                        <span id="notif-count"
-                                                            class="badge seniman-badge bg-danger text-white"
-                                                            style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
-                                                    @endif
-                                                </i>
-                                                <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-                                                <script>
-                                                    $(document).ready(function() {
-                                                        // Ambil token CSRF dari meta tag
-                                                        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                                            id="notificationIcon" style="margin-top: 10px">
+                                            <i class="fa-regular fa-bell" id="bellIcon"
+                                                style="font-size: 22px; color: #ffff; margin-right: 25px; position: relative;">
+                                                @if ($unreadNotificationsCount > 0)
+                                                    <span id="notif-count"
+                                                        class="badge seniman-badge bg-danger text-white"
+                                                        style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
+                                                @endif
+                                            </i>
+                                            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                                            <script>
+                                                $(document).ready(function() {
+                                                    // Ambil token CSRF dari meta tag
+                                                    var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-                                                        // Menangani klik pada notifikasi
-                                                        $('.notification-item').on('click', function(e) {
-                                                            e.preventDefault();
-                                                            var notificationId = $(this).data('notification-id');
-                                                            var $notificationItem = $(this);
+                                                    // Menangani klik pada notifikasi
+                                                    $('.notification-item').on('click', function(e) {
+                                                        e.preventDefault();
+                                                        var notificationId = $(this).data('notification-id');
+                                                        var $notificationItem = $(this);
 
-                                                            // Lakukan AJAX untuk menandai notifikasi sebagai sudah dibaca
-                                                            $.ajax({
-                                                                url: '{{ route('notifDelete', ['id' => ':id']) }}'.replace(':id',
-                                                                    notificationId),
-                                                                method: 'POST',
-                                                                // Sertakan token CSRF dalam header
-                                                                headers: {
-                                                                    'X-CSRF-TOKEN': csrfToken,
-                                                                },
-                                                                success: function(response) {
-                                                                    if (response.success) {
-                                                                        // Perbarui tampilan notifikasi di frontend
-                                                                        $('#notificationIcon #notif-count').text(response
-                                                                            .unreadNotificationcount);
+                                                        // Lakukan AJAX untuk menandai notifikasi sebagai sudah dibaca
+                                                        $.ajax({
+                                                            url: '{{ route('notifDelete', ['id' => ':id']) }}'.replace(':id',
+                                                                notificationId),
+                                                            method: 'POST',
+                                                            // Sertakan token CSRF dalam header
+                                                            headers: {
+                                                                'X-CSRF-TOKEN': csrfToken,
+                                                            },
+                                                            success: function(response) {
+                                                                if (response.success) {
+                                                                    // Perbarui tampilan notifikasi di frontend
+                                                                    $('#notificationIcon #notif-count').text(response
+                                                                        .unreadNotificationcount);
 
-                                                                        // Hapus notifikasi dari tampilan tanpa reload
-                                                                        $notificationItem.remove();
-                                                                    }
-                                                                },
-                                                                error: function(error) {
-                                                                    console.error(error);
+                                                                    // Hapus notifikasi dari tampilan tanpa reload
+                                                                    $notificationItem.remove();
                                                                 }
-                                                            });
+                                                            },
+                                                            error: function(error) {
+                                                                console.error(error);
+                                                            }
                                                         });
                                                     });
-                                                </script>
-                                            </a>
-
+                                                });
+                                            </script>
+                                        </a>
                                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications"
                                                 style="min-width: 300px; max-height: 350px ; overflow-y: auto; margin-right: 20px !important; margin-left: -257px">
                                                 <li class="dropdown-header">
@@ -374,7 +378,20 @@
                                                 </center>
                                             </ul>
                                         </li>
-                                        <li>
+
+                                        <li class="nav-item">
+                                            <div class="search-area" >
+                                                <a href="#header" class="icon"
+                                                   ><i style="font-size: 20px"
+                                                        class="fa fa-search"></i></a>
+                                                <form class="search-form" action="{{ route('HomePage') }}" method="GET">
+                                                    <input type="text" placeholder="ex: premium course" name="search">
+                                                    <input type="hidden" name="kategori" value="{{ request('kategori') }}">
+                                                    <button value="search" type="submit"><i class="fa fa-search"></i></button>
+                                                </form>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item px-5">
                                             <a class="nav-link nav-profile d-flex align-items-center pe-0"
                                                 href="#" id="navbarDropdown" role="button"
                                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -431,16 +448,6 @@
                                     <!-- End Main Menu -->
                                 </div>
                             </nav>
-                        </div>
-                        <div class="search-area" style="width: 50px; height: 50px">
-                            <a href="#header" class="icon d-flex justify-content-center align-items-center"
-                                style="width: 100%; height: 100%"><i style="font-size: 30px"
-                                    class="fa fa-search"></i></a>
-                            <form class="search-form" action="{{ route('HomePage') }}" method="GET">
-                                <input type="text" placeholder="ex: premium course" name="search">
-                                <input type="hidden" name="kategori" value="{{ request('kategori') }}">
-                                <button value="search" type="submit"><i class="fa fa-search"></i></button>
-                            </form>
                         </div>
                     </div>
                 </div>
