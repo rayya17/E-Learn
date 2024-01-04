@@ -45,4 +45,10 @@ class Guru extends Model
     {
         return $this->hasMany(Materi::class);
     }
+
+    public function tugas()
+    {
+        return $this->hasMany(Tugas::class);
+    }
+
 }

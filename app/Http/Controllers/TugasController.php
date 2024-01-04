@@ -101,14 +101,18 @@ class TugasController extends Controller
             'bukti' => $file_name,
         ]);
 
-        // $guru = User::where('role', 'guru')->first();
-
+        $pengumpulan->save();
+        $guru = User::where('role', 'guru')->get();
+        foreach ($guru as $gr) {
             Notifikasi::create([
                 'sender_id' => Auth::user()->id,
-                'user_id' => $request->guru,
+                'user_id' => $gr->id,
                 'title' => Auth::user()->name,
-                'message' => Auth::user()->name . " mengumpulkan tugas" ,
+                'message' => Auth::user()->name . " mengumpulkan tugas",
             ]);
+        }
+        // $guru = User::where($request->guru);
+
         return back()->with('success', 'berhasil mengirimkan tugas anda');
     }
 

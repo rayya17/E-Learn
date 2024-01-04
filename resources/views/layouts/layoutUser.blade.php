@@ -345,7 +345,7 @@
                                                             <p style="font-size: 13px;">{{ $notifikasi->message }}</p>
                                                         </div>
                                                         <div class="date">
-                                                            <p class="mb-0">{{ $notifikasi->created_at->diffForHumans() }}</p>
+                                                            <p class="mb-0" style="font-size: 12px;">{{ $notifikasi->created_at->diffForHumans() }}</p>
                                                         </div>
                                                     </div>
                                                 </li>

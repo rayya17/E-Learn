@@ -79,8 +79,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($tugas_dikumpulkan as $item)
                                         <tr>
-                                            @foreach ($tugas_dikumpulkan as $item)
                                             <td>{{$loop->iteration }}</td>
                                             <td>{{ $item->user->name}}</td>
                                             <td>{{ $item->materi->nama_materi }}</td>
@@ -105,8 +105,8 @@
                                                     </div>
                                                   </div>
                                             <td><button style="margin-right:-10px;" type="submit" class="btn btn-light btn-md point col-12"><i class="fa-solid fa-check" style="font-size: 20px;"></i></button></td>
-                                            @endforeach
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

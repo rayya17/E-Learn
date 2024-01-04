@@ -19,4 +19,8 @@ class Tugas extends Model
     public function user(){
         return $this->belongsTo(User::class,'user_id');
     }
+
+    public function guru(){
+        return $this->belongsTo(Guru::class);
+    }
 }

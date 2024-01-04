@@ -216,23 +216,39 @@
                                                                 @php
                                                                     $no = 1;
                                                                 @endphp
-                                                            @foreach ($tugas as $tgs )
-                                                                <tr>
+                                                            @foreach ($tugas as $item )
+                                                                <tr data-tugasid="{{ $item->id }}">
                                                                     <td style="text-align: center;">{{ $no++ }}</td>
-                                                                    <td style="text-align: center;">{{ $tgs->tugas }}</td>
-                                                                    <td style="text-align: center;">{{ $tgs->detail_tugas }}</td>
-                                                                    <td style="text-align: center;">
-                                                                        <button type="submit" class="btn btn-secondary btn-md keluar col-6 mt-2" >
-                                                                            {{ $tgs->file_tugas }}
-                                                                        </button>
-                                                                    </td>
-                                                                    <td style="text-align: center;">{{ $tgs->tingkat_kesulitan }}</td>
-                                                                    <td style="text-align: center;">{{ date('d F Y', strtotime($tgs->tanggal_tugas))}}</td>
+                                                                    <td style="text-align: center;">{{ $item->tugas }}</td>
+                                                                    <td style="text-align: center;">{{ $item->detail_tugas }}</td>
+                                                                    <td style="text-align: center;"><button data-toggle="modal" data-target="#materiModal{{ $item->id }}" type="submit" class="btn btn-light btn-md keluar col-12">File Materi</button><td>
+                                                                        <div class="modal" id="materiModal{{ $item->id }}" tabindex="-1">
+                                                                            <div class="modal-dialog modal-lg">
+                                                                              <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                  <h5 class="modal-title">Modal title</h5>
+                                                                                  <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+
+                                                                                        <embed src="{{ asset('storage/bukti/'.$item->file_tugas)}}" width="770" height="600">
+
+                                                                                </div>
+                                                                                <div class="modal-footer">
+                                                                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                  <button type="button" class="btn btn-primary">Save changes</button>
+                                                                                </div>
+                                                                              </div>
+                                                                            </div>
+                                                                          </div>
+
+                                                                    <td style="text-align: center;">{{ $item->tingkat_kesulitan }}</td>
+                                                                    <td style="text-align: center;">{{ date('d F Y', strtotime($item->tanggal_tugas))}}</td>
                                                                     <td>
                                                                         <button type="submit" class="btn btn-light btn-sm point" data-toggle="modal" data-target="#EditModalTugas">
                                                                             <i class="fas fa-pencil-alt" style="font-size: 16px;"></i>
                                                                         </button>
-                                                                        <button type="button" class="btn btn-danger btn-sm point" onclick="deleteTugas({{ $tgs->id }})">
+                                                                        <button type="button" class="btn btn-danger btn-sm point" onclick="deleteTugas({{ $item->id }})">
                                                                             <i class="fas fa-trash-alt" style="font-size: 16px;"></i>
                                                                         </button>
                                                                     </td>
@@ -241,7 +257,7 @@
                                                                         <div class="modal fade" id="EditModalTugas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                             <div class="modal-dialog">
                                                                                 <div class="modal-content">
-                                                                                    <form action="{{ route('tugas.update', $tgs->id) }}" method="post" enctype="multipart/form-data">
+                                                                                    <form action="{{ route('tugas.update', $item->id) }}" method="post" enctype="multipart/form-data">
                                                                                         @method('PUT')
                                                                                         @csrf
                                                                                         <div class="modal-header">
@@ -253,7 +269,7 @@
                                                                                                 <div class="row">
                                                                                                     <div class="col-sm-12">
                                                                                                         <input type="text" name="tugas" class="form-control @error('tugas') is-invalid @enderror"
-                                                                                                            id="update_tugas" width="200px" value="{{ old('tugas', $tgs->tugas) }}">
+                                                                                                            id="update_tugas" width="200px" value="{{ old('tugas', $item->tugas) }}">
                                                                                                         @error('tugas')
                                                                                                             <div class="invalid-feedback">
                                                                                                                     {{ $message }}
@@ -263,16 +279,16 @@
                                                                                                 </div>
                                                                                                 <label for="inputText" class="col-sm-6 col-form-label">Deskripsi</label>
                                                                                                 <div class="row mb-2">
-                                                                                                    <div class="col-sm-12" width="200px" value="{{ old('detail_tugas', $tgs->detail_tugas) }}">
+                                                                                                    <div class="col-sm-12" width="200px" value="{{ old('detail_tugas', $item->detail_tugas) }}">
                                                                                                         <textarea type="text" name="detail_tugas" class="form-control" id="update_detail_tugas" width="200px"
-                                                                                                            value="{{ old('detail_tugas', $tgs->detail_tugas) }}">{{ $tgs->detail_tugas }}
+                                                                                                            value="{{ old('detail_tugas', $item->detail_tugas) }}">{{ $item->detail_tugas }}
                                                                                                         </textarea>
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <label for="inputText" class="col-sm-6 col-form-label">Tingkat Kesulitan</label>
                                                                                                 <div class="row">
                                                                                                     <div class="col-sm-12">
-                                                                                                        <select name="tingkat_kesulitan" id="update_tingkat_kesulitan" class="form-select @error('tingkat_kesulitan') is-invalid @enderror" value="{{ old('tingkat_kesulitan', $tgs->tingkat_kesulitan) }}">
+                                                                                                        <select name="tingkat_kesulitan" id="update_tingkat_kesulitan" class="form-select @error('tingkat_kesulitan') is-invalid @enderror" value="{{ old('tingkat_kesulitan', $item->tingkat_kesulitan) }}">
                                                                                                             <option value="rendah"
                                                                                                                 {{ old('tingkat_kesulitan') === 'rendah' ? 'selected' : '' }}>Rendah</option>
                                                                                                             <option value="sedang"
@@ -289,7 +305,7 @@
                                                                                                 <div class="row">
                                                                                                     <div class="col-sm-12" width="200px">
                                                                                                         <input type="file" name="file_tugas" class="form-control @error('file_tugas') is-invalid @enderror"
-                                                                                                        id="update_file_tugas" width="200px" value="{{ old('file_tugas', $tgs->file_tugas) }}">
+                                                                                                        id="update_file_tugas" width="200px" value="{{ old('file_tugas', $item->file_tugas) }}">
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -322,35 +338,47 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"> </script>
     <script >
-            function deleteTugas(tugas_id){
-                Swal.fire ({
-                    title: 'Apa kamu yakin?' ,
-                    text: 'Kamu tidak akan bisa mengembalikan data ini!' ,
-                    icon: 'Warning',
-                    showCancelButton: true ,
-                    confirmButtonColor: '#d33' ,
-                    cancelButtonColor: '#3085d6' ,
-                    confirmButtonText: 'iya, hapus!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Menggunakan metode DELETE dalam permintaan HTTP
-                        fetch(`{{ url("/delete-tugas") }}/${tugas_id}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            },
-                        }).then(response => {
-                            if (response.ok) {
-                                // Redirect atau lakukan sesuatu setelah berhasil menghapus
-                                window.location.reload();
-                            } else {
-                                //Handle kesalahan jika diperlukan
-                                console.error('Gagal menghapus tugas');
-                            }
+            function deleteTugas(tugas_id) {
+    Swal.fire({
+        title: 'Apa kamu yakin?',
+        text: 'Kamu tidak akan bisa mengembalikan data ini!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'iya, hapus!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Menggunakan metode DELETE dalam permintaan HTTP
+            fetch(`{{ url("/delete-tugas") }}/${tugas_id}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                },
+            }).then(response => {
+                if (response.ok) {
+                    // Berhasil menghapus, langsung hapus elemen dari DOM
+                    var deletedRow = document.querySelector(`tr[data-tugasid="${tugas_id}"]`);
+                    if (deletedRow) {
+                        deletedRow.remove();
+                        // Tampilkan notifikasi jika diperlukan
+                        Swal.fire({
+                            title: 'Terhapus!',
+                            text: 'Tugas telah dihapus.',
+                            icon: 'success'
                         });
+                    } else {
+                        console.error('Elemen HTML tidak ditemukan dalam DOM.');
                     }
-                });
-            }
+                } else {
+                    // Handle kesalahan jika diperlukan
+                    console.error('Gagal menghapus tugas');
+                }
+            });
+        }
+    });
+}
+
     </script>
 
 @endsection
