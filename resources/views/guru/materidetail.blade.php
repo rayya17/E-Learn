@@ -29,7 +29,7 @@
             /* Sesuaikan tinggi hijau di atas card */
             background-color: #1c865d;
             /* Warna hijau */
-            border-radius: 10px;
+            border-radius: 15px;
         }
 
         .row {
@@ -233,7 +233,7 @@
                                                                                         <embed src="{{ asset('storage/bukti/'.$item->file_tugas)}}" width="770" height="600">
                                                                                 </div>
                                                                                 <div class="modal-footer">
-                                                                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                                                   <button type="button" class="btn btn-primary">Save changes</button>
                                                                                 </div>
                                                                               </div>
