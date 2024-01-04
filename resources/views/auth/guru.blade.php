@@ -114,73 +114,73 @@
                                             </div>
                                             <div class="tab-pane fade row" id="pills-profile" role="tabpanel"
                                                 aria-labelledby="pills-profile-tab" tabindex="0">
-                                                <div class="d-flex">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="text-confirm-pwd"
-                                                                    class="form-label text-dark fw-bold">Foto
-                                                                    Anda</label>
-                                                                <input type="file" class="form-control py-6 "
-                                                                    id="text-confirm-pwd" name="foto_user" id="foto_user" value="{{ old('foto_user') }}"
-                                                                    class="form-control @error('foto_user')is-invalid @enderror">
-                                                                    @error('foto_user')
-                                                                        <p class="text-danger">{{ $message }}</p>
-                                                                    @enderror
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="text-confirm-pwd"
-                                                                    class="form-label text-dark fw-bold">No
-                                                                    Telepon</label>
-                                                                <input type="number" class="form-control py-6 "
-                                                                    id="text-confirm-pwd" name="no_telepon" value="{{ old('no_telepon') }}"
-                                                                    class="form-control @error('no_telepon')is-invalid @enderror">
-                                                                    @error('no_telepon')
-                                                                        <p class="text-danger">{{ $message }}</p>
-                                                                    @enderror
-                                                            </div>
-                                                        </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="text-confirm-pwd"
+                                                            class="form-label text-dark fw-bold">Foto
+                                                            Anda</label>
+                                                        <input type="file" class="form-control py-3 "
+                                                            id="text-confirm-pwd" name="foto_user" id="foto_user"
+                                                            value="{{ old('foto_user') }}"
+                                                            class="form-control @error('foto_user')is-invalid @enderror">
+                                                        @error('foto_user')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
                                                     </div>
                                                 </div>
-                                                <div class="d-flex">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="text-confirm-pwd"
-                                                                    class="form-label text-dark fw-bold">Pendidikan Terakhir</label>
-                                                                <input type="text" class="form-control py-6 "
-                                                                    id="text-confirm-pwd" name="pendidikan" id="pendidikan" value="{{ old('pendidikan') }}"
-                                                                    class="form-control @error('pendidikan')is-invalid @enderror">
-                                                                    @error('pendidikan')
-                                                                        <p class="text-danger">{{ $message }}</p>
-                                                                    @enderror
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="text-confirm-pwd"
-                                                                    class="form-label text-dark fw-bold">Tanggal Lahir</label>
-                                                                <input type="date" class="form-control py-6 "
-                                                                    id="text-confirm-pwd" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}"
-                                                                    class="form-control @error('tanggal_lahir')is-invalid @enderror">
-                                                                    @error('tanggal_lahir')
-                                                                        <p class="text-danger">{{ $message }}</p>
-                                                                    @enderror
-                                                            </div>
-                                                        </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="text-confirm-pwd"
+                                                            class="form-label text-dark fw-bold">No
+                                                            Telepon</label>
+                                                        <input type="number" class="form-control py-3 "
+                                                            id="text-confirm-pwd" name="no_telepon"
+                                                            value="{{ old('no_telepon') }}"
+                                                            class="form-control @error('no_telepon')is-invalid @enderror">
+                                                        @error('no_telepon')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group">
-                                                    <label for="text-alamat"
-                                                        class="form-label text-dark fw-bold">Alamat</label>
-                                                    <textarea type="text" class="form-control py-6 " id="text-alamat"
-                                                        value="{{ old('alamat') }}" name="alamat" class="form-control @error('alamat')is-invalid @enderror"></textarea>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="text-confirm-pwd"
+                                                            class="form-label text-dark fw-bold">Pendidikan Terakhir</label>
+                                                        <input type="text" class="form-control py-3 "
+                                                            id="text-confirm-pwd" name="pendidikan" id="pendidikan"
+                                                            value="{{ old('pendidikan') }}"
+                                                            class="form-control @error('pendidikan')is-invalid @enderror">
+                                                        @error('pendidikan')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="text-confirm-pwd"
+                                                            class="form-label text-dark fw-bold">Tanggal Lahir</label>
+                                                        <input type="date" class="form-control py-3 "
+                                                            id="text-confirm-pwd" name="tanggal_lahir"
+                                                            value="{{ old('tanggal_lahir') }}"
+                                                            class="form-control @error('tanggal_lahir')is-invalid @enderror">
+                                                        @error('tanggal_lahir')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="text-alamat"
+                                                            class="form-label text-dark fw-bold">Alamat</label>
+                                                        <textarea type="text" class="form-control py-3 "
+                                                            id="text-alamat" value="{{ old('alamat') }}" name="alamat"
+                                                            class="form-control @error('alamat')is-invalid @enderror"></textarea>
                                                         @error('alamat')
                                                             <p class="text-danger">{{ $message }}</p>
                                                         @enderror
+                                                    </div>
                                                 </div>
                                                 {{-- <div class="form-group">
                                                     <label for="text-confirm-pwd"
@@ -196,16 +196,18 @@
                                                         id="foto_ktp" name="foto_ktp" class="form-control">
 
                                                 </div> --}}
-                                                <div style="margin-left:300px; margin-top:4px;">
-                                                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"
-                                                        style="background-color: rgba(255, 255, 255, 0.20);">
-                                                        <li class="nav-item" role="presentation">
-                                                            <button class="nav-link " id="pills-home-tab"
-                                                                data-bs-toggle="pill" data-bs-target="#pills-home"
-                                                                type="button" role="tab"
-                                                                aria-controls="pills-home">Sebelumnya</button>
-                                                        </li>
-                                                    </ul>
+                                                <div class="col-md-12">
+                                                    <div class="d-flex justify-content-end mt-2">
+                                                        <ul class="nav nav-pills mb-3" id="pills-tab"
+                                                            style="background-color: rgba(255, 255, 255, 0.20);">
+                                                            <li class="nav-item" role="presentation">
+                                                                <button class="nav-link " id="pills-home-tab"
+                                                                    data-bs-toggle="pill" data-bs-target="#pills-home"
+                                                                    type="button" role="tab"
+                                                                    aria-controls="pills-home">Sebelumnya</button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                                 <button class="btn btn-success  w-100 mb-7 mt-5 rounded-pill"
                                                     type="submit">Daftar</button>
@@ -226,23 +228,19 @@
 
             <!-- Import Js Files -->
             <script>
-                document.addEventListener('DOMContentLoaded', function() {
+                document.addEventListener('DOMContentLoaded', function () {
                     // Initialize Bootstrap tabs
                     var pillsTab = new bootstrap.Tab(document.getElementById('pills-home-tab'));
                     pillsTab.show();
 
-                    document.getElementById('pills-profile-tab').addEventListener('click', function() {
+                    document.getElementById('pills-profile-tab').addEventListener('click', function () {
                         toggleTabVisibility('pills-home', false);
                         toggleTabVisibility('pills-profile', true);
-                        // Simpan status tab yang aktif di localStorage
-                        localStorage.setItem('activeTab', 'pills-profile');
                     });
 
-                    document.getElementById('pills-home-tab').addEventListener('click', function() {
+                    document.getElementById('pills-home-tab').addEventListener('click', function () {
                         toggleTabVisibility('pills-home', true);
                         toggleTabVisibility('pills-profile', false);
-                        // Simpan status tab yang aktif di localStorage
-                        localStorage.setItem('activeTab', 'pills-home');
                     });
 
                     // Periksa localStorage saat halaman dimuat ulang
@@ -255,13 +253,13 @@
 
                     function toggleTabVisibility(tabId, show) {
                         var tabElement = document.getElementById(tabId);
-                        var formElement = tabElement.querySelector('.your-form-selector'); // Ganti dengan selektor formulir Anda
+                        var formElement = tabElement.querySelector('.form-group'); // Assuming all your form elements are within '.form-group'
                         if (show) {
-                            tabElement.classList.remove('d-none'); // Remove 'd-none' class
-                            formElement.style.display = 'block'; // Tampilkan formulir
+                            tabElement.classList.remove('d-none');
+                            formElement.style.display = 'block';
                         } else {
-                            tabElement.classList.add('d-none'); // Add 'd-none' class
-                            formElement.style.display = 'none'; // Sembunyikan formulir
+                            tabElement.classList.add('d-none');
+                            formElement.style.display = 'none';
                         }
                     }
                 });

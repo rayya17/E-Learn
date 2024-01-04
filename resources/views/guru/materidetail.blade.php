@@ -74,10 +74,10 @@
                     <div class="row">
                         <div class="portfolio-details-slider swiper col-md-6 col-12">
                             <div style="width: 100%; height: 100%">
-                                <img style="width: 90%; height: 90%" class="mt-4 me-2" src="{{ asset('storage/default/' . $materi->cover) }}" alt="foto default materi">
+                                <img style="width: 90%; height: 90%;" class="mt-4 me-2" src="{{ asset('storage/default/' . $materi->cover) }}" alt="foto default materi">
                             </div>
                         </div>
-                        <div class="card col-md-6 col-12" style="border: 1px solid #000; height: 400px;">
+                        <div class="card col-md-6 col-12" style="border: 1px solid #000; height: 400px; padding:0px;">
                             <!-- Sesuaikan tinggi card -->
                             <div class="green-bg" style="height: 60px; padding: 8px;">
                                 <h4 class="card-title"
