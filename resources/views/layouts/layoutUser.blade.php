@@ -379,18 +379,18 @@
                                             </ul>
                                         </li>
 
-                                        <li class="nav-item">
-                                            <div class="search-area" >
-                                                <a href="#header" class="icon"
-                                                   ><i style="font-size: 20px"
-                                                        class="fa fa-search"></i></a>
-                                                <form class="search-form" action="{{ route('HomePage') }}" method="GET">
-                                                    <input type="text" placeholder="ex: premium course" name="search">
-                                                    <input type="hidden" name="kategori" value="{{ request('kategori') }}">
-                                                    <button value="search" type="submit"><i class="fa fa-search"></i></button>
-                                                </form>
-                                            </div>
-                                        </li>
+                                        <!-- Kode Anda -->
+<li class="nav-item">
+    <div class="search-area">
+        <a href="#header" class="icon"><i style="font-size: 20px" class="fa fa-search"></i></a>
+        <form class="search-form" action="{{ route('HomePage') }}" method="GET">
+            <input type="text" placeholder="ex: premium course" name="search">
+            <input type="hidden" name="kategori" value="{{ request('kategori') }}">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+</li>
+
                                         <li class="nav-item px-5">
                                             <a class="nav-link nav-profile d-flex align-items-center pe-0"
                                                 href="#" id="navbarDropdown" role="button"
