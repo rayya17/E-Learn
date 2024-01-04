@@ -13,6 +13,7 @@
     <meta name="description" content="">
     <meta name='copyright' content=''>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Title -->
     <title>Eduland &minus; Education & Courses HTML5 Template</title>
@@ -354,7 +355,7 @@
                                             @endforeach
                                         @else
                                             <li class="no-notif pt-3">
-                                                <p class="mb-0" style="color: #555; margin-left: 70px;">Tidak ada notifikasi</p>
+                                                <p class="mb-0" style="color: #555; margin-left: 100px;">Tidak ada notifikasi</p>
                                             </li>
                                         @endif
                                     </ul>

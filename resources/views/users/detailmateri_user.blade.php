@@ -76,7 +76,7 @@
                 <div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
 
                     <div class="cover">
-                        <img style="width: 500px;" src="{{ asset('storage/default/' . $materi->cover) }}">
+                        <img style="width: 390px; margin-right:65px;" src="{{ asset('storage/default/' . $materi->cover) }}">
                     </div>
                     <div class="title" style="margin-bottom: 50px;">
                        <div class="card-header" style="background-color: #ffffff">
@@ -86,13 +86,13 @@
                         </div>
                        </div>
                         <br>
-                        <h1 style="font-size: 80px; gap-5"><strong>{{ $materi->nama_materi }}</strong></h1>
+                        <h1 style="font-size: 50px; gap-5"><strong>{{ $materi->nama_materi }}</strong></h1>
                         <br>
                         <div class="content">
-                                <p style="font-size: 20px;">Benefit materi: {{ $materi->keterangan_benefit }}</p>
+                                <p style="font-size: 18px;">Benefit materi: {{ $materi->keterangan_benefit }}</p>
                                 <br>
 
-                            <p><strong>Pemateri : {{ $materi->guru->user->name }}</strong></p>
+                            <p style="font-size: 13px;"><strong>Pemateri : {{ $materi->guru->user->name }}</strong></p>
                         </div>
 
                         <a href="{{ route('Detailtugas', $materi->id) }}" type="button"
