@@ -127,38 +127,4 @@
                     </div>
                 </div>
             </div>
-            <!-- Komentar pertama -->
-            {{-- @foreach ($ulasan as $ul)
-                <div class="comment-card">
-                    <img src="{{ asset('storage/' . $ul->user->foto_user) }}" alt="Profile Picture" class="profile-picture">
-                    <div class="comment-info">
-                        <span class="username">{{ $ul->user->name }}</span>
-                        <p class="comment-text">{{ $ul->ulasan }}</p>
-                        <span class="comment-date">{{ $ul->tanggal }}</span>
-                    </div>
-                </div>
-            @endforeach --}}
-
-            <!-- Komentar kedua -->
-            {{-- <div class="comment-card">
-            <img src="/assets/images/author2.jpg" alt="Profile Picture" class="profile-picture">
-            <div class="comment-info">
-                <span class="username">PenggunaLain123</span>
-                <p class="comment-text">Ini adalah komentar lainnya. Mungkin lebih singkat.</p>
-                <span class="comment-date">08 Desember 2023</span>
-            </div>
-        </div>
-    </div>
-  </div> --}}
-            {{-- <script>
-    const triggerTabList = document.querySelectorAll('#myTab button')
-        triggerTabList.forEach(triggerEl => {
-        const tabTrigger = new bootstrap.Tab(triggerEl)
-
-        triggerEl.addEventListener('click', event => {
-            event.preventDefault()
-            tabTrigger.show()
-        })
-        })
-  </script> --}}
         @endsection
