@@ -1,47 +1,63 @@
 @extends('layouts.layoutUser')
 
 @section('content')
-    <style>
-        .comment-card {
-            display: flex;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
+<style>
+    .semua {
+        background-color: #ffffff; /* Ganti warna latar belakang sesuai kebutuhan Anda */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Efek bayangan untuk elemen */
+    }
 
-        /* Foto profil */
-        .profile-picture {
-            border-radius: 50%;
-            margin-right: 15px;
-            width: 80px;
-            height: 80px;
-        }
+    .title {
+        background-color: #ffffff; /* Ganti warna latar belakang sesuai kebutuhan Anda */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Efek bayangan untuk elemen */
+    }
 
-        /* Informasi komentar (nama dan tanggal) */
-        .comment-info {
-            flex-grow: 1;
-        }
+    .tab-pane {
+        margin-top: 20px;
+    }
 
-        /* Nama pengguna */
-        .username {
-            font-weight: bold;
-            font-size: 1.2em;
-        }
+    .card {
+        background-color: #bebaba; /* Ganti warna latar belakang sesuai kebutuhan Anda */
+        padding: 15px;
+        margin: 10px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Efek bayangan untuk elemen */
+    }
 
-        /* Isi komentar */
-        .comment-text {
-            font-size: 1.1em;
-            margin-top: 8px;
-        }
+    /* font nya */
 
-        /* Tanggal komentar */
-        .comment-date {
-            font-size: 0.9em;
-            color: #777777;
-            margin-top: 8px;
-        }
-    </style>
+    h2, h4, h6 {
+        color: #343a40; /* Warna teks sesuai kebutuhan Anda */
+    }
+
+    p, span {
+        color: #6c757d; /* Warna teks sesuai kebutuhan Anda */
+    }
+
+    /* Atur ukuran dan gaya huruf sesuai kebutuhan */
+    h2 {
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    h4 {
+        font-size: 20px;
+    }
+
+    h6 {
+        font-size: 16px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+</style>
+
+
     <ul class="nav justify-content-center nav-tabs" id="myTab" role="tablist"
         style="align-items: center; align-content:center">
         <li class="nav-item" role="presentation" style="align-items: center; align-content:center;">
@@ -56,20 +72,25 @@
     <div class="tab-content">
         <div class="tab-pane fade show active" id="mapel" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
             <div class="semua">
-                <h2 style="margin-bottom: 20px; margin-top: 20px;">Detail Materi</h2>
+                <h2 style="margin-bottom: 20px; margin-top: 20px;">Detail Materi:</h2>
                 <div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
 
                     <div class="cover">
                         <img style="width: 500px;" src="{{ asset('storage/default/' . $materi->cover) }}">
                     </div>
                     <div class="title" style="margin-bottom: 50px;">
+                       <div class="card-header" style="background-color: #ffffff">
                         <div class="kelas d-flex">
                             <h4 style="margin-right:auto">{{ $materi->mapel }}</h4>
                             <h6>Kelas : {{ $materi->kelas }}</h6>
                         </div>
-                        <h1 style="font-size: 80px;"><strong>{{ $materi->nama_materi }}</strong></h1>
+                       </div>
+                        <br>
+                        <h1 style="font-size: 80px; gap-5"><strong>{{ $materi->nama_materi }}</strong></h1>
+                        <br>
                         <div class="content">
-                                <p style="font-size: 20px;">{{ $materi->keterangan_benefit }}</p>
+                                <p style="font-size: 20px;">Benefit materi: {{ $materi->keterangan_benefit }}</p>
+                                <br>
 
                             <p><strong>Pemateri : {{ $materi->guru->user->name }}</strong></p>
                         </div>
