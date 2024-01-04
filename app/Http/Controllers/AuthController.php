@@ -186,7 +186,6 @@ class AuthController extends Controller
                 // 'foto_sertifikat' => $foto_sertifikatName,
                 // 'foto_ktp' => $foto_ktpName,
             ]);
-
             // Find admin user
             $admin = User::where('role', 'admin')->first();
 

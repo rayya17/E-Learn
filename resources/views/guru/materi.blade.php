@@ -175,7 +175,7 @@
                                                          <div class="modal-body">
                                                              <form action="{{ route('tugas', $mtr->id) }}" method="POST" enctype="multipart/form-data">
                                                                  @csrf
-                                                                 @dump($mtr->id)
+                                                                
                                                                  <label for="inputText"
                                                                      class="col-sm-12 col-form-label">File Materi <span
                                                                          style="font-size: 12px; color: #b9b7b7;">(File

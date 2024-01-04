@@ -164,6 +164,6 @@
 
         <h1> 404 Error.</h1>
         <p>Halaman Ini Tidak Tersedia.</p>
-        <a href="{{ route('landingpage') }}"><button>Kembali ke Home</button></a>
+        <a href="#"><button>Kembali ke Home</button></a>
     </div>
 </div>

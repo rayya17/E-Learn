@@ -148,7 +148,7 @@
 
     <!-- Tampilan Komentar Card -->
     <div id="itemKomentar">
-        @foreach ($komentar as $km)
+        @foreach ($komentar->where('parent_id', null) as $km)
             <div class="card mb-4 comment-{{ $km->id }}">
                 <div class="chat px-4 pt-3 d-flex justify-content-between">
                     <div class="left d-flex">
