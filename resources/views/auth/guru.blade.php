@@ -121,9 +121,12 @@
                                                                 <label for="text-confirm-pwd"
                                                                     class="form-label text-dark fw-bold">Foto
                                                                     Anda</label>
-                                                                <input type="file" class="form-control py-6"
-                                                                    id="text-confirm-pwd" name="foto_user" id="foto_user"
-                                                                    class="form-control">
+                                                                <input type="file" class="form-control py-6 "
+                                                                    id="text-confirm-pwd" name="foto_user" id="foto_user" value="{{ old('foto_user') }}"
+                                                                    class="form-control @error('foto_user')is-invalid @enderror">
+                                                                    @error('foto_user')
+                                                                        <p class="text-danger">{{ $message }}</p>
+                                                                    @enderror
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -131,9 +134,12 @@
                                                                 <label for="text-confirm-pwd"
                                                                     class="form-label text-dark fw-bold">No
                                                                     Telepon</label>
-                                                                <input type="number" class="form-control py-6"
-                                                                    id="text-confirm-pwd" name="no_telepon"
-                                                                    class="form-control">
+                                                                <input type="number" class="form-control py-6 "
+                                                                    id="text-confirm-pwd" name="no_telepon" value="{{ old('no_telepon') }}"
+                                                                    class="form-control @error('no_telepon')is-invalid @enderror">
+                                                                    @error('no_telepon')
+                                                                        <p class="text-danger">{{ $message }}</p>
+                                                                    @enderror
                                                             </div>
                                                         </div>
                                                     </div>
@@ -144,18 +150,24 @@
                                                             <div class="form-group">
                                                                 <label for="text-confirm-pwd"
                                                                     class="form-label text-dark fw-bold">Pendidikan Terakhir</label>
-                                                                <input type="text" class="form-control py-6"
-                                                                    id="text-confirm-pwd" name="pendidikan" id="pendidikan"
-                                                                    class="form-control">
+                                                                <input type="text" class="form-control py-6 "
+                                                                    id="text-confirm-pwd" name="pendidikan" id="pendidikan" value="{{ old('pendidikan') }}"
+                                                                    class="form-control @error('pendidikan')is-invalid @enderror">
+                                                                    @error('pendidikan')
+                                                                        <p class="text-danger">{{ $message }}</p>
+                                                                    @enderror
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="text-confirm-pwd"
                                                                     class="form-label text-dark fw-bold">Tanggal Lahir</label>
-                                                                <input type="date" class="form-control py-6"
-                                                                    id="text-confirm-pwd" name="tanggal_lahir"
-                                                                    class="form-control">
+                                                                <input type="date" class="form-control py-6 "
+                                                                    id="text-confirm-pwd" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}"
+                                                                    class="form-control @error('tanggal_lahir')is-invalid @enderror">
+                                                                    @error('tanggal_lahir')
+                                                                        <p class="text-danger">{{ $message }}</p>
+                                                                    @enderror
                                                             </div>
                                                         </div>
                                                     </div>
@@ -164,9 +176,8 @@
                                                 <div class="form-group">
                                                     <label for="text-alamat"
                                                         class="form-label text-dark fw-bold">Alamat</label>
-                                                    <textarea type="text" class="form-control py-6" id="text-alamat"
-                                                        value="{{ old('alamat') }}" name="alamat"
-                                                        class="form-control @error('alamat')is-invalid @enderror"></textarea>
+                                                    <textarea type="text" class="form-control py-6 " id="text-alamat"
+                                                        value="{{ old('alamat') }}" name="alamat" class="form-control @error('alamat')is-invalid @enderror"></textarea>
                                                         @error('alamat')
                                                             <p class="text-danger">{{ $message }}</p>
                                                         @enderror

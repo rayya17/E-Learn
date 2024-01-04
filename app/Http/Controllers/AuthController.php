@@ -76,22 +76,25 @@ class AuthController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:users,name',
             'email' => 'required|email|unique:users,email',
             'no_telepon' => 'required|numeric|digits_between:10,12',
-            'asal_sekolah' => 'required',
+            'tanggal_lahir' => 'required|date|before:today',
+            'foto_user' => 'image|mimes:jpeg,png,jpg',
             'password' => 'required|min:6',
             're-password' => 'required|same:password',
-
         ], [
             'name.required' => 'Nama tidak boleh kosong.',
+            'name.unique' => 'Nama sudah digunakan.',
             'email.required' => 'Email harus diisi.',
             'email.email' => 'Format email tidak valid.',
             'email.unique' => 'Email sudah terdaftar.',
             'no_telepon.required' => 'Nomor telepon harus diisi.',
             'no_telepon.numeric' => 'Nomor telepon harus berupa angka.',
-            'no_telepon.digits_between'=> 'nomor telepon antara 10 sampai 12 angka',
-            'asal_sekolah.required' => 'Asal sekolah harus diisi.',
+            'no_telepon.digits_between' => 'Nomor telepon antara 10 sampai 12 angka.',
+            'tanggal_lahir.required' => 'Tanggal lahir harus diisi.',
+            'tanggal_lahir.date' => 'Format tanggal lahir tidak valid.',
+            'tanggal_lahir.before' => 'Tanggal lahir harus sebelum hari ini.',
             'password.required' => 'Password harus diisi.',
             'password.min' => 'Password minimal 6 karakter.',
             're-password.required' => 'Konfirmasi password harus diisi.',
@@ -128,8 +131,8 @@ class AuthController extends Controller
             'name' => 'required|unique:users,name',
             'email' => 'required|email|unique:users,email',
             'no_telepon' => 'required|numeric|digits_between:10,12',
-            'tanggal_lahir' => 'required',
-            'foto_user' => 'image|mimes:jpeg,png,jpg',
+            'tanggal_lahir' => 'required|date|before:today',
+            'foto_user' => 'required|image|mimes:jpeg,png,jpg,jfif',
             'password' => 'required|min:6',
             're-password' => 'required|same:password',
         ], [
@@ -140,13 +143,19 @@ class AuthController extends Controller
             'email.unique' => 'Email sudah terdaftar.',
             'no_telepon.required' => 'Nomor telepon harus diisi.',
             'no_telepon.numeric' => 'Nomor telepon harus berupa angka.',
-            'no_telepon.digits_between'=> 'nomor telepon antara 10 sampai 12 angka',
-            'tanggal_lahir.required' => ' harus diisi.',
+            'no_telepon.digits_between' => 'Nomor telepon antara 10 sampai 12 angka.',
+            'tanggal_lahir.required' => 'Tanggal lahir harus diisi.',
+            'tanggal_lahir.date' => 'Format tanggal lahir tidak valid.',
+            'tanggal_lahir.before' => 'Tanggal lahir harus sebelum hari ini.',
+            'foto_user.required' => 'Foto harus diisi.',
+            'foto_user.image' => 'File harus berupa gambar.',
+            'foto_user.mimes' => 'Format file gambar tidak valid. Hanya diperbolehkan format jpeg, png, jpg, atau jfif.',
             'password.required' => 'Password harus diisi.',
             'password.min' => 'Password minimal 6 karakter.',
             're-password.required' => 'Konfirmasi password harus diisi.',
             're-password.same' => 'Konfirmasi password tidak cocok dengan password.',
         ]);
+
 
         $foto_user = $request->file('foto_user');
         $foto_userName = uniqid() . '.' . $foto_user->getClientOriginalExtension();
