@@ -227,237 +227,223 @@
     <header class="header">
         <!-- Header Inner -->
         <div class="header-inner overlay">
-            <div class="">
+            <div class="row">
+                <div class="col-md-10 col-12">
+                    <nav class="navbar navbar-default">
+                        <div class="navbar-collapse">
+                            <!-- Main Menu -->
+                            <ul id="nav" class="nav menu navbar-nav">
+                                <li
+                                    class="{{ request()->is('home') && !request()->has('kategori') && !request()->has('search') ? 'active' : '' }}">
+                                    <a href="/home"
+                                        @if (request()->is('home') && !request()->has('kategori') && !request()->has('search')) style="color: #ffffff" @endif>
 
-                <div class="row">
+                                        <i></i>Home
+                                    </a>
+                                </li>
+                                <li
+                                    class="nav-item {{ request()->get('kategori') == '10' ? 'active' : 'collapsed' }}">
+                                    <a class="nav-link filter-link" data-kategori="10"
+                                        @if (request()->get('kategori') == '10') style="color: #ffffff" @endif
+                                        href="{{ route('HomePage', ['kategori' => '10', 'search' => request('search')]) }}"
+                                        aria-current="page">Kelas 10</a>
+                                </li>
+                                <li
+                                    class="nav-item {{ request()->get('kategori') == '11' ? 'active' : 'collapsed' }}">
+                                    <a class="nav-link filter-link" data-kategori="11"
+                                        @if (request()->get('kategori') == '11') style="color: #ffffff" @endif
+                                        href="{{ route('HomePage', ['kategori' => '11', 'search' => request('search')]) }}">Kelas
+                                        11</a>
+                                </li>
+                                <li
+                                    class="nav-item {{ request()->get('kategori') == '12' ? 'active' : 'collapsed' }}">
+                                    <a class="nav-link filter-link" data-kategori="12"
+                                        @if (request()->get('kategori') == '12') style="color: #ffffff" @endif
+                                        href="{{ route('HomePage', ['kategori' => '12', 'search' => request('search')]) }}">Kelas
+                                        12</a>
+                                </li>
 
-                    <div class="col-lg-11 col-md-11 col-12">
-                        <div class="menu-bar">
-                            <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
-                                <!-- Navbar content -->
-                            </nav>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"
+                                        id="notificationIcon" style="margin-top: 10px">
+                                        <i class="fa-regular fa-bell" id="bellIcon"
+                                            style="font-size: 22px; color: #ffff; margin-right: 25px; position: relative;">
+                                            @if ($unreadNotificationsCount > 0)
+                                                <span id="notif-count"
+                                                    class="badge seniman-badge bg-danger text-white"
+                                                    style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
+                                            @endif
+                                        </i>
+                                        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                                        <script>
+                                            $(document).ready(function() {
+                                                // Ambil token CSRF dari meta tag
+                                                var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-                            <nav class="navbar navbar-default">
-                                <div class="navbar-collapse">
-                                    <!-- Main Menu -->
-                                    <ul id="nav" class="nav menu navbar-nav">
-                                        <li
-                                            class="{{ request()->is('home') && !request()->has('kategori') && !request()->has('search') ? 'active' : '' }}">
-                                            <a href="/home"
-                                                @if (request()->is('home') && !request()->has('kategori') && !request()->has('search')) style="color: #ffffff" @endif>
+                                                // Menangani klik pada notifikasi
+                                                $('.notification-item').on('click', function(e) {
+                                                    e.preventDefault();
+                                                    var notificationId = $(this).data('notification-id');
+                                                    var $notificationItem = $(this);
 
-                                                <i></i>Home
-                                            </a>
-                                        </li>
-                                        <li
-                                            class="nav-item {{ request()->get('kategori') == '10' ? 'active' : 'collapsed' }}">
-                                            <a class="nav-link filter-link" data-kategori="10"
-                                                @if (request()->get('kategori') == '10') style="color: #ffffff" @endif
-                                                href="{{ route('HomePage', ['kategori' => '10', 'search' => request('search')]) }}"
-                                                aria-current="page">Kelas 10</a>
-                                        </li>
-                                        <li
-                                            class="nav-item {{ request()->get('kategori') == '11' ? 'active' : 'collapsed' }}">
-                                            <a class="nav-link filter-link" data-kategori="11"
-                                                @if (request()->get('kategori') == '11') style="color: #ffffff" @endif
-                                                href="{{ route('HomePage', ['kategori' => '11', 'search' => request('search')]) }}">Kelas
-                                                11</a>
-                                        </li>
-                                        <li
-                                            class="nav-item {{ request()->get('kategori') == '12' ? 'active' : 'collapsed' }}">
-                                            <a class="nav-link filter-link" data-kategori="12"
-                                                @if (request()->get('kategori') == '12') style="color: #ffffff" @endif
-                                                href="{{ route('HomePage', ['kategori' => '12', 'search' => request('search')]) }}">Kelas
-                                                12</a>
-                                        </li>
+                                                    // Lakukan AJAX untuk menandai notifikasi sebagai sudah dibaca
+                                                    $.ajax({
+                                                        url: '{{ route('notifDelete', ['id' => ':id']) }}'.replace(':id',
+                                                            notificationId),
+                                                        method: 'POST',
+                                                        // Sertakan token CSRF dalam header
+                                                        headers: {
+                                                            'X-CSRF-TOKEN': csrfToken,
+                                                        },
+                                                        success: function(response) {
+                                                            if (response.success) {
+                                                                // Perbarui tampilan notifikasi di frontend
+                                                                $('#notificationIcon #notif-count').text(response
+                                                                    .unreadNotificationcount);
 
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"
-                                            id="notificationIcon" style="margin-top: 10px">
-                                            <i class="fa-regular fa-bell" id="bellIcon"
-                                                style="font-size: 22px; color: #ffff; margin-right: 25px; position: relative;">
-                                                @if ($unreadNotificationsCount > 0)
-                                                    <span id="notif-count"
-                                                        class="badge seniman-badge bg-danger text-white"
-                                                        style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
-                                                @endif
-                                            </i>
-                                            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-                                            <script>
-                                                $(document).ready(function() {
-                                                    // Ambil token CSRF dari meta tag
-                                                    var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-                                                    // Menangani klik pada notifikasi
-                                                    $('.notification-item').on('click', function(e) {
-                                                        e.preventDefault();
-                                                        var notificationId = $(this).data('notification-id');
-                                                        var $notificationItem = $(this);
-
-                                                        // Lakukan AJAX untuk menandai notifikasi sebagai sudah dibaca
-                                                        $.ajax({
-                                                            url: '{{ route('notifDelete', ['id' => ':id']) }}'.replace(':id',
-                                                                notificationId),
-                                                            method: 'POST',
-                                                            // Sertakan token CSRF dalam header
-                                                            headers: {
-                                                                'X-CSRF-TOKEN': csrfToken,
-                                                            },
-                                                            success: function(response) {
-                                                                if (response.success) {
-                                                                    // Perbarui tampilan notifikasi di frontend
-                                                                    $('#notificationIcon #notif-count').text(response
-                                                                        .unreadNotificationcount);
-
-                                                                    // Hapus notifikasi dari tampilan tanpa reload
-                                                                    $notificationItem.remove();
-                                                                }
-                                                            },
-                                                            error: function(error) {
-                                                                console.error(error);
+                                                                // Hapus notifikasi dari tampilan tanpa reload
+                                                                $notificationItem.remove();
                                                             }
-                                                        });
+                                                        },
+                                                        error: function(error) {
+                                                            console.error(error);
+                                                        }
                                                     });
                                                 });
-                                            </script>
-                                        </a>
-                                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications"
-                                                style="min-width: 300px; max-height: 350px ; overflow-y: auto; margin-right: 20px !important; margin-left: -257px">
-                                                <li class="dropdown-header">
-                                                    <center>
-                                                        <span
-                                                            style="font-size: 20px; margin-left: 75px;">Notifikasi</span>
-                                                    </center>
-                                                </li>
-                                                <hr style="margin-bottom: 0px; margin-top: 45px;">
-                                                <center>
-                                                    @if (count($Notifikasi) > 0)
-                                                        @foreach ($Notifikasi as $notifikasi)
-                                                            <li class="notification-item"
-                                                                data-notification-id="{{ $notifikasi->id }}">
-                                                                <div class="profile">
-                                                                    @if ($notifikasi->user && $notifikasi->user->foto_user)
-                                                                        <img width="20px" height="20px"
-                                                                            class="rounded-circle border me-2"
-                                                                            src="{{ $notifikasi->user->foto_user }}"
-                                                                            alt="{{ $notifikasi->user->name }}">
-                                                                    @else
-                                                                        <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
-                                                                        <img width="50px" height="50px"
-                                                                            class="rounded-circle border me-2"
-                                                                            src="storage/default/defaultprofile.jpeg"
-                                                                            alt="Placeholder">
-                                                                    @endif
-                                                                </div>
-                                                                <div class="notif-text w-100">
-                                                                    <div class="username">
-                                                                        <p class="mb-1"
-                                                                            style="color: #555; margin-left: 70px;">
-                                                                            {{ $notifikasi->title }}</p>
-                                                                    </div>
-                                                                    <div class="message">{{ $notifikasi->message }}
-                                                                    </div>
-                                                                    <div class="date">
-                                                                        <p class="mb-0"
-                                                                            style="color: #555; margin-left: 70px;">
-                                                                            {{ $notifikasi->created_at->diffForHumans() }}
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <hr class="dropdown-divider">
-                                                            </li>
-                                                        @endforeach
-                                                    @else
-                                                        <li class="no-notif pt-3">
-                                                            <p class="mb-0" style="color: #555; margin-left: 70px;">
-                                                                Tidak ada notifikasi</p>
-                                                        </li>
-                                                    @endif
-                                                </center>
-                                            </ul>
+                                            });
+                                        </script>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications"
+                                        style="min-width: 300px; max-height: 350px ; overflow-y: auto; margin-right: 20px !important; margin-left: -257px">
+                                        <li class="dropdown-header">
+                                            <center>
+                                                <span style="font-size: 20px; margin-left: 75px;">Notifikasi</span>
+                                            </center>
                                         </li>
-
-                                        <!-- Kode Anda -->
-<li class="nav-item">
-    <div class="search-area">
-        <a href="#header" class="icon"><i style="font-size: 20px" class="fa fa-search"></i></a>
-        <form class="search-form" action="{{ route('HomePage') }}" method="GET">
-            <input type="text" placeholder="ex: premium course" name="search">
-            <input type="hidden" name="kategori" value="{{ request('kategori') }}">
-            <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
-    </div>
-</li>
-
-                                        <li class="nav-item px-5">
-                                            <a class="nav-link nav-profile d-flex align-items-center pe-0"
-                                                href="#" id="navbarDropdown" role="button"
-                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                @if (Auth::user()->foto_user)
-                                                    <img src="{{ asset('storage/' . Auth::user()->foto_user) }}"
-                                                        width="50px" height="50px" alt="Profile"
-                                                        class="rounded-circle profile-image">
-                                                    <span class="d-none d-md-block dropdown-toggle ps-2"
-                                                        style="margin-left: 15px;"></span>
-                                                @else
-                                                    <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
-                                                    <img width="50px" height="50px"
-                                                        class="rounded-circle profile-image"
-                                                        src="{{ asset('storage/default/defaultprofile.jpeg') }}"
-                                                        alt="Placeholder">
-                                                    <span class="d-none d-md-block dropdown-toggle ps-2"
-                                                        style="margin-left: 15px;"></span>
-                                                @endif
-                                            </a>
-                                            <ul class="dropdown" style="width: 150px;">
-                                                <li>
-                                                    <a class="dropdown-item d-flex align-items-center"
-                                                        href="{{ route('Profile') }}">
-                                                        <i class="fa-solid fa-user"
-                                                            style="margin-top: 0px; padding-top: 0px;"></i>
-                                                        <span style="margin-left:20px;">My Profile</span>
-                                                    </a>
+                                        <hr style="margin-bottom: 0px; margin-top: 45px;">
+                                        <center>
+                                            @if (count($Notifikasi) > 0)
+                                                @foreach ($Notifikasi as $notifikasi)
+                                                    <li class="notification-item"
+                                                        data-notification-id="{{ $notifikasi->id }}">
+                                                        <div class="profile">
+                                                            @if ($notifikasi->user && $notifikasi->user->foto_user)
+                                                                <img width="20px" height="20px"
+                                                                    class="rounded-circle border me-2"
+                                                                    src="{{ $notifikasi->user->foto_user }}"
+                                                                    alt="{{ $notifikasi->user->name }}">
+                                                            @else
+                                                                <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
+                                                                <img width="50px" height="50px"
+                                                                    class="rounded-circle border me-2"
+                                                                    src="storage/default/defaultprofile.jpeg"
+                                                                    alt="Placeholder">
+                                                            @endif
+                                                        </div>
+                                                        <div class="notif-text w-100">
+                                                            <div class="username">
+                                                                <p class="mb-1"
+                                                                    style="color: #555; margin-left: 70px;">
+                                                                    {{ $notifikasi->title }}</p>
+                                                            </div>
+                                                            <div class="message">{{ $notifikasi->message }}
+                                                            </div>
+                                                            <div class="date">
+                                                                <p class="mb-0"
+                                                                    style="color: #555; margin-left: 70px;">
+                                                                    {{ $notifikasi->created_at->diffForHumans() }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <hr class="dropdown-divider">
+                                                    </li>
+                                                @endforeach
+                                            @else
+                                                <li class="no-notif pt-3">
+                                                    <p class="mb-0" style="color: #555; margin-left: 70px;">
+                                                        Tidak ada notifikasi</p>
                                                 </li>
-                                                {{-- <li><a href="{{route('Profile')}}"><i class="fa-solid fa-user" style=""></i>Profile</a></li> --}}
-                                                <li>
-                                                    <form action="{{ route('logout') }}" method="POST">
-                                                        @csrf
-                                                        <button type="submit"
-                                                            class="dropdown-item d-flex align-items-center"
-                                                            style="border: none; background: none; cursor: pointer;">
-                                                            <i class="fa-solid fa-right-from-bracket"
-                                                                style="margin-top: 0px; padding-top: 0px;"></i>
-                                                            <span style="margin-left:20px;">Keluar</span>
-                                                        </button>
-                                                    </form>
-                                                </li>
-                                                {{-- <li>
-                                                    <form id="logoutForm" action="{{ route('logout') }}" method="POST">
-                                                    @csrf
-                                              hom      <a href="#" onclick="document.getElementById('logoutForm').submit();">
-                                                        <i class="fa-solid fa-right-from-bracket"></i>
-                                                        <span>Keluar</span>
-                                                    </a>
-                                                </form>
-                                            </li> --}}
-                                            </ul>
-                                        </li>
+                                            @endif
+                                        </center>
                                     </ul>
-                                    <!-- End Main Menu -->
-                                </div>
-                            </nav>
+                                </li>
+
+                                <!-- Kode Anda -->
+                                <li class="nav-item">
+                                    <div class="search-area">
+                                        <a href="#header" class="icon"><i style="font-size: 20px"
+                                                class="fa fa-search"></i></a>
+                                        <form class="search-form" action="{{ route('HomePage') }}"
+                                            method="GET">
+                                            <input type="text" placeholder="ex: premium course"
+                                                name="search">
+                                            <input type="hidden" name="kategori"
+                                                value="{{ request('kategori') }}">
+                                            <button type="submit"><i class="fa fa-search"></i></button>
+                                        </form>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item px-5">
+                                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+                                        id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        @if (Auth::user()->foto_user)
+                                            <img src="{{ asset('storage/' . Auth::user()->foto_user) }}"
+                                                width="50px" height="50px" alt="Profile"
+                                                class="rounded-circle profile-image">
+                                            <span class="d-none d-md-block dropdown-toggle ps-2"
+                                                style="margin-left: 15px;"></span>
+                                        @else
+                                            <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
+                                            <img width="50px" height="50px"
+                                                class="rounded-circle profile-image"
+                                                src="{{ asset('storage/default/defaultprofile.jpeg') }}"
+                                                alt="Placeholder">
+                                            <span class="d-none d-md-block dropdown-toggle ps-2"
+                                                style="margin-left: 15px;"></span>
+                                        @endif
+                                    </a>
+                                    <ul class="dropdown" style="width: 150px;">
+                                        <li>
+                                            <a class="dropdown-item d-flex align-items-center"
+                                                href="{{ route('Profile') }}">
+                                                <i class="fa-solid fa-user"
+                                                    style="margin-top: 0px; padding-top: 0px;"></i>
+                                                <span style="margin-left:20px;">My Profile</span>
+                                            </a>
+                                        </li>
+                                        {{-- <li><a href="{{route('Profile')}}"><i class="fa-solid fa-user" style=""></i>Profile</a></li> --}}
+                                        <li>
+                                            <form action="{{ route('logout') }}" method="POST">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="dropdown-item d-flex align-items-center"
+                                                    style="border: none; background: none; cursor: pointer;">
+                                                    <i class="fa-solid fa-right-from-bracket"
+                                                        style="margin-top: 0px; padding-top: 0px;"></i>
+                                                    <span style="margin-left:20px;">Keluar</span>
+                                                </button>
+                                            </form>
+                                        </li>
+                                        {{-- <li>
+                                            <form id="logoutForm" action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                      hom      <a href="#" onclick="document.getElementById('logoutForm').submit();">
+                                                <i class="fa-solid fa-right-from-bracket"></i>
+                                                <span>Keluar</span>
+                                            </a>
+                                        </form>
+                                    </li> --}}
+                                    </ul>
+                                </li>
+                            </ul>
+                            <!-- End Main Menu -->
                         </div>
-                    </div>
+                    </nav>
                 </div>
-                {{-- <div id="kelas" class="kelas">
-                    <!-- Your existing navbar content goes here -->
-                    <a href="/home">Kelas 10</a>
-                    <a href="courses.html">Kelas 11</a>
-                    <a href="events.html"></a>
-                    <!-- Add other navbar links as needed -->
-                </div> --}}
             </div>
         </div>
         <!--/ End Header Inner -->
