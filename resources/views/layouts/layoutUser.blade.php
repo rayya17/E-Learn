@@ -195,7 +195,7 @@
         /* Update CSS for #notif-count */
         #notif-count {
             position: absolute;
-            top: 0;
+            top: -5px;
             right: 0;
             /* Add other styling as needed */
         }
@@ -219,6 +219,13 @@
             color: #555;
             margin-left: 70px;
         } */
+
+        .dropdown img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
     </style>
 </head>
 
@@ -264,48 +271,43 @@
                                 </li>
 
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"
-                                        id="notificationIcon" style="margin-top: 10px">
+                                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" id="notificationIcon" style="margin-top: 10px">
                                         <i class="fa-regular fa-bell" id="bellIcon"
                                             style="font-size: 22px; color: #ffff; margin-right: 25px; position: relative;">
                                             @if ($unreadNotificationsCount > 0)
-                                                <span id="notif-count"
-                                                    class="badge seniman-badge bg-danger text-white"
-                                                    style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
+                                                <span id="notif-count" class="badge seniman-badge bg-danger text-white" style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
                                             @endif
                                         </i>
                                         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
                                         <script>
-                                            $(document).ready(function() {
+                                            $(document).ready(function () {
                                                 // Ambil token CSRF dari meta tag
                                                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
                                                 // Menangani klik pada notifikasi
-                                                $('.notification-item').on('click', function(e) {
-                                                    e.preventDefault();
+                                                $('.notification-item').on('click', function (e) {
+                                                    e.preventDefault(); // Menghentikan tindakan default dari tautan
                                                     var notificationId = $(this).data('notification-id');
                                                     var $notificationItem = $(this);
 
                                                     // Lakukan AJAX untuk menandai notifikasi sebagai sudah dibaca
                                                     $.ajax({
-                                                        url: '{{ route('notifDelete', ['id' => ':id']) }}'.replace(':id',
-                                                            notificationId),
+                                                        url: '{{ route('notifDelete', ['id' => ':id']) }}'.replace(':id', notificationId),
                                                         method: 'POST',
                                                         // Sertakan token CSRF dalam header
                                                         headers: {
                                                             'X-CSRF-TOKEN': csrfToken,
                                                         },
-                                                        success: function(response) {
+                                                        success: function (response) {
                                                             if (response.success) {
                                                                 // Perbarui tampilan notifikasi di frontend
-                                                                $('#notificationIcon #notif-count').text(response
-                                                                    .unreadNotificationcount);
+                                                                $('#notificationIcon #notif-count').text(response.unreadNotificationcount);
 
                                                                 // Hapus notifikasi dari tampilan tanpa reload
                                                                 $notificationItem.remove();
                                                             }
                                                         },
-                                                        error: function(error) {
+                                                        error: function (error) {
                                                             console.error(error);
                                                         }
                                                     });
@@ -313,63 +315,52 @@
                                             });
                                         </script>
                                     </a>
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications"
-                                        style="min-width: 300px; max-height: 350px ; overflow-y: auto; margin-right: 20px !important; margin-left: -257px">
+
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" style="min-width: 360px; max-height: 350px ; overflow-y: auto; margin-right: 20px !important; margin-left: -257px">
                                         <li class="dropdown-header">
                                             <center>
-                                                <span style="font-size: 20px; margin-left: 75px;">Notifikasi</span>
+                                                <span style="font-size: 20px; margin-left: 105px;">Notifikasi</span>
                                             </center>
                                         </li>
                                         <hr style="margin-bottom: 0px; margin-top: 45px;">
-                                        <center>
-                                            @if (count($Notifikasi) > 0)
-                                                @foreach ($Notifikasi as $notifikasi)
-                                                    <li class="notification-item"
-                                                        data-notification-id="{{ $notifikasi->id }}">
-                                                        <div class="profile">
-                                                            @if ($notifikasi->user && $notifikasi->user->foto_user)
-                                                                <img width="20px" height="20px"
-                                                                    class="rounded-circle border me-2"
-                                                                    src="{{ $notifikasi->user->foto_user }}"
-                                                                    alt="{{ $notifikasi->user->name }}">
-                                                            @else
-                                                                <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
-                                                                <img width="50px" height="50px"
-                                                                    class="rounded-circle border me-2"
-                                                                    src="storage/default/defaultprofile.jpeg"
-                                                                    alt="Placeholder">
-                                                            @endif
+                                        @if (count($Notifikasi) > 0)
+                                            @foreach ($Notifikasi as $notifikasi)
+                                                <li class="notification-item" data-notification-id="{{ $notifikasi->id }}">
+                                                    <div class="profile" style="margin-right: 10px">
+                                                        @if ($notifikasi->sender->foto_user)
+                                                        <img width="60px" height="60px" class="rounded-circle border me-2"
+                                                            src="{{ asset('/storage/profile/' . $notifikasi->sender->foto_user) }}" alt="{{ $notifikasi->sender->name }}">
+                                                    @else
+                                                        <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
+                                                        <img width="50px" height="50px" class="rounded-circle border me-2"
+                                                            src="{{ asset('/storage/default/defaultprofile.jpeg') }}" alt="Placeholder">
+                                                    @endif
+                                                    </div>
+                                                    <div class="notif-text w-200">
+                                                        <div class="username">
+                                                            <p class="mb-1"><strong>{{ $notifikasi->title }}</strong></p>
                                                         </div>
-                                                        <div class="notif-text w-100">
-                                                            <div class="username">
-                                                                <p class="mb-1"
-                                                                    style="color: #555; margin-left: 70px;">
-                                                                    {{ $notifikasi->title }}</p>
-                                                            </div>
-                                                            <div class="message">{{ $notifikasi->message }}
-                                                            </div>
-                                                            <div class="date">
-                                                                <p class="mb-0"
-                                                                    style="color: #555; margin-left: 70px;">
-                                                                    {{ $notifikasi->created_at->diffForHumans() }}
-                                                                </p>
-                                                            </div>
+                                                        <div class="message">
+                                                            <p style="font-size: 13px;">{{ $notifikasi->message }}</p>
                                                         </div>
-                                                    </li>
-                                                    <li>
-                                                        <hr class="dropdown-divider">
-                                                    </li>
-                                                @endforeach
-                                            @else
-                                                <li class="no-notif pt-3">
-                                                    <p class="mb-0" style="color: #555; margin-left: 70px;">
-                                                        Tidak ada notifikasi</p>
+                                                        <div class="date">
+                                                            <p class="mb-0">{{ $notifikasi->created_at->diffForHumans() }}</p>
+                                                        </div>
+                                                    </div>
                                                 </li>
-                                            @endif
-                                        </center>
+                                                <li>
+                                                    <hr class="dropdown-divider">
+                                                </li>
+                                            @endforeach
+                                        @else
+                                            <li class="no-notif pt-3">
+                                                <p class="mb-0" style="color: #555; margin-left: 70px;">Tidak ada notifikasi</p>
+                                            </li>
+                                        @endif
                                     </ul>
+                                    <!-- End Notification Dropdown Items -->
+                                    <!-- End Notification Dropdown Items -->
                                 </li>
-
                                 <!-- Kode Anda -->
                                 <li class="nav-item">
                                     <div class="search-area">

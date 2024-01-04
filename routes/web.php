@@ -28,7 +28,7 @@ use App\Http\Controllers\DetailMateriController;
 */
 
 Route::get('/', function () {
-    return view('index')->name('landingpage');
+    return view('index');
 });
 
 // Route::post('/layout',[LayoutController::class,'index'])->name('layout');

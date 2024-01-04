@@ -236,76 +236,76 @@
                                                                             <i class="fas fa-trash-alt" style="font-size: 16px;"></i>
                                                                         </button>
                                                                     </td>
+                                                                    <div class="col-lg-4 col-md-4">
+                                                                        <!-- Modal Edit -->
+                                                                        <div class="modal fade" id="EditModalTugas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                            <div class="modal-dialog">
+                                                                                <div class="modal-content">
+                                                                                    <form action="{{ route('tugas.update', $tgs->id) }}" method="post" enctype="multipart/form-data">
+                                                                                        @method('PUT')
+                                                                                        @csrf
+                                                                                        <div class="modal-header">
+                                                                                            <h4 class="modal-title" id="exampleModalLabel"><strong>Edit Tugas</strong></h4>
+                                                                                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                                                                        </div>
+                                                                                            <div class="modal-body">
+                                                                                                <label for="inputText" class="col-sm-4 col-form-label">Tugas</label>
+                                                                                                <div class="row">
+                                                                                                    <div class="col-sm-12">
+                                                                                                        <input type="text" name="tugas" class="form-control @error('tugas') is-invalid @enderror"
+                                                                                                            id="update_tugas" width="200px" value="{{ old('tugas', $tgs->tugas) }}">
+                                                                                                        @error('tugas')
+                                                                                                            <div class="invalid-feedback">
+                                                                                                                    {{ $message }}
+                                                                                                            </div>
+                                                                                                        @enderror
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <label for="inputText" class="col-sm-6 col-form-label">Deskripsi</label>
+                                                                                                <div class="row mb-2">
+                                                                                                    <div class="col-sm-12" width="200px" value="{{ old('detail_tugas', $tgs->detail_tugas) }}">
+                                                                                                        <textarea type="text" name="detail_tugas" class="form-control" id="update_detail_tugas" width="200px"
+                                                                                                            value="{{ old('detail_tugas', $tgs->detail_tugas) }}">{{ $tgs->detail_tugas }}
+                                                                                                        </textarea>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <label for="inputText" class="col-sm-6 col-form-label">Tingkat Kesulitan</label>
+                                                                                                <div class="row">
+                                                                                                    <div class="col-sm-12">
+                                                                                                        <select name="tingkat_kesulitan" id="update_tingkat_kesulitan" class="form-select @error('tingkat_kesulitan') is-invalid @enderror" value="{{ old('tingkat_kesulitan', $tgs->tingkat_kesulitan) }}">
+                                                                                                            <option value="rendah"
+                                                                                                                {{ old('tingkat_kesulitan') === 'rendah' ? 'selected' : '' }}>Rendah</option>
+                                                                                                            <option value="sedang"
+                                                                                                                {{ old('tingkat_kesulitan') === 'sedang' ? 'selected' : '' }}>Sedang</option>
+                                                                                                            <option value="tinggi"
+                                                                                                                {{ old('tingkat_kesulitan') === 'tinggi' ? 'selected' : '' }}>Tinggi</option>
+                                                                                                        </select>
+                                                                                                        @error('tingkat_kesulitan')
+                                                                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                                                                        @enderror
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <label for="inputText" class="col-sm-12 col-form-label">File Materi <span style="font-size: 12px; color: #b9b7b7;">(File berupa PDF)</span></label>
+                                                                                                <div class="row">
+                                                                                                    <div class="col-sm-12" width="200px">
+                                                                                                        <input type="file" name="file_tugas" class="form-control @error('file_tugas') is-invalid @enderror"
+                                                                                                        id="update_file_tugas" width="200px" value="{{ old('file_tugas', $tgs->file_tugas) }}">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="modal-footer">
+                                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>
+                                                                                                <button type="submit" class="btn btn-primary"> Save changes </button>
+                                                                                            </div>
+                                                                                        </form>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
                                                                 </tr>
+                                                                @endforeach
                                                         </tbody>
                                                     </table>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <!-- Modal Edit -->
-                                                        <div class="modal fade" id="EditModalTugas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <form action="{{ route('tugas.update', $tgs->id) }}" method="post" enctype="multipart/form-data">
-                                                                        @method('PUT')
-                                                                        @csrf
-                                                                        <div class="modal-header">
-                                                                            <h4 class="modal-title" id="exampleModalLabel"><strong>Edit Tugas</strong></h4>
-                                                                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                                                                        </div>
-                                                                            <div class="modal-body">
-                                                                                <label for="inputText" class="col-sm-4 col-form-label">Tugas</label>
-                                                                                <div class="row">
-                                                                                    <div class="col-sm-12">
-                                                                                        <input type="text" name="tugas" class="form-control @error('tugas') is-invalid @enderror"
-                                                                                            id="update_tugas" width="200px" value="{{ old('tugas', $tgs->tugas) }}">
-                                                                                        @error('tugas')
-                                                                                            <div class="invalid-feedback">
-                                                                                                    {{ $message }}
-                                                                                            </div>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-                                                                                <label for="inputText" class="col-sm-6 col-form-label">Deskripsi</label>
-                                                                                <div class="row mb-2">
-                                                                                    <div class="col-sm-12" width="200px" value="{{ old('detail_tugas', $tgs->detail_tugas) }}">
-                                                                                        <textarea type="text" name="detail_tugas" class="form-control" id="update_detail_tugas" width="200px"
-                                                                                            value="{{ old('detail_tugas', $tgs->detail_tugas) }}">{{ $tgs->detail_tugas }}
-                                                                                        </textarea>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <label for="inputText" class="col-sm-6 col-form-label">Tingkat Kesulitan</label>
-                                                                                <div class="row">
-                                                                                    <div class="col-sm-12">
-                                                                                        <select name="tingkat_kesulitan" id="update_tingkat_kesulitan" class="form-select @error('tingkat_kesulitan') is-invalid @enderror" value="{{ old('tingkat_kesulitan', $tgs->tingkat_kesulitan) }}">
-                                                                                            <option value="rendah"
-                                                                                                {{ old('tingkat_kesulitan') === 'rendah' ? 'selected' : '' }}>Rendah</option>
-                                                                                            <option value="sedang"
-                                                                                                {{ old('tingkat_kesulitan') === 'sedang' ? 'selected' : '' }}>Sedang</option>
-                                                                                            <option value="tinggi"
-                                                                                                {{ old('tingkat_kesulitan') === 'tinggi' ? 'selected' : '' }}>Tinggi</option>
-                                                                                        </select>
-                                                                                        @error('tingkat_kesulitan')
-                                                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                                                        @enderror
-                                                                                    </div>
-                                                                                </div>
-                                                                                <label for="inputText" class="col-sm-12 col-form-label">File Materi <span style="font-size: 12px; color: #b9b7b7;">(File berupa PDF)</span></label>
-                                                                                <div class="row">
-                                                                                    <div class="col-sm-12" width="200px">
-                                                                                        <input type="file" name="file_tugas" class="form-control @error('file_tugas') is-invalid @enderror"
-                                                                                        id="update_file_tugas" width="200px" value="{{ old('file_tugas', $tgs->file_tugas) }}">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>
-                                                                                <button type="submit" class="btn btn-primary"> Save changes </button>
-                                                                            </div>
-                                                                        </form>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                 @endforeach
                                             </div>
                                         </div>
                                     </div>
