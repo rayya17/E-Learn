@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Tugas extends Model
 {
     use HasFactory;
-    protected $guarded =[
-
+    protected $fillable =[
+        'tugas'
     ];
 
     public function materi(){

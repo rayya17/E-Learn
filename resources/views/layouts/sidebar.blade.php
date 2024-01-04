@@ -109,28 +109,58 @@
                         <div class="app-header-menu app-header-mobile-drawer align-items-stretch" data-kt-drawer="true" data-kt-drawer-name="app-header-menu" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="end" data-kt-drawer-toggle="#kt_app_header_menu_toggle" data-kt-swapper="true" data-kt-swapper-mode="{default: 'append', lg: 'prepend'}" data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_wrapper'}">
                             <!-- Menu -->
                             <div class="menu menu-rounded menu-column menu-lg-row my-5 my-lg-0 align-items-stretch fw-semibold px-2 px-lg-0" id="kt_app_header_menu" data-kt-menu="true">
-                                <!-- Menu item -->
-                                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start" class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
-                                    <a href="{{ route('Detailtugas', $materi->id) }}">
-                                        <span class="menu-link"><span class="menu-title" style="font-size: 25px">Dashboards</span>
-                                            <span class="menu-arrow d-lg-none"></span></span>
-                                    </a>
-                                </div>
-                                <!-- Menu item -->
-                                <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-start" class="menu-item here show menu-here-bg menu-lg-down-accordion me-0 me-lg-2">
-                                    <a href="{{ route('HomePage') }}">
-                                        <span class="menu-link"><span class="menu-title" style="font-size: 25px">Home</span>
-                                            <span class="menu-arrow d-lg-none"></span></span>
-                                    </a>
-                                </div>
+
+                                <div class="pagetitle">
+                                    <br>
+                                    <nav>
+                                      <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="{{ route('HomePage') }}">Home</a></li>
+                                        <li class="breadcrumb-item active"><a href="#"></a>Dashboard</li>
+                                      </ol>
+                                    </nav>
+                                  </div><!-- End Page Title -->
                             </div>
                             <!-- Menu -->
                         </div>
-                        <!-- Menu wrapper -->
+                        <!--end::Menu wrapper-->
+
                         <div class="mt-3">
                             <a href="" class="btn btn-success" onclick="history.back()">Kembali</a>
                         </div>
-                        <!-- Navbar -->
+
+                        <!--begin::Navbar-->
+
+                            <!--end::Notifications-->
+
+                            <!--begin::Chat-->
+
+                            <!--end::Chat-->
+
+                            <!--begin::My apps links-->
+
+                            <!--end::My apps links-->
+
+                            <!--begin::Theme mode-->
+
+                            <!--end::Theme mode-->
+
+                            <!--begin::User menu-->
+                            <!--end::User menu-->
+
+                            <!--begin::Header menu toggle-->
+                            <div class="app-navbar-item d-lg-none ms-2 me-n2" title="Show header menu">
+                                <div class="btn btn-flex btn-icon btn-active-color-primary w-30px h-30px"
+                                    id="kt_app_header_menu_toggle">
+                                    <i class="ki-duotone ki-element-4 fs-1"><span class="path1"></span><span
+                                            class="path2"></span></i>
+                                </div>
+                            </div>
+                            <!--end::Header menu toggle-->
+
+                            <!--begin::Aside toggle-->
+                            <!--end::Header menu toggle-->
+                        </div>
+                        <!--end::Navbar-->
                     </div>
                     <!-- Header wrapper -->
                 </div>
@@ -140,48 +170,67 @@
             <!-- Wrapper -->
             <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
                 @yield('content')
-            </div>
-            <!-- Wrapper -->
-            <!-- Sidebar -->
-            <div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="225px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
-                <!-- Logo -->
-                <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
-                    <!-- Logo image -->
-                    <a href="index.html">
-                        <img width="300" src="{{ url('storage/logoh.png') }}" alt="">
-                    </a>
-                </div>
-                <!-- Logo -->
-                <!-- Sidebar menu -->
-                <div class="app-sidebar-menu overflow-hidden flex-column-fluid">
-                    <!-- Menu wrapper -->
-                    <div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper">
-                        <!-- Scroll wrapper -->
-                        <div id="kt_app_sidebar_menu_scroll" class="scroll-y my-5 mx-3" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer" data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px" data-kt-scroll-save-state="true">
-                            <!-- Menu -->
-                            <div class="menu menu-column menu-rounded menu-sub-indention fw-semibold fs-6" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
-                                <!-- Menu item -->
-                                <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion">
-                                    <span class="menu-link"><span class="menu-icon"><i class="fa fa-pencil-alt"></i></span><span class="menu-title">Tugas</span><span class="menu-arrow"></span></span>
-                                    <div class="menu-sub menu-sub-accordion">
-                                        <!-- Menu item -->
-                                        <div class="menu-item">
-                                            <!-- Menu link -->
-                                            @foreach($tugas as $item)
-                                                <a class="menu-link active mb-2" href="{{ route('Kumpultugas',$item->id,) }}">
-                                                    <span class="menu-bullet">
-                                                        <span class="bullet bullet-dot"></span>
-                                                    </span>
-                                                    <span class="menu-icon">
-                                                        <i class="fas fa-book"></i> <!-- Font Awesome book icon -->
-                                                    </span>
-                                                    <span class="menu-title">{{ $item->tugas }}</span>
-                                                </a>
-                                            @endforeach
-                                            <!-- End: Menu link -->
-                                        </div>
-                                        <!-- End: Menu item -->
+
+
+
+                <!--begin::Sidebar-->
+                <div id="kt_app_sidebar" class="app-sidebar  flex-column " data-kt-drawer="true"
+                    data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}"
+                    data-kt-drawer-overlay="true" data-kt-drawer-width="225px" data-kt-drawer-direction="start"
+                    data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
+
+
+                    <!--begin::Logo-->
+                    <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
+                        <!--begin::Logo image-->
+                        <a href="index.html">
+                            <img width="300" src="{{ url('storage/logoh.png') }}"  alt="">
+
+                        </a>
+
+                    </div>
+                    <!--end::Logo-->
+                    <!--begin::sidebar menu-->
+                    <div class="app-sidebar-menu overflow-hidden flex-column-fluid">
+                        <!--begin::Menu wrapper-->
+                        <div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper">
+                            <!--begin::Scroll wrapper-->
+                            <div id="kt_app_sidebar_menu_scroll" class="scroll-y my-5 mx-3" data-kt-scroll="true"
+                                data-kt-scroll-activate="true" data-kt-scroll-height="auto"
+                                data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer"
+                                data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px"
+                                data-kt-scroll-save-state="true">
+                                <!--begin::Menu-->
+                                <div class="menu menu-column menu-rounded menu-sub-indention fw-semibold fs-6"
+                                    id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
+                                    <!--begin:Menu item-->
+                                    <div data-kt-menu-trigger="click" class="menu-item here show menu-accordion">
+                                        <!--begin:Menu link--><span class="menu-link"><span class="menu-icon"><i class="fa fa-pencil-alt"></i></span><span
+                                                class="menu-title">Tugas</span><span
+                                                class="menu-arrow"></span></span><!--end:Menu link--><!--begin:Menu sub-->
+                                                <div class="menu-sub menu-sub-accordion">
+                                                    <!-- Begin: Menu item -->
+                                                    <div class="menu-item">
+                                                        <!-- Begin: Menu link -->
+                                                        @foreach($tugas as $item)
+                                                            <a class="menu-link active mb-2" href="{{ route('Kumpultugas',['id' => $item->id, 'materiId' => $item->materi->id]) }}">
+                                                                <span class="menu-bullet">
+                                                                    <span class="bullet bullet-dot"></span>
+                                                                </span>
+                                                                <span class="menu-icon">
+                                                                    <i class="fas fa-book"></i> <!-- Font Awesome book icon -->
+                                                                </span>
+                                                                <span class="menu-title">{{ $item->tugas }}</span>
+                                                            </a>
+                                                        @endforeach
+                                                        <!-- End: Menu link -->
+                                                    </div>
+                                                    <!-- End: Menu item -->
+                                                </div>
+
+                                        <!--end::Scroll wrapper-->
                                     </div>
+                                    <!--end::Menu wrapper-->
                                 </div>
                             </div>
                             <!-- Menu -->

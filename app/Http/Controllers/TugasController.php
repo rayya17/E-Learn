@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use App\Models\Guru;
-use App\Models\Materi;
-use App\Models\Pengumpulan;
-use App\Models\Tugas;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Tugas;
+use App\Models\Materi;
 use App\Models\Notifikasi;
-use GuzzleHttp\Promise\Create;
+use App\Models\Pengumpulan;
 use Illuminate\Http\Request;
-
+use GuzzleHttp\Promise\Create;
 use function Laravel\Prompts\alert;
+
+use Illuminate\Support\Facades\Auth;
 
 class TugasController extends Controller
 {

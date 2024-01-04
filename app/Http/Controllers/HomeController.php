@@ -53,30 +53,30 @@ class HomeController extends Controller
     {
         return view('users.detailpemesanan');
     }
-    public function kumpultugas($id)
+    public function kumpultugas($id, $materiId)
     {
-        $tugas = Tugas::all();
-        $materi = Materi::findOrFail($id);
+        $materi = Materi::findOrFail($materiId);
+        $tugas = Tugas::where('materi_id',$materiId)->get();
         $detailTugas = Tugas::findOrFail($id);
         $detailMateri = $detailTugas->materi;
+        $cekorder = Order::where('materi_id',$materi->id)->where('user_id',auth()->id())->first();
         $komentar = Komentar::all();
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
 
-        return view('users.kumpultugas',compact('materi','detailTugas','tugas','detailMateri','komentar', 'Notifikasi', 'unreadNotificationsCount'));
+        return view('users.kumpultugas',compact('materi','detailTugas','tugas','detailMateri','komentar', 'Notifikasi', 'unreadNotificationsCount','cekorder'));
     }
     public function detailtugas($id)
     {
-        $tugas = Tugas::all();
+        $tugas = Tugas::where('materi_id',$id)->get();
         $materi = Materi::findOrFail($id);
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
-        return view('users.detailtugas',compact('materi','tugas', 'Notifikasi', 'unreadNotificationsCount'));
+        return view('users.detailtugas',compact('materi','tugas','Notifikasi','unreadNotificationsCount'));
     }
 
     public function detailpesan()
     {
-
         return view('users.detailpesan');
     }
 

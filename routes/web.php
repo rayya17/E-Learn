@@ -28,7 +28,7 @@ use App\Http\Controllers\DetailMateriController;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('index')->name('landingpage');
 });
 
 // Route::post('/layout',[LayoutController::class,'index'])->name('layout');
@@ -111,12 +111,12 @@ Route::middleware('user')->group(function () {
     Route::post('/pesan/{materi}', [HomeController::class, 'checkout'])->name('checkout');
     Route::post('/mitrans-callback', [HomeController::class, 'callback'])->name('callback');
     // Route::post('/notifDelete/{id}', [NotifikasiController::class, 'markRead'])->name('notifDelete');
-    Route::get('/kumpultugas/{id}', [HomeController::class, 'kumpultugas'])->name('Kumpultugas');
+    Route::get('/kumpultugas/{id}/{materiId}', [HomeController::class, 'kumpultugas'])->name('Kumpultugas');
     Route::get('dashboar-materi/{id}', [HomeController::class, 'detailtugas'])->name('Detailtugas');
     Route::get('/isi-materi/{id}', [HomeController::class, 'isimateri'])->name('Isimateri');
     Route::post('/kumpultugas/kirim', [TugasController::class, 'kirimTugas'])->name('pengumpulan');
 
-// Route::get('/', [MateriController::class, 'index'])->name('home');
+    // Route::get('/', [MateriController::class, 'index'])->name('home');
 Route::get('/materi/search', [MateriController::class, 'searchMateri'])->name('searchMateri');
 
     Route::post('/komentar/create', [KomentarController::class, 'createKomentar'])->name('komentar.create');

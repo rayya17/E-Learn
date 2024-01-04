@@ -152,7 +152,7 @@
                                          </div>
 
                                          <div class="button mb-3" style="display: flex; justify-content: space-between">
-                                             <button type="button" data-bs-toggle="modal" data-bs-target="#tambahTugas"
+                                             <button type="button" data-bs-toggle="modal" data-bs-target="#tambahTugas--{{ $mtr->id }}"
                                                  class="btn btn-success">Tambah tugas <i class="fas fa-plus"></i></button>
                                              <form id="delete-form-{{ $mtr->id }}"
                                                  action="{{ route('materi.destroy', $mtr->id) }}" method="POST">
@@ -165,7 +165,7 @@
                                              </form>
                                          </div>
                                          <div class="d-flex justify-content-between align-items-center" >
-                                             <div class="modal fade" id="tambahTugas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                             <div class="modal fade" id="tambahTugas--{{ $mtr->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                  <div class="modal-dialog">
                                                      <div class="modal-content">
                                                          <div class="modal-header">
@@ -175,8 +175,11 @@
                                                          <div class="modal-body">
                                                              <form action="{{ route('tugas', $mtr->id) }}" method="POST" enctype="multipart/form-data">
                                                                  @csrf
-                                                                 <label for="inputText" class="col-sm-12 col-form-label">File Materi <span
-                                                                         style="font-size: 12px; color: #b9b7b7;">(File berupa PDF)</span></label>
+                                                                 @dump($mtr->id)
+                                                                 <label for="inputText"
+                                                                     class="col-sm-12 col-form-label">File Materi <span
+                                                                         style="font-size: 12px; color: #b9b7b7;">(File
+                                                                         berupa PDF)</span></label>
                                                                  <div class="row">
                                                                      <div class="col-sm-12">
                                                                          <input type="file" name="file_tugas"
