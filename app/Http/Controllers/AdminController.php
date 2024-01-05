@@ -86,47 +86,86 @@ public function getYearIncomeData()
     public function calonguru(Request $request){
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
-        $calonguru = Guru::with('user')->whereHas('user',function($query){
-            $query->where('role','=','gurunotapprove');})->get();
+        $calonguru = Guru::with('user')
+        ->whereHas('user', function ($query) {
+            $query->where('role', '=', 'gurunotapprove');
+        })
+        ->paginate(5);
 
     return view('admin.calonguru', compact('calonguru', 'Notifikasi', 'unreadNotificationsCount'));
    }
 
     public function guruterima(String $id)
     {
-        $user = User::where('role', 'gurunotapprove')->get();
-        //Foreach mail
-        foreach ($user as $User) {
-            Mail::to($User->email)->send(new sendEmail($User, 'terima'));
+        $calonguru = Guru::with('user')->find($id);
+
+        if (!$calonguru) {
+            return redirect()->route('calonguru');
         }
 
-        $calonguru = Guru::where('id', $id)->first()->user_id;
-        $user = User::where('id', $calonguru)->first();
-        $user->role = 'guru';
-        $user->save();
+        $user = User::where('id', $calonguru->user_id)->first();
+
+        if ($user && $user->role === 'gurunotapprove') {
+            // Kirim email hanya untuk guru yang diterima
+            Mail::to($user->email)->send(new sendEmail($user, 'terima'));
+
+            // Update role guru
+            $user->role = 'guru';
+            $user->save();
+        }
 
         return redirect()->route('calonguru');
+        // $user = User::where('role', 'gurunotapprove')->get();
+        // //Foreach mail
+        // foreach ($user as $User) {
+        //     Mail::to($User->email)->send(new sendEmail($User, 'terima'));
+        // }
+
+        // $calonguru = Guru::where('id', $id)->first()->user_id;
+        // $user = User::where('id', $calonguru)->first();
+        // $user->role = 'guru';
+        // $user->save();
+
+        // return redirect()->route('calonguru');
     }
 
     public function tolakguru($id)
     {
-        try {
-            $gurulogin = Guru::findOrFail($id);
-            $gurulogin->delete();
-            $user = User::findOrFail($gurulogin->user_id);
+        $gurulogin = Guru::findOrFail($id);
 
-            if ($user) {
-                $user = User::where('role', 'gurunotapprove')->get();
-                foreach($user as $User){
-                    Mail::to($User->email)->send(new sendMail($User,'tolak'));
-                }
-
-                $user->delete();
-            }
+        if (!$gurulogin) {
             return redirect()->route('calonguru');
-        } catch (\Exception $e) {
-            return redirect()->back();
         }
+
+        $user = User::find($gurulogin->user_id);
+
+        if ($user && $user->role === 'gurunotapprove') {
+            // Kirim email hanya untuk guru yang ditolak
+            Mail::to($user->email)->send(new sendMail($user, 'tolak'));
+
+            // Hapus guru dan user yang ditolak
+            $gurulogin->delete();
+            // $user->delete();
+        }
+
+        return redirect()->route('calonguru');
+        // try {
+        //     $gurulogin = Guru::findOrFail($id);
+        //     $gurulogin->delete();
+        //     $user = User::findOrFail($gurulogin->user_id);
+
+        //     if ($user) {
+        //         $user = User::where('role', 'gurunotapprove')->get();
+        //         foreach($user as $User){
+        //             Mail::to($User->email)->send(new sendMail($User,'tolak'));
+        //         }
+
+        //         $user->delete();
+        //     }
+        //     return redirect()->route('calonguru');
+        // } catch (\Exception $e) {
+        //     return redirect()->back();
+        // }
     }
 
     public function calongurulogin_create()

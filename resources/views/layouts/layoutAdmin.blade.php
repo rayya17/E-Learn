@@ -30,7 +30,7 @@
 
   {{-- JQuery --}}
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+  <link rel="stylesheet" href="{{ asset('path/to/custom.css') }}">
  <!-- Template Main CSS File -->
  <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 

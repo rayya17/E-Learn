@@ -243,7 +243,7 @@
                                                             $no = 1;
                                                         @endphp
                                                         @foreach ($tugas as $tgs)
-                                                            <tr>
+                                                            <tr id="row_{{ $tgs->id }}">
                                                                 <td style="text-align: center;">{{ $no++ }}</td>
                                                                 <td style="text-align: center;">{{ $tgs->tugas }}</td>
                                                                 <td style="text-align: center;">{{ $tgs->detail_tugas }}
@@ -260,17 +260,13 @@
                                                                     {{ date('d F Y', strtotime($tgs->tanggal_tugas)) }}
                                                                 </td>
                                                                 <td>
-                                                                    <button type="submit"
-                                                                        class="btn btn-light btn-sm point"
+                                                                    <button type="submit" class="btn btn-light btn-sm point"
                                                                         data-toggle="modal" data-target="#EditModalTugas">
-                                                                        <i class="fas fa-pencil-alt"
-                                                                            style="font-size: 16px;"></i>
+                                                                        <i class="fas fa-pencil-alt" style="font-size: 16px;"></i>
                                                                     </button>
-                                                                    <button type="button"
-                                                                        class="btn btn-danger btn-sm point"
-                                                                        onclick="deleteTugas({{ $tgs->id }})">
-                                                                        <i class="fas fa-trash-alt"
-                                                                            style="font-size: 16px;"></i>
+                                                                    <button type="button" class="btn btn-danger btn-sm point"
+                                                                            onclick="deleteTugas({{ $tgs->id }})">
+                                                                        <i class="fas fa-trash-alt" style="font-size: 16px;"></i>
                                                                     </button>
                                                                 </td>
                                                             </tr>
@@ -387,6 +383,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         function deleteTugas(tugas_id) {
+        console.log("Deleting row with id: " + 'row_' + tugas_id)
             Swal.fire({
                 title: 'Apa kamu yakin?',
                 text: 'Kamu tidak akan bisa mengembalikan data ini!',
@@ -398,19 +395,25 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Menggunakan metode DELETE dalam permintaan HTTP
-                    fetch({{ url('/delete-tugas') }} / $ {
-                        tugas_id
-                    }, {
+                    fetch("{{ url('/delete-tugas') }}/" + tugas_id, {
                         method: 'DELETE',
                         headers: {
                             'X-CSRF-TOKEN': '{{ csrf_token() }}',
                         },
                     }).then(response => {
-                        if (response.ok) {
-                            // Redirect atau lakukan sesuatu setelah berhasil menghapus
-                            window.location.reload();
+                        if (response.succes) {
+                            // Remove the row from the DOM immediately
+                            Window.location.reload();
+
+                            // Optionally, you can show a success message using Swal.fire
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Data berhasil dihapus!',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
                         } else {
-                            //Handle kesalahan jika diperlukan
+                            // Handle kesalahan jika diperlukan
                             console.error('Gagal menghapus tugas');
                         }
                     });

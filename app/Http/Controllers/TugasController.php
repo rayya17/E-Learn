@@ -177,6 +177,6 @@ class TugasController extends Controller
 
         // Tambahkan logika jika diperlukan, misalnya memberikan notifikasi
 
-        return back()->with('success', 'Berhasil menghapus tugas');
+        return response()->json('succes');
     }
 }
