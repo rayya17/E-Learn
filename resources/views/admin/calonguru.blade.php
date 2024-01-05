@@ -41,11 +41,12 @@
                                             <td style="text-align: center;">{{ date('d F Y', strtotime($data->tanggal_lahir)) }}</td>
                                             <td style="text-align: center;">{{ Str::limit($data->alamat, 10) }}</td>
                                             <td class="d-flex mt-4" style="text-align: center;">
-                                                <form action="{{ route('terimaguru', $data->id) }}" method="post">
+                                                <form data-id="{{ $data->id }}" action="{{ route('terimaguru', $data->id) }}" method="post" class="accept-form">
                                                     @csrf
                                                     @method('PATCH')
-                                                    <button type="submit" class="btn btn-outline-success"
-                                                        style="margin-right: 2px;"><i class="fa-solid fa-check"></i></button>
+                                                    <button type="submit" class="btn btn-outline-success" style="margin-right: 2px;">
+                                                        <i class="fa-solid fa-check"></i>
+                                                    </button>
                                                 </form>
                                                 <form class="d-flex" id="delete-form-{{ $data->id }}"
                                                     action="{{ route('tolakguru', $data->id) }}" method="post">
@@ -87,17 +88,17 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
     // Tambahkan event listener untuk tombol delete dengan class 'delete-btn'
-    document.querySelectorAll('.delete-btn').forEach(function(btn) {
-        btn.addEventListener('click', function(e) {
+    document.querySelectorAll('.delete-btn').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
             e.preventDefault();
             var id = this.getAttribute('data-id');
 
             Swal.fire({
-                title: 'Apakah anda yakin?',
+                title: 'Apakah anda yakin ingin menolak ini?',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonText: 'Lanjutkan!',
                 cancelButtonText: 'Batalkan!',
+                confirmButtonText: 'Lanjutkan!',
                 reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -107,6 +108,30 @@
             });
         });
     });
+
+    // Tambahkan event listener untuk tombol accept dengan class 'btn-outline-success'
+    document.querySelectorAll('.accept-form').forEach(function (acceptForm) {
+        acceptForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var id = this.getAttribute('data-id');
+
+            Swal.fire({
+                title: 'Apakah anda yakin ingin menerima ini?',
+                icon: 'question',
+                showCancelButton: true,
+                cancelButtonText: 'Batalkan!',
+                confirmButtonText: 'Iya',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit form accept dengan ID yang sesuai
+                    this.submit();
+                }
+            });
+        });
+    });
+
+
 </script>
 
 </main><!-- End #main -->

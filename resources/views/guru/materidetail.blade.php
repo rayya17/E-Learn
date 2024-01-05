@@ -213,9 +213,12 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                                @php
+                                                            @php
+                                                            $no = ($tugas->currentPage() - 1) * $tugas->perPage() + 1;
+                                                            @endphp
+                                                                {{-- @php
                                                                     $no = 1;
-                                                                @endphp
+                                                                @endphp --}}
                                                             @foreach ($tugas as $item )
                                                                 <tr data-tugasid="{{ $item->id }}">
                                                                     <td style="text-align: center;">{{ $no++ }}</td>
@@ -320,6 +323,12 @@
                                                                 @endforeach
                                                         </tbody>
                                                     </table>
+                                                    <div class="d-flex justify-content-center">
+                                                        {!! $tugas->links('pagination::bootstrap-4')->with([
+                                                            'class' => 'pagination',
+                                                            'style' => 'margin-top: 20px;'
+                                                        ]) !!}
+                                                    </div>
                                             </div>
                                         </div>
                                     </div>

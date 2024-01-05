@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\QueryException;
+use Illuminate\Validation\ValidationException;
 
 class MateriController extends Controller
 {
@@ -46,32 +47,31 @@ class MateriController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-        $request->validate([
-            // 'cover_materi' => 'required|mimes:png,jpg',
-            'mapel' => 'required|max:100',
-            'nama_materi' => 'required|max:100',
-            'keterangan_benefit' => 'required|max:225',
-            'kelas' => 'required|min:0|max:15',
-            'harga' => 'required|min:0',
-            'deskripsi_materi' => 'required|max:225',
-
-            // 'tanggal_tugas' => 'required|after_or_equal:today|before_or_equal:today'
-        ], [
-            'nama_materi.required' => 'Wajib di isi',
-            'nama_materi.max' => 'Nama Materi melebihi maximal',
-            'keterangan_benefit.required' => 'Wajib di isi',
-            'keterangan_benefit.max' => 'Keterangan Benefits melebihi maximal',
-            'mapel.required' => 'Wajib di isi',
-            'mapel.max' => 'Nama mata pelajaran melebihi maximal',
-            'kelas.required' => 'Wajib di isi',
-            'kelas.min' => 'Kelas kurang dari 0',
-            'kelas.max' => 'Kelas melebihi maximal',
-            'harga.required' => 'Wajib di isi',
-            'harga.min' => 'Harga kurang 0',
-            'deskripsi_materi.required' => 'Wajib di isi',
-            'deskripsi_materi.max' => 'Deskripsi melebihi maximal',
-        ]);
         try {
+            $request->validate([
+                'mapel' => 'required|max:100',
+                'nama_materi' => 'required|max:100',
+                'keterangan_benefit' => 'required|max:225',
+                'kelas' => 'required|min:0|max:15',
+                'harga' => 'required|numeric|min:0',
+                'deskripsi_materi' => 'required|max:225',
+            ], [
+                'mapel.required' => 'Wajib di isi',
+                'mapel.max' => 'Nama mata pelajaran melebihi maximal',
+                'nama_materi.required' => 'Wajib di isi',
+                'nama_materi.max' => 'Nama Materi melebihi maximal',
+                'keterangan_benefit.required' => 'Wajib di isi',
+                'keterangan_benefit.max' => 'Keterangan Benefits melebihi maximal',
+                'kelas.required' => 'Wajib di isi',
+                'kelas.min' => 'Kelas kurang dari 0',
+                'kelas.max' => 'Kelas melebihi maximal',
+                'harga.required' => 'Wajib di isi',
+                'harga.numeric' => 'Harga harus berupa angka',
+                'harga.min' => 'Harga tidak boleh kurang dari 0',
+                'deskripsi_materi.required' => 'Wajib di isi',
+                'deskripsi_materi.max' => 'Deskripsi melebihi maximal',
+            ]);
+
             $dataGuru = Guru::where('user_id', Auth()->user()->id)->first();
 
             $materi = Materi::create([
@@ -82,7 +82,7 @@ class MateriController extends Controller
                 'harga' => $request->harga,
                 'deskripsi_materi' => $request->deskripsi_materi,
                 'keterangan_benefit' => $request->keterangan_benefit,
-                'tanggal_materi' => now()
+                'tanggal_materi' => now(),
             ]);
 
             $admin = User::where('role', 'admin')->first();
@@ -91,10 +91,12 @@ class MateriController extends Controller
                 'sender_id' => Auth::user()->id,
                 'user_id' => $admin->id,
                 'title' => Auth::user()->name,
-                'message' => Auth::user()->name . " menambahkan materi baru bernama " . $materi->nama_materi ,
+                'message' => Auth::user()->name . " menambahkan materi baru bernama " . $materi->nama_materi,
             ]);
 
             return back()->with('success', 'Berhasil menambahkan materi');
+        } catch (ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput()->with('error', 'Gagal menambahkan materi. Terdapat kesalahan validasi. Silakan coba lagi.');
         } catch (\Exception $e) {
             return back()->with('error', 'Gagal menambahkan materi. Silakan coba lagi.');
         }
@@ -164,6 +166,7 @@ class MateriController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('materidetail',$materi->id)->with('error', 'Gagal mengupdate materi. Silakan coba lagi.');
         }
+
     }
 
     /**

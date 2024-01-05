@@ -408,12 +408,11 @@
                         @if (count($Notifikasi) > 0)
                             @foreach ($Notifikasi as $notifikasi)
                                 <li class="notification-item" data-notification-id="{{ $notifikasi->id }}">
-                                    <div class="profile">
+                                    <div class="profile" >
                                         @if ($notifikasi->sender->foto_user)
                                             <img width="50px" height="50px" class="rounded-circle border me-2"
-                                                src="{{ asset('storage/' . $notifikasi->sender->foto_user) }}" alt="{{ $notifikasi->sender->name }}">
+                                                src="{{ asset('storage/' . $notifikasi->sender->foto_user) }}" alt="{{ $notifikasi->sender->name }}" >
                                         @else
-                                            <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
                                             <img width="50px" height="50px" class="rounded-circle border me-2"
                                                 src="storage/default/defaultprofile.jpeg" alt="Placeholder">
                                         @endif
