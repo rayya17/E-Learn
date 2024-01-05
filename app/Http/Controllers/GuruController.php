@@ -101,6 +101,7 @@ class GuruController extends Controller
     }
 
     public function index(){
+        $user_id = Auth::user()->id;
         $mengajukan = penarikansaldo::all();
         $saldo = pendapatan::all();
         $pendapatanguru = Pendapatan::all()->where('user_id', auth()->id());
@@ -108,7 +109,7 @@ class GuruController extends Controller
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
 
-        return view('guru.pengajuansaldo', compact('mengajukan', 'saldo', 'pendapatan','Notifikasi', 'unreadNotificationsCount'));
+        return view('guru.pengajuansaldo', compact('mengajukan', 'saldo', 'pendapatan','Notifikasi', 'unreadNotificationsCount', 'user_id'));
     }
 
     public function create(){
@@ -117,17 +118,17 @@ class GuruController extends Controller
     }
 
     public function store(Request $request){
+
         $request->validate([
             'metodepembayaran' => 'required',
             'tujuan_pengajuan' => 'required',
-            'keterangan_pengajuan' => 'required|unique:penarikansaldos|min:5|max:20|numeric|regex:/^\d*$/',
+            'keterangan_pengajuan' => 'required|unique:penarikansaldos|min:5|numeric|regex:/^\d*$/',
         ], [
             'metodepembayaran.required'=> 'harus diisi',
             'tujuan_pengajuan.required'=> 'harus diisi',
             'keterangan_pengajuan.required'=> 'harus diisi',
             'keterangan_pengajuan.unique'=>'nomor rekening tidak boleh sama',
             'keterangan_pengajuan.min'=> 'minimal 5',
-            'keterangan_pengajuan.max'=> 'maksimal 20',
             'keterangan_pengajuan.numeric'=> 'keterangan harus berupa angka',
             'keterangan_pengajuan.regex'=> 'keterangan tidak sesuai dengan format',
 
@@ -135,6 +136,7 @@ class GuruController extends Controller
         ]);
 
         $pendapatan = Pendapatan::findOrFail(Auth::user()->id);
+        dd($request);
 
         $mengajukan = new Penarikansaldo;
         // $mengajukan->guru_id = $request->guru_id;

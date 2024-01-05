@@ -20,7 +20,7 @@ class AdminController extends Controller
 {
     public function Dashboardadmin()
     {
-
+        
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $jumlahpemateri = user::where('role', 'guru')->count();

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('metodepembayaran')->nullable();
             $table->string('keterangan_pengajuan')->nullable();
             $table->string('tujuan_pengajuan')->nullable();
-            $table->string('status');
+            $table->enum('status', ['menunggu', 'diterima', 'ditolak'])->default('menunggu');
             $table->timestamps();
         });
     }

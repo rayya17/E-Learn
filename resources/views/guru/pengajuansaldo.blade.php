@@ -8,12 +8,12 @@
           // Listen for the submit event on all forms with the name "store"
           $("form[name='store']").submit(function(event) {
               event.preventDefault();
-  
+
               // Validate the form data within this specific form
               var tujuan_pengajuan = $(this).find("input[name='tujuan_pengajuan']").val();
               var keterangan_pengajuan = $(this).find("input[name='keterangan_pengajuan']").val();
               var isDuplicate = checkUniquenessKeterangan(keterangan_pengajuan, this);
-  
+
               if (isDuplicate) {
                   Swal.fire({
                       title: 'Peringatan',
@@ -22,7 +22,7 @@
                   });
                   return;
               }
-  
+
               if (keterangan_pengajuan === "") {
                   Swal.fire({
                       title: 'Peringatan',
@@ -31,10 +31,10 @@
                   });
                   return;
               }
-  
+
               // Use regex to check if the input is a numeric value greater than 0
               var numericRegex = /^[1-9]\d*$/;
-  
+
               if (!numericRegex.test(keterangan_pengajuan)) {
                   Swal.fire({
                       title: 'Peringatan',
@@ -43,16 +43,16 @@
                   });
                   return;
               }
-  
+
               Swal.fire('success', 'Berhasil menambahkan data', 'success');
-  
+
               // Menghapus event handler submit agar form tidak disubmit kembali
               $(this).off("submit");
-  
+
               // Submit form
               this.submit();
           });
-  
+
           function checkUniquenessKeterangan(keterangan_pengajuan, currentForm) {
               var isDuplicate = false;
               $("form[name='store']").not(currentForm).each(function() {
@@ -148,7 +148,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <input type="hidden" name="guru_id" value="{{ $request->guru_id ?? '' }}">
+                  <input type="hidden" name="guru_id" value="{{ $user_id }}">
                   {{-- <span>{{ $request->guru_id }}</span> --}}
                     <div class="mb-3">
                         <label for="kelas" class="form-label fw-bold">metode pembayaran</label>
@@ -173,7 +173,7 @@
                       </select>
                       @if ($errors->has('tujuan_pengajuan'))
                             <span class="text-tujuan">{{ $errors->first('tujuan_pengajuan') }}</span>
-                          @endif  
+                          @endif
                       </div>
                         <div class="mb-3">
                           <label for="kelas" class="form-label fw-bold">Nomor Rekening</label>
@@ -227,7 +227,7 @@
                       </select>
                       @if ($errors->has('tujuan_pengajuan'))
                       <span class="text-tujuan">{{ $errors->first('tujuan_pengajuan') }}</span>
-                    @endif 
+                    @endif
                         </div>
 
                          <div class="mb-3">
@@ -235,7 +235,7 @@
                           <input type="text" name="keterangan_pengajuan" id="keterangan_pengajuan" class="form-control" value="{{ $item->keterangan_pengajuan }}">
                           @if ($errors->has('keterangan_pengajuan'))
                           <span class="text-tujuan">{{ $errors->first('keterangan_pengajuan') }}</span>
-                        @endif 
+                        @endif
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -266,36 +266,38 @@
       <!-- Include this script at the end of your HTML body or in your JavaScript file -->
 <script>
 
-  function AjukanButton(num){
-    $('#mengajukanForm'+num).off('submit');
-    $('#mengajukanForm'+num).submit(function(event){
-      event.preventDefault();
-      let route = $('#mengajukanForm'+num).attr('action');
-      let data = new FormData($('#mengajukanForm'+num)[0]);
-      $.ajax({
-        url : route,
-        type : 'PATCH',
-        data : data,
-        processData : false,
-        contentType : false,
-        headers : {
-          "X-CSRF-Token": "{{ csrf_token() }}",
-        },
-        success: function success(response){
-          if(response.success){
-            $('#btn-ajukan'+num).text('Telah diajukan');
-            $('#btn-ajukan'+num).removeClass('btn-warning');
-            $('#btn-ajukan'+num).addClass('btn-success');
-          }else{
-            alert(response.message);
-          }
-        },
-        error: function error (xhr, error){
-          alert(xhr.responseText);
-        }
-      });
+function AjukanButton(num) {
+    $('#mengajukanForm' + num).off('submit');
+    $('#mengajukanForm' + num).submit(function (event) {
+        event.preventDefault();
+        let route = $(this).attr('action');
+        let data = new FormData($(this)[0]);
+        $.ajax({
+            url: route,
+            type: 'PATCH',
+            data: data,
+            processData: false,
+            contentType: false,
+            headers: {
+                "X-CSRF-Token": "{{ csrf_token() }}",
+            },
+            success: function success(response) {
+                if (response.success) {
+                    $('#btn-ajukan' + num).text('Telah diajukan');
+                    $('#btn-ajukan' + num).removeClass('btn-warning');
+                    $('#btn-ajukan' + num).addClass('btn-success');
+                    toastr.success(response.message, 'Success');
+                } else {
+                    toastr.error(response.message, 'Error');
+                }
+            },
+            error: function error(xhr, error) {
+                toastr.error(xhr.responseText, 'Error');
+            }
+        });
     });
-  }
+}
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
