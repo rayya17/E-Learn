@@ -1,5 +1,19 @@
 @extends('layouts.layoutGuru')
 @section('content')
+
+<style>
+
+    .info-card {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card.info-card:hover {
+        transform: translateY(-10px); /* Adjust the distance on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Optional: Add a stronger box shadow on hover */
+    }
+   
+</style>
+
   <main id="main" class="main">
 
     <div class="pagetitle">
@@ -132,7 +146,7 @@
                   <script>
                     var chartData = <?php echo json_encode($chartData); ?>;
                     console.log(chartData);
-                  
+
                     if (jQuery('#reportsChart').length) {
                       const options = {
                         series: [{
@@ -187,7 +201,7 @@
                           }
                         }
                       };
-                  
+
                       new ApexCharts(document.querySelector("#reportsChart"), options).render();
                     }
                   </script>
@@ -199,7 +213,7 @@
             </div>
 
             <!-- Recent Sales -->
-            
+
           </div>
         </div><!-- End Left side columns -->
 

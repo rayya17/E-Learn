@@ -1,6 +1,39 @@
 @extends('layouts.layoutAdmin')
 
 @section('content')
+
+<style>
+
+    /* Custom CSS for making cards wider */
+    .card.info-card {
+        width: 270px; /* Adjust the width as needed */
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle box shadow */
+    }
+
+    /* Optional: Add padding to the card-body if needed */
+    .card-body {
+        padding: 20px;
+        margin-right: 20px; /* Adjust the margin as needed */
+        margin-bottom: 20px; /* Adjust the margin as needed */
+    }
+
+    .col-xxl-3 {
+        flex: 0 0 auto;
+        width: 25%;
+        margin-right: 75px;
+    }
+
+    /* Hover effect */
+    .card.info-card:hover {
+        transform: translateY(-10px); /* Adjust the distance on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Optional: Add a stronger box shadow on hover */
+    }
+</style>
+
+
+
+
     <main id="main" class="main">
 
         <div class="pagetitle">
@@ -23,7 +56,7 @@
                     <!-- End Sales Card -->
 
                     <!-- Revenue Card -->
-                    <div class="col-xxl-3 col-md-4">
+                    <div class="col-xxl-3 col-md-5">
                         <div class="card info-card revenue-card">
 
                             <div class="card-body">
@@ -86,6 +119,9 @@
 
                     </div>
 
+
+
+
                     {{-- <div class="col-xxl-3 col-md-6">
 
               <div class="card info-card customers-card">
@@ -112,7 +148,7 @@
 
                         <div class="col-xl-12">
                             <div class="card">
-                                <div class="card-body">
+                                <div class="card-bodyy">
                                     <h5 class="card-title">Penghasilan <span>/Bulan</span></h5>
 
                                     <!-- Line Chart -->
@@ -132,7 +168,7 @@
                                                             y: parseInt(item.total_income)
                                                         };
                                                     });
-                                    
+
                                                     new ApexCharts(document.querySelector("#bulanChart"), {
                                                         series: [{
                                                             name: 'Pendapatan',
@@ -179,7 +215,7 @@
                                                     console.error('Error:', error);
                                                 });
                                         });
-                                    </script>                                    
+                                    </script>
                                     <!-- End Line Chart -->
 
                                 </div>
@@ -194,7 +230,7 @@
 
                         <div class="col-xl-12">
                             <div class="card">
-                                <div class="card-body">
+                                <div class="card-bodyy">
                                     <h5 class="card-title">Penghasilan <span>/Tahun </span></h5>
 
                                     <!-- Line Chart -->

@@ -1,6 +1,17 @@
 @extends('layouts.layoutAdmin')
 
 @section('content')
+<style>
+
+    .col-lg-3.mb-4 .card {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .col-lg-3.mb-4 .card:hover {
+        transform: translateY(-10px); /* Adjust the distance on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Optional: Add a stronger box shadow on hover */
+    }
+</style>
     <main id="main" class="main">
 
         <div class="pagetitle">
@@ -11,7 +22,7 @@
             {{-- <div class="row"> --}}
 
             <!-- Left side columns -->
-            <div class="container mt-4">
+            <div class="container mt-3">
                 <div class="row">
                     @foreach ($profileguru as $p)
                         @if (strtolower(trim($p->user->role)) === 'guru')
@@ -25,7 +36,7 @@
                                             style="border-radius: 50px; width: 100px; height: 100px;object-fit: cover; ">
                                         <!-- Adjust width and height as needed -->
                                         <div class="card-content mt-2">
-                                            <h4><strong>{{ $p->user->name }}</strong></h4>
+                                            <h5><strong>{{ $p->user->name }}</strong></h5>
                                         </div>
                                         <div class="card-content">
                                             <p>{{ $p->pendidikan }}</p>
@@ -42,46 +53,61 @@
                         @endif
 
                         <!-- Modal -->
-                        <div class="modal fade"  id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog" style="width: 150%;">
-                                <div class="modal-content" style="width: 150%;">
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel" style="font-size: 25px;">Detail Profile</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close" style="font-size: 50px;"></button>
+                                        <h5 class="modal-title" id="exampleModalLabel">Detail Profile</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="col-lg-12">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                      <div class="col-lg-4 mt-4">
-                                                        <div class="card text-white" style="background-color: #4FA987;">
-                                                          <div class="card-body text-center">
-                                                            <img class="mt-4" src="{{ asset('storage/profile/'.$p->user->foto_user) }}" alt="profile" style="border-radius: 50px; width: 100px; height: 100px;object-fit: cover">
-                                                            <div class="card-content">
-                                                              <h4>{{ $p->user->name }}</h4>
-                                                              <h6>{{ $p->pendidikan }}</h6>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="card text-white" style="background-color: #4FA987;">
+                                                        <div class="card-body text-center">
+                                                            <img src="{{ asset('storage/profile/'.$p->user->foto_user) }}" alt="profile"
+                                                                style="border-radius: 50%; width: 100px; height: 100px; object-fit: cover;">
+                                                            <div class="mt-3">
+                                                                <h4>{{ $p->user->name }}</h4>
+                                                                <h6>{{ $p->pendidikan }}</h6>
                                                             </div>
-                                                          </div>
                                                         </div>
-                                                      </div>
-                                                      <div class="col-lg-6 mt-4" style="margin-left: 40px; font-family: 'Poppins';">
-                                                        <p><b>Nama Lengkap :</b> {{ $p->user->name }}</p>
-                                                        <p><b>Pendidikan Terkahir :</b> {{ $p->pendidikan }}</p>
-                                                        <p><b>Alamat :</b> {{ $p->alamat }}</p>
-                                                        <p><b>No Telepon :</b> {{ $p->user->no_telepon }}</p>
-                                                        <p><b>Email :</b> {{ $p->user->email }}</p>
-                                                      </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-8 mt-6" style="font-family: 'Poppins';">
+                                                    <div class="card w-100">
+                                                        <div class="card-body">
+                                                            <dl class="row">
+                                                                <dt class="col-sm-5">Nama Lengkap</dt>
+                                                                <dd class="col-sm-6">: {{ $p->user->name }}</dd>
+
+                                                                <dt class="col-sm-5">Pendidikan Terakhir</dt>
+                                                                <dd class="col-sm-6">: {{ $p->pendidikan }}</dd>
+
+                                                                <dt class="col-sm-5">No Telepon</dt>
+                                                                <dd class="col-sm-6">: {{ $p->user->no_telepon }}</dd>
+
+                                                                <dt class="col-sm-5">Email</dt>
+                                                                <dd class="col-sm-6">: {{ $p->user->email }}</dd>
+
+                                                                <dt class="col-sm-5">Alamat</dt>     :
+                                                                <dd class="col-sm-6"> <textarea class="form-control" rows="2" readonly>  {{ $p->alamat }}</textarea>
+                                                                </dd>
+                                                            </dl>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+
                     @endforeach
                 </div>
             </div>
