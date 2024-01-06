@@ -20,7 +20,7 @@ class AdminController extends Controller
 {
     public function Dashboardadmin()
     {
-        
+
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $jumlahpemateri = user::where('role', 'guru')->count();
@@ -185,7 +185,7 @@ public function getYearIncomeData()
 
     public function pengajuanguru(Request $request){
         $data = penarikansaldo::all();
-        $guru = penarikansaldo::where('status', 'telah diajukan')->get();
+        $guru = penarikansaldo::where('status', 'menunggu')->get();
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         return view('admin.pengajuandana', compact('data','guru', 'Notifikasi', 'unreadNotificationsCount'));
@@ -195,7 +195,7 @@ public function getYearIncomeData()
     public function terimapengajuan($id)
     {
         $pengajuanPenjual = penarikansaldo::findOrFail($id);
-        $pengajuanPenjual->status = 'pengajuanDiterima';
+        $pengajuanPenjual->status = 'diterima';
         $pengajuanPenjual->save();
         $pendapatan = Pendapatan::where('user_id', $pengajuanPenjual->user_id)->first();
         $pendapatan->pendapatan = 0;
@@ -215,7 +215,7 @@ public function getYearIncomeData()
     public function tolakpengajuan($id)
     {
         $pengajuanPenjual = penarikansaldo::findOrFail($id);
-        $pengajuanPenjual->status = 'pengajuanDitolak';
+        $pengajuanPenjual->status = 'ditolak';
         $pengajuanPenjual->save();
 
         $guru = User::where('role', 'guru')->first();

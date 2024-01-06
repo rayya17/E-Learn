@@ -45,34 +45,34 @@ class GuruController extends Controller
             ->whereYear('created_at', Carbon::now()->year)
             ->groupBy('year', 'month', 'pendapatan')->get();
 
-            $processeddata = [];
+        $processeddata = [];
 
-            $currentYear = Carbon::now()->year;
-            $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
+        $currentMonth = Carbon::now()->month;
 
-            for ($month = 1; $month <= 12; $month++) {
-                $date = Carbon::createFromDate($currentYear, $month, 1);
-                $yearMonth = $date->isoFormat('MMMM');
+        for ($month = 1; $month <= 12; $month++) {
+            $date = Carbon::createFromDate($currentYear, $month, 1);
+            $yearMonth = $date->isoFormat('MMMM');
 
             $color = ($currentYear == $currentYear && $month == $currentMonth) ? 'blue' : 'green';
 
-            $processeddata[$yearMonth]= [
+            $processeddata[$yearMonth] = [
                 'month' => $yearMonth,
                 Auth()->user()->id => 0,
                 'color' => $color,
             ];
         }
 
-            foreach($data as $item){
-                $yearMonth = Carbon::createFromDate($item->year, $item->month, 1)->isoFormat('MMMM');
+        foreach ($data as $item) {
+            $yearMonth = Carbon::createFromDate($item->year, $item->month, 1)->isoFormat('MMMM');
 
-                if (isset($processeddata[$yearMonth])) {
-                    $jumlah = $pendapatan;
-                    $processeddata[$yearMonth][Auth()->user()->id] = $jumlah;
-                }
+            if (isset($processeddata[$yearMonth])) {
+                $jumlah = $pendapatan;
+                $processeddata[$yearMonth][Auth()->user()->id] = $jumlah;
             }
+        }
 
-            $chartData = array_values($processeddata);
+        $chartData = array_values($processeddata);
 
         return view('guru.dashboardguru', compact('guru', 'jumlahmateri', 'pendapatan', 'jumlahtransaksi', 'chartData', 'Notifikasi', 'unreadNotificationsCount'));
     }
@@ -97,10 +97,11 @@ class GuruController extends Controller
         $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
         $tugas_dikumpulkan = Pengumpulan::all();
         // $pengumpulan = Pengumpulan::all();
-        return view('guru.pengumpulan', compact('guru', 'Notifikasi', 'unreadNotificationsCount','tugas_dikumpulkan'));
+        return view('guru.pengumpulan', compact('guru', 'Notifikasi', 'unreadNotificationsCount', 'tugas_dikumpulkan'));
     }
 
-    public function index(){
+    public function index()
+    {
         $user_id = Auth::user()->id;
         $mengajukan = penarikansaldo::all();
         $saldo = pendapatan::all();
@@ -109,35 +110,35 @@ class GuruController extends Controller
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
 
-        return view('guru.pengajuansaldo', compact('mengajukan', 'saldo', 'pendapatan','Notifikasi', 'unreadNotificationsCount', 'user_id'));
+        return view('guru.pengajuansaldo', compact('mengajukan', 'saldo', 'pendapatan', 'Notifikasi', 'unreadNotificationsCount', 'user_id'));
     }
 
-    public function create(){
+    public function create()
+    {
         $mengajukan = penarikansaldo::all();
         return view('guru.pengajuansaldo', compact('mengajukan'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         $request->validate([
             'metodepembayaran' => 'required',
             'tujuan_pengajuan' => 'required',
             'keterangan_pengajuan' => 'required|unique:penarikansaldos|min:5|numeric|regex:/^\d*$/',
         ], [
-            'metodepembayaran.required'=> 'harus diisi',
-            'tujuan_pengajuan.required'=> 'harus diisi',
-            'keterangan_pengajuan.required'=> 'harus diisi',
-            'keterangan_pengajuan.unique'=>'nomor rekening tidak boleh sama',
-            'keterangan_pengajuan.min'=> 'minimal 5',
-            'keterangan_pengajuan.numeric'=> 'keterangan harus berupa angka',
-            'keterangan_pengajuan.regex'=> 'keterangan tidak sesuai dengan format',
+            'metodepembayaran.required' => 'harus diisi',
+            'tujuan_pengajuan.required' => 'harus diisi',
+            'keterangan_pengajuan.required' => 'harus diisi',
+            'keterangan_pengajuan.unique' => 'nomor rekening tidak boleh sama',
+            'keterangan_pengajuan.min' => 'minimal 5',
+            'keterangan_pengajuan.numeric' => 'keterangan harus berupa angka',
+            'keterangan_pengajuan.regex' => 'keterangan tidak sesuai dengan format',
 
 
         ]);
 
-        $pendapatan = Pendapatan::findOrFail(Auth::user()->id);
-        dd($request);
-
+        $pendapatan = Pendapatan::where('user_id', Auth::user()->id)->firstOrFail();
         $mengajukan = new Penarikansaldo;
         // $mengajukan->guru_id = $request->guru_id;
         $mengajukan->user_id = Auth::user()->id;
@@ -145,13 +146,16 @@ class GuruController extends Controller
         $mengajukan->metodepembayaran = $request->metodepembayaran;
         $mengajukan->keterangan_pengajuan = $request->keterangan_pengajuan;
         $mengajukan->tujuan_pengajuan = $request->tujuan_pengajuan;
-        $mengajukan->status = 'mengajukan';
+        $mengajukan->status = 'menunggu';
 
         $mengajukan->save();
+
+
         return back()->with('success', 'berhasil menambahkan data');
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
 
         $penarikansaldo = Penarikansaldo::find($id);
 
@@ -160,14 +164,14 @@ class GuruController extends Controller
             'tujuan_pengajuan' => 'required',
             'keterangan_pengajuan' => 'required|unique:penarikansaldos|min:5|max:20|numeric|regex:/^\d*$/',
         ], [
-            'metodepembayaran.required'=> 'harus diisi',
-            'tujuan_pengajuan.required'=> 'harus diisi',
-            'keterangan_pengajuan.required'=> 'harus diisi',
-            'keterangan_pengajuan.unique'=>'nomor rekening tidak boleh sama',
-            'keterangan_pengajuan.min'=> 'minimal 5',
-            'keterangan_pengajuan.max'=> 'maksimal 20',
-            'keterangan_pengajuan.numeric'=> 'keterangan harus berupa angka',
-            'keterangan_pengajuan.regex'=> 'keterangan tidak sesuai dengan format',
+            'metodepembayaran.required' => 'harus diisi',
+            'tujuan_pengajuan.required' => 'harus diisi',
+            'keterangan_pengajuan.required' => 'harus diisi',
+            'keterangan_pengajuan.unique' => 'nomor rekening tidak boleh sama',
+            'keterangan_pengajuan.min' => 'minimal 5',
+            'keterangan_pengajuan.max' => 'maksimal 20',
+            'keterangan_pengajuan.numeric' => 'keterangan harus berupa angka',
+            'keterangan_pengajuan.regex' => 'keterangan tidak sesuai dengan format',
 
 
         ]);
@@ -181,7 +185,8 @@ class GuruController extends Controller
         return back()->with('success', 'Data berhasil diubah');
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
 
         $penarikansaldo = Penarikansaldo::find($id);
 
@@ -196,22 +201,21 @@ class GuruController extends Controller
 
 
 
-        public function mengajukandana(Request $request, $id)
+    public function mengajukandana(Request $request, $id)
     {
         // Temukan data berdasarkan ID
         $penarikansaldo = Penarikansaldo::findOrFail($id);
         // dd($request->all());
         // Pemeriksaan apakah saldo guru mencukupi
-        $pendapatan = Pendapatan::where('user_id',auth()->user()->id)->first();
+        $pendapatan = Pendapatan::where('user_id', auth()->user()->id)->first();
 
-        if ($pendapatan && $pendapatan->pendapatan <= 0) {
+        if ($pendapatan && $pendapatan->pendapatan <= 1000000) {
             return response()->json([
                 'success' => false,
-                'message' => 'Anda tidak mempunyai saldo yang cukup'
+                'message' => 'Minimal penarikan saldo Rp 1.000.000'
             ]);
-
-        }else{
-             // Ubah status menjadi "Telah diajukan"
+        } else {
+            // Ubah status menjadi "Telah diajukan"
             $penarikansaldo->status = 'telah diajukan';
             $penarikansaldo->save();
 
@@ -244,27 +248,27 @@ class GuruController extends Controller
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $tugas = Tugas::where('materi_id', $materi->id)->paginate(5);
 
-      return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount','tugas' ,'materi', 'guru'));
+        return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount', 'tugas', 'materi', 'guru'));
     }
 
-//     public function Penarikansaldo(Request $request)
-//     {
-//         $guruId = Auth::id();
+    //     public function Penarikansaldo(Request $request)
+    //     {
+    //         $guruId = Auth::id();
 
-//         $request->validate([
-//             'metodepembayaran' => 'required',
-//             'keterangan_pengajuan' => 'required',
-//             'tujuan_pengajuan' => 'required',
-//         ]);
+    //         $request->validate([
+    //             'metodepembayaran' => 'required',
+    //             'keterangan_pengajuan' => 'required',
+    //             'tujuan_pengajuan' => 'required',
+    //         ]);
 
-//         $mengajukan = new Penarikansaldo;
-//     $mengajukan->metodepembayaran = $request->metodepembayaran;
-//     $mengajukan->keterangan_pengajuan = $request->keterangan_pengajuan;
-//     $mengajukan->tujuan_pengajuan = $request->tujuan_pengajuan;
-//     $mengajukan->status = 'mengajukan';
+    //         $mengajukan = new Penarikansaldo;
+    //     $mengajukan->metodepembayaran = $request->metodepembayaran;
+    //     $mengajukan->keterangan_pengajuan = $request->keterangan_pengajuan;
+    //     $mengajukan->tujuan_pengajuan = $request->tujuan_pengajuan;
+    //     $mengajukan->status = 'mengajukan';
 
-//     $mengajukan->save();
-//     $mengajukan = Penarikansaldo::all();
+    //     $mengajukan->save();
+    //     $mengajukan = Penarikansaldo::all();
 
-//     return view('guru.pengajuansaldo', compact('guruId', 'mengajukan'));
+    //     return view('guru.pengajuansaldo', compact('guruId', 'mengajukan'));
 }
