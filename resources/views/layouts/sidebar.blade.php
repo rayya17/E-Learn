@@ -125,7 +125,7 @@
                         <!--end::Menu wrapper-->
 
                         <div class="mt-3">
-                            <a href="" class="btn btn-success" onclick="history.back()">Kembali</a>
+                            <a href="{{ url()->previous() }}" class="btn btn-success">Kembali</a>
                         </div>
 
                         <!--begin::Navbar-->
