@@ -224,25 +224,28 @@
                                                                     <td style="text-align: center;">{{ $no++ }}</td>
                                                                     <td style="text-align: center;">{{ $item->tugas }}</td>
                                                                     <td style="text-align: center;">{{ $item->detail_tugas }}</td>
-                                                                    <td style="text-align: center;"><button data-toggle="modal" data-target="#materiModal{{ $item->id }}" type="submit" class="btn btn-light btn-md keluar col-12">File Materi</button>
+                                                                    <td style="text-align: center;">
+                                                                        <button data-toggle="modal" data-target="#materiModal{{ $item->id }}" type="submit" class="btn btn-light btn-md keluar col-12">File Materi</button>
+
                                                                         <div class="modal" id="materiModal{{ $item->id }}" tabindex="-1">
                                                                             <div class="modal-dialog modal-lg">
-                                                                              <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                  <h5 class="modal-title">Modal title</h5>
-                                                                                  <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title">File Materi</h5>
+                                                                                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <iframe src="{{ asset('storage/pdf/' .$item->file_tugas) }}" width="100%" height="600"></iframe>
+                                                                                    </div>
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                                                        <button type="button" class="btn btn-primary">Simpan Perubahan</button>
+                                                                                    </div>
                                                                                 </div>
-                                                                                <div class="modal-body">
-                                                                                        <embed src="{{ asset('storage/bukti/'.$item->file_tugas)}}" width="770" height="600">
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                  <button type="button" class="btn btn-primary">Save changes</button>
-                                                                                </div>
-                                                                              </div>
                                                                             </div>
-                                                                          </div>
+                                                                        </div>
                                                                     </td>
+
                                                                     <td style="text-align: center;">{{ $item->tingkat_kesulitan }}</td>
                                                                     <td style="text-align: center;">{{ date('d F Y', strtotime($item->tanggal_tugas))}}</td>
                                                                     <td>

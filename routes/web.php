@@ -117,6 +117,7 @@ Route::middleware('user')->group(function () {
     Route::get('/isi-materi/{id}', [HomeController::class, 'isimateri'])->name('Isimateri');
     Route::post('/kumpultugas/kirim', [TugasController::class, 'kirimTugas'])->name('pengumpulan');
 
+
     // Route::get('/', [MateriController::class, 'index'])->name('home');
 Route::get('/materi/search', [MateriController::class, 'searchMateri'])->name('searchMateri');
 

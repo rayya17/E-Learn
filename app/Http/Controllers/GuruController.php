@@ -254,6 +254,8 @@ class GuruController extends Controller
         return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount', 'tugas', 'materi', 'guru'));
     }
 
+   
+
     //     public function Penarikansaldo(Request $request)
     //     {
     //         $guruId = Auth::id();
