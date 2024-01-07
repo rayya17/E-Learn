@@ -6,6 +6,7 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
 
 <head>
+
     <!-- Meta Tags -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,6 +27,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     {{-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> --}}
 
+    <link rel="stylesheet" href="sweetalert2.min.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <!-- Bootstrap CSS -->
@@ -440,6 +442,17 @@
         </div>
         <!--/ End Header Inner -->
     </header>
+    <script src="sweetalert2.min.js"></script>
+    <script>
+        function alertHarusBeli() {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+               
+            });
+        }
+    </script>
     <!--/ End Header -->
     <div class="main-content py-3 px-3">
         <div class="container-fluid">

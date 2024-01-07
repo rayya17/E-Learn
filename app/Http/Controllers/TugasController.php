@@ -47,61 +47,77 @@ class TugasController extends Controller
             'detail_tugas.max' => 'Detail Tugas melebihi maximal',
             'point' => 'nilai point tidak boleh mines',
         ]);
-            $file_tugas = $request->file('file_tugas');
-            $file_name = time() . '_' . $file_tugas->getClientOriginalName();
-            $file_tugas->move(public_path('storage/pdf'), $file_name);
-            // $materi = Materi::where('materi_id', 'id')->first();
-            if ($request->tingkat_kesulitan === 'rendah') {
-                $point = 50;
-            } elseif ($request->tingkat_kesulitan === 'sedang') {
-                $point = 70;
-            } elseif ($request->tingkat_kesulitan === 'tinggi') {
-                $point = 100;
-            }
-            $tugas = Tugas::create([
-                'materi_Id' => $materi_id,
-                'tugas' => $request->tugas,
-                'file_tugas' => $file_name,
-                'point' => $point,
-                'tingkat_kesulitan' => $request->tingkat_kesulitan,
-                'detail_tugas' => $request->detail_tugas,
-                'tanggal_tugas' => now()
-            ]);
-            // Mengatur nilai default poin berdasarkan tingkat kesulitan
+        $file_tugas = $request->file('file_tugas');
+        $file_name = time() . '_' . $file_tugas->getClientOriginalName();
+        $file_tugas->move(public_path('storage/pdf'), $file_name);
+        // $materi = Materi::where('materi_id', 'id')->first();
+        $point = 0;
+        if ($request->tingkat_kesulitan == 'mudah') {
+            $point = 50;
+        } elseif ($request->tingkat_kesulitan == 'sedang') {
+            $point = 70;
+        } elseif ($request->tingkat_kesulitan == 'sulit') {
+            $point = 100;
+        }
+        $tugas = Tugas::create([
+            'materi_Id' => $materi_id,
+            'tugas' => $request->tugas,
+            'file_tugas' => $file_name,
+            'point' => $point,
+            'tingkat_kesulitan' => $request->tingkat_kesulitan,
+            'detail_tugas' => $request->detail_tugas,
+            'tanggal_tugas' => now()
+        ]);
+        // Mengatur nilai default poin berdasarkan tingkat kesulitan
 
-            $tugas->save();
+        $tugas->save();
 
-            $order = Order::where('materi_id', $materi_id)->get();
-            foreach ($order as $key => $value) {
-                # code...
+        $order = Order::where('materi_id', $materi_id)->get();
+        foreach ($order as $key => $value) {
+            # code...
 
 
             Notifikasi::create([
                 'sender_id' => Auth::user()->id,
                 'user_id' => $value->user_id,
                 'title' => Auth::user()->name,
-                'message' => Auth::user()->name . " menambahkan tugas baru" ,
+                'message' => Auth::user()->name . " menambahkan tugas baru",
             ]);
         }
 
-            return back()->with('success', 'Berhasil menambahkan tugas baru');
+        return back()->with('success', 'Berhasil menambahkan tugas baru');
     }
 
     public function kirimTugas(Request $request)
     {
+        // dd($request->tingkat_kesulitan);
         $bukti = $request->file('bukti');
         $file_name = time() . '_' . $bukti->getClientOriginalName();
         $bukti->move(public_path('storage/bukti'), $file_name);
+
+        $tugas = Tugas::find($request->tugas_id);
+        $point = $tugas->point;
+
+        if ($request->tingkat_kesulitan === 'mudah') {
+            $point = 50;
+        } elseif ($request->tingkat_kesulitan === 'sedang') {
+            $point = 70;
+        } elseif ($request->tingkat_kesulitan === 'sulit') {
+            $point = 100;
+        }
 
         $pengumpulan = Pengumpulan::create([
             'tugas_id' => $request->tugas_id,
             'guru_id' => $request->guru,
             'materi_id' => $request->materi_id,
+            'point' => $point,
             'user_id' => Auth::user()->id,
             'bukti' => $file_name,
         ]);
 
         $pengumpulan->save();
+
+
         $guru = User::where('role', 'guru')->get();
         foreach ($guru as $gr) {
             Notifikasi::create([
@@ -111,6 +127,7 @@ class TugasController extends Controller
                 'message' => Auth::user()->name . " mengumpulkan tugas",
             ]);
         }
+
         // $guru = User::where($request->guru);
 
         return back()->with('success', 'berhasil mengirimkan tugas anda');

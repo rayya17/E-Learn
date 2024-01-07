@@ -96,6 +96,7 @@ class GuruController extends Controller
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
         $tugas_dikumpulkan = Pengumpulan::all();
+
         // $pengumpulan = Pengumpulan::all();
         return view('guru.pengumpulan', compact('guru', 'Notifikasi', 'unreadNotificationsCount', 'tugas_dikumpulkan'));
     }
@@ -138,7 +139,9 @@ class GuruController extends Controller
 
         ]);
 
-        $pendapatan = Pendapatan::where('user_id', Auth::user()->id)->firstOrFail();
+        $pendapatan = Pendapatan::findOrFail(Auth::user()->id);
+        // dd($request);
+
         $mengajukan = new Penarikansaldo;
         // $mengajukan->guru_id = $request->guru_id;
         $mengajukan->user_id = Auth::user()->id;

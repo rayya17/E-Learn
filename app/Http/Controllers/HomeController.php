@@ -64,19 +64,21 @@ class HomeController extends Controller
         $komentar = Komentar::all();
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
-        return view('users.kumpultugas',compact('materi','detailTugas','tugas','detailMateri','komentar', 'Notifikasi', 'unreadNotificationsCount','cekorder'));
+    return view('users.kumpultugas',compact('materi','detailTugas','tugas','detailMateri','komentar', 'Notifikasi', 'unreadNotificationsCount','cekorder'));
     }
     public function detailtugas($id)
     {
+
         $tugas = Tugas::where('materi_id',$id)->get();
         $materi = Materi::findOrFail($id);
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
-        $png = Pengumpulan::where('materi_id',$id)->where('user_id', Auth::user()->id);
+        $png = Pengumpulan::where('materi_id',$id)->where('user_id',Auth::user()->id);
         $jm = Tugas::where('materi_id', $id)->count();
         $ts = $png->count();
         $tb = $jm - $ts;
-        $point = $png->get()->pluck('point');
+        $point = $png->sum('point');
+        // dd($point);
 
         return view('users.detailtugas', compact('materi', 'tugas', 'Notifikasi', 'unreadNotificationsCount', 'jm', 'ts','tb', 'point'));
     }
@@ -192,8 +194,9 @@ class HomeController extends Controller
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $ulasan = Ulasan::with('user')->where('materi_id', $id)->get();
+        $cekorder = Order::where('user_id', auth()->id())->where('materi_id', $id)->where('status', 'paid')->first();
         $materi = Materi::findOrFail($id);
-        return view('users.detailmateri_user', compact('materi', 'ulasan', 'Notifikasi', 'unreadNotificationsCount'));
+        return view('users.detailmateri_user', compact('materi', 'ulasan', 'Notifikasi', 'unreadNotificationsCount', 'cekorder'));
     }
     public function searchMateri(Request $request)
     {

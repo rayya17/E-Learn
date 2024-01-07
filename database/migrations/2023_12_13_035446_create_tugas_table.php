@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('tugas');
             $table->string('detail_tugas');
             $table->integer('point');
-            $table->string('tingkat_kesulitan');
+            $table->enum('tingkat_kesulitan',['mudah','sedang','sulit']);
             $table->date('tanggal_tugas');
             $table->timestamps();
         });

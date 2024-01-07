@@ -146,6 +146,7 @@
                     <div class="d-flex">
                         <input class="form-control col-6" type="file" name="bukti" id="assignment" accept=".pdf, .doc, .docx">
                         <button type="submit" class="btn btn-success">Kumpulkan</button>
+                        <input type="hidden" name="tingkat_kesulitan" value="{{ $detailTugas->tingkat_kesulitan  }}">
                     </div>
                 </div>
             </form>
@@ -169,7 +170,7 @@
 
     <!-- Tampilan Komentar Card -->
     <div id="itemKomentar">
-        @foreach ($komentar as $km)
+        @foreach ($komentar->where('parent_id',null) as $km)
             <div class="card mb-4 comment-{{ $km->id }}">
                 <div class="chat px-4 pt-3 d-flex justify-content-between">
                     <div class="left d-flex">

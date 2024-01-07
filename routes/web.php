@@ -61,6 +61,7 @@ Route::middleware('guru')->group(function () {
     Route::resource('materi', MateriController::class);
     Route::get('Pengumpulantugas', [GuruController::class, 'Pengumpulantugas'])->name('Pengumpulantugas');
     Route::resource('Pembayaran', GuruController::class);
+
     // Route::get('Penarikansaldo', [GuruController::class, 'Penarikansaldo'])->name('Penarikansaldo');
     Route::patch('mengajukandana/{id}', [GuruController::class, 'mengajukandana'])->name('mengajukandana');
     Route::get('/profileguru', [ProfileController::class, 'profileGuru'])->name('profileguru');
@@ -124,6 +125,7 @@ Route::get('/materi/search', [MateriController::class, 'searchMateri'])->name('s
     Route::delete('/komentar/delete/{komentar}', [KomentarController::class, 'destroy'])->name('komentar.delete');
     Route::post('/reply/{id}',[KomentarController::class,'reply'])->name('reply.komen');
     //  Route::get('/searchingMateri', [HomeController::class, 'searchingMateri'])->name('searchingMateri');
+    route::patch('terimatugas',[TugasController::class,'terima'])->name('terimatugas');
 });
 Route::get('/pdf/upload', [PdfController::class, 'showForm'])->name('pdf.form');
 Route::post('/pdf/upload', [PdfController::class, 'uploadPdf'])->name('pdf.upload');

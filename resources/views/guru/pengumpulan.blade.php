@@ -32,15 +32,18 @@
             background-color: #86878D;
             color: #fff;
         }
- /* Gaya tambahan untuk tabel */
- table {
+
+        /* Gaya tambahan untuk tabel */
+        table {
             border-collapse: collapse;
             width: 100%;
-            border: 2px solid #4FA987; /* Warna hijau untuk border */
+            border: 2px solid #4FA987;
+            /* Warna hijau untuk border */
 
         }
 
-        th, td {
+        th,
+        td {
 
             padding: 8px;
             text-align: left;
@@ -50,8 +53,6 @@
             background-color: #4FA987;
             color: white;
         }
-
-
     </style>
 
     <main id="main" class="main">
@@ -72,39 +73,51 @@
                                             <th scope="col">No</th>
                                             <th scope="col">Nama</th>
                                             <th scope="col">Materi</th>
-                                            <th scope="col" style="text-align: center
-                                            ;">Bukti</th>
+                                            <th scope="col">Tugas</th>
                                             <th scope="col" style="text-align: center">Point</th>
-                                            <th scope="col" style="text-align: center">Aksi</th>
+                                            <th scope="col"
+                                                style="text-align: center
+                                            ;">
+                                                Bukti</th>
+                                          
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($tugas_dikumpulkan as $item)
                                         <tr>
-                                            <td>{{$loop->iteration }}</td>
-                                            <td>{{ $item->user->name}}</td>
-                                            <td>{{ $item->materi->nama_materi }}</td>
-                                            <td><button data-toggle="modal" data-target="#materiModal{{ $item->id }}" type="submit" class="btn btn-light btn-md keluar col-12">File</button><td>
-                                                <div class="modal" id="materiModal{{ $item->id }}" tabindex="-1">
-                                                    <div class="modal-dialog modal-lg">
-                                                      <div class="modal-content">
-                                                        <div class="modal-header">
-                                                          <h5 class="modal-title">Modal title</h5>
-                                                          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $item->user->name }}</td>
+                                                <td>{{ $item->materi->nama_materi }}</td>
+                                                <td>{{ $item->tugas->tugas}}</td>
+                                                <td style="text-align:center">{{ $item->tugas->point }}</td>
+                                                <td><button data-toggle="modal"
+                                                        data-target="#materiModal{{ $item->id }}" type="submit"
+                                                        class="btn btn-light btn-md keluar col-12">File</button>
+                                                </td>
+                                                    <div class="modal" id="materiModal{{ $item->id }}" tabindex="-1">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Modal title</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <embed
+                                                                        src="{{ asset('storage/bukti/' . $item->bukti) }}"
+                                                                        width="770" height="600">
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close</button>
+                                                                    <button type="button" class="btn btn-primary">Save
+                                                                        changes</button>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="modal-body">
-
-                                                                <embed src="{{ asset('storage/bukti/'.$item->bukti)}}" width="770" height="600">
-
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                          <button type="button" class="btn btn-primary">Save changes</button>
-                                                        </div>
-                                                      </div>
                                                     </div>
                                                   </div>
-                                            <td><button style="margin-right:-10px;" type="submit" class="btn btn-light btn-md point col-12"><i class="fa-solid fa-check" style="font-size: 20px;"></i></button></td>
+
                                         </tr>
                                         @endforeach
                                     </tbody>

@@ -1,61 +1,72 @@
 @extends('layouts.layoutUser')
 
 @section('content')
-<style>
-    .semua {
-        background-color: #ffffff; /* Ganti warna latar belakang sesuai kebutuhan Anda */
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Efek bayangan untuk elemen */
-    }
+    <style>
+        .semua {
+            background-color: #ffffff;
+            /* Ganti warna latar belakang sesuai kebutuhan Anda */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            /* Efek bayangan untuk elemen */
+        }
 
-    .title {
-        background-color: #ffffff; /* Ganti warna latar belakang sesuai kebutuhan Anda */
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Efek bayangan untuk elemen */
-    }
+        .title {
+            background-color: #ffffff;
+            /* Ganti warna latar belakang sesuai kebutuhan Anda */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            /* Efek bayangan untuk elemen */
+        }
 
-    .tab-pane {
-        margin-top: 20px;
-    }
+        .tab-pane {
+            margin-top: 20px;
+        }
 
-    .card {
-        background-color: #bebaba; /* Ganti warna latar belakang sesuai kebutuhan Anda */
-        padding: 15px;
-        margin: 10px;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Efek bayangan untuk elemen */
-    }
+        .card {
+            background-color: #bebaba;
+            /* Ganti warna latar belakang sesuai kebutuhan Anda */
+            padding: 15px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            /* Efek bayangan untuk elemen */
+        }
 
-    /* font nya */
+        /* font nya */
 
-    h2, h4, h6 {
-        color: #343a40; /* Warna teks sesuai kebutuhan Anda */
-    }
+        h2,
+        h4,
+        h6 {
+            color: #343a40;
+            /* Warna teks sesuai kebutuhan Anda */
+        }
 
-    p, span {
-        color: #6c757d; /* Warna teks sesuai kebutuhan Anda */
-    }
+        p,
+        span {
+            color: #6c757d;
+            /* Warna teks sesuai kebutuhan Anda */
+        }
 
-    /* Atur ukuran dan gaya huruf sesuai kebutuhan */
-    h2 {
-        font-size: 28px;
-        font-weight: bold;
-    }
+        /* Atur ukuran dan gaya huruf sesuai kebutuhan */
+        h2 {
+            font-size: 28px;
+            font-weight: bold;
+        }
 
-    h4 {
-        font-size: 20px;
-    }
+        h4 {
+            font-size: 20px;
+        }
 
-    h6 {
-        font-size: 16px;
-    }
+        h6 {
+            font-size: 16px;
+        }
 
-    p {
-        font-size: 18px;
-    }
-</style>
+        p {
+            font-size: 18px;
+        }
+    </style>
 
 
     <ul class="nav justify-content-center nav-tabs" id="myTab" role="tablist"
@@ -79,12 +90,12 @@
                         <img style="width: 390px; margin-right:65px;" src="{{ asset('storage/default/' . $materi->cover) }}">
                     </div>
                     <div class="title" style="margin-bottom: 50px;">
-                       <div class="card-header" style="background-color: #ffffff">
-                        <div class="kelas d-flex">
-                            <h4 style="margin-right:auto">{{ $materi->mapel }}</h4>
-                            <h6>Kelas : {{ $materi->kelas }}</h6>
+                        <div class="card-header" style="background-color: #ffffff">
+                            <div class="kelas d-flex">
+                                <h4 style="margin-right:auto">{{ $materi->mapel }}</h4>
+                                <h6>Kelas : {{ $materi->kelas }}</h6>
+                            </div>
                         </div>
-                       </div>
                         <br>
                         <h1 style="font-size: 50px; gap-5"><strong>{{ $materi->nama_materi }}</strong></h1>
                         <br>
@@ -95,9 +106,14 @@
                             <p style="font-size: 13px;"><strong>Pemateri : {{ $materi->guru->user->name }}</strong></p>
                         </div>
 
-                        <a href="{{ route('Detailtugas', $materi->id) }}" type="button"
-                            style="background-color: #354942; margin: 10px; margin-top:40px; color: #fff; border: none; padding: 10px 55px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; font-size: 20px;">Materi</a>
-
+                        @if ($cekorder != null)
+                            <a href="{{ route('Detailtugas', $materi->id) }}" type="button"
+                                style="background-color: #354942; margin: 10px; margin-top:40px; color: #fff; border: none; padding: 10px 55px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; font-size: 20px;">Materi</a>
+                        @else
+                            <a type="button"
+                                style="background-color: #354942; margin: 10px; margin-top:40px; color: #fff; border: none; padding: 10px 55px; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; font-size: 20px;"
+                                onclick="alertHarusBeli()">Materi</a>
+                        @endif
                     </div>
 
                 </div>
@@ -125,12 +141,15 @@
                                         <div class="card-body">
                                             <div class="text-2xl text-center font-semibold flex gap-x-[20rem] ">
                                                 @if ($ul->user->foto_user)
-                                                <img src="{{ asset('storage/' . $ul->user->foto_user) }}"
-                                                    style="margin-bottom: 10px;" alt="Profile Picture"
-                                                    class="profile-picture">
-                                                    @else
+                                                    <img src="{{ asset('storage/' . $ul->user->foto_user) }}"
+                                                        style="margin-bottom: 10px;" alt="Profile Picture"
+                                                        class="profile-picture">
+                                                @else
                                                     <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
-                                                    <img class="rounded-circle profile-image" src="{{ asset('storage/default/defaultprofile.jpeg') }}" style="width: 80px; height: 80px; margin-bottom: 10px;" alt="Placeholder">
+                                                    <img class="rounded-circle profile-image"
+                                                        src="{{ asset('storage/default/defaultprofile.jpeg') }}"
+                                                        style="width: 80px; height: 80px; margin-bottom: 10px;"
+                                                        alt="Placeholder">
                                                 @endif
                                                 <p class="text-xl font-bold mb-1" style="font-weight: bold;">
                                                     {{ $ul->user->name }} </p>
@@ -147,5 +166,16 @@
                         </div>
                     </div>
                 </div>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+                    function alertHarusBeli() {
+                        Swal.fire({
+                            title: 'Peringatan!',
+                            text: 'Anda harus membeli materi terlebih dahulu',
+                            icon: 'warning',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                </script>
             </div>
         @endsection

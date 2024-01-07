@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pendapatans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->foreignId('order_id')->references('id')->on('orders')->cascadeOnDelete();
+            $table->foreignUuid('order_id')->references('id')->on('orders')->cascadeOnDelete();
             $table->unsignedBigInteger('pendapatan');
             $table->timestamps();
         });

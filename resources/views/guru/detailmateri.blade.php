@@ -284,7 +284,8 @@
                                                                     @csrf
                                                                     <div class="modal-header">
                                                                         <h4 class="modal-title" id="exampleModalLabel">
-                                                                            <strong>Edit Tugas</strong></h4>
+                                                                            <strong>Edit Tugas</strong>
+                                                                        </h4>
                                                                         <button type="button" class="btn-close"
                                                                             data-dismiss="modal"
                                                                             aria-label="Close"></button>

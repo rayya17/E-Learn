@@ -175,7 +175,7 @@
                                                          <div class="modal-body">
                                                              <form action="{{ route('tugas', $mtr->id) }}" method="POST" enctype="multipart/form-data">
                                                                  @csrf
-                                                                
+
                                                                  <label for="inputText"
                                                                      class="col-sm-12 col-form-label">File Materi <span
                                                                          style="font-size: 12px; color: #b9b7b7;">(File
@@ -226,12 +226,12 @@
                                                                      <div class="col-sm-12">
                                                                          <select name="tingkat_kesulitan" id="tingkatKesulitan"
                                                                              class="form-select @error('tingkat_kesulitan') is-invalid @enderror" >
-                                                                             <option value="rendah"
+                                                                             <option value="mudah"
                                                                                  {{ old('tingkat_kesulitan') === 'rendah' ? 'selected' : '' }}> Rendah</option>
                                                                              <option value="sedang"
                                                                                  {{ old('tingkat_kesulitan') === 'sedang' ? 'selected' : '' }}> Sedang</option>
-                                                                             <option value="tinggi"
-                                                                                 {{ old('tingkat_kesulitan') === 'tinggi' ? 'selected' : '' }}> Tinggi</option>
+                                                                             <option value="sulit"
+                                                                                 {{ old('tingkat_kesulitan') === 'tinggi' ? 'selected' : '' }}> Sulit</option>
                                                                          </select>
                                                                          @error('tingkat_kesulitan')
                                                                              <div class="invalid-feedback">{{ $message }}
