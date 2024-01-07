@@ -229,6 +229,9 @@
             border-radius: 50%;
             object-fit: cover;
         }
+        .nav-link.nav-profile {
+    margin-left: 10%;
+}
     </style>
 </head>
 
@@ -238,7 +241,7 @@
         <!-- Header Inner -->
         <div class="header-inner overlay">
             <div class="row">
-                <div class="col-md-10 col-12">
+                <div class="col-md-10 col-12 px-5">
                     <nav class="navbar navbar-default">
                         <div class="navbar-collapse">
                             <!-- Main Menu -->
@@ -380,59 +383,62 @@
                                     </div>
                                 </li>
 
-                                <li class="nav-item px-5">
-                                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
-                                        id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        @if (Auth::user()->foto_user)
-                                            <img src="{{ asset('storage/' . Auth::user()->foto_user) }}"
-                                                width="50px" height="50px" alt="Profile"
-                                                class="rounded-circle profile-image">
-                                            <span class="d-none d-md-block dropdown-toggle ps-2"
-                                                style="margin-left: 15px;"></span>
-                                        @else
-                                            <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
-                                            <img width="50px" height="50px"
-                                                class="rounded-circle profile-image"
-                                                src="{{ asset('storage/default/defaultprofile.jpeg') }}"
-                                                alt="Placeholder">
-                                            <span class="d-none d-md-block dropdown-toggle ps-2"
-                                                style="margin-left: 15px;"></span>
-                                        @endif
-                                    </a>
-                                    <ul class="dropdown" style="width: 150px;">
-                                        <li>
-                                            <a class="dropdown-item d-flex align-items-center"
-                                                href="{{ route('Profile') }}">
-                                                <i class="fa-solid fa-user"
-                                                    style="margin-top: 0px; padding-top: 0px;"></i>
-                                                <span style="margin-left:20px;">My Profile</span>
-                                            </a>
-                                        </li>
-                                        {{-- <li><a href="{{route('Profile')}}"><i class="fa-solid fa-user" style=""></i>Profile</a></li> --}}
-                                        <li>
-                                            <form action="{{ route('logout') }}" method="POST">
-                                                @csrf
-                                                <button type="submit"
-                                                    class="dropdown-item d-flex align-items-center"
-                                                    style="border: none; background: none; cursor: pointer;">
-                                                    <i class="fa-solid fa-right-from-bracket"
+                               
+                                    <li class="nav-item px-2">
+                                        <a class="nav-link nav-profile d-flex align-items-end pe-0" href="#"
+                                            id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            @if (Auth::user()->foto_user)
+                                                <img src="{{ asset('storage/' . Auth::user()->foto_user) }}"
+                                                    width="50px" height="50px" alt="Profile"
+                                                    class="rounded-circle profile-image">
+                                                <span class="d-none d-md-block dropdown-toggle ps-2"
+                                                    style="margin-left: 15px;"></span>
+                                            @else
+                                                <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
+                                                <img width="50px" height="50px"
+                                                    class="rounded-circle profile-image"
+                                                    src="{{ asset('storage/default/defaultprofile.jpeg') }}"
+                                                    alt="Placeholder">
+                                                <span class="d-none d-md-block dropdown-toggle ps-2"
+                                                    style="margin-left: 15px;"></span>
+                                            @endif
+                                        </a>
+                                        <ul class="dropdown" style="width: 150px;">
+                                            <li>
+                                                <a class="dropdown-item d-flex align-items-center"
+                                                    href="{{ route('Profile') }}">
+                                                    <i class="fa-solid fa-user"
                                                         style="margin-top: 0px; padding-top: 0px;"></i>
-                                                    <span style="margin-left:20px;">Keluar</span>
-                                                </button>
+                                                    <span style="margin-left:20px;">My Profile</span>
+                                                </a>
+                                            </li>
+                                            {{-- <li><a href="{{route('Profile')}}"><i class="fa-solid fa-user" style=""></i>Profile</a></li> --}}
+                                            <li>
+                                                <form action="{{ route('logout') }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit"
+                                                        class="dropdown-item d-flex align-items-center"
+                                                        style="border: none; background: none; cursor: pointer;">
+                                                        <i class="fa-solid fa-right-from-bracket"
+                                                            style="margin-top: 0px; padding-top: 0px;"></i>
+                                                        <span style="margin-left:20px;">Keluar</span>
+                                                    </button >
+                                                </form >
+                                            </li>
+                                            {{-- <li>
+                                                <form id="logoutForm" action="{{ route('logout') }}" method="POST">
+                                                @csrf
+                                          hom      <a href="#" onclick="document.getElementById('logoutForm').submit();">
+                                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                                    <span>Keluar</span>
+                                                </a>
                                             </form>
-                                        </li>
-                                        {{-- <li>
-                                            <form id="logoutForm" action="{{ route('logout') }}" method="POST">
-                                            @csrf
-                                      hom      <a href="#" onclick="document.getElementById('logoutForm').submit();">
-                                                <i class="fa-solid fa-right-from-bracket"></i>
-                                                <span>Keluar</span>
-                                            </a>
-                                        </form>
-                                    </li> --}}
-                                    </ul>
-                                </li>
+                                        </li> --}}
+                                        </ul>
+                                    </li>
+
+
                             </ul>
                             <!-- End Main Menu -->
                         </div>

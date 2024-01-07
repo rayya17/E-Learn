@@ -242,7 +242,6 @@ class GuruController extends Controller
         return redirect()->route('loginPage')->with('success', 'berhasil logout');
     }
 
-
     public function materidetail($id)
     {
         $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
@@ -254,7 +253,20 @@ class GuruController extends Controller
         return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount', 'tugas', 'materi', 'guru'));
     }
 
-   
+    // public function materidetail($id)
+    // {
+    //     $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
+    //     $materi = Materi::findOrFail($id);
+    //     $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+    //     $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
+    //     $tugas = Tugas::where('materi_id', $materi->id)->paginate(5);
+
+    //   return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount','tugas' ,'materi', 'guru'));
+    // }
+
+//     public function Penarikansaldo(Request $request)
+//     {
+//         $guruId = Auth::id();
 
     //     public function Penarikansaldo(Request $request)
     //     {

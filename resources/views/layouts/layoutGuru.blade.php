@@ -95,6 +95,8 @@
             overflow-x: hidden;
         }
 
+
+
         /* .col-lg-3,
         .col-md-4 {
             /* Adjust the width of the sidebar as needed */
@@ -408,13 +410,13 @@
                         @if (count($Notifikasi) > 0)
                             @foreach ($Notifikasi as $notifikasi)
                                 <li class="notification-item" data-notification-id="{{ $notifikasi->id }}">
-                                    <div class="profile" >
+                                    <div class="profile">
                                         @if ($notifikasi->sender->foto_user)
                                             <img width="50px" height="50px" class="rounded-circle border me-2"
-                                                src="{{ asset('storage/' . $notifikasi->sender->foto_user) }}" alt="{{ $notifikasi->sender->name }}" >
+                                                src="{{ asset('storage/fotouser/' . $notifikasi->sender->foto_user) }}" alt="{{ $notifikasi->sender->name }}">
                                         @else
                                             <img width="50px" height="50px" class="rounded-circle border me-2"
-                                                src="storage/default/defaultprofile.jpeg" alt="Placeholder">
+                                                src="{{ asset('storage/default/defaultprofile.jpeg') }}" alt="Placeholder">
                                         @endif
                                     </div>
                                     <div class="notif-text w-100">
