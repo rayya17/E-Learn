@@ -94,7 +94,6 @@ class TugasController extends Controller
         $bukti = $request->file('bukti');
         $file_name = time() . '_' . $bukti->getClientOriginalName();
         $bukti->move(public_path('storage/bukti'), $file_name);
-
         $tugas = Tugas::find($request->tugas_id);
         $point = $tugas->point;
 
