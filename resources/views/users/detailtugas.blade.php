@@ -11,12 +11,9 @@
             <div class="card-body" style="padding: 10px">
               <h5 class="card-title">Jumlah Tugas</h5>
               <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-people"></i>
-                </div>
+
                 <div class="ps-3">
-                  <h6></h6>
-                  <span class="text-success small pt-1 fw-bold">{{ $jm }}</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                  <h2 class="text-success pt-1 fw-bold" >{{ $jm }}</h2>
                 </div>
               </div>
             </div>
@@ -28,12 +25,9 @@
             <div class="card-body" style="padding: 10px">
               <h5 class="card-title">Tugas Selesai</h5>
               <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-people"></i>
-                </div>
+
                 <div class="ps-3">
-                  <h6></h6>
-                  <span class="text-success small pt-1 fw-bold">{{ $ts }}</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                  <h2 class="text-success pt-1 fw-bold">{{ $ts }}</h2>
                 </div>
               </div>
             </div>
@@ -50,12 +44,9 @@
             <div class="card-body" style="padding: 10px">
               <h5 class="card-title">Tugas Belum</h5>
               <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-people"></i>
-                </div>
+
                 <div class="ps-3">
-                  <h6></h6>
-                  <span class="text-success small pt-1 fw-bold">{{ $tb }}</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                  <h2 class="text-success  pt-1 fw-bold">{{ $tb }}</h2>
                 </div>
               </div>
             </div>
@@ -67,12 +58,9 @@
             <div class="card-body" style="padding: 10px">
               <h5 class="card-title">Total <span>Point</span></h5>
               <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-currency-dollar"></i>
-                </div>
+
                 <div class="ps-3">
-                  <h6></h6>
-                  <span class="text-danger small pt-1 fw-bold">{{ $point }}</span> <span class="text-muted small pt-2 ps-1">yang di dapatkan</span>
+                  <h2 class="text-danger pt-1 fw-bold">{{ $point }}</h2>
                 </div>
               </div>
             </div>

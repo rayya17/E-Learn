@@ -143,7 +143,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
-        <img src="{{ url('storage/logoh.png') }}" width="300" height="auto">
+        <img src="{{ url('storage/logoh.png') }}" width="50px" style="object-fit: cover" height="auto" class="justify-content-center">
       </a>
       <i class="bi bi-list toggle-sidebar-btn" style="color: #ffff"></i>
     </div><!-- End Logo -->
