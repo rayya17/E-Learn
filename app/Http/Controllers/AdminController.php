@@ -192,12 +192,12 @@ public function getYearIncomeData()
     }
 
 
-    public function terimapengajuan($id)
+    public function terimapengajuan($id , $order_id)
     {
         $pengajuanPenjual = penarikansaldo::findOrFail($id);
         $pengajuanPenjual->status = 'diterima';
         $pengajuanPenjual->save();
-        $pendapatan = Pendapatan::where('user_id', $pengajuanPenjual->user_id)->first();
+        $pendapatan = Pendapatan::where('user_id', $pengajuanPenjual->user_id)->where('order_id', $order_id )->first();
         $pendapatan->pendapatan = 0;
         $pendapatan->save();
 

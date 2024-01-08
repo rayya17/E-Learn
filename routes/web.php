@@ -48,7 +48,7 @@ Route::middleware('admin')->group(function(){
     // Route::get('Pengajuandana',[AdminController::class, 'Pengajuandana'])->name('Pengajuandana');
     Route::get('Detailguru/{id}',[AdminController::class, 'Detailguru'])->name('Detailguru');
     Route::get('pengajuanguru', [AdminController::class, 'pengajuanguru'])->name('pengajuanguru');
-    Route::post('terimapengajuan/{id}', [AdminController::class, 'terimapengajuan'])->name('terimapengajuan');
+    Route::post('terimapengajuan/{id}/{order_id}', [AdminController::class, 'terimapengajuan'])->name('terimapengajuan');
     // Route::post('/notifDelete/{id}', [NotifikasiController::class, 'markRead'])->name('notifDelete');
     Route::post('tolakpengajuan/{id}', [AdminController::class, 'tolakpengajuan'])->name('tolakpengajuan');
 });
@@ -68,7 +68,7 @@ Route::middleware('guru')->group(function () {
     Route::put('/profileguruUp/{id}', [ProfileController::class, 'profileguruUp'])->name('profileguruUp');
     Route::get('materidetail/{id}', [GuruController::class, 'materidetail'])->name('materidetail');
     Route::post('/tugas/{materi_id}', [TugasController::class, 'createTugas'])->name('tugas');
-    Route::get('/tugas/{tugas_id}/edit', [TugasController::class,  'editTugas'])->name('tugas.edit');
+    Route::get('/tugas/{tugas_id}/edpengajuanit', [TugasController::class,  'editTugas'])->name('tugas.edit');
     Route::put('/tugas/{tugas_id}', [TugasController::class,  'updateTugas'])->name('tugas.update');
     Route::delete('/delete-tugas/{id}', [TugasController::class,  'deleteTugas'])->name('tugas.delete');
 

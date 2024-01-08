@@ -37,7 +37,8 @@
                             @endphp
                                 @forelse ($guru as $p)
                                 <tr>
-                                <td scope="row" style="text-align: center;">{{ $no++ }}</td>
+                                  {{-- @dd($p->pendapatan->order_id) --}}
+                              <td scope="row" style="text-align: center;">{{ $no++ }}</td>
                                     <td style="text-align: center;">{{ $p->user->name }}</td>
                                     <td style="text-align: center;">{{ $p->metodepembayaran }}</td>
                                     <td style="text-align: center;">{{ $p->tujuan_pengajuan }}</td>
@@ -46,7 +47,7 @@
                                     <div class="d-flex">
 
                                         {{-- <button style="margin-right: 10px;" class="btn btn-outline-warning detail-button" data-bs-toggle="modal" data-bs-target="#modalDetail"><i class="bi bi-eye"></i></button> --}}
-                                        <form action="{{ route('terimapengajuan', ['id' => $p->id]) }}" method="post">
+                                        <form action="{{ route('terimapengajuan', ['id' => $p->id,'order_id' => $p->pendapatan->order_id]) }}" method="post">
                                             @csrf
                                         <button style="margin-right: 10px;" type="submit" class="btn btn-outline-success"
                                         onclick=""><i
