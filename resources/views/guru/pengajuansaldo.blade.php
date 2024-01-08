@@ -113,7 +113,7 @@
                                                         </form>
                                                     </td>
 
-                                                   
+
                                                 </tr>
                                             @endforeach
                                             <!-- Add more rows as needed -->
@@ -130,8 +130,9 @@
         </section>
 
         <!-- Modal Tarik Saldo -->
-        <form action="{{ route('Pembayaran.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('mengajukandana', $item->id) }}" method="post" enctype="multipart/form-data">
             @csrf
+            @method('PATCH')
             <div class="modal fade" id="modalTarikSaldo" tabindex="-1" aria-labelledby="modalTarikSaldoLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
@@ -319,6 +320,7 @@
                     }
                 });
             }
+
         </script>
 
     </main><!-- End #main -->

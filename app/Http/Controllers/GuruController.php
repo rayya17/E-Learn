@@ -213,14 +213,24 @@ class GuruController extends Controller
         $pendapatan = Pendapatan::where('user_id', auth()->user()->id)->first();
 
         if ($pendapatan && $pendapatan->pendapatan <= 1000000) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Minimal penarikan saldo Rp 1.000.000'
-            ]);
+            return redirect()->back()->with('error', 'Minimal saldo penarikan Rp 1.000.000');
         } else {
-            // Ubah status menjadi "Telah diajukan"
-            $penarikansaldo->status = 'telah diajukan';
-            $penarikansaldo->save();
+            $pendapatan = Pendapatan::findOrFail(Auth::user()->id);
+        // dd($request);
+
+        $mengajukan = new Penarikansaldo;
+        // $mengajukan->guru_id = $request->guru_id;
+        $mengajukan->user_id = Auth::user()->id;
+        $mengajukan->pendapatan_id = $pendapatan->id;
+        $mengajukan->metodepembayaran = $request->metodepembayaran;
+        $mengajukan->keterangan_pengajuan = $request->keterangan_pengajuan;
+        $mengajukan->tujuan_pengajuan = $request->tujuan_pengajuan;
+        $mengajukan->status = 'menunggu';
+        $mengajukan->save();
+
+
+            // dd($penarikansaldo);
+
 
             return response()->json([
                 'success' => true,
