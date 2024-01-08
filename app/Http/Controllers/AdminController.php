@@ -49,20 +49,9 @@ class AdminController extends Controller
         ->orderByRaw('YEAR(created_at) ASC, MONTH(created_at) ASC')
         ->get();
 
-    $formattedData = [];
 
-    for ($i = 1; $i <= 12; $i++) {
-        $data = $monthlyIncomeData->where('month', $i)->first();
-
-        $formattedData[] = [
-            'x' => $i,
-            'y' => $data ? intval($data->total_income) : 0,
-        ];
-    }
-
-    return response()->json(['data' => $formattedData]);
+    return response()->json(['data' => $monthlyIncomeData]);
 }
-
 public function getYearIncomeData()
 {
     $yearIncomeData = Pendapatan::selectRaw('YEAR(created_at) as year, SUM(pendapatan) as total_income')
@@ -196,7 +185,7 @@ public function getYearIncomeData()
 
     public function pengajuanguru(Request $request){
         $data = penarikansaldo::all();
-        $guru = penarikansaldo::where('status', 'menunggu')->get();
+        $guru = penarikansaldo::where('status', 'menunggu')->paginate(5);
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         return view('admin.pengajuandana', compact('data','guru', 'Notifikasi', 'unreadNotificationsCount'));

@@ -95,7 +95,7 @@ class GuruController extends Controller
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
-        $tugas_dikumpulkan = Pengumpulan::all();
+        $tugas_dikumpulkan = Pengumpulan::paginate(5);
 
         // $pengumpulan = Pengumpulan::all();
         return view('guru.pengumpulan', compact('guru', 'Notifikasi', 'unreadNotificationsCount', 'tugas_dikumpulkan'));

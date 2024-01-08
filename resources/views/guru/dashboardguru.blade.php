@@ -11,7 +11,7 @@
         transform: translateY(-10px); /* Adjust the distance on hover */
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Optional: Add a stronger box shadow on hover */
     }
-   
+
 </style>
 
   <main id="main" class="main">
@@ -30,20 +30,19 @@
       <div class="row">
 
         <!-- Left side columns -->
-        <div class="col-lg-12">
-          <div class="row">
+        <div class="row">
 
           <!-- End Sales Card -->
 
             <!-- Revenue Card -->
-            <div class="col-xxl-2 col-md-3 ">
+            <div class="col-xxl-2 col-md-4">
 
               <div class="card info-card revenue-card " style="min-height: 90%">
                 <div class="card-body">
                   <h5 class="card-title" style="padding: 10px">Jumlah Materi</h5>
 
                   <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center ms-3">
                       <i class="bi bi-journal-richtext"></i>
                     </div>
                     <div class="ps-3">
@@ -55,14 +54,14 @@
               </div>
             </div><!-- End Revenue Card -->
 
-            <div class="col-xxl-3 col-md-3">
+            <div class="col-xxl-3 col-md-4">
 
               <div class="card info-card revenue-card " style="min-height: 90%">
                 <div class="card-body" style="padding: 10px">
                   <h5 class="card-title">Jumlah Siswa</h5>
 
                   <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center ms-3">
                       <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
@@ -76,13 +75,13 @@
 
 
             <!-- Customers Card -->
-            <div class="col-xxl-2 col-md-3">
+            <div class="col-xxl-2 col-md-4">
 
               <div class="card info-card customers-card " style="min-height: 90%">
                 <div class="card-body" style="padding: 10px">
                   <h5 class="card-title">Jumlah Transaksi </h5>
                   <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center ms-3">
                       <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
@@ -94,7 +93,7 @@
             </div>
             <!-- End Customers Card -->
 
-            <div class="col-xxl-2 col-md-3 " >
+            <div class="col-xxl-2 col-md-12" >
 
 
               <div class="card info-card customers-card" style="min-height: 90%">
@@ -105,7 +104,7 @@
                   <h5 class="card-title">Saldo <span>| Bulan ini</span></h5>
 
                   <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center ms-3">
                       <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
@@ -118,6 +117,8 @@
               </div>
 
             </div>
+
+          </div>
 
             <!-- Reports -->
             <div class="col-12">

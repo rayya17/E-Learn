@@ -79,7 +79,7 @@
                                                 style="text-align: center
                                             ;">
                                                 Bukti</th>
-                                          
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -122,6 +122,12 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="d-flex justify-content-center" style="margin-top: 20px;">
+                                {!! $tugas_dikumpulkan->links('pagination::bootstrap-4')->with([
+                                    'class' => 'pagination',
+                                    'style' => 'margin-top: 20px;'
+                                ]) !!}
                             </div>
                         </div>
                     </div>

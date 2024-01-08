@@ -32,46 +32,55 @@
                           </tr>
                           </thead>
                           <tbody>
-                            @php
-                            $no = 1;
-                        @endphp
-                            @forelse ($guru as $p)
-                            <tr>
-                              <td scope="row">{{ $no++ }}</td>
-                                <td style="text-align: center;">{{ $p->user->name }}</td>
-                                <td style="text-align: center;">{{ $p->metodepembayaran }}</td>
-                                <td style="text-align: center;">{{ $p->tujuan_pengajuan }}</td>
-                                <td style="text-align: center;">{{ $p->keterangan_pengajuan }}</td>
-                                <td style="text-align: center;">
-                                  <div class="d-flex">
+                                @php
+                                $no = 1;
+                            @endphp
+                                @forelse ($guru as $p)
+                                <tr>
+                                <td scope="row" style="text-align: center;">{{ $no++ }}</td>
+                                    <td style="text-align: center;">{{ $p->user->name }}</td>
+                                    <td style="text-align: center;">{{ $p->metodepembayaran }}</td>
+                                    <td style="text-align: center;">{{ $p->tujuan_pengajuan }}</td>
+                                    <td style="text-align: center;">{{ $p->keterangan_pengajuan }}</td>
+                                    <td style="text-align: center;">
+                                    <div class="d-flex">
 
-                                    {{-- <button style="margin-right: 10px;" class="btn btn-outline-warning detail-button" data-bs-toggle="modal" data-bs-target="#modalDetail"><i class="bi bi-eye"></i></button> --}}
-                                    <form action="{{ route('terimapengajuan', ['id' => $p->id]) }}" method="post">
+                                        {{-- <button style="margin-right: 10px;" class="btn btn-outline-warning detail-button" data-bs-toggle="modal" data-bs-target="#modalDetail"><i class="bi bi-eye"></i></button> --}}
+                                        <form action="{{ route('terimapengajuan', ['id' => $p->id]) }}" method="post">
+                                            @csrf
+                                        <button style="margin-right: 10px;" type="submit" class="btn btn-outline-success"
+                                        onclick=""><i
+                                        class="fa-solid fa-check"></i></button>
+                                        </form>
+                                        <form action="{{ route('tolakpengajuan', ['id' => $p->id]) }}" method="post">
                                         @csrf
-                                    <button style="margin-right: 10px;" type="submit" class="btn btn-outline-success"
+                                    <button style="margin-right: 10px;" type="submit" class="btn btn-outline-danger"
                                     onclick=""><i
-                                    class="fa-solid fa-check"></i></button>
+                                    class="bi bi-x"></i></button>
                                     </form>
-                                    <form action="{{ route('tolakpengajuan', ['id' => $p->id]) }}" method="post">
-                                      @csrf
-                                  <button style="margin-right: 10px;" type="submit" class="btn btn-outline-danger"
-                                  onclick=""><i
-                                  class="bi bi-x"></i></button>
-                                  </form>
-                                  </div>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="8" style="text-align: center;"><h7>Data Tidak Ada</h7></td>
-                        </tr>
-                        @endforelse
-                        <!-- Add more rows as needed -->
-                    </tbody>
+                                    </div>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="8" style="text-align: center;"><h7>Data Tidak Ada</h7></td>
+                            </tr>
+                            @endforelse
+                            <!-- Add more rows as needed -->
+                        </tbody>
 
-                           </table>
-                        </div>
-                  </div>
+                    </table>
+
+                    <!-- Pagination links -->
+                  {{-- {{ $guru->links() }} --}}
+                    </div>
+                    <div class="d-flex justify-content-center" style="margin-top: 20px;">
+                        {!! $guru->links('pagination::bootstrap-4')->with([
+                            'class' => 'pagination',
+                            'style' => 'margin-top: 20px;'
+                        ]) !!}
+                    </div>
+                </div>
            </div>
       </div>
   </div>
