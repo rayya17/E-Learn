@@ -205,13 +205,13 @@
                                                     <table class="table">
                                                         <thead>
                                                             <tr>
-                                                                <th scope="col" style="text-align: center; background-color:#4FA987; border-top-left-radius:10px; ">No</th>
-                                                                <th scope="col" style="text-align: center; background-color:#4FA987;">Tugas</th>
-                                                                <th scope="col" style="text-align: center; background-color:#4FA987;">Deskripsi</th>
-                                                                <th scope="col" style="text-align: center; background-color:#4FA987;">Materi</th>
-                                                                <th scope="col" style="text-align: center; background-color:#4FA987;">Tingkat Kesulitan</th>
-                                                                <th scope="col" style="text-align: center; background-color:#4FA987;">Tanggal Mulai</th>
-                                                                <th scope="col" style="text-align: center; background-color:#4FA987; border-top-right-radius:10px; ">Aksi</th>
+                                                                <th scope="col" style="text-align: center; background-color:#4FA987; border-top-left-radius:10px; color: #ffff ">No</th>
+                                                                <th scope="col" style="text-align: center; background-color:#4FA987; color: #ffff">Tugas</th>
+                                                                <th scope="col" style="text-align: center; background-color:#4FA987; color: #ffff">Deskripsi</th>
+                                                                <th scope="col" style="text-align: center; background-color:#4FA987; color: #ffff">Materi</th>
+                                                                <th scope="col" style="text-align: center; background-color:#4FA987; color: #ffff">Tingkat Kesulitan</th>
+                                                                <th scope="col" style="text-align: center; background-color:#4FA987; color: #ffff">Tanggal Mulai</th>
+                                                                <th scope="col" style="text-align: center; background-color:#4FA987; border-top-right-radius:10px; color: #ffff ">Aksi</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -354,15 +354,12 @@
 
                                                 <thead style="background-color: #4FA987;">
                                                     <tr>
-                                                        <th scope="col">No</th>
-                                                        <th scope="col">Nama</th>
-                                                        <th scope="col">Materi</th>
-                                                        <th scope="col">Tugas</th>
+                                                        <th scope="col" style="text-align: center; border-top-left-radius:10px; ">No</th>
+                                                        <th scope="col" style="text-align: center;">Nama</th>
+                                                        <th scope="col" style="text-align: center;">Materi</th>
+                                                        <th scope="col" style="text-align: center;">Tugas</th>
                                                         <th scope="col" style="text-align: center">Point</th>
-                                                        <th scope="col"
-                                                            style="text-align: center
-                                                        ;">
-                                                            Bukti</th>
+                                                        <th scope="col" style="text-align: center; border-top-right-radius:10px;">Bukti</th>
 
                                                     </tr>
                                                 </thead>
@@ -406,6 +403,12 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
+                                            <div class="d-flex justify-content-center">
+                                                {!! $tugas_dikumpulkan->links('pagination::bootstrap-4')->with([
+                                                    'class' => 'pagination',
+                                                    'style' => 'margin-top: 20px;'
+                                                ]) !!}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -179,4 +179,24 @@
             });
         });
     </script>
+
+<section>
+    <div class="container">
+        <div class="row justify-content-center">
+            {{-- Check if there is data --}}
+            @if(count($materi) > 0)
+                @foreach ($materi as $mtr)
+                    <!-- Your existing code for iterating through data -->
+                @endforeach
+            @else
+                <!-- Display image or message when there is no data -->
+                <div class="text-center">
+                    <img src="{{ asset('storage/no_data.jpeg') }}" alt="" style="width: 450px; height: 450px;">
+                    <h5>No data available</h5>
+                </div>
+            @endif
+        </div>
+    </div>
+</section>
+
 @endsection

@@ -1,5 +1,5 @@
 @extends('layouts.sidebar')
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function () {
         var formSubmitted = false;
 
@@ -27,7 +27,7 @@
             }
         });
     });
-</script>
+</script> --}}
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -240,8 +240,9 @@
                                                 <input type="text" name="komentar" id="komentar"
                                                     class="form-control me-3" id="floatingInput" placeholder="Komentar">
                                                 <label for="floatingInput">Balasan Komentar</label>
-                                                <button type="submit" name="submit"
-                                                    class="btn btn-success"><i class="bi bi-send-fill"></i></button>
+                                                <button type="submit" name="submit" class="btn btn-success" style="background-color: #8FED8F; border-color: #8FED8F;">
+                                                    <i class="bi bi-send-fill"></i>
+                                                </button>
                                             </div>
                                         </div>
                                     </form>

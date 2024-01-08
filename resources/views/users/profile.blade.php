@@ -164,7 +164,7 @@
                                         Kelas : {{ $order->materi->kelas }}
                                     </p>
 
-                                <p class="ml-2" style="color: #3B9680; padding-bottom: 12px">Harga : {{ $order->total_price }}</p>
+                                <p class="ml-2" style="color: #3B9680; padding-bottom: 12px">Harga : Rp.{{ number_format($order->total_price, 0, ',', '.') }}</p>
                                 <br><br>
                                 <h4 style="position: absolute; right:1%; bottom:0;n margin: 0;" class="mr-2 mb-2">Lunas</h4>
                             </blockquote>

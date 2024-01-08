@@ -248,7 +248,7 @@ class GuruController extends Controller
         $materi = Materi::findOrFail($id);
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
-        $tugas_dikumpulkan = Pengumpulan::where('materi_id',$id)->get();
+        $tugas_dikumpulkan = Pengumpulan::where('materi_id',$id)->paginate(5);
         $tugas = Tugas::where('materi_id', $materi->id)->paginate(5);
 
         return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount', 'tugas', 'materi', 'guru','tugas_dikumpulkan'));

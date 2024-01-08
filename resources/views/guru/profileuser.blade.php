@@ -8,15 +8,17 @@
             <div class="card">
                 <div class="card-body">
                     <div class="card mx-auto" style="width: 20% ">
-                        <div class="card-body">
+                        <div class="">
                             <center>
-                            <img src="{{ asset('storage/profile/' . Auth::user()->foto_user) }}" alt="foto profilenya"
-                            style=" width: 140px; height: 200px border-radius: 30px;" class="card-img-top" alt="...">
+                                <img src="{{ asset('storage/profile/' . Auth::user()->foto_user) }}" alt="foto profilenya"
+                                    style="width: 250px; object-fit:cover; height: 270px; border-radius: 20px; box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.3);"
+                                    class="card-img-top" alt="...">
                             </center>
                         </div>
+
                     </div>
                     <h5 class="text-bold"  style="color: #000000; font-weight: bold;">Profile</h5>
-                    <hr style="border-width: 2px;">
+                    <hr style="border-width: 7px;">
                     @foreach ($profileguru as $user )
                     <form action="{{ route('profileguruUp', ['id' => $user->id]) }}" method="post" enctype="multipart/form-data">
                         @csrf
@@ -61,7 +63,7 @@
                                 <label>Perbarui Foto Anda</label>
                                 @if ($user->foto_user === null)
                                 <input type="file" name="foto_user"
-                                    class="form-control" value="" style="border-radius: 10px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);" required>
+                                    class="form-control" value="" style="border-radius: 10px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);">
                             @else
                                 <input type="file" name="foto_user"
                                     class="form-control"

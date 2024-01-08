@@ -78,6 +78,7 @@
                             <h6>Saldo Anda : Rp {{ number_format($pendapatan) }}</h6>
                             <div class="col-lg-12">
                                 <div class="row">
+
                                     <table>
                                         <thead style="background-color: #4FA987;  ">
                                             <tr>
@@ -86,7 +87,7 @@
                                                 <th scope="col" style="text-align: center;">keterangan</th>
                                                 <th scope="col" style="text-align: center;">tujuan</th>
                                                 <th scope="col" style="text-align: center;">status</th>
-                                                <th scope="col" style=" border-top-right-radius:10px;">Aksi</th>
+                                                {{-- <th scope="col" style=" border-top-right-radius:10px;">Aksi</th> --}}
 
                                             </tr>
                                         </thead>
@@ -103,7 +104,7 @@
                                                             @csrf
                                                             @method('patch')
                                                             <button type="submit"
-                                                                class="text-light btn {{ $item->status === 'mengajukan' ? 'btn-warning' : 'btn-success' }}"
+                                                                class="text-light btn {{ $item->status === 'mengajukan' ? 'btn-warning' : 'btn-danger' }}"
                                                                 id="btn-ajukan{{ $item->id }}"
                                                                 onclick="AjukanButton({{ $item->id }})"
                                                                 data-status="{{ $item->status }}">
@@ -112,36 +113,14 @@
                                                         </form>
                                                     </td>
 
-                                                    <td style="text-align: center;">
-                                                        <div class="d-flex gap-0" style="text-align: center;">
-                                                            {{-- edit --}}
-                                                            <button style="margin-right: 10px;"
-                                                                class="btn btn-outline-warning edit-button"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#modalEdit-{{ $item->id }}"><i
-                                                                    class="bi bi-pencil-square"></i>
-                                                            </button>
-
-                                                            {{-- delete --}}
-                                                            <form id="delete-form-{{ $item->id }}"
-                                                                action="{{ route('Pembayaran.destroy', $item->id) }}"
-                                                                method="POST">
-                                                                @method('DELETE')
-                                                                @csrf
-                                                                <button type="button"
-                                                                    class="btn btn-outline-danger delete-btn"
-                                                                    onclick="confirmDelete('{{ $item->id }}')">
-                                                                    <i class="bi bi-trash-fill"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                    </td>
+                                                   
                                                 </tr>
                                             @endforeach
                                             <!-- Add more rows as needed -->
                                         </tbody>
 
                                     </table>
+
                                 </div>
                             </div>
                         </div>

@@ -521,12 +521,12 @@
 
             </li><!-- End Tables Nav -->
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link {{ request()->is('Pengumpulantugas') ? '' : 'collapsed' }}"
                     href="{{ route('Pengumpulantugas') }}">
                     <i class="bi bi-book"></i><span>Pengumpulan Tugas</span>
                 </a>
-            </li><!-- End Charts Nav -->
+            </li><!-- End Charts Nav --> --}}
 
             <li class="nav-item">
                 <a class="nav-link {{ request()->is('Pembayaran') ? '' : 'collapsed' }}" href="{{ url ('Pembayaran') }}">

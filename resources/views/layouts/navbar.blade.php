@@ -236,6 +236,22 @@
             padding-top: 0px;
             margin-bottom: 5px;
         }
+
+        .logo img {
+            margin-bottom: 16px;
+            max-height: 122px;
+            margin-right: 28px;
+            /* margin-left: -15px; */
+        }
+
+        .header {
+            transition: all 0.5s;
+            z-index: 997;
+            height: 65px;
+            box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+            background-color: #4FA987;
+            padding-left: 20px;
+        }
     </style>
 </head>
 
@@ -249,8 +265,7 @@
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
-                <img src="{{url ('storage/logo2.png')}}" alt="">
-                <span class="d-none d-lg-block">E-LEARN GURU</span>
+                <img src="{{url ('storage/logo2.png')}}" width="250px" alt="">
             </a>
             {{-- <i class="bi bi-list toggle-sidebar-btn"></i> --}}
         </div><!-- End Logo -->

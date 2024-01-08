@@ -45,12 +45,12 @@ class ProfileController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'tanggal_lahir' => 'required|date',
-            'no_telepon' => 'required|numeric|regex:/^\d*$/|digits_between:10,12',
+            'tanggal_lahir' => 'nullable|date',
+            'no_telepon' => 'nullable|numeric|regex:/^\d*$/|digits_between:10,12',
+            ''
         ],[
             'name.required'=>'nama harus diisi',
             'tanggal_lahir.required'=> 'tanggal lahir harus diisi',
-            'no_telepon.required'=> 'no telepon harus diisi',
             'no_telepon.numeric'=> 'nomor telepon harus berupa angka',
             'no_telepon.regex'=> 'nomor telepon tidak sesuai format',
             'no_telepon.digits_between'=> 'nomor telepon antara 10 sampai 12 angka',

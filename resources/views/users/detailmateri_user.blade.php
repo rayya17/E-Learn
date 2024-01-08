@@ -88,7 +88,7 @@
     <div class="tab-content">
         <div class="tab-pane fade show active" id="mapel" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
             <div class="semua">
-                <h2 style="margin-bottom: 20px; margin-top: 20px;">Detail Materi:</h2>
+                <h3 style="margin-bottom: 20px; margin-top: 20px;">Detail Materi:</h3>
                 <div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
 
                     <div class="cover">
@@ -96,18 +96,17 @@
                     </div>
                     <div class="title" style="margin-bottom: 50px;">
                         <div class="card-header" style="background-color: #ffffff">
-                            <div class="kelas d-flex">
-                                <h4 style="margin-right:auto">{{ $materi->mapel }}</h4>
-                                <h6>Kelas : {{ $materi->kelas }}</h6>
+                            <div class="kelas d-flex" style="margin-bottom: 10px;">
+                                <h4 style="margin-right: 50px; margin-bottom: 0;">{{ $materi->mapel }}</h4>
+                                <h6 style="margin-top: 2px;">Kelas : {{ $materi->kelas }}</h6>
                             </div>
                         </div>
                         <br>
                         <h1 style="font-size: 50px; gap-5"><strong>{{ $materi->nama_materi }}</strong></h1>
                         <br>
                         <div class="content">
-                                <p style="font-size: 18px;"><strong>Benefit :</strong> </p><p>{{ $materi->keterangan_benefit }}</p>
-                                <br>
-
+                            <p style="font-size: 18px;"><strong>Benefit :</strong> </p><p>{{ $materi->keterangan_benefit }}</p>
+                            <br>
                             <p style="font-size: 18px;"><strong>Pemateri : {{ $materi->guru->user->name }}</strong></p>
                         </div>
 
@@ -120,6 +119,7 @@
                                 onclick="alertHarusBeli()">Materi</a>
                         @endif
                     </div>
+
 
                 </div>
             </div>
