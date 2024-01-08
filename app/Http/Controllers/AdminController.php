@@ -49,9 +49,20 @@ class AdminController extends Controller
         ->orderByRaw('YEAR(created_at) ASC, MONTH(created_at) ASC')
         ->get();
 
+    $formattedData = [];
 
-    return response()->json(['data' => $monthlyIncomeData]);
+    for ($i = 1; $i <= 12; $i++) {
+        $data = $monthlyIncomeData->where('month', $i)->first();
+
+        $formattedData[] = [
+            'x' => $i,
+            'y' => $data ? intval($data->total_income) : 0,
+        ];
+    }
+
+    return response()->json(['data' => $formattedData]);
 }
+
 public function getYearIncomeData()
 {
     $yearIncomeData = Pendapatan::selectRaw('YEAR(created_at) as year, SUM(pendapatan) as total_income')

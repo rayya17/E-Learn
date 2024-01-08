@@ -1,5 +1,33 @@
 @extends('layouts.sidebar')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var formSubmitted = false;
 
+        document.getElementById('assignmentForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Check if a file is selected
+            var fileInput = document.getElementById('assignment');
+            if (!fileInput.files.length) {
+                toastr.error('Pilih file untuk dikumpulkan.');
+                return;
+            }
+
+            if (!formSubmitted) {
+                formSubmitted = true;
+
+                // Hide the form
+                document.getElementById('assignmentForm').style.display = 'none';
+
+                // Show Toastr notification
+                toastr.success('Tugas berhasil dikumpulkan!');
+            } else {
+                // If the form is already submitted, show an error notification
+                toastr.error('Anda telah mengumpulkan tugas sebelumnya.');
+            }
+        });
+    });
+</script>
 <style>
     body {
         font-family: Arial, sans-serif;

@@ -159,13 +159,9 @@
                                                 .then(response => response.json())
                                                 .then(data => {
                                                     const formattedData = data.data.map(item => {
-                                                        const date = new Date(item.year, item.month - 1);
-                                                        const monthName = date.toLocaleString('default', {
-                                                            month: 'short'
-                                                        });
                                                         return {
-                                                            x: monthName,
-                                                            y: parseInt(item.total_income)
+                                                            x: item.x,
+                                                            y: parseInt(item.y)
                                                         };
                                                     });
 
@@ -201,11 +197,6 @@
                                                             curve: 'smooth',
                                                             width: 2
                                                         },
-                                                        tooltip: {
-                                                            x: {
-                                                                format: 'dd/MM/yy HH:mm'
-                                                            },
-                                                        },
                                                         xaxis: {
                                                             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
                                                         }
@@ -235,7 +226,6 @@
 
                                     <!-- Line Chart -->
                                     <div id="tahunChart"></div>
-
                                     <script>
                                         document.addEventListener("DOMContentLoaded", () => {
                                             fetch('/get-year-income')
@@ -243,10 +233,24 @@
                                                 .then(data => {
                                                     const formattedData = data.data.map(item => {
                                                         return {
-                                                            x: item.year,
-                                                            y: parseInt(item.total_income)
+                                                            x: item.year, // Sesuaikan dengan nama properti dari controller
+                                                            y: parseInt(item.total_income) // Sesuaikan dengan nama properti dari controller
                                                         };
                                                     });
+
+                                                    const currentYear = new Date().getFullYear(); // Dapatkan tahun saat ini
+                                                    const yearsToShow = 5; // Sesuaikan dengan jumlah tahun yang ingin ditampilkan
+                                                    const startYear = currentYear - yearsToShow;
+
+                                                    // Tambahkan beberapa tahun ke belakang
+                                                    for (let i = startYear; i <= currentYear; i++) {
+                                                        if (!formattedData.some(item => item.x == i.toString())) {
+                                                            formattedData.unshift({
+                                                                x: i.toString(),
+                                                                y: 0
+                                                            });
+                                                        }
+                                                    }
 
                                                     new ApexCharts(document.querySelector("#tahunChart"), {
                                                         series: [{
@@ -295,6 +299,8 @@
                                                 });
                                         });
                                     </script>
+
+
                                     <!-- End Line Chart -->
 
                                 </div>

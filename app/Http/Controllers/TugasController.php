@@ -90,10 +90,21 @@ class TugasController extends Controller
 
     public function kirimTugas(Request $request)
     {
-        // dd($request->tingkat_kesulitan);
-        $bukti = $request->file('bukti');
-        $file_name = time() . '_' . $bukti->getClientOriginalName();
-        $bukti->move(public_path('storage/bukti'), $file_name);
+        // Check if a file has been uploaded
+        if ($request->hasFile('bukti')) {
+            $bukti = $request->file('bukti');
+
+            // Check if the file is valid
+            if ($bukti->isValid()) {
+                $file_name = time() . '_' . $bukti->getClientOriginalName();
+                $bukti->move(public_path('storage/bukti'), $file_name);
+            } else {
+                return back()->with('error', 'Invalid file.');
+            }
+        } else {
+            return back()->with('error', 'No file uploaded.');
+        }
+
         $tugas = Tugas::find($request->tugas_id);
         $point = $tugas->point;
 
@@ -116,7 +127,6 @@ class TugasController extends Controller
 
         $pengumpulan->save();
 
-
         $guru = User::where('role', 'guru')->get();
         foreach ($guru as $gr) {
             Notifikasi::create([
@@ -127,9 +137,7 @@ class TugasController extends Controller
             ]);
         }
 
-        // $guru = User::where($request->guru);
-
-        return back()->with('success', 'berhasil mengirimkan tugas anda');
+        return back()->with('success', 'Berhasil mengirimkan tugas Anda');
     }
 
     public function editTugas($tugas_id)
