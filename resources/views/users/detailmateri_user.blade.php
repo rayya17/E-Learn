@@ -25,7 +25,7 @@
         }
 
         .card {
-            background-color: #bebaba;
+            /* background-color: #bebaba; */
             /* Ganti warna latar belakang sesuai kebutuhan Anda */
             padding: 15px;
             margin: 10px;
@@ -66,6 +66,11 @@
         p {
             font-size: 18px;
         }
+        /* Hover effect */
+    .card.info-card:hover {
+        transform: translateY(-10px); /* Adjust the distance on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Optional: Add a stronger box shadow on hover */
+    }
     </style>
 
 
@@ -100,10 +105,10 @@
                         <h1 style="font-size: 50px; gap-5"><strong>{{ $materi->nama_materi }}</strong></h1>
                         <br>
                         <div class="content">
-                                <p style="font-size: 18px;">Benefit materi: {{ $materi->keterangan_benefit }}</p>
+                                <p style="font-size: 18px;"><strong>Benefit :</strong> </p><p>{{ $materi->keterangan_benefit }}</p>
                                 <br>
 
-                            <p style="font-size: 13px;"><strong>Pemateri : {{ $materi->guru->user->name }}</strong></p>
+                            <p style="font-size: 18px;"><strong>Pemateri : {{ $materi->guru->user->name }}</strong></p>
                         </div>
 
                         @if ($cekorder != null)

@@ -1,6 +1,13 @@
 @extends('layouts.layoutUser')
 
 @section('content')
+<style>
+    /* Hover effect */
+    .container.single-course:hover {
+        transform: translateY(-10px); /* Adjust the distance on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Optional: Add a stronger box shadow on hover */
+    }
+</style>
     <!-- Courses -->
     {{-- <header id="sidebar" class="sidebar justify-content-center d-flex mb-3">
         <ul class="sidebar-nav" id="sidebar-nav">
@@ -78,7 +85,8 @@
                                         <h5 style="margin-right:auto; color: black">{{ $mtr->mapel }}</h5>
                                         <h7 style="color:black">Kelas : {{ $mtr->kelas }}</h7>
                                     </div>
-                                    <p>{{ $mtr->keterangan_benefit }}</p>
+                                    <p style="color:rgb(60, 60, 60)"><strong>Benefit: </strong></p>
+                                    <p> {{ $mtr->keterangan_benefit }}</p>
                                 </div>
                             </a>
                             <div>

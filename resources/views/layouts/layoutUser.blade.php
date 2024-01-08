@@ -383,7 +383,7 @@
                                     </div>
                                 </li>
 
-                               
+
                                     <li class="nav-item px-2">
                                         <a class="nav-link nav-profile d-flex align-items-end pe-0" href="#"
                                             id="navbarDropdown" role="button" data-bs-toggle="dropdown"
@@ -455,7 +455,7 @@
                 icon: "error",
                 title: "Oops...",
                 text: "Something went wrong!",
-               
+
             });
         }
     </script>

@@ -131,6 +131,22 @@
         font-size: 15px;
         padding: 0px 29px;
     }
+
+    .logo img {
+        margin-bottom: 16px;
+        max-height: 122px;
+        margin-right: 28px;
+        /* margin-left: -15px; */
+    }
+
+    .header {
+        transition: all 0.5s;
+        z-index: 997;
+        height: 65px;
+        box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+        background-color: #4FA987;
+        padding-left: 20px;
+    }
 </style>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -143,7 +159,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
-        <img src="{{ url('storage/logoh.png') }}" width="50px" style="object-fit: cover" height="auto" class="justify-content-center">
+        <img width="250" src="{{ url('storage/logo2.png') }}" height="auto">
       </a>
       <i class="bi bi-list toggle-sidebar-btn" style="color: #ffff"></i>
     </div><!-- End Logo -->

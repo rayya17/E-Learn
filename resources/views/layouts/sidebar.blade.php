@@ -101,7 +101,7 @@
                     <!-- Mobile logo -->
                     <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
                         <a href="index.html" class="d-lg-none">
-                            <img width="300" src="{{ url('storage/logoh.png') }}" alt="">
+                            <img width="300" src="{{ url('storage/logo2.png') }}" alt="">
                         </a>
                     </div>
                     <!-- Header wrapper -->
@@ -185,7 +185,7 @@
                     <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
                         <!--begin::Logo image-->
                         <a href="index.html">
-                            <img width="300" src="{{ url('storage/logoh.png') }}"  alt="">
+                            <img width="250" src="{{ url('storage/logo2.png') }}"  alt="">
 
                         </a>
 

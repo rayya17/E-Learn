@@ -62,9 +62,9 @@
                             class="light-logo" alt="Logo-Dark" />
                         <img src="https://bootstrapdemos.wrappixel.com/spike/dist/assets/images/logos/logo-light.svg"
                             class="dark-logo" alt="Logo-light" /> --}}
-                            <img width="300" src="{{ url('storage/logoh.png') }}"  alt="">
+                            <img width="400" src="{{ url('storage/logo1.png') }}"  alt="">
                     </a>
-                    <div class="row align-items-center justify-content-around pt-7 pb-5">
+                    <div class="row align-items-center justify-content-around pt-0 pb-5">
                         <div class="col-lg-6 col-xl-5 d-none d-lg-block">
                             <div class="text-center text-lg-start">
                                 <img src="{{ url('storage/login-security.png') }}" alt="" class="img-fluid">

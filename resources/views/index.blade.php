@@ -104,7 +104,7 @@
             <!-- Logo container-->
             <a class="logo" href="index.html">
                 <img src="assets/images/logo-dark.png" height="24" class="logo-light-mode" alt="">
-                <img src="assets/images/logo-light.png" height="24" class="logo-dark-mode" alt="">
+                <img src="{{ url('storage/1704554304108.png') }}" height="24" class="logo-dark-mode" alt="">
             </a>
             <!-- Logo End -->
 
@@ -141,7 +141,7 @@
                     <li><a href="#beranda" class="sub-menu-item">Home</a></li>
                     <li class="has-submenu parent-parent-menu-item">
                         <a href="#about">Tentang Kami</a>
-                        <ul class="submenu megamenu">                        
+                        <ul class="submenu megamenu">
                             <li>
                                 <ul>
                                 </ul>
@@ -279,10 +279,10 @@
                 <div class="col-lg-7 col-md-7">
                     <div class="title-heading me-lg-4">
                         <h1 class="heading mb-3" id="beranda">Selamat Datang Di Halaman<span class="text" style="color: #4FA987">E-learn</span> </h1>
-                        <p class="para-desc text-muted">Selamat datang di bimbel online kami, tempat di mana pembelajaran menjadi menyenangkan dan efektif!, 
+                        <p class="para-desc text-muted">Selamat datang di bimbel online kami, tempat di mana pembelajaran menjadi menyenangkan dan efektif!,
                      </p>
                      <div>
-                            <button href="{{ route('loginPage') }}" class="btn btn-success">Kunjungi</button>    
+                            <button href="{{ route('loginPage') }}" class="btn btn-success">Kunjungi</button>
                      </div>
                     </div>
                 </div><!--end col-->
@@ -298,7 +298,7 @@
     <!-- Hero End -->
 
     <!-- Partners start -->
- 
+
     <!-- Partners End -->
 
     <!-- How It Work Start -->
@@ -309,10 +309,10 @@
                     <div class="section-title mb-4 pb-2">
                         <h4 class="title mb-4" id="about">Tentang Kami</h4>
                         <p class="text-muted para-desc mb-0 mx-auto">Website<span
-                                class="text-primary fw-bold">E-learn</span> 
+                                class="text-primary fw-bold">E-learn</span>
                               ini memiliki beberapa fitur dan proses yang dirancang untuk memberikan pengalaman belajar yang optimal bagi siswa SMA/MA. Hanya dengan
                             Anda membeli kelas anda bisa mengakses kelas sampai kapanpun tanpa batas waktu. </p>
-                            
+
                             </div>
                 </div><!--end col-->
             </div><!--end row-->
@@ -355,7 +355,7 @@
                         <p class="text-muted para-desc mx-auto mb-0"> <span
                                 class="text-primary fw-bold">E-Learn</span> that can provide everything you need to
                             generate awareness, drive traffic, connect.</p> --}}
-                        {{-- <a href="https://1.envato.market/landrick" target="_blank" class="btn mt-4" style="background-color: 
+                        {{-- <a href="https://1.envato.market/landrick" target="_blank" class="btn mt-4" style="background-color:
                         #4FA987;color: #fff">Buy
                             Now <span class="badge rounded-pill bg-danger ms-2">v4.7.0</span></a>
                     </div>
@@ -485,7 +485,7 @@
             <div class="row my-md-5 pt-md-3 my-4 pt-2 pb-lg-4 justify-content-center">
                 <div class="col-12 text-center">
                     <div class="section-title">
-                      
+
                     </div>
                 </div><!--end col-->
             </div><!--end row-->
@@ -505,7 +505,7 @@
                                 <a href="#" class="logo-footer">
                                     <img src="assets/images/logo-light.png" height="24" alt="">
                                 </a>
-                                
+
                                 <p class="mt-4">Terima kasih telah mengunjungi kami! Temukan lebih banyak tentang layanan kami di bagian atas halaman.</p>
                                 {{-- <ul class="list-unstyled social-icon foot-social-icon mb-0 mt-4">
                                     <li class="list-inline-item mb-0"><a href="https://1.envato.market/landrick"
@@ -538,7 +538,7 @@
                                 <ul class="list-unstyled footer-list mt-4">
                                     <li><a href="#about" class="text-foot" style="color: #ffffff"><i
                                                 class="uil uil-angle-right-b me-1"></i> tentang kami</a></li>
-                                 
+
                                     <li><a href="#beranda" class="text-foot" style="color: #ffffff"><i
                                                 class="uil uil-angle-right-b me-1"></i>Blog</a></li>
                                     <li><a href="{{ Route('loginPage') }}" class="text-foot" style="color:#ffffff"><i
@@ -546,10 +546,10 @@
                                 </ul>
                             </div><!--end col-->
 
-                    
 
-                          <!--end col--> 
-                           
+
+                          <!--end col-->
+
                                 </div>
                         </div><!--end row-->
                     </div>
@@ -624,7 +624,7 @@
                 <p>Materi pelajaran terstruktur dan disajikan dengan cara yang mudah dipahami.</p>
                 <p>Siswa dapat mengakses bimbel online dari mana saja, kapan saja, asalkan memiliki koneksi internet. Ini memberikan fleksibilitas waktu dan lokasi yang tinggi, memungkinkan belajar sesuai jadwal yang paling nyaman bagi siswa.</p>
                 <p>Bimbel online dapat menjadi pilihan yang lebih ekonomis daripada bimbel tradisional karena mengurangi biaya transportasi dan penginapan.</p>
-                
+
             </div>
 
         </div>
@@ -765,7 +765,7 @@
             </div>
         </div>
 
-     
+
     </div>
     <!-- Offcanvas End -->
 
@@ -877,7 +877,7 @@
 
     <!-- Javascript -->
     <!-- JAVASCRIPT -->
-    
+
     <script src="{{ asset('assets/landing/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- SLIDER -->
     <script src="{{ asset('assets/landing/libs/tiny-slider/min/tiny-slider.js') }}"></script>
