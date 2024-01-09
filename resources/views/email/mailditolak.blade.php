@@ -56,7 +56,7 @@
                                                                         <table cellpadding="0" cellspacing="0" width="100%">
                                                                             <tbody>
                                                                                 <tr>
-                                                                                    <td align="left" class="esd-block-image es-m-txt-c" style="font-size: 0px;"><a target="_blank" href="https://viewstripo.email"><img src="{{ url('storage/logoh.png') }}" alt="Logo" style="display: block;" title="Logo" width="150"></a></td>
+                                                                                    <td align="left" class="esd-block-image es-m-txt-c" style="font-size: 0px;"><a target="_blank" href="https://viewstripo.email"><img src="{{ url('storage/logo1.png') }}" alt="Logo" style="display: block;" title="Logo" width="250"></a></td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
