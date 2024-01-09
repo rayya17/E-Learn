@@ -219,6 +219,12 @@ class GuruController extends Controller
             ->pluck('pendapatan')
             ->sum();
 
+        $nungguadmin = penarikansaldo::where('user_id', auth()->id())->where('pendapatan_id',$id)->first();
+        if($nungguadmin->status = 'menunggu'){
+            return back()->with('warning','Pengajuan anda sebelumnya belum di konfirmasi,silahkan tunggu!');
+        }
+
+
         if ($pendapatanUser <= 1000000) {
             return back()->with('error', 'Minimal saldo anda Rp. 1.000.000 untuk mengajukan dana');
         }
