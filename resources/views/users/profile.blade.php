@@ -120,9 +120,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex justify-content-end">
-                                <button class="btn btn-danger" style="border-radius: 10px;">update</button>
+                            <div class="d-flex justify-content-end mt-3"> <!-- Menambahkan margin top (mt-3) untuk jarak -->
+                                <button class="btn btn-danger" style="border-radius: 10px; padding: 8px 20px; margin-right: 10px;">
+                                    Update
+                                </button>
                             </div>
+
                         </form>
                     </div>
 
@@ -150,30 +153,42 @@
                     </div>
                 </fieldset>
             </div>
-            <div class="col-lg-12">
+            <div class="container">
                 <div class="row">
                     @foreach ($riwayat as $order)
-                    <div class="card mx-2" style="background-color: #3B9680">
-                        <div class="card-header" style="color: #ffffff; font-size: 20px"><strong>{{ $order->materi->nama_materi }}</strong></div>
-                        <div class="card-body">
-                            <blockquote class="blockquote mb-0" style="position: relative;">
-                                    <p class="ml-2 mt-2" style="color: #3B9680; padding-bottom: 12px">
-                                        Pengajar : {{ $order->materi->guru->user->name }}
-                                    </p>
-                                    <p class="ml-2" style="color: #3B9680; padding-bottom: 12px">
-                                        Kelas : {{ $order->materi->kelas }}
-                                    </p>
+                    <div class="col-lg-4">
+                        <div class="card mb-3" style="background-color: #3B9680">
+                            <div class="card-header" style="color: #ffffff; font-size: 20px"><strong>{{ $order->materi->nama_materi }}</strong></div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-5"><strong>Pengajar</strong> </div>
+                                    <div class="col-sm-7"> : {{ $order->materi->guru->user->name }}</div>
+                                </div>
 
-                                <p class="ml-2" style="color: #3B9680; padding-bottom: 12px">Harga : Rp.{{ number_format($order->total_price, 0, ',', '.') }}</p>
-                                <br><br>
-                                <h4 style="position: absolute; right:1%; bottom:0;n margin: 0;" class="mr-2 mb-2">Lunas</h4>
-                            </blockquote>
+                                <div class="row">
+                                    <div class="col-sm-5"><strong>Kelas</strong> </div>
+                                    <div class="col-sm-7"> : {{ $order->materi->kelas }}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-5"><strong>Harga</strong> </div>
+                                    <div class="col-sm-7"> : Rp. {{ number_format($order->total_price, 0, ',', '.') }}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h4 class="text-right mb-2">Lunas</h4>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                     @endforeach
                 </div>
             </div>
+
+
+
+
         </div>
         {{-- </form> --}}
 

@@ -78,7 +78,6 @@
                             <h6>Saldo Anda : Rp {{ number_format($pendapatan) }}</h6>
                             <div class="col-lg-12">
                                 <div class="row">
-
                                     <table>
                                         <thead style="background-color: #4FA987;  ">
                                             <tr>
