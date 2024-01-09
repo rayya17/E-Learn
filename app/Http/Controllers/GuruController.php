@@ -106,12 +106,19 @@ class GuruController extends Controller
         $user_id = Auth::user()->id;
         $mengajukan = penarikansaldo::all();
         $saldo = pendapatan::all();
-        $pendapatanguru = Pendapatan::all()->where('user_id', auth()->id());
+        $pendapatanguru = Pendapatan::all()->where('user_id', auth()->id())->where('pendapatan', '>', 0);
         $pendapatan = $pendapatanguru->pluck('pendapatan')->sum();
+        if ($pendapatan >= 1000000){
+            $sogeh = true;
+        }else{
+            $sogeh = false;
+        }
+
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
 
-        return view('guru.pengajuansaldo', compact('mengajukan', 'saldo', 'pendapatan', 'Notifikasi', 'unreadNotificationsCount', 'user_id'));
+        // dd($pendapatanguru->pluck('pendapatan'));
+        return view('guru.pengajuansaldo', compact('mengajukan', 'saldo', 'pendapatan', 'Notifikasi', 'unreadNotificationsCount', 'user_id', 'pendapatanguru', 'sogeh'));
     }
 
     public function create()
@@ -125,7 +132,6 @@ class GuruController extends Controller
 
         $request->validate([
             'metodepembayaran' => 'required',
-            'tujuan_pengajuan' => 'required',
             'keterangan_pengajuan' => 'required|unique:penarikansaldos|min:5|numeric|regex:/^\d*$/',
         ], [
             'metodepembayaran.required' => 'harus diisi',
@@ -206,20 +212,18 @@ class GuruController extends Controller
 
     public function mengajukandana(Request $request, $id)
     {
-        // Temukan data berdasarkan ID
-        $penarikansaldo = Penarikansaldo::findOrFail($id);
-        // dd($request->all());
-        // Pemeriksaan apakah saldo guru mencukupi
-        $pendapatan = Pendapatan::where('user_id', auth()->user()->id)->first();
 
-        if ($pendapatan && $pendapatan->pendapatan <= 1000000) {
-            return redirect()->back()->with('error', 'Minimal saldo penarikan Rp 1.000.000');
-        } else {
-            $pendapatan = Pendapatan::findOrFail(Auth::user()->id);
-        // dd($request);
+        $pendapatan = Pendapatan::find($id);
+        $pendapatanUser = Pendapatan::where('user_id', auth()->id())
+            ->where('pendapatan', '>', 0)
+            ->pluck('pendapatan')
+            ->sum();
+
+        if ($pendapatanUser <= 1000000) {
+            return back()->with('error', 'Minimal saldo anda Rp. 1.000.000 untuk mengajukan dana');
+        }
 
         $mengajukan = new Penarikansaldo;
-        // $mengajukan->guru_id = $request->guru_id;
         $mengajukan->user_id = Auth::user()->id;
         $mengajukan->pendapatan_id = $pendapatan->id;
         $mengajukan->metodepembayaran = $request->metodepembayaran;
@@ -228,15 +232,7 @@ class GuruController extends Controller
         $mengajukan->status = 'menunggu';
         $mengajukan->save();
 
-
-            // dd($penarikansaldo);
-
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Penarikan berhasil'
-            ]);
-        }
+        return back()->with('success', 'Berhasil mengajukan dana');
     }
 
 
@@ -258,10 +254,10 @@ class GuruController extends Controller
         $materi = Materi::findOrFail($id);
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
-        $tugas_dikumpulkan = Pengumpulan::where('materi_id',$id)->paginate(5);
+        $tugas_dikumpulkan = Pengumpulan::where('materi_id', $id)->paginate(5);
         $tugas = Tugas::where('materi_id', $materi->id)->paginate(5);
 
-        return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount', 'tugas', 'materi', 'guru','tugas_dikumpulkan'));
+        return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount', 'tugas', 'materi', 'guru', 'tugas_dikumpulkan'));
     }
 
     // public function materidetail($id)
@@ -275,9 +271,9 @@ class GuruController extends Controller
     //   return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount','tugas' ,'materi', 'guru'));
     // }
 
-//     public function Penarikansaldo(Request $request)
-//     {
-//         $guruId = Auth::id();
+    //     public function Penarikansaldo(Request $request)
+    //     {
+    //         $guruId = Auth::id();
 
     //     public function Penarikansaldo(Request $request)
     //     {

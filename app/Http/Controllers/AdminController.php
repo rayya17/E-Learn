@@ -27,73 +27,76 @@ class AdminController extends Controller
         $jumlahsiswa = user::where('role', 'user')->count();
         $pendapatan = Pendapatan::all()->where('user_id', auth()->id())->pluck('pendapatan')->sum();
         $topMateriOrders = Order::select('materi_id')
-    ->selectRaw('COUNT(*) as total_orders')
-    ->where('status', 'paid')
-    ->has('Materi') // Pastikan relasi Materi ada
-    ->has('user')   // Pastikan relasi User ada
-    ->groupBy('materi_id')
-    ->orderByDesc('total_orders')
-    ->with('Materi')
-    ->take(5)
-    ->get();
+            ->selectRaw('COUNT(*) as total_orders')
+            ->where('status', 'paid')
+            ->has('Materi') // Pastikan relasi Materi ada
+            ->has('user')   // Pastikan relasi User ada
+            ->groupBy('materi_id')
+            ->orderByDesc('total_orders')
+            ->with('Materi')
+            ->take(5)
+            ->get();
         $materi = Materi::all();
 
         return view('admin.dashboard', compact('jumlahpemateri', 'jumlahsiswa', 'pendapatan', 'Notifikasi', 'unreadNotificationsCount', 'materi', 'topMateriOrders'));
     }
 
     public function getMonthlyIncomeData()
-{
-    $monthlyIncomeData = Pendapatan::selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, SUM(pendapatan) as total_income')
-        ->where('user_id', auth()->id())
-        ->groupByRaw('YEAR(created_at), MONTH(created_at)')
-        ->orderByRaw('YEAR(created_at) ASC, MONTH(created_at) ASC')
-        ->get();
+    {
+        $monthlyIncomeData = Pendapatan::selectRaw('YEAR(created_at) as year, MONTH(created_at) as month, SUM(pendapatan) as total_income')
+            ->where('user_id', auth()->id())
+            ->groupByRaw('YEAR(created_at), MONTH(created_at)')
+            ->orderByRaw('YEAR(created_at) ASC, MONTH(created_at) ASC')
+            ->get();
 
 
-    return response()->json(['data' => $monthlyIncomeData]);
-}
-public function getYearIncomeData()
-{
-    $yearIncomeData = Pendapatan::selectRaw('YEAR(created_at) as year, SUM(pendapatan) as total_income')
-        ->where('user_id', auth()->id())
-        ->groupByRaw('YEAR(created_at)')
-        ->orderByRaw('YEAR(created_at) ASC')
-        ->get();
+        return response()->json(['data' => $monthlyIncomeData]);
+    }
+    public function getYearIncomeData()
+    {
+        $yearIncomeData = Pendapatan::selectRaw('YEAR(created_at) as year, SUM(pendapatan) as total_income')
+            ->where('user_id', auth()->id())
+            ->groupByRaw('YEAR(created_at)')
+            ->orderByRaw('YEAR(created_at) ASC')
+            ->get();
 
-    return response()->json(['data' => $yearIncomeData]);
-}
+        return response()->json(['data' => $yearIncomeData]);
+    }
 
-    public function Profileguru(){
+    public function Profileguru()
+    {
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         // $profileguru = guru::all();
         $profileguru = Guru::with('user')->get();
         $guruprofile = Guru::all();
         // dd($profileguru);
-        return view('admin.profileguru', compact('profileguru','guruprofile', 'Notifikasi', 'unreadNotificationsCount'));
+        return view('admin.profileguru', compact('profileguru', 'guruprofile', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
 
 
-    public function Detailguru($id){
+    public function Detailguru($id)
+    {
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
-        $gurudetail = Guru::where('id',$id)->with('user')->get();
+        $gurudetail = Guru::where('id', $id)->with('user')->get();
         // $gurudetail = guru::all();
-        return view('admin.detailguru', compact( 'gurudetail', 'Notifikasi', 'unreadNotificationsCount'));
+        return view('admin.detailguru', compact('gurudetail', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
-    public function calonguru(Request $request){
+    public function calonguru(Request $request)
+    {
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $calonguru = Guru::with('user')
-        ->whereHas('user', function ($query) {
-            $query->where('role', '=', 'gurunotapprove');
-        })
-        ->paginate(5);
+            ->whereHas('user', function ($query) {
+                $query->where('role', '=', 'gurunotapprove');
+            })
+            ->paginate(5);
 
-    return view('admin.calonguru', compact('calonguru', 'Notifikasi', 'unreadNotificationsCount'));
-   }
+        return view('admin.calonguru', compact('calonguru', 'Notifikasi', 'unreadNotificationsCount'));
+    }
 
     public function guruterima(String $id)
     {
@@ -183,23 +186,23 @@ public function getYearIncomeData()
 
 
 
-    public function pengajuanguru(Request $request){
+    public function pengajuanguru(Request $request)
+    {
         $data = penarikansaldo::all();
         $guru = penarikansaldo::where('status', 'menunggu')->paginate(5);
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
-        return view('admin.pengajuandana', compact('data','guru', 'Notifikasi', 'unreadNotificationsCount'));
+        return view('admin.pengajuandana', compact('data', 'guru', 'Notifikasi', 'unreadNotificationsCount'));
     }
 
 
-    public function terimapengajuan($id , $order_id)
+    public function terimapengajuan($id, $order_id)
     {
         $pengajuanPenjual = penarikansaldo::findOrFail($id);
         $pengajuanPenjual->status = 'diterima';
         $pengajuanPenjual->save();
-        $pendapatan = Pendapatan::where('user_id', $pengajuanPenjual->user_id)->where('order_id', $order_id )->first();
-        $pendapatan->pendapatan = 0;
-        $pendapatan->save();
+
+        $pendapatan = Pendapatan::query()->where('user_id', $pengajuanPenjual->user_id)->where('order_id', $order_id)->update(['pendapatan' => 0]);
 
         $guru = User::where('role', 'guru')->first();
         Notifikasi::create([
@@ -240,4 +243,3 @@ public function getYearIncomeData()
         return redirect()->route('loginPage')->with('success', 'berhasil logout');
     }
 }
-

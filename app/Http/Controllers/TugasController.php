@@ -90,6 +90,16 @@ class TugasController extends Controller
 
     public function kirimTugas(Request $request)
     {
+        // Check if the user has already submitted the task for this particular assignment
+        $existingSubmission = Pengumpulan::where('tugas_id', $request->tugas_id)
+            ->where('user_id', Auth::user()->id)
+            ->exists();
+
+        if ($existingSubmission) {
+            // User has already submitted the task for this assignment, show an alert or redirect as needed
+            return back()->with('error', 'Anda sudah mengumpulkan tugas untuk tugas ini sebelumnya.');
+        }
+
         // Check if a file has been uploaded
         if ($request->hasFile('bukti')) {
             $bukti = $request->file('bukti');

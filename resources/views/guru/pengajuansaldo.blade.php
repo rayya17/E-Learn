@@ -68,7 +68,9 @@
     <main id="main" class="main">
         <!-- End Page Title -->
         <section class="section dashboard">
-            <button type="button" class="btn btn-outline-success btn-tarik-saldo" data-bs-toggle="modal"
+        <button @if ($sogeh == false)
+            onclick="alert()"
+        @endif type="button" class="btn btn-outline-success btn-tarik-saldo" data-bs-toggle="modal"
                 data-bs-target="#modalTarikSaldo" style="border-radius: 10px">Tarik Saldo</button>
             <div class="row">
                 <div class="col-md-12 col-lg-12 mt-3">
@@ -128,65 +130,70 @@
             </div>
         </section>
 
-        <!-- Modal Tarik Saldo -->
-        <form action="{{ route('mengajukandana', $item->id) }}" method="post" enctype="multipart/form-data">
-            @csrf
-            @method('PATCH')
-            <div class="modal fade" id="modalTarikSaldo" tabindex="-1" aria-labelledby="modalTarikSaldoLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalTarikSaldoLabel">Tarik Saldo</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <input type="hidden" name="user_id" value="{{ $user_id }}">
-                            {{-- <span>{{ $request->guru_id }}</span> --}}
-                            <div class="mb-3">
-                                <label for="kelas" class="form-label fw-bold">metode pembayaran</label>
-                                <select name="metodepembayaran" id="selectMetode" class="form-control">
-                                    <option value="" class="dropdown-menu" disabled selected>Pilih Metode Pembayaran
-                                    </option>
-                                    <option value="bank" data-target="bankInput">Bank</option>
-                                </select>
+        @foreach ($pendapatanguru as $item)
+            <!-- Modal Tarik Saldo -->
+            <form action="{{ route('mengajukandana', $item->id) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('PATCH')
+                <div class="modal fade" id="modalTarikSaldo" tabindex="-1" aria-labelledby="modalTarikSaldoLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalTarikSaldoLabel">Tarik Saldo</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
-                            <div class="" value="bank" id="bankInput" style="display: none;">
+                            <div class="modal-body">
+                                <input type="hidden" name="user_id" value="{{ $user_id }}">
+                                {{-- <span>{{ $request->guru_id }}</span> --}}
                                 <div class="mb-3">
-                                    <label for="tujuan_pengajuan" class="form-label fw-bold">tujuan</label>
-                                    <select
-                                        class="form-select form-select-sm mb-1  @error('tujuan_pengajuan') is-invalid @enderror"
-                                        name="tujuan_pengajuan" aria-label="Large select example" id="tujuan_pengajuan"
-                                        width="200px" value="{{ old('tujuan_pengajuan') }}">
-                                        <option selected disabled>Pilih tujuan pengajuan</option>
-                                        <option value="Mandiri">Mandiri</option>
-                                        <option value="BNI">BNI</option>
-                                        <option value="BCA">BCA</option>
-                                        <option value="BRI">BNI</option>
-                                        <option value="Jatim">Jatim</option>
+                                    <label for="kelas" class="form-label fw-bold">metode pembayaran</label>
+                                    <select name="metodepembayaran" id="selectMetode" class="form-control">
+                                        <option value="" class="dropdown-menu" disabled selected>Pilih Metode
+                                            Pembayaran
+                                        </option>
+                                        <option value="bank" data-target="bankInput">Bank</option>
                                     </select>
-                                    @if ($errors->has('tujuan_pengajuan'))
-                                        <span class="text-tujuan">{{ $errors->first('tujuan_pengajuan') }}</span>
-                                    @endif
                                 </div>
-                                <div class="mb-3">
-                                    <label for="kelas" class="form-label fw-bold">Nomor Rekening</label>
-                                    <input type="number" name="keterangan_pengajuan" id="keterangan"
-                                        class="form-control" value="{{ old('keterangan_pengajuan') }}">
-                                    @if ($errors->has('keterangan_pengajuan'))
-                                        <span class="text-danger">{{ $errors->first('keterangan_pengajuan') }}</span>
-                                    @endif
+                                <div class="" value="bank" id="bankInput" style="display: none;">
+                                    <div class="mb-3">
+                                        <label for="tujuan_pengajuan" class="form-label fw-bold">tujuan</label>
+                                        <select
+                                            class="form-select form-select-sm mb-1  @error('tujuan_pengajuan') is-invalid @enderror"
+                                            name="tujuan_pengajuan" aria-label="Large select example" id="tujuan_pengajuan"
+                                            width="200px" value="{{ old('tujuan_pengajuan') }}">
+                                            <option selected disabled>Pilih tujuan pengajuan</option>
+                                            <option value="Mandiri">Mandiri</option>
+                                            <option value="BNI">BNI</option>
+                                            <option value="BCA">BCA</option>
+                                            <option value="BRI">BNI</option>
+                                            <option value="Jatim">Jatim</option>
+                                        </select>
+                                        @if ($errors->has('tujuan_pengajuan'))
+                                            <span class="text-tujuan">{{ $errors->first('tujuan_pengajuan') }}</span>
+                                        @endif
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="kelas" class="form-label fw-bold">Nomor Rekening</label>
+                                        <input type="number" name="keterangan_pengajuan" id="keterangan"
+                                            class="form-control" value="{{ old('keterangan_pengajuan') }}">
+                                        @if ($errors->has('keterangan_pengajuan'))
+                                            <span class="text-danger">{{ $errors->first('keterangan_pengajuan') }}</span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">tutup</button>
-                            <button type="submit" class="btn btn-primary">Kirim</button>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">tutup</button>
+                                <button type="submit" class="btn btn-primary">Kirim</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        @endforeach
+
 
         {{-- modal edit --}}
         @foreach ($mengajukan as $item)
@@ -319,7 +326,17 @@
                     }
                 });
             }
-
+        </script>
+        <script>
+            function alert(){
+                Swal.fire({
+                    title: 'Peringatan!',
+                    text: "Saldo kurang dari Rp. 1.000.000",
+                    icon: "warning",
+                    showconfirmbutton: false,
+                    timer: 2000,
+                });
+            }
         </script>
 
     </main><!-- End #main -->

@@ -76,7 +76,7 @@ Route::middleware('guru')->group(function () {
     // Route::resource('materiGuru',GuruController::class);
 });
 
-Route::post('/notifDelete/{id}', [NotifikasiController::class, 'markRead'])->name('notifDelete');
+Route::post('/notifDelete/{id}', [NotifikasiController::class, 'markRead'])->name('notifDelete');   
 
 Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->group(function () {
     //Register Page

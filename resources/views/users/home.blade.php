@@ -1,13 +1,15 @@
 @extends('layouts.layoutUser')
 
 @section('content')
-<style>
-    /* Hover effect */
-    .container.single-course:hover {
-        transform: translateY(-10px); /* Adjust the distance on hover */
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Optional: Add a stronger box shadow on hover */
-    }
-</style>
+    <style>
+        /* Hover effect */
+        .container.single-course:hover {
+            transform: translateY(-10px);
+            /* Adjust the distance on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            /* Optional: Add a stronger box shadow on hover */
+        }
+    </style>
     <!-- Courses -->
     {{-- <header id="sidebar" class="sidebar justify-content-center d-flex mb-3">
         <ul class="sidebar-nav" id="sidebar-nav">
@@ -92,25 +94,13 @@
                             <div>
                                 @if ($currentOrder)
                                     <!-- Iterate through the order collection and access status property -->
-                                    @if ($currentOrder->status == 'Paid')
-                                        <!-- Display Ulasan button for Paid orders -->
-                                        <button type="button" class="btn-ulasan" data-materi="{{ $mtr->id }}"
-                                            data-toggle="modal" data-target="#UlasanModal"
-                                            style="position: absolute; bottom: 10px; right: 30px; font-size: 15px; background-color:#388064; width:90px; border-radius:10px; color:white">
-                                            <i class="fa-regular fa-message" style="margin:5px;"></i>
-                                            <span>Ulasan</span>
-                                        </button>
-                                    @else
-                                        <!-- Display Pesan Sekarang button for Unpaid orders -->
-                                        <form action="{{ route('checkout', $mtr->id) }}" method="post">
-                                            @csrf
-                                            <button
-                                                class="btn btn btn-sm buy-now-btn d-flex justify-content-center align-items-center"
-                                                type="submit" style="border-radius: 30px; margin-right: 10px">
-                                                Pesan Sekarang
-                                            </button>
-                                        </form>
-                                    @endif
+                                    <!-- Display Ulasan button for Paid orders -->
+                                    <button type="button" class="btn-ulasan" data-materi="{{ $mtr->id }}"
+                                        data-toggle="modal" data-target="#UlasanModal"
+                                        style="position: absolute; bottom: 10px; right: 30px; font-size: 15px; background-color:#388064; width:90px; border-radius:10px; color:white">
+                                        <i class="fa-regular fa-message" style="margin:5px;"></i>
+                                        <span>Ulasan</span>
+                                    </button>
                                 @else
                                     <!-- Display Pesan Sekarang button if no order found -->
                                     <form action="{{ route('checkout', $mtr->id) }}" method="post">
@@ -180,23 +170,23 @@
         });
     </script>
 
-<section>
-    <div class="container">
-        <div class="row justify-content-center">
-            {{-- Check if there is data --}}
-            @if(count($materi) > 0)
-                @foreach ($materi as $mtr)
-                    <!-- Your existing code for iterating through data -->
-                @endforeach
-            @else
-                <!-- Display image or message when there is no data -->
-                <div class="text-center">
-                    <img src="{{ asset('storage/no_data.jpeg') }}" alt="" style="width: 450px; height: 450px;">
-                    <h5>No data available</h5>
-                </div>
-            @endif
+    <section>
+        <div class="container">
+            <div class="row justify-content-center">
+                {{-- Check if there is data --}}
+                @if (count($materi) > 0)
+                    @foreach ($materi as $mtr)
+                        <!-- Your existing code for iterating through data -->
+                    @endforeach
+                @else
+                    <!-- Display image or message when there is no data -->
+                    <div class="text-center">
+                        <img src="{{ asset('storage/no_data.jpeg') }}" alt="" style="width: 450px; height: 450px;">
+                        <h5>No data available</h5>
+                    </div>
+                @endif
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
 @endsection

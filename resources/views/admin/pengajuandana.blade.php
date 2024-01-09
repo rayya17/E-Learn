@@ -23,6 +23,7 @@
                           <tr>
                               <th scope="col" style="text-align: center; border-top-left-radius:10px;">No</th>
                               <th scope="col" style="text-align: center;">Nama</th>
+                              {{-- <th scope="col" style="text-align: center;">Nominal</th> --}}
                               <th scope="col" style="text-align: center;">Pembayaran</th>
                               <th scope="col" style="text-align: center;">Tujuan</th>
                               <th scope="col" style="text-align: center;">Keterangan</th>
@@ -40,6 +41,7 @@
                                   {{-- @dd($p->pendapatan->order_id) --}}
                               <td scope="row" style="text-align: center;">{{ $no++ }}</td>
                                     <td style="text-align: center;">{{ $p->user->name }}</td>
+                                    {{-- <td style="text-align: center;">Rp. {{ number_format($p->pendapatan->pendapatan) }}</td> --}}
                                     <td style="text-align: center;">{{ $p->metodepembayaran }}</td>
                                     <td style="text-align: center;">{{ $p->tujuan_pengajuan }}</td>
                                     <td style="text-align: center;">{{ $p->keterangan_pengajuan }}</td>
