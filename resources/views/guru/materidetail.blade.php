@@ -195,7 +195,7 @@
                         <div class="tab-content">
                             <!-- Ulasan Tab -->
                             <div class="pagetitle">
-                                <h1 style="text-decoration: underline">Daftar Tugas</h1>
+                                <h1 style="text-decoration: none; font-family: 'YourDesiredFont', sans-serif; color: #4FA987;"">Daftar Tugas</h1>
                             </div>
                                 <div class="text-center">
                                     <div class="card">
@@ -342,8 +342,9 @@
                         </div>
                         <hr style="border-top: 3px solid #000000;">
                         <div class="pagetitle">
-                            <h1 style="text-decoration: underline">Pengumpulan Tugas</h1>
+                            <h1 style="text-decoration: none; font-family: 'YourDesiredFont', sans-serif; color: #4FA987;">Pengumpulan Tugas</h1>
                         </div>
+
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">

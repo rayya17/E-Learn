@@ -118,7 +118,7 @@
                                         <button
                                             class="btn btn btn-sm buy-now-btn d-flex justify-content-center align-items-center"
                                             type="submit"
-                                            style="border-radius: 30px; margin-right: 10px; position: absolute; bottom: 10px; right: 20px">
+                                            style="border-radius: 30px; margin-right: 10px; position: absolute; bottom: 10px; right: 45px">
                                             Pesan Sekarang
                                         </button>
                                     </form>

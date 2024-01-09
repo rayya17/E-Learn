@@ -48,6 +48,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/slicknav.min.css') }}">
     <!-- Magnific Popup -->
     <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.scrollUp.css') }}">
+
 
     <!-- Eduland Stylesheet -->
     <link rel="stylesheet" href="{{ asset('assets/css/normalize.css') }}">
@@ -241,11 +244,11 @@
         <!-- Header Inner -->
         <div class="header-inner overlay">
             <div class="row">
-                <div class="col-md-10 col-12 px-5">
+                <div class="col-md-10 col-12 px-2">
                     <nav class="navbar navbar-default">
                         <div class="navbar-collapse">
                             <!-- Main Menu -->
-                            <ul id="nav" class="nav menu navbar-nav">
+                            <ul id="nav" class="nav menu navbar-nav align-items-end">
                                 <li
                                     class="{{ request()->is('home') && !request()->has('kategori') && !request()->has('search') ? 'active' : '' }}">
                                     <a href="/home"
@@ -328,7 +331,7 @@
                                                 <span style="font-size: 20px; margin-left: 105px;">Notifikasi</span>
                                             </center>
                                         </li>
-                                        <hr style="margin-bottom: 0px; margin-top: 45px;">
+                                        <hr style="margin-bottom: 0px; margin-top: 50px;">
                                         @if (count($Notifikasi) > 0)
                                             @foreach ($Notifikasi as $notifikasi)
                                                 <li class="notification-item" data-notification-id="{{ $notifikasi->id }}">
@@ -384,8 +387,8 @@
                                 </li>
 
 
-                                    <li class="nav-item px-2">
-                                        <a class="nav-link nav-profile d-flex align-items-end pe-0" href="#"
+                                    <li class="nav-item px-5">
+                                        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                                             id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false">
                                             @if (Auth::user()->foto_user)
@@ -501,6 +504,7 @@
     <!-- Counter Up JS -->
     <script src="{{ asset('assets/js/jquery.counterup.min.js') }}"></script>
     <!-- Scroll Up JS-->
+    <!-- Scroll Up JS-->
     <script src="{{ asset('assets/js/jquery.scrollUp.min.js') }}"></script>
     <!-- Gmaps JS-->
     <script src="{{ asset('assets/js/gmaps.min.html') }}"></script>
@@ -508,6 +512,24 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
     <script src="{{ asset('assets/Admin/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            $.scrollUp({
+                scrollName: 'scrollUp',
+                topDistance: '300',
+                topSpeed: 300,
+                animation: 'fade',
+                animationInSpeed: 200,
+                animationOutSpeed: 200,
+                scrollText: '<i class="fas fa-angle-up"></i>', // Update the class if needed
+                activeOverlay: false,
+            });
+        });
+    </script>
+
+
     {{-- <script src="{{ asset('assets/Admin/quill/quill.min.js') }}"></script>
 <script src="{{ asset('assets/Admin/simple-datatables/simple-datatables.js') }}"></script>
 <script src="{{ asset('assets/Admin/tinymce/tinymce.min.js"') }}"></script>

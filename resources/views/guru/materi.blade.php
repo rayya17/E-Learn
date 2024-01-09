@@ -289,7 +289,7 @@
                                  <select class="form-select form-select-sm mb-2 @error('mapel') is-invalid @enderror"
                                      name="mapel" aria-label="Large select example" id="mapel" width="200px"
                                      value="{{ old('mapel') }}">
-                                     <option selected>Pilih Mata Pelajaran</option>
+                                     <option selected disabled>Pilih Mata Pelajaran</option>
                                      <option value="Matematika">Matematika</option>
                                      <option value="IPA">IPA</option>
                                      <option value="IPS">IPS</option>
@@ -318,7 +318,7 @@
                                  <select class="form-select form-select-sm mb-1  @error('kelas') is-invalid @enderror"
                                      name="kelas" aria-label="Large select example" id="kelas" width="200px"
                                      value="{{ old('kelas') }}">
-                                     <option selected>Pilih Kelas</option>
+                                     <option selected disabled>Pilih Kelas</option>
                                      <option value="10">10</option>
                                      <option value="11">11</option>
                                      <option value="12">12</option>

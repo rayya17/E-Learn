@@ -161,9 +161,22 @@
                     transform="translate(-111.14185 -58.79171)" fill="#575a89"></path>
             </svg>
         </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Mengambil tombol kembali ke home
+                var backButton = document.querySelector("#backButton");
+
+                // Menambahkan event listener untuk meng-handle klik pada tombol
+                backButton.addEventListener("click", function () {
+                    // Menggunakan window.history untuk kembali ke halaman sebelumnya
+                    window.history.back();
+                });
+            });
+        </script>
+
 
         <h1> 404 Error.</h1>
         <p>Halaman Ini Tidak Tersedia.</p>
-        <a href="{{ url()->previous() }}"><button>Kembali ke Home</button></a>
+        <a href="{{ url()->previous() }}" id="backButton"><button>Kembali ke Home</button></a>
     </div>
 </div>
