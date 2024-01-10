@@ -71,13 +71,17 @@
                             <td style="text-align: center;">
                                 <div class="d-flex">
                                     {{-- <button style="margin-right: 10px;" class="btn btn-outline-warning detail-button" data-bs-toggle="modal" data-bs-target="#modalDetail"><i class="bi bi-eye"></i></button> --}}
-                                    <form action="{{ route('terimapengajuan', ['id' => $p->id,'order_id' => $p->pendapatan->order_id]) }}" method="post">
+                                    <form data-id="{{ $p->id }}" action="{{ route('terimapengajuan', ['id' => $p->id,'order_id' => $p->pendapatan->order_id]) }}" method="post" class="accept-form">
                                         @csrf
                                         <button style="margin-right: 10px;" type="submit" class="btn btn-outline-success"><i class="fa-solid fa-check"></i></button>
                                     </form>
-                                    <form action="{{ route('tolakpengajuan', ['id' => $p->id]) }}" method="post">
+                                    <form id="delete-form-{{ $p->id }}"
+                                        action="{{ route('tolakpengajuan', ['id' => $p->id]) }}"
+                                        method="post" data-id="{{ $p->id }}"
+                                        class="delete-form">
                                         @csrf
-                                        <button style="margin-right: 10px;" type="submit" class="btn btn-outline-danger"><i class="bi bi-x"></i></button>
+                                        <button style="margin-right: 10px;" type="submit"
+                                            class="btn btn-outline-danger"><i class="bi bi-x"></i></button>
                                     </form>
                                 </div>
                             </td>
@@ -110,6 +114,54 @@
 {{-- modal detail --}}
 
 </section>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    // Tambahkan event listener untuk tombol delete dengan class 'delete-btn'
+    document.querySelectorAll('.delete-form').forEach(function (deleteForm) {
+        deleteForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var formId = this.getAttribute('data-id');
 
+            Swal.fire({
+                title: 'Apakah anda yakin ingin menolak ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonText: 'Batalkan!',
+                confirmButtonText: 'Lanjutkan!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit form delete dengan ID yang sesuai
+                    document.getElementById('delete-form-' + formId).submit();
+                }
+            });
+        });
+    });
+
+    // Tambahkan event listener untuk tombol accept dengan class 'btn-outline-success'
+    document.querySelectorAll('.accept-form').forEach(function (acceptForm) {
+        acceptForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var id = this.getAttribute('data-id');
+
+            Swal.fire({
+                title: 'Apakah anda yakin ingin menerima ini?',
+                icon: 'question',
+                showCancelButton: true,
+                cancelButtonText: 'Batalkan!',
+                confirmButtonText: 'Iya',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Submit form accept dengan ID yang sesuai
+                    this.submit();
+                }
+            });
+        });
+    });
+
+
+</script>
   </main><!-- End #main -->
 @endsection

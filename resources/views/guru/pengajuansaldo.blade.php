@@ -87,7 +87,7 @@
                                                     Metode Pembayaran</th>
                                                 <th scope="col" style="text-align: center;">keterangan</th>
                                                 <th scope="col" style="text-align: center;">tujuan</th>
-                                                <th scope="col" style="text-align: center;">status</th>
+                                                <th scope="col" style="text-align: center; border-top-right-radius:15px;">status</th>
                                                 {{-- <th scope="col" style=" border-top-right-radius:10px;">Aksi</th> --}}
 
                                             </tr>

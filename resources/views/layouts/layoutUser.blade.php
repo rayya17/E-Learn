@@ -153,10 +153,10 @@
         }
 
         .header .nav li a {
-            color: #252525;
+            color: #ffff;
             font-size: 14px;
             text-transform: uppercase;
-            padding: 25px 0px 10px;
+            padding: 5px 0px 5px;
             display: block;
             position: relative;
         }
@@ -251,6 +251,22 @@
             -ms-flex-align: center;
             align-items: center;
         }
+
+        /* .active-link {
+            background-color:  #ffffff;;
+            border-radius: 15px;
+            color: #4FA987;
+        } */
+
+        .header .nav li.active-link a {
+            background-color: #ffffff;
+            border-radius: 15px;
+            color: #37745D !important;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+
+
     </style>
 </head>
 
@@ -265,9 +281,9 @@
                         <div class="navbar-collapse">
                             <!-- Main Menu -->
                             <center>
-                            <ul id="nav" class="nav menu navbar-nav align-items-end">
+                            <ul id="nav" class="nav menu navbar-nav align-items-end" style="margin-top: 10px">
                                 <li
-                                    class="{{ request()->is('home') && !request()->has('kategori') && !request()->has('search') ? 'active' : '' }}">
+                                    class="{{ request()->is('home') && !request()->has('kategori') && !request()->has('search') ? 'active-link' : '' }}">
                                     <a href="/home"
                                         @if (request()->is('home') && !request()->has('kategori') && !request()->has('search')) style="color: #ffffff" @endif>
 
@@ -275,21 +291,21 @@
                                     </a>
                                 </li>
                                 <li
-                                    class="nav-item {{ request()->get('kategori') == '10' ? 'active' : 'collapsed' }}">
+                                    class="nav-item {{ request()->get('kategori') == '10' ? 'active-link' : 'collapsed' }}">
                                     <a class="nav-link filter-link" data-kategori="10"
                                         @if (request()->get('kategori') == '10') style="color: #ffffff" @endif
                                         href="{{ route('HomePage', ['kategori' => '10', 'search' => request('search')]) }}"
                                         aria-current="page">Kelas 10</a>
                                 </li>
                                 <li
-                                    class="nav-item {{ request()->get('kategori') == '11' ? 'active' : 'collapsed' }}">
+                                    class="nav-item {{ request()->get('kategori') == '11' ? 'active-link' : 'collapsed' }}">
                                     <a class="nav-link filter-link" data-kategori="11"
                                         @if (request()->get('kategori') == '11') style="color: #ffffff" @endif
                                         href="{{ route('HomePage', ['kategori' => '11', 'search' => request('search')]) }}">Kelas
                                         11</a>
                                 </li>
                                 <li
-                                    class="nav-item {{ request()->get('kategori') == '12' ? 'active' : 'collapsed' }}">
+                                    class="nav-item {{ request()->get('kategori') == '12' ? 'active-link' : 'collapsed' }}">
                                     <a class="nav-link filter-link" data-kategori="12"
                                         @if (request()->get('kategori') == '12') style="color: #ffffff" @endif
                                         href="{{ route('HomePage', ['kategori' => '12', 'search' => request('search')]) }}">Kelas
@@ -389,7 +405,7 @@
                                 <!-- Kode Anda -->
                                 <li class="nav-item">
                                     <div class="search-area">
-                                        <a href="#header" class="icon" style="margin-top: -5px"><i style="font-size: 20px;" class="fa fa-search"></i></a>
+                                        <a href="#header" class="icon" style="margin-top: -5px"><i style="font-size: 20px; color:#fff" class="fa fa-search"></i></a>
                                         <form class="search-form" action="{{ route('HomePage') }}"
                                             method="GET">
                                             <input type="text" placeholder="ex: premium course"
