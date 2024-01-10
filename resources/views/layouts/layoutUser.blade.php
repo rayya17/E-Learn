@@ -143,16 +143,22 @@
 
         /* Add this CSS to make the profile picture circular */
         .profile-image {
-            width: 55px;
-            /* Adjust the width as needed */
-            height: 50px;
-            /* Adjust the height as needed */
+            margin-top: -8px;
+            width: 46px;
+            height: 46px;
             border-radius: 50%;
-            /* Make it a circle */
             object-fit: cover;
-            /* Ensure the entire image is visible in the circle */
             border: 2px solid #ffffff;
-            /* Optional: Add a border around the circle */
+            margin-bottom: 8px;
+        }
+
+        .header .nav li a {
+            color: #252525;
+            font-size: 14px;
+            text-transform: uppercase;
+            padding: 25px 0px 10px;
+            display: block;
+            position: relative;
         }
 
         /* You might want to adjust the styles for the dropdown and other elements as needed */
@@ -233,8 +239,18 @@
             object-fit: cover;
         }
         .nav-link.nav-profile {
-    margin-left: 10%;
-}
+            margin-left: 10%;
+        }
+
+        .navbar-collapse {
+            -ms-flex-preferred-size: 100%;
+            flex-basis: 100%;
+            -ms-flex-positive: 1;
+            flex-grow: 1;
+            margin-right: 115px;
+            -ms-flex-align: center;
+            align-items: center;
+        }
     </style>
 </head>
 
@@ -248,6 +264,7 @@
                     <nav class="navbar navbar-default">
                         <div class="navbar-collapse">
                             <!-- Main Menu -->
+                            <center>
                             <ul id="nav" class="nav menu navbar-nav align-items-end">
                                 <li
                                     class="{{ request()->is('home') && !request()->has('kategori') && !request()->has('search') ? 'active' : '' }}">
@@ -280,9 +297,8 @@
                                 </li>
 
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" id="notificationIcon" style="margin-top: 10px">
-                                        <i class="fa-regular fa-bell" id="bellIcon"
-                                            style="font-size: 22px; color: #ffff; margin-right: 25px; position: relative;">
+                                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" id="notificationIcon" style="margin-top: 5px">
+                                        <i class="fa-regular fa-bell" id="bellIcon" style="font-size: 20px; color: #ffff; margin-right: 25px; position: relative;">
                                             @if ($unreadNotificationsCount > 0)
                                                 <span id="notif-count" class="badge seniman-badge bg-danger text-white" style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
                                             @endif
@@ -325,19 +341,19 @@
                                         </script>
                                     </a>
 
-                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" style="min-width: 360px; max-height: 350px ; overflow-y: auto; margin-right: 20px !important; margin-left: -257px">
+                                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" style="min-width: 355px; max-height: 345px ; overflow-y: auto; margin-right: 15px !important; margin-left: -250px">
                                         <li class="dropdown-header">
                                             <center>
-                                                <span style="font-size: 20px; margin-left: 105px;">Notifikasi</span>
+                                                <span style="font-size: 20px; margin-left: 100px;">Notifikasi</span>
                                             </center>
                                         </li>
-                                        <hr style="margin-bottom: 0px; margin-top: 50px;">
+                                        <hr style="margin-bottom: 0px; margin-top: 45px;">
                                         @if (count($Notifikasi) > 0)
                                             @foreach ($Notifikasi as $notifikasi)
                                                 <li class="notification-item" data-notification-id="{{ $notifikasi->id }}">
-                                                    <div class="profile" style="margin-right: 10px">
+                                                    <div class="profile" style="margin-right: 5px">
                                                         @if ($notifikasi->sender->foto_user)
-                                                        <img width="60px" height="60px" class="rounded-circle border me-2"
+                                                        <img width="50px" height="50px" class="rounded-circle border me-2"
                                                             src="{{ asset('/storage/profile/' . $notifikasi->sender->foto_user) }}" alt="{{ $notifikasi->sender->name }}">
                                                     @else
                                                         <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
@@ -350,10 +366,10 @@
                                                             <p class="mb-1"><strong>{{ $notifikasi->title }}</strong></p>
                                                         </div>
                                                         <div class="message">
-                                                            <p style="font-size: 13px;">{{ $notifikasi->message }}</p>
+                                                            <p style="font-size: 10px;">{{ $notifikasi->message }}</p>
                                                         </div>
                                                         <div class="date">
-                                                            <p class="mb-0" style="font-size: 12px;">{{ $notifikasi->created_at->diffForHumans() }}</p>
+                                                            <p class="mb-0" style="font-size: 9px;">{{ $notifikasi->created_at->diffForHumans() }}</p>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -363,7 +379,7 @@
                                             @endforeach
                                         @else
                                             <li class="no-notif pt-3">
-                                                <p class="mb-0" style="color: #555; margin-left: 100px;">Tidak ada notifikasi</p>
+                                                <p class="mb-0" style="color: #555; margin-left: 98px;">Tidak ada notifikasi</p>
                                             </li>
                                         @endif
                                     </ul>
@@ -373,8 +389,7 @@
                                 <!-- Kode Anda -->
                                 <li class="nav-item">
                                     <div class="search-area">
-                                        <a href="#header" class="icon"><i style="font-size: 20px"
-                                                class="fa fa-search"></i></a>
+                                        <a href="#header" class="icon" style="margin-top: -5px"><i style="font-size: 20px;" class="fa fa-search"></i></a>
                                         <form class="search-form" action="{{ route('HomePage') }}"
                                             method="GET">
                                             <input type="text" placeholder="ex: premium course"
@@ -387,7 +402,7 @@
                                 </li>
 
 
-                                    <li class="nav-item px-5">
+                                    <li class="nav-item px-3">
                                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                                             id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false">
@@ -444,6 +459,7 @@
 
                             </ul>
                             <!-- End Main Menu -->
+                            </center>
                         </div>
                     </nav>
                 </div>
