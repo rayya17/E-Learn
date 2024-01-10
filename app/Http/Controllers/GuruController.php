@@ -28,8 +28,9 @@ class GuruController extends Controller
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $guru = Guru::where('user_id', auth()->user()->id)->firstOrFail();
-        // $jumlahmateri = materi::where('guru_id', $guru)->count();
-        $jumlahmateri = materi::count();
+        $jumlahmateri = materi::where('guru_id', $guru->id)->count();
+
+        // $jumlahmateri = materi::count();
         $guru = Guru::with('user')->get();
         $pendapatanguru = Pendapatan::all()->where('user_id', auth()->id());
         $pendapatan = $pendapatanguru->pluck('pendapatan')->sum();
@@ -104,8 +105,11 @@ class GuruController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        $mengajukan = penarikansaldo::all();
-        $saldo = pendapatan::all();
+         // Filter penarikan saldo hanya untuk user dengan ID yang sesuai
+    $mengajukan = Penarikansaldo::where('user_id', $user_id)->get();
+
+    // Ambil data saldo untuk user tertentu
+    $saldo = Pendapatan::where('user_id', $user_id)->get();
         $pendapatanguru = Pendapatan::all()->where('user_id', auth()->id())->where('pendapatan', '>', 0);
         $pendapatan = $pendapatanguru->pluck('pendapatan')->sum();
         if ($pendapatan >= 1000000){
