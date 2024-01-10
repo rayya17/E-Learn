@@ -149,7 +149,7 @@
                                 {{-- <span>{{ $request->guru_id }}</span> --}}
                                 <div class="mb-3">
                                     <label for="kelas" class="form-label fw-bold">metode pembayaran</label>
-                                    <select name="metodepembayaran" id="selectMetode" class="form-control">
+                                    <select name="metodepembayaran" id="selectMetode" class="form-select">
                                         <option value="" class="dropdown-menu" disabled selected>Pilih Metode
                                             Pembayaran
                                         </option>
