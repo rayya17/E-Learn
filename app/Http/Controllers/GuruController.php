@@ -215,24 +215,21 @@ class GuruController extends Controller
 
 
     public function mengajukandana(Request $request, $id)
-    {
+{
+    $pendapatan = Pendapatan::find($id);
+    $pendapatanUser = Pendapatan::where('user_id', auth()->id())
+        ->where('pendapatan', '>', 0)
+        ->pluck('pendapatan')
+        ->sum();
 
-        $pendapatan = Pendapatan::find($id);
-        $pendapatanUser = Pendapatan::where('user_id', auth()->id())
-            ->where('pendapatan', '>', 0)
-            ->pluck('pendapatan')
-            ->sum();
+    $nungguadmin = penarikansaldo::where('user_id', auth()->id())->where('pendapatan_id', $id)->first();
 
-        $nungguadmin = penarikansaldo::where('user_id', auth()->id())->where('pendapatan_id',$id)->first();
+    if ($nungguadmin && $nungguadmin->status == 'menunggu') {
+        return back()->with('warning', 'Pengajuan anda sebelumnya belum di konfirmasi, silahkan tunggu!');
+    }
 
-        if($nungguadmin && $nungguadmin->status = 'menunggu'){
-            return back()->with('warning','Pengajuan anda sebelumnya belum di konfirmasi,silahkan tunggu!');
-        }
-
-        if ($pendapatanUser <= 1000000) {
-            return back()->with('error', 'Minimal saldo anda Rp. 1.000.000 untuk mengajukan dana');
-        }
-
+    // Cek apakah saldo minimal Rp. 1.000.000
+    if ($pendapatanUser >= 1000000) {
         $mengajukan = new Penarikansaldo;
         $mengajukan->user_id = Auth::user()->id;
         $mengajukan->pendapatan_id = $pendapatan->id;
@@ -243,7 +240,11 @@ class GuruController extends Controller
         $mengajukan->save();
 
         return back()->with('success', 'Berhasil mengajukan dana');
+    } else {
+        return back()->with('error', 'Minimal saldo anda Rp. 1.000.000 untuk mengajukan dana');
     }
+}
+
 
 
 

@@ -94,29 +94,33 @@
                                         </thead>
                                         <tbody style="mt-4">
                                             @foreach ($mengajukan as $item)
-                                                <tr>
-                                                    <td style="text-align: center; ">{{ $item->metodepembayaran }}</td>
-                                                    <td style="text-align: center; ">{{ $item->keterangan_pengajuan }}</td>
-                                                    <td style="text-align: center; ">{{ $item->tujuan_pengajuan }}</td>
-                                                    <td style="text-align: center;">
-                                                        <form id="mengajukanForm{{ $item->id }}"
-                                                            action="{{ route('mengajukandana', $item->id) }}"
-                                                            method="post">
-                                                            @csrf
-                                                            @method('patch')
-                                                            <button type="submit"
-                                                                class="text-light btn {{ $item->status === 'mengajukan' ? 'btn-warning' : 'btn-danger' }}"
-                                                                id="btn-ajukan{{ $item->id }}"
-                                                                onclick="AjukanButton({{ $item->id }})"
-                                                                data-status="{{ $item->status }}">
-                                                                {{ $item->status === 'mengajukan' ? 'Ajukan' : ($item->status === 'diterima' ? 'Sudah Diterima' : ($item->status === 'ditolak' ? 'Ditolak' : 'telah diajukan')) }}
-                                                            </button>
-                                                        </form>
-                                                    </td>
+                                            <tr>
+                                                <td style="text-align: center;">{{ $item->metodepembayaran }}</td>
+                                                <td style="text-align: center;">{{ $item->keterangan_pengajuan }}</td>
+                                                <td style="text-align: center;">{{ $item->tujuan_pengajuan }}</td>
+                                                <td style="text-align: center;">
+                                                    <form id="mengajukanForm{{ $item->id }}" action="{{ route('mengajukandana', $item->id) }}" method="post">
+                                                        @csrf
+                                                        @method('patch')
+                                                        <button type="submit" class="text-light btn
+                                                            @if ($item->status === 'menunggu') btn-warning
+                                                            @elseif ($item->status === 'diterima') btn-success
+                                                            @elseif ($item->status === 'ditolak') btn-danger
+                                                            @else btn-info
+                                                            @endif"
+                                                            id="btn-ajukan{{ $item->id }}" onclick="AjukanButton({{ $item->id }})"
+                                                            data-status="{{ $item->status }}">
+                                                            @if ($item->status === 'menunggu') Ajukan
+                                                            @elseif ($item->status === 'diterima') Sudah Diterima
+                                                            @elseif ($item->status === 'ditolak') Ditolak
+                                                            @else Telah Diajukan
+                                                            @endif
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
 
-
-                                                </tr>
-                                            @endforeach
                                             <!-- Add more rows as needed -->
                                         </tbody>
 
