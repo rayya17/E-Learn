@@ -2,6 +2,17 @@
 
     @section('content')
         <!-- Courses -->
+        <style>
+            .profile-img {
+                margin-top: 12px;
+                width: 75px;
+                height: 75px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 2px solid #ffffff;
+                margin-bottom: -5px;
+            }
+        </style>
 
         <div class="container">
             {{-- <form style="margin-top: 50px;" class="detail"> --}}
@@ -28,10 +39,10 @@
                         @if (Auth::user()->foto_user)
                             <img src="{{ asset('storage/' . $profileuser->foto_user) }}"
                                 style=" width: 140px; height: 140px; border-radius: 30px;" alt="Profile"
-                                class="rounded-circle profile-image">
+                                class="rounded-circle profile-img">
                         @else
                             <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
-                            <img width="50px" height="50px" class="rounded-circle profile-image"
+                            <img width="50px" height="50px" class="rounded-circle profile-img"
                                 src="{{ asset('storage/default/defaultprofile.jpeg') }}" alt="Placeholder">
                         @endif
                         {{-- <img src="{{ asset('storage/profile' . $profileuser->fotoProfile) }}" alt="Foto Profil" id="fotoProfilePreview" style="width: 140px; height: 175px; border-radius: 30px;"> --}}
