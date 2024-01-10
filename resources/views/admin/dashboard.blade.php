@@ -146,7 +146,7 @@
                     <!-- Reports -->
                     <div class="row">
 
-                        <div class="col-xl-12">
+                        {{-- <div class="col-xl-12">
                             <div class="card">
                                 <div class="card-bodyy">
                                     <h5 class="card-title">Penghasilan <span>/Bulan</span></h5>
@@ -215,7 +215,7 @@
 
 
 
-                        </div><!-- End Reports -->
+                        </div><!-- End Reports --> --}}
                     </div>
                     <div class="row">
 

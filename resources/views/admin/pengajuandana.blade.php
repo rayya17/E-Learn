@@ -2,6 +2,31 @@
 
 @section('content')
 
+<style>
+    .custom-table {
+        width: 100%;
+    }
+
+    .custom-table th,
+    .custom-table td {
+        padding: 12px;
+        text-align: center;
+    }
+
+    .custom-table th {
+        background-color: #4FA987;
+        color: #fff;
+    }
+
+    .custom-table tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .custom-table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+</style>
+
   <main id="main" class="main">
 
     <div class="pagetitle">
@@ -18,61 +43,55 @@
           <!-- Left side columns -->
           <div class="col-lg-12">
               <div class="row">
-                  <table>
-                      <thead id="example1">
-                          <tr>
-                              <th scope="col" style="text-align: center; border-top-left-radius:10px;">No</th>
-                              <th scope="col" style="text-align: center;">Nama</th>
-                              {{-- <th scope="col" style="text-align: center;">Nominal</th> --}}
-                              <th scope="col" style="text-align: center;">Pembayaran</th>
-                              <th scope="col" style="text-align: center;">Tujuan</th>
-                              <th scope="col" style="text-align: center;">Keterangan</th>
-
-                              <th scope="col" style="border-top-right-radius:10px;">Aksi</th>
-
-                          </tr>
-                          </thead>
-                          <tbody>
-                                @php
-                                $no = 1;
-                            @endphp
-                                @forelse ($guru as $p)
-                                <tr>
-                                  {{-- @dd($p->pendapatan->order_id) --}}
-                              <td scope="row" style="text-align: center;">{{ $no++ }}</td>
-                                    <td style="text-align: center;">{{ $p->user->name }}</td>
-                                    {{-- <td style="text-align: center;">Rp. {{ number_format($p->pendapatan->pendapatan) }}</td> --}}
-                                    <td style="text-align: center;">{{ $p->metodepembayaran }}</td>
-                                    <td style="text-align: center;">{{ $p->tujuan_pengajuan }}</td>
-                                    <td style="text-align: center;">{{ $p->keterangan_pengajuan }}</td>
-                                    <td style="text-align: center;">
-                                    <div class="d-flex">
-
-                                        {{-- <button style="margin-right: 10px;" class="btn btn-outline-warning detail-button" data-bs-toggle="modal" data-bs-target="#modalDetail"><i class="bi bi-eye"></i></button> --}}
-                                        <form action="{{ route('terimapengajuan', ['id' => $p->id,'order_id' => $p->pendapatan->order_id]) }}" method="post">
-                                            @csrf
-                                        <button style="margin-right: 10px;" type="submit" class="btn btn-outline-success"
-                                        onclick=""><i
-                                        class="fa-solid fa-check"></i></button>
-                                        </form>
-                                        <form action="{{ route('tolakpengajuan', ['id' => $p->id]) }}" method="post">
+                <table class="custom-table">
+                    <thead id="example1">
+                        <tr>
+                            <th scope="col" style="text-align: center; border-top-left-radius:15px;">No</th>
+                            <th scope="col" style="text-align: center;">Nama</th>
+                            {{-- <th scope="col" style="text-align: center;">Nominal</th> --}}
+                            <th scope="col" style="text-align: center;">Pembayaran</th>
+                            <th scope="col" style="text-align: center;">Tujuan</th>
+                            <th scope="col" style="text-align: center;">Keterangan</th>
+                            <th scope="col" style="border-top-right-radius:10px;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php
+                        $no = 1;
+                        @endphp
+                        @forelse ($guru as $p)
+                        <tr>
+                            {{-- @dd($p->pendapatan->order_id) --}}
+                            <td scope="row" style="text-align: center;">{{ $no++ }}</td>
+                            <td style="text-align: center;">{{ $p->user->name }}</td>
+                            {{-- <td style="text-align: center;">Rp. {{ number_format($p->pendapatan->pendapatan) }}</td> --}}
+                            <td style="text-align: center;">{{ $p->metodepembayaran }}</td>
+                            <td style="text-align: center;">{{ $p->tujuan_pengajuan }}</td>
+                            <td style="text-align: center;">{{ $p->keterangan_pengajuan }}</td>
+                            <td style="text-align: center;">
+                                <div class="d-flex">
+                                    {{-- <button style="margin-right: 10px;" class="btn btn-outline-warning detail-button" data-bs-toggle="modal" data-bs-target="#modalDetail"><i class="bi bi-eye"></i></button> --}}
+                                    <form action="{{ route('terimapengajuan', ['id' => $p->id,'order_id' => $p->pendapatan->order_id]) }}" method="post">
                                         @csrf
-                                    <button style="margin-right: 10px;" type="submit" class="btn btn-outline-danger"
-                                    onclick=""><i
-                                    class="bi bi-x"></i></button>
+                                        <button style="margin-right: 10px;" type="submit" class="btn btn-outline-success"><i class="fa-solid fa-check"></i></button>
                                     </form>
-                                    </div>
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="8" style="text-align: center;"><h7>Data Tidak Ada</h7></td>
-                            </tr>
-                            @endforelse
-                            <!-- Add more rows as needed -->
-                        </tbody>
+                                    <form action="{{ route('tolakpengajuan', ['id' => $p->id]) }}" method="post">
+                                        @csrf
+                                        <button style="margin-right: 10px;" type="submit" class="btn btn-outline-danger"><i class="bi bi-x"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="8" style="text-align: center;"><h7>Data Tidak Ada</h7></td>
+                        </tr>
+                        @endforelse
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
 
-                    </table>
+
 
                     <!-- Pagination links -->
                   {{-- {{ $guru->links() }} --}}
