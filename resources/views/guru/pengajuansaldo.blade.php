@@ -109,10 +109,11 @@
                                                             @else btn-info
                                                             @endif"
                                                             id="btn-ajukan{{ $item->id }}" onclick="AjukanButton({{ $item->id }})"
-                                                            data-status="{{ $item->status }}">
-                                                            @if ($item->status === 'menunggu') Ajukan
-                                                            @elseif ($item->status === 'diterima') Sudah Diterima
-                                                            @elseif ($item->status === 'ditolak') Ditolak
+                                                            data-status="{{ $item->status }}"
+                                                            style="width: 128px;">
+                                                            @if ($item->status === 'menunggu') Telah diajukan
+                                                            @elseif ($item->status === 'diterima') Telah Diterima
+                                                            @elseif ($item->status === 'ditolak') Telah Ditolak
                                                             @else Telah Diajukan
                                                             @endif
                                                         </button>
