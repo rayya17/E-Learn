@@ -281,7 +281,7 @@
                         <div class="navbar-collapse">
                             <!-- Main Menu -->
                             <center>
-                            <ul id="nav" class="nav menu navbar-nav align-items-end" style="margin-top: 10px">
+                            <ul id="nav" class="nav menu navbar-nav align-items-end" style="margin-top: 20px">
                                 <li
                                     class="{{ request()->is('home') && !request()->has('kategori') && !request()->has('search') ? 'active-link' : '' }}">
                                     <a href="/home"
