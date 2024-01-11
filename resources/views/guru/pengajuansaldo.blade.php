@@ -110,7 +110,7 @@
                                                             @endif"
                                                             id="btn-ajukan{{ $item->id }}" onclick="AjukanButton({{ $item->id }})"
                                                             data-status="{{ $item->status }}"
-                                                            style="width: 128px;">
+                                                            style="width: 12px;">
                                                             @if ($item->status === 'menunggu') Telah diajukan
                                                             @elseif ($item->status === 'diterima') Telah Diterima
                                                             @elseif ($item->status === 'ditolak') Telah Ditolak

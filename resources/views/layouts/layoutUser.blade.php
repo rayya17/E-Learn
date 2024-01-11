@@ -408,7 +408,7 @@
                                         <a href="#header" class="icon" style="margin-top: -5px"><i style="font-size: 20px; color:#fff" class="fa fa-search"></i></a>
                                         <form class="search-form" action="{{ route('HomePage') }}"
                                             method="GET">
-                                            <input type="text" placeholder="ex: premium course"
+                                            <input type="text" placeholder="Masukkan mapel.."
                                                 name="search">
                                             <input type="hidden" name="kategori"
                                                 value="{{ request('kategori') }}">
