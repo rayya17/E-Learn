@@ -10,6 +10,7 @@ use App\Http\Requests\StoreGuruRequest;
 use App\Http\Requests\UpdateGuruRequest;
 use App\Models\Materi;
 use App\Models\DetailMateri;
+use App\Models\history;
 use App\Models\Order;
 use App\Models\Pendapatan;
 use App\Models\Tugas;
@@ -215,17 +216,17 @@ class GuruController extends Controller
 
 
     public function mengajukandana(Request $request, $id)
-{
-    $pendapatan = Pendapatan::find($id);
-    $pendapatanUser = Pendapatan::where('user_id', auth()->id())
-        ->where('pendapatan', '>', 0)
-        ->pluck('pendapatan')
-        ->sum();
+    {
+        $pendapatan = Pendapatan::find($id);
+        $pendapatanUser = Pendapatan::where('user_id', auth()->id())
+            ->where('pendapatan', '>', 0)
+            ->pluck('pendapatan')
+            ->sum();
 
-    $nungguadmin = penarikansaldo::where('user_id', auth()->id())->where('pendapatan_id', $id)->first();
+        $nungguadmin = penarikansaldo::where('user_id', auth()->id())->where('pendapatan_id', $id)->first();
 
-    if ($nungguadmin && $nungguadmin->status == 'menunggu') {
-        return back()->with('warning', 'Pengajuan anda sebelumnya belum di konfirmasi, silahkan tunggu!');
+        if ($nungguadmin && $nungguadmin->status == 'menunggu') {
+            return back()->with('warning', 'Pengajuan anda sebelumnya belum di konfirmasi, silahkan tunggu!');
     }
 
     // Cek apakah saldo minimal Rp. 1.000.000
@@ -270,6 +271,26 @@ class GuruController extends Controller
 
         return view('guru.materidetail', compact('Notifikasi', 'unreadNotificationsCount', 'tugas', 'materi', 'guru', 'tugas_dikumpulkan'));
     }
+
+    public function history(Request $request,$id)
+    {
+        $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
+        $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
+        // $history = Penarikansaldo::with('pendapatan')->where('user_id', auth()->id())->where('status', 'diterima')->orderBy('created_at', 'desc')->paginate(5);
+        $history = penarikansaldo::where('user_id',$id)
+        ->where('status','diterima')->get();
+
+        return view('guru.historytransaksi', compact('Notifikasi', 'unreadNotificationsCount', 'history'));
+    }
+
+
+
+
+    public function historypesanan()
+    {
+
+    }
+
 
     // public function materidetail($id)
     // {

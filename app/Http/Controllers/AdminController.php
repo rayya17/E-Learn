@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\sendEmail;
 use App\Mail\sendMail;
 use App\Models\Guru;
+use App\Models\history;
 use App\Models\Notifikasi;
 use App\Models\User;
 use App\Models\Materi;
@@ -198,11 +199,19 @@ class AdminController extends Controller
 
     public function terimapengajuan($id, $order_id)
     {
+
         $pengajuanPenjual = penarikansaldo::findOrFail($id);
         $pengajuanPenjual->status = 'diterima';
         $pengajuanPenjual->save();
 
-        $pendapatan = Pendapatan::query()->where('user_id', $pengajuanPenjual->user_id)->where('order_id', $order_id)->update(['pendapatan' => 0]);
+
+        $pendapatanUser = Pendapatan::query()->where('user_id', $pengajuanPenjual->user_id)->where('order_id', $order_id)->first();
+
+        // ->update(['pendapatan' => 0]);
+
+        $pendapatan = penarikansaldo::where('status','diterima')->where('id',$id)->update(['nominal' => $pendapatanUser->pendapatan ]);
+        // dd($pendapatan);
+        $pendapatanUser->update(['pendapatan' => 0]);
 
         $guru = User::where('role', 'guru')->first();
         Notifikasi::create([

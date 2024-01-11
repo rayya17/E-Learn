@@ -16,6 +16,7 @@ class penarikansaldo extends Model
         'user_id',
         'pendapatan_id',
         // 'order_id',
+        'nominal',
         'metodepembayaran',
         'keterangan_pengajuan',
         'tujuan_pengajuan',

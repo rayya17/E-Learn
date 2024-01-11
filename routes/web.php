@@ -71,12 +71,13 @@ Route::middleware('guru')->group(function () {
     Route::get('/tugas/{tugas_id}/edpengajuanit', [TugasController::class,  'editTugas'])->name('tugas.edit');
     Route::put('/tugas/{tugas_id}', [TugasController::class,  'updateTugas'])->name('tugas.update');
     Route::delete('/delete-tugas/{id}', [TugasController::class,  'deleteTugas'])->name('tugas.delete');
+    Route::get('/historytransaksi/{id}',[GuruController::class,'history'])->name('historypenarikan');
 
 
     // Route::resource('materiGuru',GuruController::class);
 });
 
-Route::post('/notifDelete/{id}', [NotifikasiController::class, 'markRead'])->name('notifDelete');   
+Route::post('/notifDelete/{id}', [NotifikasiController::class, 'markRead'])->name('notifDelete');
 
 Route::prefix('Auth')->middleware('guest')->controller(AuthController::class)->group(function () {
     //Register Page

@@ -93,8 +93,10 @@
                                             </tr>
                                         </thead>
                                         <tbody style="mt-4">
+                                         
                                             @foreach ($mengajukan as $item)
                                             <tr>
+
                                                 <td style="text-align: center;">{{ $item->metodepembayaran }}</td>
                                                 <td style="text-align: center;">{{ $item->keterangan_pengajuan }}</td>
                                                 <td style="text-align: center;">{{ $item->tujuan_pengajuan }}</td>
@@ -256,6 +258,7 @@
                 </div>
             </form>
         @endforeach
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
             integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
