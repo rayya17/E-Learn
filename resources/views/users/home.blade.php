@@ -87,8 +87,12 @@
                                         <h5 style="margin-right:auto; color: black">{{ $mtr->mapel }}</h5>
                                         <h7 style="color:black">Kelas : {{ $mtr->kelas }}</h7>
                                     </div>
-                                    <p style="color:rgb(60, 60, 60)"><strong>Benefit: </strong></p>
-                                    <p> {{ $mtr->keterangan_benefit }}</p>
+                                    <br>
+                                    <p style="color:rgb(60, 60, 60)"><strong>Benefit:                                      {{ $mtr->keterangan_benefit }}
+                                    </strong></p>
+
+                                    <p class="text-center">Jumlah Tugas: {{ isset($jumlahTugasPerMateri[$mtr->id]) ? $jumlahTugasPerMateri[$mtr->id] : 0 }}</p>
+
                                 </div>
                             </a>
                             <div>

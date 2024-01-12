@@ -21,10 +21,8 @@ use Illuminate\Support\Facades\Auth;
 use Symfony\Component\Console\Input\Input as InputInput;
 
 class HomeController extends Controller
-{
-    public function home(Request $request)
+{public function home(Request $request)
     {
-
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $ulasan = Ulasan::all();
@@ -42,7 +40,6 @@ class HomeController extends Controller
         }
 
         $materi = $materiQuery->get();
-        // $detailmateri = detailmateri::where('materi_id')->get();
         $guru = Guru::with('user')->get();
         $order = Order::all();
         $ordertah = Order::whereIn('materi_id', $materi->pluck('id'))
@@ -50,9 +47,14 @@ class HomeController extends Controller
             ->where('status', 'paid')
             ->get();
 
-        return view('users.home', compact('guru', 'materi', 'ulasan', 'order', 'ordertah', 'Notifikasi', 'unreadNotificationsCount'));
-    }
+        // Iterate through materi to get the count of tasks for each materi
+        $jumlahTugasPerMateri = [];
+        foreach ($materi as $mtr) {
+            $jumlahTugasPerMateri[$mtr->id] = Tugas::where('materi_id', $mtr->id)->count();
+        }
 
+        return view('users.home', compact('guru', 'materi', 'ulasan', 'order', 'ordertah', 'Notifikasi', 'unreadNotificationsCount', 'jumlahTugasPerMateri'));
+    }
     public function detailpemesanan()
     {
         return view('users.detailpemesanan');
@@ -85,6 +87,7 @@ class HomeController extends Controller
 
         return view('users.detailtugas', compact('materi', 'tugas', 'Notifikasi', 'unreadNotificationsCount', 'jm', 'ts', 'tb', 'point'));
     }
+
 
     public function detailpesan()
     {
@@ -198,9 +201,11 @@ class HomeController extends Controller
         $Notifikasi = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->orderBy('created_at', 'desc')->get();
         $unreadNotificationsCount = Notifikasi::where('user_id', Auth::user()->id)->whereNotIn('title', [Auth::user()->name])->where('markRead', false)->count();
         $ulasan = Ulasan::with('user')->where('materi_id', $id)->get();
+        $jumlahTugasPerMateri = Tugas::where('materi_id', $id)->count();
+
         $cekorder = Order::where('user_id', auth()->id())->where('materi_id', $id)->where('status', 'paid')->first();
         $materi = Materi::findOrFail($id);
-        return view('users.detailmateri_user', compact('materi', 'ulasan', 'Notifikasi', 'unreadNotificationsCount', 'cekorder'));
+        return view('users.detailmateri_user', compact('materi', 'ulasan', 'Notifikasi', 'unreadNotificationsCount', 'cekorder', 'jumlahTugasPerMateri'));
     }
     public function searchMateri(Request $request)
     {

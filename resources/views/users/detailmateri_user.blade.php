@@ -105,7 +105,10 @@
                         <h1 style="font-size: 50px; gap-5"><strong>{{ $materi->nama_materi }}</strong></h1>
                         <br>
                         <div class="content">
-                            <p style="font-size: 18px;"><strong>Benefit :</strong> </p><p>{{ $materi->keterangan_benefit }}</p>
+                            <p style="font-size: 18px;"><strong>Benefit : {{ $materi->keterangan_benefit }}</strong> </p>
+                            <br>
+                            <p>Jumlah Tugas: {{ $jumlahTugasPerMateri }}</p>
+
                             <br>
                             <p style="font-size: 18px;"><strong>Pemateri : {{ $materi->guru->user->name }}</strong></p>
                         </div>
