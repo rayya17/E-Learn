@@ -134,7 +134,7 @@
                                                     <label for="inputText" class="col-sm-4 col-form-label">Mata Pelajaran</label>
                                                     <div class="row">
                                                         <div class="col-sm-12">
-                                                            <select class="form-select form-select-sm mb-2" name="mapel" aria-label="Large select example" id="update_mapel" width="200px"
+                                                            <select class="form-select form-select-sm mb-2" class="form-control @error('mapel') is-invalid @enderror" name="mapel" aria-label="Large select example" id="update_mapel" width="200px"
                                                                 value="{{ old('mapel') }}">
                                                                 <option selected>{{ $materi->mapel }}</option>
                                                                 <option value="Matematika">Matematika</option>
@@ -143,19 +143,29 @@
                                                                 <option value="Bahasa Indonesia">Bahasa Indonesia</option>
                                                                 <option value="Bahasa Inggris">Bahasa Inggris</option>
                                                             </select>
+                                                            @error('mapel')
+                                                                <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <label for="inputText" class="col-sm-6 col-form-label">Nama Materi</label>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-12">
-                                                            <input type="text" name="nama_materi" class="form-control" id="update_nama_materi" width="200px"
+                                                            <input type="text" name="nama_materi" class="form-control @error('nama_materi') is-invalid @enderror" id="update_nama_materi" width="200px"
                                                                 value="{{ old('nama_materi', $materi->nama_materi) }}">
+                                                                @error('nama_materi')
+                                                                    <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                    </div>
+                                                                @enderror
                                                         </div>
                                                     </div>
                                                     <label for="inputText" class="col-sm-2 col-form-label">Kelas</label>
                                                     <div class="row">
                                                         <div class="col-sm-12">
-                                                            <select class="form-select form-select-sm mb-1" name="kelas"
+                                                            <select class="form-select form-select-sm mb-1" name="kelas" class="form-control @error('kelas') is-invalid @enderror"
                                                                 aria-label="Large select example" id="update_kelas" width="200px"
                                                                 value="{{ old('kelas', $materi->kelas) }}">
                                                                 <option selected>{{ $materi->kelas }}</option>
@@ -163,21 +173,36 @@
                                                                 <option value="11">11</option>
                                                                 <option value="12">12</option>
                                                             </select>
+                                                            @error('kelas')
+                                                                <div class="invalid-feedback">
+                                                                        {{ $message }}
+                                                                </div>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <label for="inputText" class="col-sm-6 col-form-label">Harga</label>
                                                     <div class="row">
                                                         <div class="col-sm-12" width="200px">
-                                                            <input type="number" name="harga" class="form-control"
+                                                            <input type="number" name="harga" class="form-control  @error('harga') is-invalid @enderror"
                                                                 id="update_harga" width="200px"
                                                                 value="{{ old('harga', $materi->harga) }}">
+                                                                @error('harga')
+                                                                    <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                    </div>
+                                                                @enderror
                                                         </div>
                                                     </div>
                                                     <label for="inputText" class="col-sm-6 col-form-label">Deskripsi Materi</label>
                                                     <div class="row">
                                                         <div class="col-sm-12" width="200px" value="{{ old('deskripsi_materi', $materi->deskripsi_materi) }}">
-                                                            <textarea type="text" name="deskripsi_materi" class="form-control" id="update_deskripsi_materi" width="200px"
+                                                            <textarea type="text" name="deskripsi_materi" class="form-control @error('deksripsi_materi') is-invalid @enderror" id="update_deskripsi_materi" width="200px"
                                                                 value="{{ old('deskripsi_materi', $materi->deskripsi_materi) }}">{{ $materi->deskripsi_materi }}</textarea>
+                                                                @error('deskripsi_materi')
+                                                                    <div class="invalid-feedback">
+                                                                            {{ $message }}
+                                                                    </div>
+                                                                @enderror
                                                         </div>
                                                     </div>
                                                 </div>
@@ -286,9 +311,14 @@
                                                                                                 <label for="inputText" class="col-sm-6 col-form-label">Deskripsi</label>
                                                                                                 <div class="row mb-2">
                                                                                                     <div class="col-sm-12" width="200px" value="{{ old('detail_tugas', $item->detail_tugas) }}">
-                                                                                                        <textarea type="text" name="detail_tugas" class="form-control" id="update_detail_tugas" width="200px"
+                                                                                                        <textarea type="text" name="detail_tugas" class="form-control @error('detail_tugas') is-invalid @enderror" id="update_detail_tugas" width="200px"
                                                                                                             value="{{ old('detail_tugas', $item->detail_tugas) }}">{{ $item->detail_tugas }}
                                                                                                         </textarea>
+                                                                                                        @error('detail_tugas')
+                                                                                                            <div class="invalid-feedback">
+                                                                                                                    {{ $message }}
+                                                                                                            </div>
+                                                                                                        @enderror
                                                                                                     </div>
                                                                                                 </div>
                                                                                                 <label for="inputText" class="col-sm-6 col-form-label">Tingkat Kesulitan</label>
@@ -312,6 +342,11 @@
                                                                                                     <div class="col-sm-12" width="200px">
                                                                                                         <input type="file" name="file_tugas" class="form-control @error('file_tugas') is-invalid @enderror"
                                                                                                         id="update_file_tugas" width="200px" value="{{ old('file_tugas', $item->file_tugas) }}">
+                                                                                                        @error('file_tugas')
+                                                                                                            <div class="invalid-feedback">
+                                                                                                                    {{ $message }}
+                                                                                                            </div>
+                                                                                                        @enderror
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>

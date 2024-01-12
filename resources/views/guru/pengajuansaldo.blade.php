@@ -93,7 +93,7 @@
                                             </tr>
                                         </thead>
                                         <tbody style="mt-4">
-                                         
+
                                             @foreach ($mengajukan as $item)
                                             <tr>
 
@@ -112,7 +112,7 @@
                                                             @endif"
                                                             id="btn-ajukan{{ $item->id }}" onclick="AjukanButton({{ $item->id }})"
                                                             data-status="{{ $item->status }}"
-                                                            style="width: 12px;">
+                                                            style="width: 145px;">
                                                             @if ($item->status === 'menunggu') Telah diajukan
                                                             @elseif ($item->status === 'diterima') Telah Diterima
                                                             @elseif ($item->status === 'ditolak') Telah Ditolak
@@ -126,9 +126,7 @@
 
                                             <!-- Add more rows as needed -->
                                         </tbody>
-
                                     </table>
-
                                 </div>
                             </div>
                         </div>

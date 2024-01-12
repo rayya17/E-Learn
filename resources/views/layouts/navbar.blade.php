@@ -92,6 +92,39 @@
             overflow-x: hidden;
         }
 
+        .header-nav .profile {
+            min-width: 55px;
+            padding-bottom: 0;
+            top: 8px !important;
+        }
+
+        .dropdown-menu .dropdown-header,
+        .dropdown-menu .dropdown-footer {
+            text-align: center;
+            font-size: 15px;
+            padding: 0px 29px;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 20px;
+            padding-right: 5px;
+        }
+
+        .header-nav .nav-icon {
+            font-size: 22px;
+            color: #ffff;
+            margin-right: 2px;
+            position: relative;
+        }
+
+        .logo img {
+            margin-bottom: 16px;
+            max-height: 122px;
+            margin-right: 28px;
+            /* margin-left: -15px; */
+        }
+
         /* .col-lg-3,
         .col-md-4 {
             /* Adjust the width of the sidebar as needed */
@@ -252,6 +285,46 @@
             background-color: #4FA987;
             padding-left: 20px;
         }
+
+        .notification-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .notification-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .profile img {
+            border-radius: 50%;
+        }
+
+        .notif-text {
+            flex-grow: 1;
+            margin-left: 10px;
+        }
+
+        .notif-text .username {
+            font-weight: bold;
+        }
+
+        .notif-text .message {
+            color: #555;
+            margin-top: 5px;
+            font-size: 13px;
+        }
+
+        .notif-text .date {
+            color: #777;
+            font-size: 12px;
+        }
+
+        .no-notif {
+            text-align: center;
+            padding: 10px;
+        }
     </style>
 </head>
 
@@ -287,93 +360,90 @@
                 </li><!-- End Search Icon--> --}}
 
                 <li class="nav-item dropdown">
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" id="notificationIcon">
+                        <i class="fa-regular fa-bell" id="bellIcon">
+                            @if ($unreadNotificationsCount > 0)
+                                <span id="notif-count" class="badge seni 3eman-badge bg-danger text-white" style="font-size: 10px; position: absolute; top: 18px; right: 1px; bottom: 40px;">{{ $unreadNotificationsCount }}</span>
+                            @endif
+                        </i>
+                        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                        <script>
+                            $(document).ready(function () {
+                                // Ambil token CSRF dari meta tag
+                                var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" id="notificationIcon" style="margin-top: 3px; right: -50px;">
-                            <i class="fa-regular fa-bell" id="bellIcon" style="font-size: 22px; color: #ffff; margin-right: 25px; position: relative;">
-                                @if ($unreadNotificationsCount > 0)
-                                    <span id="notif-count" class="badge seniman-badge bg-danger text-white" style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
-                                @endif
-                            </i>
-                            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-                            <script>
-                                $(document).ready(function () {
-                                    // Ambil token CSRF dari meta tag
-                                    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                                // Menangani klik pada notifikasi
+                                $('.notification-item').on('click', function (e) {
+                                    e.preventDefault(); // Menghentikan tindakan default dari tautan
+                                    var notificationId = $(this).data('notification-id');
+                                    var $notificationItem = $(this);
 
-                                    // Menangani klik pada notifikasi
-                                    $('.notification-item').on('click', function (e) {
-                                        e.preventDefault();
-                                        var notificationId = $(this).data('notification-id');
-                                        var $notificationItem = $(this);
+                                    // Lakukan AJAX untuk menandai notifikasi sebagai sudah dibaca
+                                    $.ajax({
+                                        url: '{{ route('notifDelete', ['id' => ':id']) }}'.replace(':id', notificationId),
+                                        method: 'POST',
+                                        // Sertakan token CSRF dalam header
+                                        headers: {
+                                            'X-CSRF-TOKEN': csrfToken,
+                                        },
+                                        success: function (response) {
+                                            if (response.success) {
+                                                // Perbarui tampilan notifikasi di frontend
+                                                $('#notificationIcon #notif-count').text(response.unreadNotificationcount);
 
-                                        // Lakukan AJAX untuk menandai notifikasi sebagai sudah dibaca
-                                        $.ajax({
-                                            url: '{{ route('notifDelete', ['id' => ':id']) }}'.replace(':id', notificationId),
-                                            method: 'POST',
-                                            // Sertakan token CSRF dalam header
-                                            headers: {
-                                                'X-CSRF-TOKEN': csrfToken,
-                                            },
-                                            success: function (response) {
-                                                if (response.success) {
-                                                    // Perbarui tampilan notifikasi di frontend
-                                                    $('#notificationIcon #notif-count').text(response.unreadNotificationcount);
-
-                                                    // Hapus notifikasi dari tampilan tanpa reload
-                                                    $notificationItem.remove();
-                                                }
-                                            },
-                                            error: function (error) {
-                                                console.error(error);
+                                                // Hapus notifikasi dari tampilan tanpa reload
+                                                $notificationItem.remove();
                                             }
-                                        });
+                                        },
+                                        error: function (error) {
+                                            console.error(error);
+                                        }
                                     });
                                 });
-                            </script>
-                        </a>
+                            });
+                        </script>
+                    </a>
 
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" style="min-width: 300px; max-height: 350px ; overflow-y: auto; margin-right: 20px !important; margin-left: -257px">
-                            <li class="dropdown-header">
-                                <span style="font-size: 20px;">Notifikasi</span>
-                            </li>
-                            <hr style="margin-bottom: 0px;">
-                            <center>
-                            @if (count($Notifikasi) > 0)
-                                @foreach ($Notifikasi as $notifikasi)
-                                    <li class="notification-item" data-notification-id="{{ $notifikasi->id }}">
-                                        <div class="profile">
-                                            @if ($notifikasi->user && $notifikasi->user->foto_profile)
-                                                <img width="20px" height="20px" class="rounded-circle border me-2"
-                                                    src="{{ $notifikasi->user->foto_profile }}" alt="{{ $notifikasi->user->name }}">
-                                            @else
-                                                <!-- Gambar placeholder atau logika alternatif jika foto profil tidak tersedia -->
-                                                <img width="50px" height="50px" class="rounded-circle border me-2"
-                                                    src="storage/default/defaultprofile.jpeg" alt="Placeholder">
-                                            @endif
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications" style="min-width: 300px; max-height: 350px; overflow-y: auto;">
+                        <li class="dropdown-header">
+                            <h5>Notifikasi</h5>
+                        </li>
+                        <hr style="margin-bottom: 0px">
+                        @if (count($Notifikasi) > 0)
+                            @foreach ($Notifikasi as $notifikasi)
+                                <li class="notification-item" data-notification-id="{{ $notifikasi->id }}">
+                                    <div class="profile">
+                                        @if ($notifikasi->sender->foto_user)
+                                            <img width="50px" height="50px" class="rounded-circle border me-2"
+                                                src="{{ asset('storage/fotouser/' . $notifikasi->sender->foto_user) }}" alt="{{ $notifikasi->sender->name }}">
+                                        @else
+                                            <img width="50px" height="50px" class="rounded-circle border me-2"
+                                                src="{{ asset('storage/default/defaultprofile.jpeg') }}" alt="Placeholder">
+                                        @endif
+                                    </div>
+                                    <div class="notif-text w-100">
+                                        <div class="username">
+                                            <p class="mb-1">{{ $notifikasi->title }}</p>
                                         </div>
-                                        <div class="notif-text w-100">
-                                            <div class="username">
-                                                <p class="mb-1">{{ $notifikasi->title }}</p>
-                                            </div>
-                                            <div class="message">{{ $notifikasi->message }}</div>
-                                            <div class="date">
-                                                <p class="mb-0">{{ $notifikasi->created_at->diffForHumans() }}</p>
-                                            </div>
+                                        <div class="message">{{ $notifikasi->message }}</div>
+                                        <div class="date">
+                                            <p class="mb-0">{{ $notifikasi->created_at->diffForHumans() }}</p>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                @endforeach
-                            @else
-                                <li class="no-notif pt-3">
-                                    <p class="mb-0">Tidak ada notifikasi</p>
+                                    </div>
                                 </li>
-                            @endif
-                        </center>
-                        </ul>
-                    </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                            @endforeach
+                        @else
+                            <li class="no-notif pt-3">
+                                <p class="mb-0">Tidak ada notifikasi</p>
+                            </li>
+                        @endif
+                    </ul>
+                    <!-- End Notification Dropdown Items -->
+                    <!-- End Notification Dropdown Items -->
+                </li>
 
 
                 <li class="nav-item dropdown pe-3">
@@ -398,12 +468,7 @@
                             <hr class="dropdown-divider">
                         </li>
 
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                                <i class="bi bi-gear"></i>
-                                <span>Account Settings</span>
-                            </a>
-                        </li>
+
                         <li>
                             <hr class="dropdown-divider">
                         </li>

@@ -25,7 +25,7 @@
                                                 <tr>
                                                     <td style="text-align: center;">{{ $loop->iteration }}</td>
                                                     <td style="text-align: center;">{{ $hs->tujuan_pengajuan }}</td>
-                                                    <td style="text-align: center;">{{ $hs->nominal}}</td>
+                                                    <td style="text-align: center;">Rp. {{ number_format($hs->nominal)}}</td>
                                                     <td style="text-align: center;">{{ now()->format('d F Y') }}</td>
                                                 </tr>
                                             @endforeach

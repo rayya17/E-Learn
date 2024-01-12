@@ -124,28 +124,29 @@ class MateriController extends Controller
      */
     public function update(Request $request, $materi)
     {
-        $request->validate([
-            'mapel' => 'required|max:100',
-            'nama_materi' => 'required|max:100',
-            'kelas' => 'required|min:0|max:15',
-            'harga' => 'required|min:0',
-            'deskripsi_materi' => 'required|max:225',
-
-            // 'tanggal_tugas' => 'required|after_or_equal:today|before_or_equal:today'
-        ], [
-            'nama_materi.required' => 'Wajib di isi',
-            'nama_materi.max' => 'Nama Materi melebihi maximal',
-            'mapel.required' => 'Wajib di isi',
-            'mapel.max' => 'Nama mata pelajaran melebihi maximal',
-            'kelas.required' => 'Wajib di isi',
-            'kelas.min' => 'Kelas kurang dari 0',
-            'kelas.max' => 'Kelas melebihi maximal',
-            'harga.required' => 'Wajib di isi',
-            'harga.min' => 'Harga kurang 0',
-            'deskripsi_materi.required' => 'Wajib di isi',
-            'deskripsi_materi.max' => 'Deskripsi melebihi maximal',
-        ]);
         try {
+            $request->validate([
+                'mapel' => 'required|max:100',
+                'nama_materi' => 'required|max:100',
+                'kelas' => 'required|min:0|max:15',
+                'harga' => 'required|numeric|min:0',
+                'deskripsi_materi' => 'required|max:225',
+
+                // 'tanggal_tugas' => 'required|after_or_equal:today|before_or_equal:today'
+            ], [
+                'nama_materi.required' => 'Wajib di isi',
+                'nama_materi.max' => 'Nama Materi melebihi maximal',
+                'mapel.required' => 'Wajib di isi',
+                'mapel.max' => 'Nama mata pelajaran melebihi maximal',
+                'kelas.required' => 'Wajib di isi',
+                'kelas.min' => 'Kelas kurang dari 0',
+                'kelas.max' => 'Kelas melebihi maximal',
+                'harga.required' => 'Wajib di isi',
+                'harga.numeric' => 'Harga harus berupa angka',
+                'harga.min' => 'Harga kurang 0',
+                'deskripsi_materi.required' => 'Wajib di isi',
+                'deskripsi_materi.max' => 'Deskripsi melebihi maximal',
+            ]);
 
             $materi = Materi::findOrFail($materi);
 
@@ -163,6 +164,8 @@ class MateriController extends Controller
             ]);
 
             return redirect()->route('materidetail',$materi->id)->with('success', 'Materi berhasil diupdate!');
+        } catch (ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput()->with('error', 'Gagal mengupdate materi. Terdapat kesalahan validasi. Silakan coba lagi.');
         } catch (\Exception $e) {
             return redirect()->route('materidetail',$materi->id)->with('error', 'Gagal mengupdate materi. Silakan coba lagi.');
         }

@@ -377,7 +377,7 @@
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" id="notificationIcon">
                         <i class="fa-regular fa-bell" id="bellIcon">
                             @if ($unreadNotificationsCount > 0)
-                                <span id="notif-count" class="badge seni 3eman-badge bg-danger text-white" style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
+                                <span id="notif-count" class="badge seni 3eman-badge bg-danger text-white" style="font-size: 10px; position: absolute; top: 18px; right: 1px; bottom: 40px;">{{ $unreadNotificationsCount }}</span>
                             @endif
                         </i>
                         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
