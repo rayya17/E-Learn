@@ -8,9 +8,28 @@
     }
 
     .col-lg-3.mb-4 .card:hover {
-        transform: translateY(-10px); /* Adjust the distance on hover */
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Optional: Add a stronger box shadow on hover */
+        transform: translateY(-10px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
+
+    .modal-address {
+        max-height: 100px; /* Set a maximum height for the address section */
+        overflow-y: auto; /* Add scroll for overflow */
+    }
+
+    .modal-content {
+        display: flex;
+    }
+
+    .modal-content .col-lg-4 {
+        flex: 0 0 33.333333%;
+    }
+
+    .modal-content .col-lg-8 {
+        flex: 0 0 66.666667%;
+    }
+
+
 </style>
     <main id="main" class="main">
 
@@ -78,28 +97,26 @@
                                                 <div class="col-lg-8 mt-6" style="font-family: 'Poppins';">
                                                     <div class="card w-100">
                                                         <div class="card-body">
-                                                            <dl class="row">
+                                                            <dl class="row" style="margin-bottom: -30px;">
                                                                 <dt class="col-sm-5">Nama Lengkap</dt>
-                                                                <dd class="col-sm-6">: {{ $p->user->name }}</dd>
+                                                                <dd class="col-sm-7">: {{ $p->user->name }}</dd>
 
                                                                 <dt class="col-sm-5">Pendidikan Terakhir</dt>
-                                                                <dd class="col-sm-6">: {{ $p->pendidikan }}</dd>
+                                                                <dd class="col-sm-7">: {{ $p->pendidikan }}</dd>
 
                                                                 <dt class="col-sm-5">No Telepon</dt>
-                                                                <dd class="col-sm-6">: {{ $p->user->no_telepon }}</dd>
+                                                                <dd class="col-sm-7">: {{ $p->user->no_telepon }}</dd>
 
                                                                 <dt class="col-sm-5">Email</dt>
-                                                                <dd class="col-sm-6">: {{ $p->user->email }}</dd>
+                                                                <dd class="col-sm-7">: {{ $p->user->email }}</dd>
 
-                                                                <dt class="col-sm-5">Alamat</dt>     :
-                                                                <dd class="col-sm-6"> <textarea class="form-control" rows="2" readonly>  {{ $p->alamat }}</textarea>
-                                                                </dd>
+                                                                <dt class="col-sm-5">Alamat</dt>
+                                                                <dd class="col-sm-1" style="margin-right: -23px;">:</dd>
+                                                                <dd class="col-sm-6 row"><p class=" modal-address"> {{ $p->alamat }}</p></dd>
                                                             </dl>
                                                         </div>
                                                     </div>
                                                 </div>
-
-
                                             </div>
                                         </div>
                                     </div>

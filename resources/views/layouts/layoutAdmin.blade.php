@@ -179,7 +179,7 @@
         {{-- <div class="notif"> --}}
             <li class="nav-item dropdown">
                 <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" id="notificationIcon">
-                    <i class="fa-regular fa-bell" id="bellIcon">
+                    <i class="fa-regular fa-bell" id="bellIcon" style="color:#ffff">
                         @if ($unreadNotificationsCount > 0)
                             <span id="notif-count" class="badge seniman-badge bg-danger text-white" style="font-size: 10px;">{{ $unreadNotificationsCount }}</span>
                         @endif

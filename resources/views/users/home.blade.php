@@ -91,7 +91,7 @@
                                     <p style="color:rgb(60, 60, 60)"><strong>Benefit:                                      {{ $mtr->keterangan_benefit }}
                                     </strong></p>
 
-                                    <p class="text-center">Jumlah Tugas: {{ isset($jumlahTugasPerMateri[$mtr->id]) ? $jumlahTugasPerMateri[$mtr->id] : 0 }}</p>
+                                    <p class="text" style="color:rgb(60, 60, 60) "><strong>Jumlah Tugas: {{ isset($jumlahTugasPerMateri[$mtr->id]) ? $jumlahTugasPerMateri[$mtr->id] : 0 }}</strong></p>
 
                                 </div>
                             </a>
@@ -105,6 +105,7 @@
                                         <i class="fa-regular fa-message" style="margin:5px;"></i>
                                         <span>Ulasan</span>
                                     </button>
+                                    
                                 @else
                                     <!-- Display Pesan Sekarang button if no order found -->
                                     <form action="{{ route('checkout', $mtr->id) }}" method="post">

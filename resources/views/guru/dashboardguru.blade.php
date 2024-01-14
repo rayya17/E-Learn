@@ -82,7 +82,7 @@
                   <h5 class="card-title">Jumlah Transaksi </h5>
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center ms-3">
-                      <i class="bi bi-currency-dollar"></i>
+                      <i class="fa-solid fa-money-bill-wave"></i>
                     </div>
                     <div class="ps-3">
                       <h6>{{ $jumlahtransaksi }}</h6>
@@ -105,10 +105,10 @@
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center ms-3">
-                      <i class="bi bi-currency-dollar"></i>
+                        <i class="fa-solid fa-money-bill-trend-up"></i>
                     </div>
                     <div class="ps-3">
-                        <h6>{{ number_format($pendapatan) }}</h6>
+                        <h6>Rp. {{ number_format($pendapatan) }}</h6>
 
                     </div>
                   </div>
