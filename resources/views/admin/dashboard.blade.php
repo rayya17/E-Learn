@@ -87,7 +87,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Jumlah Guru</h5>
 
-                                <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center" style="margin-left: 12px;">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="fa-solid fa-graduation-cap"></i>
                                     </div>
@@ -108,7 +108,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Jumlah Siswa</h5>
 
-                                <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center" style="margin-left: 12px;">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-people"></i>
                                     </div>
