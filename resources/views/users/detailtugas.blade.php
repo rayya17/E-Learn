@@ -89,7 +89,9 @@
                 <h5 class="card-title">Total <span>Point</span></h5>
                 <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-currency-dollar" style="font-size: 28px;"></i>
+                        <span style="height: 40px; width: 40px; margin-right: 5px; background-color: #99A1B7; padding: 5px; border-radius: 50%">
+                            <i class="fas fa-star" style="color: #ffffff; margin-left: 5px; margin-top: 5px; font-size: 20px;"></i>
+                          </span>
                     </div>
                     <div class="ps-3" style="font-size: 20px; margin-bottom: 10px;">
                         <h6></h6>
