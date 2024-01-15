@@ -40,7 +40,7 @@
                                             <td style="text-align: center;">{{ $data->user->no_telepon }}</td>
                                             <td style="text-align: center;">{{ date('d F Y', strtotime($data->tanggal_lahir)) }}</td>
                                             <td style="text-align: center;">{{ Str::limit($data->alamat, 10) }}</td>
-                                            <td class="d-flex mt-4" style="text-align: center;">
+                                            <td class="d-flex justify-content-center align-items-center mt-4" style="text-align: center;">
                                                 <form data-id="{{ $data->id }}" action="{{ route('terimaguru', $data->id) }}" method="post" class="accept-form">
                                                     @csrf
                                                     @method('PATCH')

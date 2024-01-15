@@ -69,7 +69,7 @@
                             <td style="text-align: center;">{{ $p->tujuan_pengajuan }}</td>
                             <td style="text-align: center;">{{ $p->keterangan_pengajuan }}</td>
                             <td style="text-align: center;">
-                                <div class="d-flex">
+                                <div class="d-flex justify-content-center">
                                     {{-- <button style="margin-right: 10px;" class="btn btn-outline-warning detail-button" data-bs-toggle="modal" data-bs-target="#modalDetail"><i class="bi bi-eye"></i></button> --}}
                                     <form data-id="{{ $p->id }}" action="{{ route('terimapengajuan', ['id' => $p->id,'order_id' => $p->pendapatan->order_id]) }}" method="post" class="accept-form">
                                         @csrf
