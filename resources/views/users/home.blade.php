@@ -9,6 +9,12 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             /* Optional: Add a stronger box shadow on hover */
         }
+
+        .truncate-text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
     </style>
     <!-- Courses -->
     {{-- <header id="sidebar" class="sidebar justify-content-center d-flex mb-3">
@@ -88,8 +94,13 @@
                                         <h7 style="color:black">Kelas : {{ $mtr->kelas }}</h7>
                                     </div>
                                     <br>
-                                    <p style="color:rgb(60, 60, 60)"><strong>Benefit:                                      {{ $mtr->keterangan_benefit }}
-                                    </strong></p>
+                                    <div style="width: 200px;"> <!-- Adjust the width as needed -->
+                                        <p style="color:rgb(60, 60, 60); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                            <strong>Benefit: </strong>{{ $mtr->keterangan_benefit }}
+                                        </p>
+
+                                    </div>
+
 
                                     <p class="text" style="color:rgb(60, 60, 60) "><strong>Jumlah Tugas: {{ isset($jumlahTugasPerMateri[$mtr->id]) ? $jumlahTugasPerMateri[$mtr->id] : 0 }}</strong></p>
 
@@ -105,7 +116,7 @@
                                         <i class="fa-regular fa-message" style="margin:5px;"></i>
                                         <span>Ulasan</span>
                                     </button>
-                                    
+
                                 @else
                                     <!-- Display Pesan Sekarang button if no order found -->
                                     <form action="{{ route('checkout', $mtr->id) }}" method="post">

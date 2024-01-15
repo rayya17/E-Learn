@@ -350,6 +350,7 @@
                                     <tbody>
                                         @foreach ($topMateriOrders as $key => $item)
                                             <tr>
+                                     
                                                 <th scope="row"><a>{{ ++$key }}</a></th>
                                                 <td>{{ $item->Materi->nama_materi }}</td>
                                                 <td>{{ $item->Materi->mapel }}</td>
