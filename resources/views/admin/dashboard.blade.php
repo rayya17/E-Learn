@@ -340,6 +340,7 @@
                                             <th scope="col">Materi</th>
                                             <th scope="col">Kelas</th>
                                             <th scope="col">Guru</th>
+                                            <th scope="col">Pendapatan</th>
                                             {{-- <th scope="col">Status</th> --}}
                                         </tr>
                                     </thead>
@@ -350,7 +351,7 @@
                                                 <td>{{ $item->Materi->nama_materi }}</td>
                                                 <td>{{ $item->Materi->mapel }}</td>
                                                 <td><a>{{ $item->Materi->guru->user->name }}</a></td>
-                                                {{-- <td><span class="badge bg-success">Approved</span></td> --}}
+                                                <td>{{($item->Materi->harga * $item->total_orders) * 0.1 }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

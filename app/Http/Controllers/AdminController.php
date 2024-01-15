@@ -37,6 +37,7 @@ class AdminController extends Controller
             ->with('Materi')
             ->take(5)
             ->get();
+
         $materi = Materi::all();
 
         return view('admin.dashboard', compact('jumlahpemateri', 'jumlahsiswa', 'pendapatan', 'Notifikasi', 'unreadNotificationsCount', 'materi', 'topMateriOrders'));

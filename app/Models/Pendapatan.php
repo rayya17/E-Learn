@@ -18,6 +18,11 @@ class Pendapatan extends Model
         return $this->hasMany(PenarikanSaldo::class, 'pendapatan_id');
     }
 
+    public function Order():BelongsTo
+    {
+        return $this->belongsTo(Order::class,'order_id');
+    }
+
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
