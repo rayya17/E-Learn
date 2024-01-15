@@ -6,7 +6,7 @@
 
     /* Custom CSS for making cards wider */
     .card.info-card {
-        width: 270px; /* Adjust the width as needed */
+        width: 300px; /* Adjust the width as needed */
         transition: transform 0.3s ease-in-out;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle box shadow */
     }
@@ -28,6 +28,12 @@
     .card.info-card:hover {
         transform: translateY(-10px); /* Adjust the distance on hover */
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Optional: Add a stronger box shadow on hover */
+    }
+
+    .card-body {
+        padding: 10px;
+        margin-right: 0px;
+        margin-bottom: 20px;
     }
 </style>
 
@@ -58,10 +64,8 @@
                     <!-- Revenue Card -->
                     <div class="col-xxl-3 col-md-5">
                         <div class="card info-card revenue-card">
-
                             <div class="card-body">
                                 <h5 class="card-title">Pendapatan</h5>
-
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="fa-solid fa-money-bill-wave"></i>
@@ -71,7 +75,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div><!-- End Revenue Card -->
 
