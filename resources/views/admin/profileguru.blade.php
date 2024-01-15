@@ -61,10 +61,11 @@
                                             <p>{{ $p->pendidikan }}</p>
                                         </div>
                                         {{-- <a href="{{ route('Detailguru', ['id' => $p->id]) }}"> --}}
-                                            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $p->id }}" class="btn btn-warning mt-3" style="height: 24px;width: 87px;margin: 0;padding: 0;color: #fff">
-                                                Detail
-                                            </button>
-                                            </a>
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $p->id }}"
+                                            class="btn btn-warning mt-3"
+                                            style="height: 24px;width: 87px;margin: 0;padding: 0;color: #fff">
+                                            Detail
+                                        </button></a>
                                     </div>
                                 </div>
                             </div>
@@ -135,15 +136,5 @@
             {{-- </div> --}}
         </section>
 
-    </main>
-    <!-- End #main -->
+    </main><!-- End #main -->
 @endsection
-<script>
-    $(document).ready(function() {
-        $('.btn-detail').click(function() {
-            var guruId = $(this).data('guruid');
-            $('#exampleModal' + guruId).modal('show');
-        });
-    });
-</script>
-
