@@ -12,11 +12,6 @@
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
 
-    .modal-address {
-        max-height: 100px; /* Set a maximum height for the address section */
-        overflow-y: auto; /* Add scroll for overflow */
-    }
-
     .modal-content {
         display: flex;
     }
